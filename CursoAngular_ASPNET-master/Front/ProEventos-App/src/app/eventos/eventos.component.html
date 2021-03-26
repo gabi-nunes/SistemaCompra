@@ -1,0 +1,54 @@
+
+<h2>Eventos</h2>
+<hr>
+<div class="form-inline">
+  <div class="form-group mb-2">
+    <label class="mr-2">Filtro</label>
+    <input type="text"
+    class="form-control mr-2"
+    placeholder="Buscar"
+    [(ngModel)]="GridFilter">
+  </div>
+</div>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>
+        <button class="btn btn-outline-light btn-sm" (click)="AlteraVisibilidadeImg()">
+          {{imgIsVisible ? "Exibir" : "Ocultar"}}
+        </button>
+      </th>
+      <th>Código</th>
+      <th>Local</th>
+      <th>Tema</th>
+      <th>Data</th>
+      <th>Qtde Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="eventos && eventos.length">
+    <tr *ngFor="let evento of eventosFiltrados">
+      <td>
+        <img [collapse]="imgIsVisible" [isAnimated]= "true" src="/assets/{{evento.imagemURL}}"
+        [style.width.px]= imgWidth
+        [style.margin.px]= imgMargin
+        >
+      </td>
+      <td>{{evento.eventoId}}</td>
+      <td>{{evento.local}}</td>
+      <td>{{evento.tema}}</td>
+      <td>{{evento.dataEvento}}</td>
+      <td>{{evento.qtdePessoas}}</td>
+      <td>{{evento.lote}}</td>
+      <td><button class="btn btn-primary btn-sm mr-2">Editar</button><button class="btn btn-danger btn-sm">Excluir</button></td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!eventos || eventos.length == 0">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4 >Não há eventos cadastrados</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
