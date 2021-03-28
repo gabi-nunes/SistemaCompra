@@ -12,8 +12,9 @@ import {MatCardModule} from '@angular/material/card';
 
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './User/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
+import { UserComponent } from './User/User.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
     PalestrantesComponent,
     NavComponent,
     LoginComponent,
+      UserComponent
    ],
   imports: [
     BrowserModule,
