@@ -9,14 +9,14 @@ using ProEventos.Application.Contratos;
 using ProEventos.Domain;
 using ProEventos.Persistence;
 
-namespace ProEventos.API.Controllers
+namespace SistemaCompra.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EventosController : ControllerBase
+    public class SistemaCompraController : ControllerBase
     {
         private readonly IEventoService eventoService;
-        public EventosController(IEventoService eventoService)
+        public SistemaCompraController(IEventoService eventoService)
         {
             this.eventoService = eventoService;
         }

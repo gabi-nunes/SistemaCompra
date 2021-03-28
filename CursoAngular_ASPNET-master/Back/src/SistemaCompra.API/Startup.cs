@@ -5,12 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using ProEventos.Application;
-using ProEventos.Application.Contratos;
-using ProEventos.Persistence;
-using ProEventos.Persistence.Contratos;
+using SistemaCompra.Application;
+using SistemaCompra.Application.Contratos;
+using SistemaCompra.Persistence;
+using SistemaCompra.Persistence.Contratos;
 
-namespace ProEventos.API
+namespace SistemaCompra.API
 {
     public class Startup
     {
@@ -39,7 +39,7 @@ namespace ProEventos.API
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEventos.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SistemaCompra.API", Version = "v1" });
             });
         }
 
@@ -50,7 +50,7 @@ namespace ProEventos.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProEventos.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SistemaCompra.API v1"));
             }
 
             app.UseHttpsRedirection();

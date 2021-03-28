@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEventos.API", "ProEventos.API\ProEventos.API.csproj", "{CB53B66F-FBBE-49F7-AC18-2DD8711AB5E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaCompra.API", "SistemaCompra.API\SistemaCompra.API.csproj", "{CB53B66F-FBBE-49F7-AC18-2DD8711AB5E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEventos.Application", "ProEventos.Application\ProEventos.Application.csproj", "{26219F46-4855-43C4-92A2-E578FC56D7BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaCompra.Application", "SistemaCompra.Application\SistemaCompra.Application.csproj", "{26219F46-4855-43C4-92A2-E578FC56D7BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEventos.Domain", "ProEventos.Domain\ProEventos.Domain.csproj", "{B519C82A-506B-4235-A0BA-2DA5C162F700}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaCompra.Domain", "SistemaCompra.Domain\SistemaCompra.Domain.csproj", "{B519C82A-506B-4235-A0BA-2DA5C162F700}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEventos.Persistence", "ProEventos.Persistence\ProEventos.Persistence.csproj", "{63D8BD9A-460E-4E29-891A-8804BE820F4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaCompra.Persistence", "SistemaCompra.Persistence\SistemaCompra.Persistence.csproj", "{63D8BD9A-460E-4E29-891A-8804BE820F4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
