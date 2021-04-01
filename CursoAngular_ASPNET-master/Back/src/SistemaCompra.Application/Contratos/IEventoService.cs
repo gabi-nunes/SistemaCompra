@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
-using ProEventos.Domain;
+using SistemaCompra.Domain;
 
-namespace ProEventos.Application.Contratos
+
+namespace SistemaCompra.Application.Contratos
 {
     public interface IEventoService
     {

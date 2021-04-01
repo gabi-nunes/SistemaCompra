@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ProEventos.Persistence.Migrations
+namespace SistemaCompra.Persistence.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,6 +42,23 @@ namespace ProEventos.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Palestrantes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    CodigoSolicitante = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    email = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Setor = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Cargo = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.CodigoSolicitante);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,13 +128,13 @@ namespace ProEventos.Persistence.Migrations
                         column: x => x.EventoId,
                         principalTable: "Eventos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RedesSociais_Palestrantes_PalestranteId",
                         column: x => x.PalestranteId,
                         principalTable: "Palestrantes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -151,6 +168,9 @@ namespace ProEventos.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "RedesSociais");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Eventos");

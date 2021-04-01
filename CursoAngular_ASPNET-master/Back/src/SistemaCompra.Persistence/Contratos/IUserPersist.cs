@@ -1,9 +1,15 @@
+using System.Threading.Tasks;
+using SistemaCompra.Domain;
+
 namespace SistemaCompra.Persistence.Contratos
 {
     public interface IUserPersist
     {
-          Task<Evento[]> GetAllEventosAsync(bool includePalestrantes); 
-        Task<Evento[]> GetAllEventosByTemaAsync(string tema, bool includePalestrantes); 
-        Task<Evento> GetEventoByIdAsync(int eventoId, bool includePalestrantes);  
+        Task<user[]> GetAllUserAsync(); 
+        Task<user> GetAllUserByIdAsync(int id); 
+        Task<user[]> GetUserByNameAsync(string Name);
+        Task<user> GetLogin(string email, string senha);
+        Task<user> recuperarSenha(string email);
+        
     }
 }

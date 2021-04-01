@@ -1,10 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using ProEventos.Application.Contratos;
-using ProEventos.Domain;
-using ProEventos.Persistence.Contratos;
+using SistemaCompra.Application.Contratos;
+using SistemaCompra.Domain;
+using SistemaCompra.Persistence.Contratos;
 
-namespace ProEventos.Application
+
+namespace SistemaCompra.Application
 {
     public class EventoService : IEventoService
     {

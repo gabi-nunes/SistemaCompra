@@ -1,10 +1,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ProEventos.Domain;
-using ProEventos.Persistence.Contratos;
+using SistemaCompra.Domain;
+using SistemaCompra.Persistence.Contratos;
 
-namespace ProEventos.Persistence
+namespace SistemaCompra.Persistence
 {
     public class PalestrantePersist : IPalestrantePersist
     {

@@ -5,21 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ProEventos.Application.Contratos;
-using ProEventos.Domain;
-using ProEventos.Persistence;
+using SistemaCompra.Application.Contratos;
+using SistemaCompra.Domain;
 
 namespace SistemaCompra.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class SistemaCompraController : ControllerBase
+{
+    private readonly IEventoService eventoService;
+    public SistemaCompraController(IEventoService eventoService)
     {
-        private readonly IEventoService eventoService;
-        public SistemaCompraController(IEventoService eventoService)
-        {
-            this.eventoService = eventoService;
-        }
+        
+        this.eventoService = eventoService;
+    }
+
 
         [HttpGet]
         public async Task<IActionResult> Get()

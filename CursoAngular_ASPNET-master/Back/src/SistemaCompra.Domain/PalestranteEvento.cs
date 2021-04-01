@@ -1,4 +1,4 @@
-namespace ProEventos.Domain
+namespace SistemaCompra.Domain
 {
     public class PalestranteEvento
     {

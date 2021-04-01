@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ProEventos.Domain
+namespace SistemaCompra.Domain
 {
     public class Evento
     {

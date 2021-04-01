@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace ProEventos.Persistence.Contratos
+namespace SistemaCompra.Persistence.Contratos
 {
     public interface IGeralPersist
     {

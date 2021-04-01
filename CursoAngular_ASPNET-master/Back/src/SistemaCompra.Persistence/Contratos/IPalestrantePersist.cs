@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using ProEventos.Domain;
+using SistemaCompra.Domain;
 
-namespace ProEventos.Persistence.Contratos
+namespace SistemaCompra.Persistence.Contratos
 {
     public interface IPalestrantePersist
     {

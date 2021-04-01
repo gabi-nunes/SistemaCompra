@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using SistemaCompra.Application;
 using SistemaCompra.Application.Contratos;
+using SistemaCompra.Application;
 using SistemaCompra.Persistence;
 using SistemaCompra.Persistence.Contratos;
 

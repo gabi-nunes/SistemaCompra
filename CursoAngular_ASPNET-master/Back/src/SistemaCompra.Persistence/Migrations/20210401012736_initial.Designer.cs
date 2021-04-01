@@ -4,22 +4,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProEventos.Persistence;
+using SistemaCompra.Persistence;
 
-namespace ProEventos.Persistence.Migrations
+namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(ProEventosContext))]
-    [Migration("20210318013136_Initial")]
-    partial class Initial
+    [Migration("20210401012736_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.3");
+                .HasAnnotation("ProductVersion", "5.0.4");
 
-            modelBuilder.Entity("ProEventos.Domain.Evento", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.Evento", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,7 +51,7 @@ namespace ProEventos.Persistence.Migrations
                     b.ToTable("Eventos");
                 });
 
-            modelBuilder.Entity("ProEventos.Domain.Lote", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.Lote", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace ProEventos.Persistence.Migrations
                     b.ToTable("Lotes");
                 });
 
-            modelBuilder.Entity("ProEventos.Domain.Palestrante", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.Palestrante", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -108,7 +108,7 @@ namespace ProEventos.Persistence.Migrations
                     b.ToTable("Palestrantes");
                 });
 
-            modelBuilder.Entity("ProEventos.Domain.PalestranteEvento", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.PalestranteEvento", b =>
                 {
                     b.Property<int>("EventoId")
                         .HasColumnType("int");
@@ -123,7 +123,7 @@ namespace ProEventos.Persistence.Migrations
                     b.ToTable("PalestrantesEventos");
                 });
 
-            modelBuilder.Entity("ProEventos.Domain.RedeSocial", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.RedeSocial", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -150,9 +150,35 @@ namespace ProEventos.Persistence.Migrations
                     b.ToTable("RedesSociais");
                 });
 
-            modelBuilder.Entity("ProEventos.Domain.Lote", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.user", b =>
                 {
-                    b.HasOne("ProEventos.Domain.Evento", "Evento")
+                    b.Property<int>("CodigoSolicitante")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cargo")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Senha")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Setor")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("email")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("CodigoSolicitante");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("SistemaCompra.Domain.Lote", b =>
+                {
+                    b.HasOne("SistemaCompra.Domain.Evento", "Evento")
                         .WithMany("Lotes")
                         .HasForeignKey("EventoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -161,15 +187,15 @@ namespace ProEventos.Persistence.Migrations
                     b.Navigation("Evento");
                 });
 
-            modelBuilder.Entity("ProEventos.Domain.PalestranteEvento", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.PalestranteEvento", b =>
                 {
-                    b.HasOne("ProEventos.Domain.Evento", "Evento")
+                    b.HasOne("SistemaCompra.Domain.Evento", "Evento")
                         .WithMany("PalestrantesEventos")
                         .HasForeignKey("EventoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProEventos.Domain.Palestrante", "Palestrante")
+                    b.HasOne("SistemaCompra.Domain.Palestrante", "Palestrante")
                         .WithMany("PalestrantesEventos")
                         .HasForeignKey("PalestranteId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -180,22 +206,24 @@ namespace ProEventos.Persistence.Migrations
                     b.Navigation("Palestrante");
                 });
 
-            modelBuilder.Entity("ProEventos.Domain.RedeSocial", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.RedeSocial", b =>
                 {
-                    b.HasOne("ProEventos.Domain.Evento", "Evento")
+                    b.HasOne("SistemaCompra.Domain.Evento", "Evento")
                         .WithMany("RedesSociais")
-                        .HasForeignKey("EventoId");
+                        .HasForeignKey("EventoId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ProEventos.Domain.Palestrante", "Palestrante")
+                    b.HasOne("SistemaCompra.Domain.Palestrante", "Palestrante")
                         .WithMany("RedesSociais")
-                        .HasForeignKey("PalestranteId");
+                        .HasForeignKey("PalestranteId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Evento");
 
                     b.Navigation("Palestrante");
                 });
 
-            modelBuilder.Entity("ProEventos.Domain.Evento", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.Evento", b =>
                 {
                     b.Navigation("Lotes");
 
@@ -204,7 +232,7 @@ namespace ProEventos.Persistence.Migrations
                     b.Navigation("RedesSociais");
                 });
 
-            modelBuilder.Entity("ProEventos.Domain.Palestrante", b =>
+            modelBuilder.Entity("SistemaCompra.Domain.Palestrante", b =>
                 {
                     b.Navigation("PalestrantesEventos");
 
