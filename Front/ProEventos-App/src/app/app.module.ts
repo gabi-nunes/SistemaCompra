@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventosComponent } from './components/eventos/eventos.component';
+import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
@@ -25,18 +26,25 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { EventoService } from './services/evento.service';
 import { DateTimeFormatterPipe } from './helpers/DateTimeFormatter.pipe';
+import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
+import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/user/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventosComponent,
+    EventoDetalheComponent,
+    EventoListaComponent,
     PalestrantesComponent,
     NavComponent,
     DateTimeFormatterPipe,
     TituloComponent,
     ContatosComponent,
     DashboardComponent,
-    PerfilComponent
+    PerfilComponent,
+    UserComponent,
+    LoginComponent
    ],
   imports: [
     CommonModule,
