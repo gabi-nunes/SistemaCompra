@@ -19,22 +19,25 @@ namespace SistemaCompra.Application
             FGeralPersist = geral;
 
         }
-        public async Task<user> AddUser(user model)
+          public async Task<user> AddUser(user model)
+    {
+        try
         {
-            try
+            FGeralPersist.Add<user>(model);
+
+            if (await FGeralPersist.SaveChangesAsync())
             {
-                FGeralPersist.Add<user>(model);
-                if (await FGeralPersist.SaveChangesAsync())        
-                {
-                    return await _userPresist.GetAllUserByIdAsync(model.CodigoSolicitante);
-                }
-                return null;
+                var userRetorno = await _userPresist.GetAllUserByIdAsync(model.CodigoSolicitante);
+
+                return userRetorno;
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return null;
         }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
 
         public async Task<user> UpdateUser(int userId, user model)
         {
@@ -57,22 +60,21 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<bool> DeleteUser(int userId)
+         public async Task<bool> DeleteUser(int userId)
+    {
+        try
         {
-            try
-            {
-                var User = await _userPresist.GetAllUserByIdAsync(userId);
-                if (User == null) throw new Exception("Usuarui não foi Deletado pois não foi encontrado");
-                 
-                FGeralPersist.Delete<user>(User);
-                return await FGeralPersist.SaveChangesAsync();        
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-            
+            var usuario = await _userPresist.GetAllUserByIdAsync(userId);
+            if (usuario == null) throw new Exception("Usuario para delete não encontrado.");
+
+            FGeralPersist.Delete<user>(usuario);
+            return await FGeralPersist.SaveChangesAsync();
         }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
 
         public async Task<user[]> GetAllUserAsync()
         {
@@ -136,7 +138,7 @@ namespace SistemaCompra.Application
             {
                 //var login = await _userPresist.recuperarSenha(email);
                 var enviarEmail = EnviarEmail(email);
-                return enviarEmail; 
+                return  enviarEmail; 
             }
             catch (Exception ex)
             {

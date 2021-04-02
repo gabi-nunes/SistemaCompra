@@ -27,9 +27,13 @@ namespace SistemaCompra.Persistence
 
         public async Task<user> GetAllUserByIdAsync(int id)
         {
-            IQueryable<user> query = Context.Users;
+           
+            IQueryable<user> query =  Context.Users;
+                
+            query = query.AsNoTracking().OrderBy(e => e.CodigoSolicitante)
+                         .Where(e => e.CodigoSolicitante == id);
 
-            return await query.OrderBy(e => e.CodigoSolicitante).FirstOrDefaultAsync();
+            return await query.FirstOrDefaultAsync();
         }
 
         public async Task<user[]> GetUserByNameAsync(string Name)
@@ -44,7 +48,7 @@ namespace SistemaCompra.Persistence
        {
             IQueryable<user> query = Context.Users;
             //atreção aqui
-            query = query.Where(e => e.email.ToLower().Contains(email.ToLower()) && e.Senha==senha);
+            query = query.Where(e => e.email.ToLower()==email.ToLower() && e.Senha==senha);
             return await query.OrderBy(e => e.CodigoSolicitante).FirstOrDefaultAsync();
         }
 
