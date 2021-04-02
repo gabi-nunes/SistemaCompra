@@ -36,6 +36,8 @@ namespace SistemaCompra.API
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<IGeralPersist, GeralPersist>();
             services.AddScoped<IEventoPersist, EventoPersist>();
+             services.AddScoped<IUserPersist, UserPersist>();
+              services.AddScoped<IuserService, UserService>();
             services.AddCors();
             services.AddSwaggerGen(c =>
             {

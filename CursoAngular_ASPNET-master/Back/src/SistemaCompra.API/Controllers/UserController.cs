@@ -129,12 +129,13 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPut("RecuperarSenha")]
-        public async Task<IActionResult> PutRecuperarSenha(string email , string senha)
+        public async Task<IActionResult> PostRecuperarSenha(string id, string email, user model)
         {
             try
             {
             var usuario = await UserService.RecuperarSenha(email);
-            if (usuario == null ) return BadRequest("Erro efetuar o Usuario. Tente Novamente!");
+
+           // if (usuario == null ) return BadRequest("Erro efetuar o Usuario. Tente Novamente!");
             return Ok(usuario);
             }
             catch (Exception ex)
