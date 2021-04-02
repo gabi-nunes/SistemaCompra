@@ -17,8 +17,8 @@ namespace SistemaCompra.Application.Contratos
 
         Task<user> Login(string email, string senha);
 
-        Task<user> RecuperarSenha(string email);
+         Task<bool> RecuperarSenha(string email);
 
-        public bool EnviarEmail();
+        bool EnviarEmail(string email);
     }
 }

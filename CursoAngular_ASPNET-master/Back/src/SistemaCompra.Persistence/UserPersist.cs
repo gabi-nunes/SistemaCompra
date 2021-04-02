@@ -44,7 +44,7 @@ namespace SistemaCompra.Persistence
        {
             IQueryable<user> query = Context.Users;
             //atreção aqui
-            query = query.Where(e => e.email.ToLower().Contains(email.ToLower()) && e.Senha.Contains(senha));
+            query = query.Where(e => e.email.ToLower().Contains(email.ToLower()) && e.Senha==senha);
             return await query.OrderBy(e => e.CodigoSolicitante).FirstOrDefaultAsync();
         }
 

@@ -130,42 +130,52 @@ namespace SistemaCompra.Application
             }
         }
 
-         public async Task<user> RecuperarSenha(string email)
+         public async Task<bool> RecuperarSenha(string email)
         {
             try
             {
-                var login = await _userPresist.recuperarSenha(email);
-               // var senha = EnviarEmail(email);
-                if (login == null) return null;
-                return login; 
+                //var login = await _userPresist.recuperarSenha(email);
+                var enviarEmail = EnviarEmail(email);
+                return enviarEmail; 
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-          public bool EnviarEmail()
+          public bool EnviarEmail(string email)
         {
             try
             {
-                MailMessage _mailMensagem = new MailMessage();
-                _mailMensagem.From= new MailAddress("gabiedununes@hotmail.com");
+               // Estancia da Classe de Mensagem
+                MailMessage _mailMessage = new MailMessage();
+                // Remetente
+                _mailMessage.From = new MailAddress("goodplacecompras@gmail.com");
 
-                _mailMensagem.CC.Add("gabrielleeduarda348@gmail.com");
-                _mailMensagem.Subject= "Senha Nova";
-                _mailMensagem.Body="Ola, sua nova senha é Senha123!";
+                // Destinatario seta no metodo abaixo
+
+                //Contrói o MailMessage
+                _mailMessage.CC.Add(email);
+                _mailMessage.Subject = "Sistema Compra :)";
+                _mailMessage.IsBodyHtml = true;
+                _mailMessage.Body = "<b>Olá Tudo bem??</b><p>Informamos que sua nova senha de acesso será Senha123@, após a primeira entrada trocar a senha.</p>";
+
+                //CONFIGURAÇÃO COM PORTA
                 SmtpClient _smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32("587"));
 
-                _smtpClient.UseDefaultCredentials = false;
-                _smtpClient.Credentials= new NetworkCredential("gabiedununes@hotmail.com","XXXXX");
+                //CONFIGURAÇÃO SEM PORTA
+                // SmtpClient _smtpClient = new SmtpClient(UtilRsource.ConfigSmtp);
 
-                _smtpClient.EnableSsl=true;
-                _smtpClient.Send(_mailMensagem);
+                // Credencial para envio por SMTP Seguro (Quando o servidor exige autenticação)
+                _smtpClient.UseDefaultCredentials = false;
+                _smtpClient.Credentials = new NetworkCredential("goodplacecompras@gmail.com", "Tcc123456");
+
+                _smtpClient.EnableSsl = true;
+
+                _smtpClient.Send(_mailMessage);
 
                 return true;
 
-
-                
             }
             catch (Exception ex)
             {
