@@ -9,6 +9,9 @@ using SistemaCompra.Application.Contratos;
 using SistemaCompra.Application;
 using SistemaCompra.Persistence;
 using SistemaCompra.Persistence.Contratos;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace SistemaCompra.API
 {
@@ -33,6 +36,24 @@ namespace SistemaCompra.API
                         x => x.SerializerSettings.ReferenceLoopHandling = 
                             Newtonsoft.Json.ReferenceLoopHandling.Ignore
                     );
+                        var key = Encoding.ASCII.GetBytes(Settings.Secret);
+                services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<IGeralPersist, GeralPersist>();
             services.AddScoped<IEventoPersist, EventoPersist>();
@@ -54,6 +75,7 @@ namespace SistemaCompra.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SistemaCompra.API v1"));
             }
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 

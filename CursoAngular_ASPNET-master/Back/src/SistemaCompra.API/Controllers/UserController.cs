@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SistemaCompra.Application;
 using SistemaCompra.Application.Contratos;
 using SistemaCompra.Domain;
 using SistemaCompra.Persistence;
@@ -97,30 +98,46 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpDelete("Excluir/{Id}")]
-        public async Task<IActionResult> Delete(int Id)
+         [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-            if (await UserService.DeleteUser(Id))
-                return Ok("Usuario Deletado");
-            else
-                return BadRequest("Erro ao Deletar o Usuario");
+                var usuario = await UserService.GetuserbyIdAsync(id);
+                if (usuario == null) return NoContent();
+
+                return await UserService.DeleteUser(id) ? 
+                       Ok("Deletado") : 
+                       throw new Exception("Ocorreu um problem não específico ao tentar deletar Usuario.");
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar deletar o Usuario. Erro: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar deletar eventos. Erro: {ex.Message}");
             }
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> PostLogin(string email , string senha)
+        public async Task<ActionResult<dynamic>> PostLogin(string email , string senha)
         {
             try
             {
             var usuario = await UserService.Login(email, senha);
-            if (usuario == null ) return BadRequest("Erro efetuar o Usuario. Tente Novamente!");
-            return Ok(usuario);
+            // Verifica se o usuário existe
+            if (usuario == null)
+                return NotFound(new { message = "Usuário ou senha inválidos" });
+
+            // Gera o Token
+            var token = TokenService.GenerateToken(usuario);
+
+            // Oculta a senha
+            usuario.Senha= "";
+            
+            // Retorna os dados
+            return new{
+                usuario= usuario,
+                token = token
+            };
             }
             catch (Exception ex)
             {
