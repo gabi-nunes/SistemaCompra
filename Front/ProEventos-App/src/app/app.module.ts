@@ -28,6 +28,7 @@ import { EventoService } from './services/evento.service';
 import { DateTimeFormatterPipe } from './helpers/DateTimeFormatter.pipe';
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 import { UserComponent } from './components/user/user.component';
+import { UserCadastroComponent } from './components/user/user-cadastro/user-cadastro.component';
 import { LoginComponent } from './components/user/login/login.component';
 
 @NgModule({
@@ -44,6 +45,7 @@ import { LoginComponent } from './components/user/login/login.component';
     DashboardComponent,
     PerfilComponent,
     UserComponent,
+    UserCadastroComponent,
     LoginComponent
    ],
   imports: [

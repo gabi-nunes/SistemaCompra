@@ -1,4 +1,3 @@
-<div class="container h-100 justify-content-center align-items-center">
   <div class="row mt-4 align-middle">
 
     <div class="col-md-6 d-none d-md-block border-right" style="height: 450px;">
@@ -10,36 +9,58 @@
 
     <div class="col-md-6">
 
-      <form class="p-1">
+      <form [formGroup]="form" class="p-1">
         <div class="pb-2 d-block d-md-none">
           <h3 class="border-bottom">Cadastro de Usuário</h3>
         </div>
         <div class="form-row">
           <div class="form-group col-sm-6">
             <label>Primeiro Nome</label>
-            <input type="text" class="form-control" placeholder="Insira o Primeiro nome" />
+            <input formControlName="firstName" type="text" class="form-control"
+            [ngClass]="{'is-invalid': f.firstName?.errors && f.firstName?.touched}"  placeholder="Insira o Primeiro nome" />
+            <div *ngIf="f.firstName.errors?.required" class="invalid-feedback">
+              O campo Primeiro Nome é obrigatório
+            </div>
           </div>
           <div class="form-group col-sm-6">
             <label>Último nome</label>
-            <input type="text" class="form-control" placeholder="Insira o Último nome" />
+            <input formControlName="lastName" type="text" class="form-control" [ngClass]="{'is-invalid': f.lastName?.errors && f.lastName?.touched}" placeholder="Insira o Último nome" />
+            <div *ngIf="f.lastName.errors?.required" class="invalid-feedback">
+              O campo Último Nome é obrigatório
+            </div>
           </div>
         </div>
         <div class="form-group">
-          <label for="">Email:</label>
-          <input class="form-control" type="text" placeholder="Insira o Nome Completo" />
+          <label>Email:</label>
+          <input class="form-control" formControlName="email" type="text" [ngClass]="{'is-invalid': f.email?.errors && f.email?.touched}" placeholder="Insira o Nome Completo" />
+          <div *ngIf="f.email.errors?.required" class="invalid-feedback">
+            O campo Email é obrigatório
+          </div>
         </div>
         <div class="form-group">
-          <label for="">Usuario:</label>
-          <input class="form-control" type="text" placeholder="Insira o nome de Usuário" />
+          <label>Usuario:</label>
+          <input class="form-control" formControlName="userName" type="text" [ngClass]="{'is-invalid': f.userName?.errors && f.userName?.touched}" placeholder="Insira o nome de Usuário" />
+          <div *ngIf="f.userName.errors?.required" class="invalid-feedback">
+            O campo Usuario é obrigatório
+          </div>
         </div>
         <div class="form-row">
           <div class="form-group col-sm-6">
-            <label for="">Senha:</label>
-            <input class="form-control" type="password" placeholder="Digite uma Senha" />
+            <label>Senha:</label>
+            <input class="form-control" formControlName="password" type="password" [ngClass]="{'is-invalid': f.password?.errors && f.password?.touched}" placeholder="Digite uma Senha" />
+            <div *ngIf="f.password.errors?.required" class="invalid-feedback">
+              O campo Senha é obrigatório
+            </div>
           </div>
           <div class="form-group col-sm-6">
-            <label for="">Confirmar Senha:</label>
-            <input class="form-control" type="password" placeholder="Confirme a Senha" />
+            <label>Confirmar Senha:</label>
+            <input class="form-control" formControlName="pswdConfirm" type="password" [ngClass]="{'is-invalid': f.pswdConfirm?.errors && f.pswdConfirm?.touched}" placeholder="Confirme a Senha" />
+            <div *ngIf="f.pswdConfirm.errors?.required" class="invalid-feedback">
+              O campo Confirmar Senha é obrigatório
+            </div>
+            <div *ngIf="f.pswdConfirm.errors?.mustMatch" class="invalid-feedback">
+              Tem que bater com a outra amigão
+            </div>
           </div>
         </div>
         <div class="form-row p-1 mb-3">
@@ -66,5 +87,3 @@
 
     </div>
   </div>
-
-</div>
