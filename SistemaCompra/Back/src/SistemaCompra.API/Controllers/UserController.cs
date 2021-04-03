@@ -146,18 +146,35 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPut("RecuperarSenha")]
-        public async Task<IActionResult> PostRecuperarSenha(string id, string email, user model)
+        public async Task<IActionResult> PutRecuperarSenha(int id, string email, user model)
         {
             try
             {
-            var usuario = await UserService.RecuperarSenha(email);
+                var usuario = await UserService.RecuperarSenha(id, email, model);
 
-           // if (usuario == null ) return BadRequest("Erro efetuar o Usuario. Tente Novamente!");
+            if (usuario == null ) return BadRequest("Erro ao recuperar. Tente Novamente!");
             return Ok(usuario);
             }
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar efetuar o login. Erro: {ex.Message}");
+            }
+        }
+
+
+        [HttpPut("AlterarSenha")]
+        public async Task<IActionResult> PutAlterarSenha(int id, string senha, user model)
+        {
+            try
+            {
+                var usuario = await UserService.AlterarSenha(id, senha, model);
+
+                if (usuario == null) return BadRequest("Erro ao alterar senha. Tente Novamente!");
+                return Ok(usuario);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar efetuar a alteração de senha. Erro: {ex.Message}");
             }
         }
 

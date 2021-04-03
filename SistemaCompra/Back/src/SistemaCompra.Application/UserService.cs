@@ -132,13 +132,24 @@ namespace SistemaCompra.Application
             }
         }
 
-         public async Task<bool> RecuperarSenha(string email)
+         public async Task<user> RecuperarSenha(int id, string email, user model)
         {
             try
             {
-                //var login = await _userPresist.recuperarSenha(email);
-                var enviarEmail = EnviarEmail(email);
-                return  enviarEmail; 
+                var LEuser = await _userPresist.GetAllUserByIdAsync(id);
+                var emails = EnviarEmail(email);
+                if (LEuser == null && emails == false) return null;
+                //atenção aqui
+                model.Senha = "Senha123@";
+
+                FGeralPersist.Update<user>(model);
+                if (await FGeralPersist.SaveChangesAsync())
+                {
+                    return await _userPresist.GetAllUserByIdAsync(model.CodigoSolicitante);
+                }
+                return null;
+              
+                
             }
             catch (Exception ex)
             {
@@ -160,7 +171,7 @@ namespace SistemaCompra.Application
                 _mailMessage.CC.Add(email);
                 _mailMessage.Subject = "Sistema Compra :)";
                 _mailMessage.IsBodyHtml = true;
-                _mailMessage.Body = "<b>Olá Tudo bem??</b><p>Informamos que sua nova senha de acesso será Senha123@, após a primeira entrada trocar a senha.</p>";
+                _mailMessage.Body = "<b>Olá Tudo bem?</b><p>Informamos que sua nova senha de acesso será Senha123@, após a primeira entrada no sistema sua senha deverá ser alterada!.</p>";
 
                 //CONFIGURAÇÃO COM PORTA
                 SmtpClient _smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32("587"));
@@ -185,6 +196,30 @@ namespace SistemaCompra.Application
             }
         }
 
-       
+        public async Task<user> AlterarSenha(int id, string senha, user model)
+        {
+            try
+            {
+                var LEuser = await _userPresist.GetAllUserByIdAsync(id);
+                if (LEuser == null) return null;
+                //atenção aqui
+                model.Senha = senha;
+
+                FGeralPersist.Update<user>(model);
+                if (await FGeralPersist.SaveChangesAsync())
+                {
+                    return await _userPresist.GetAllUserByIdAsync(model.CodigoSolicitante);
+                }
+                return null;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
     }
 }
