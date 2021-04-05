@@ -10,7 +10,6 @@ export class EventoService {
   constructor(private http: HttpClient) {}
   public baseURL = 'https://localhost:5001/Eventos';
 
-  // tslint:disable-next-line: typedef
   getEventos(): Observable<Evento[]>{
     return this.http.get<Evento[]>(this.baseURL);
   }

@@ -9,6 +9,8 @@ using ProEventos.Application;
 using ProEventos.Application.Contratos;
 using ProEventos.Persistence;
 using ProEventos.Persistence.Contratos;
+using AutoMapper;
+using System;
 
 namespace ProEventos.API
 {
@@ -25,6 +27,7 @@ namespace ProEventos.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<ProEventosContext>(
                 context => context.UseMySql(Configuration.GetConnectionString("Default"))
             );
