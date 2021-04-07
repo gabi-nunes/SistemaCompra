@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -67,9 +68,8 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-
-        [HttpPost("Registar")]
-        public async Task<IActionResult> Post(user model)
+        [HttpPost("Registrar")]
+        public async Task<IActionResult> Post([FromBody] user model)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<dynamic>> PostLogin(string email , string senha)
+        public async Task<ActionResult<dynamic>> PostLogin([FromBody] string email , string senha)
         {
             try
             {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemaCompra.Persistence.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,8 +48,7 @@ namespace SistemaCompra.Persistence.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    CodigoSolicitante = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     email = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Setor = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
@@ -58,7 +57,7 @@ namespace SistemaCompra.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.CodigoSolicitante);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(

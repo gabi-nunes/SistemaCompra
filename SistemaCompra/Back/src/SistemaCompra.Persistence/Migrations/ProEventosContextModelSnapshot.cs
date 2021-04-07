@@ -150,8 +150,7 @@ namespace SistemaCompra.Persistence.Migrations
 
             modelBuilder.Entity("SistemaCompra.Domain.user", b =>
                 {
-                    b.Property<int>("CodigoSolicitante")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Cargo")
@@ -169,7 +168,7 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<string>("email")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.HasKey("CodigoSolicitante");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });

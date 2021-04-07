@@ -9,8 +9,8 @@ using SistemaCompra.Persistence;
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(ProEventosContext))]
-    [Migration("20210402192234_initial")]
-    partial class initial
+    [Migration("20210404200339_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,8 +152,7 @@ namespace SistemaCompra.Persistence.Migrations
 
             modelBuilder.Entity("SistemaCompra.Domain.user", b =>
                 {
-                    b.Property<int>("CodigoSolicitante")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Cargo")
@@ -171,7 +170,7 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<string>("email")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.HasKey("CodigoSolicitante");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });

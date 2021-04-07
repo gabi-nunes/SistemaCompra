@@ -27,7 +27,7 @@ namespace SistemaCompra.Application
 
             if (await FGeralPersist.SaveChangesAsync())
             {
-                var userRetorno = await _userPresist.GetAllUserByIdAsync(model.CodigoSolicitante);
+                var userRetorno = await _userPresist.GetAllUserByIdAsync(model.Id);
 
                 return userRetorno;
             }
@@ -46,12 +46,12 @@ namespace SistemaCompra.Application
                 var LEuser = await _userPresist.GetAllUserByIdAsync(userId);
                 if (LEuser == null) return null;
                  //atenção aqui
-                model.CodigoSolicitante = LEuser.CodigoSolicitante;
+                model.Id = LEuser.Id;
 
                 FGeralPersist.Update<user>(model);
                 if (await FGeralPersist.SaveChangesAsync())        
                 {
-                    return await _userPresist.GetAllUserByIdAsync(model.CodigoSolicitante);
+                    return await _userPresist.GetAllUserByIdAsync(model.Id);
                 }
                 return null;
             }
@@ -145,7 +145,7 @@ namespace SistemaCompra.Application
                 FGeralPersist.Update<user>(model);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    return await _userPresist.GetAllUserByIdAsync(model.CodigoSolicitante);
+                    return await _userPresist.GetAllUserByIdAsync(model.Id);
                 }
                 return null;
               
@@ -208,7 +208,7 @@ namespace SistemaCompra.Application
                 FGeralPersist.Update<user>(model);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    return await _userPresist.GetAllUserByIdAsync(model.CodigoSolicitante);
+                    return await _userPresist.GetAllUserByIdAsync(model.Id);
                 }
                 return null;
 

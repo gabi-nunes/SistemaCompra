@@ -23,7 +23,7 @@ namespace SistemaCompra.Persistence
                                .WithOne(rs => rs.Palestrante)
                                .OnDelete(DeleteBehavior.Cascade);
 
-             mb.Entity<user>().HasKey(e => e.CodigoSolicitante);
+             mb.Entity<user>().HasKey(e => e.Id);
                                
         }
     }

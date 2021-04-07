@@ -59,7 +59,8 @@ namespace SistemaCompra.API
             services.AddScoped<IEventoPersist, EventoPersist>();
              services.AddScoped<IUserPersist, UserPersist>();
               services.AddScoped<IuserService, UserService>();
-            services.AddCors();
+
+             services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SistemaCompra.API", Version = "v1" });

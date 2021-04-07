@@ -1,8 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SistemaCompra.Domain
 {
     public class user
     {
-        public int CodigoSolicitante { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key] public int Id { get; set; }
+    
         public string Name { get; set; }
         public string email { get; set; }
         public string Setor { get; set; }

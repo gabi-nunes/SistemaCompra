@@ -22,7 +22,7 @@ namespace SistemaCompra.Persistence
         {
             IQueryable<user> query = Context.Users;
         
-            return await query.OrderBy(e => e.CodigoSolicitante).ToArrayAsync();
+            return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
         public async Task<user> GetAllUserByIdAsync(int id)
@@ -30,8 +30,8 @@ namespace SistemaCompra.Persistence
            
             IQueryable<user> query =  Context.Users;
                 
-            query = query.AsNoTracking().OrderBy(e => e.CodigoSolicitante)
-                         .Where(e => e.CodigoSolicitante == id);
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
 
             return await query.FirstOrDefaultAsync();
         }
@@ -41,7 +41,7 @@ namespace SistemaCompra.Persistence
             IQueryable<user> query = Context.Users;
 
             query = query.Where(e => e.Name.ToLower().Contains(Name.ToLower()));
-            return await query.OrderBy(e => e.CodigoSolicitante).ToArrayAsync();
+            return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
          public async Task<user> GetLogin(string email, string senha)
@@ -49,7 +49,7 @@ namespace SistemaCompra.Persistence
             IQueryable<user> query = Context.Users;
             //atreção aqui
             query = query.Where(e => e.email.ToLower()==email.ToLower() && e.Senha==senha);
-            return await query.OrderBy(e => e.CodigoSolicitante).FirstOrDefaultAsync();
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
 
            public async Task<user> recuperarSenha(string email)
@@ -57,7 +57,7 @@ namespace SistemaCompra.Persistence
             IQueryable<user> query = Context.Users;
             //atreção aqui
             query = query.Where(e => e.email.ToLower().Contains(email.ToLower()));
-            return await query.OrderBy(e => e.CodigoSolicitante).FirstOrDefaultAsync();
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
     }
 }
