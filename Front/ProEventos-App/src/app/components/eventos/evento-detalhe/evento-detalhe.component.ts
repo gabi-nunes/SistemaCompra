@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -9,7 +10,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EventoDetalheComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+              private localeService: BsLocaleService
+              ) {
+                this.localeService.use('pt-br')
+              }
 
   ngOnInit(): void{
     this.validation();
@@ -19,12 +24,22 @@ export class EventoDetalheComponent implements OnInit {
     return this.form.controls;
   }
 
+  get bsConfig(): any{
+    return {
+      dateInputFormat: 'MM/DD/YYYY - h:mm',
+      adaptivePosition: true,
+      showWeekNumbers: false,
+
+    };
+  }
+
+
   public validation(): void{
     this.form = this.fb.group({
       tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       local: ['', Validators.required],
       dataEvento: ['', Validators.required],
-      qtdePessoas: ['', [Validators.required, Validators.max(12000), Validators.pattern('^[1-9]*$')]],
+      qtdePessoas: ['', [Validators.required, Validators.max(12000), Validators.pattern('^[0-9]*$')]],
       imagemURL: [''],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -33,5 +48,9 @@ export class EventoDetalheComponent implements OnInit {
 
   public ResetForm(): void{
     this.form.reset();
+  }
+
+  cssValidation(control: FormControl): any{
+    return {'is-invalid': control?.errors && control?.touched}
   }
 }

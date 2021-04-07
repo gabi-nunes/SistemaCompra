@@ -50,9 +50,9 @@
         <td class="d-none d-md-table-cell text-center">{{evento.id}}</td>
         <td class="text-center">{{evento.tema}}</td>
         <td class="text-center">{{evento.local}}</td>
-        <td class="text-center">{{evento.dataEvento | DateTimeFormatter}}</td>
+        <td class="text-center">{{evento.dataEvento | DateTimeFormatter}} </td>
         <td class="d-none d-md-table-cell text-center">{{evento.qtdePessoas}}</td>
-        <td class="d-none d-md-table-cell text-center">{{evento.lotes[0].nome}}</td>
+        <td class="d-none d-md-table-cell text-center">{{evento.lotes[0]?.nome}}</td>
         <td class="text-center">
             <i class="fas fa-times fa-2x" (click)="openModal(template)" style="color: red; cursor: pointer;"></i>
         </td>
