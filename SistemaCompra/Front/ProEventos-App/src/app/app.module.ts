@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/user.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,6 +30,8 @@ import { DateTimeFormatterPipe } from './helpers/DateTimeFormatter.pipe';
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
+import { UserCadastroComponent } from './components/user/user-cadastro/user-cadastro.component';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +47,9 @@ import { LoginComponent } from './components/user/login/login.component';
     DashboardComponent,
     PerfilComponent,
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    UserCadastroComponent,
+
    ],
   imports: [
     CommonModule,
@@ -65,7 +70,7 @@ import { LoginComponent } from './components/user/login/login.component';
     }),
     NgxSpinnerModule
   ],
-  providers: [EventoService],
+  providers: [EventoService, UserService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

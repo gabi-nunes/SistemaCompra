@@ -1,7 +1,7 @@
 
 
 export interface user {
-  codigoSolicitante: number ;
+  id: number ;
   Name: string ;
   email: string;
   setor: string ;

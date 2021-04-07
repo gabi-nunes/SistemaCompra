@@ -1,4 +1,6 @@
+import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  txtemail: string;
+  txtsenha: string;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+  }
+
+
+
+  salvarlogin(){
+    debugger
+    this.userService.login(this.txtemail,this.txtsenha)
+
   }
 
 }
