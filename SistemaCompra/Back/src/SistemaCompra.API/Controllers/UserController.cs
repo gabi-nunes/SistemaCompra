@@ -107,7 +107,7 @@ namespace SistemaCompra.API.Controllers
                 if (usuario == null) return NoContent();
 
                 return await UserService.DeleteUser(id) ? 
-                       Ok("Deletado") : 
+                       Ok(new { messagem = "Deletado"}) : 
                        throw new Exception("Ocorreu um problem não específico ao tentar deletar Usuario.");
             }
             catch (Exception ex)
@@ -118,7 +118,7 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<dynamic>> PostLogin([FromBody] string email , string senha)
+        public async Task<ActionResult<dynamic>> PostLogin( string email , string senha)
         {
             try
             {

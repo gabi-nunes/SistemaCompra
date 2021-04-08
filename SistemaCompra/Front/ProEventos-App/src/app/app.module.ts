@@ -31,6 +31,7 @@ import { EventoListaComponent } from './components/eventos/evento-lista/evento-l
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { UserCadastroComponent } from './components/user/user-cadastro/user-cadastro.component';
+import { UserListaComponent } from './components/user/UserLista/UserLista.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { UserCadastroComponent } from './components/user/user-cadastro/user-cada
     UserComponent,
     LoginComponent,
     UserCadastroComponent,
+    UserListaComponent,
 
    ],
   imports: [

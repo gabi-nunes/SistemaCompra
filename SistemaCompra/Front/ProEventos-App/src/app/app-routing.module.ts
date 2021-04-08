@@ -12,12 +12,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { UserCadastroComponent } from './components/user/user-cadastro/user-cadastro.component';
+import { UserListaComponent } from './components/user/UserLista/UserLista.component';
 
 const routes: Routes = [
   {path: 'user', component: UserComponent,
     children:[
       {path: 'login', component: LoginComponent},
-      {path: 'cadastro', component: UserCadastroComponent}
+      {path: 'cadastro', component: UserCadastroComponent},
+      {path: 'lista', component: UserListaComponent}
     ]
   },
   {path: 'eventos', redirectTo: 'eventos/lista'},

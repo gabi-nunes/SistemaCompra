@@ -52,7 +52,9 @@ public salvarUser(): void {
 
 
   );
-
+   this.spinner.hide()
+   //colocar um treco de carregar
+    this.router.navigate(['/user/lista']);
 }
 }
 }

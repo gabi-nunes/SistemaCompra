@@ -2,6 +2,7 @@ import { user } from './../models/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 
 @Injectable(
@@ -18,9 +19,9 @@ export class UserService {
     return this.http.post<user>(`${this.baseURL}/Registrar`,user);
   }
 
-  public login(email: string, senha: string) {
+  public login(log: any) {
     debugger
-     return this.http.post<string>(`${this.baseURL}/login`,{email, senha});
+     return this.http.post(`${this.baseURL}/Login/`,log);
    }
 
    public RecuperarSenha( id: number,email: string, user: user) {
@@ -29,17 +30,24 @@ export class UserService {
    }
    public AlterarSenha( id: number,email: string, user: user) {
     debugger
-     return this.http.put<user>(`${this.baseURL}/login`,{id, email, user});
+     return this.http.put<user>(`${this.baseURL}/login`,{id, email, user});'    '
    }
 
    getUserById(id: number): Observable<user>{
     return this.http.get<user>(`${this.baseURL}/${id}/`);
   }
-  getUser(){
-    return this.http.get(`${this.baseURL}`);
- }
+  public getUser(): Observable<user[]> {
+    return this.http.get<user[]>(this.baseURL).pipe(take(1));
+  }
 
-
-
- 
+  public deleteUser(id: number): Observable<any> {
+    return this.http
+      .delete(`${this.baseURL}/${id}`)
+      .pipe(take(1));
+  }
 }
+
+
+
+
+
