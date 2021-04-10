@@ -16,7 +16,9 @@ export class LoginComponent implements OnInit {
   log = {} as login;
   email: string;
   senha: string;
+  id: string;
   loginForm: FormGroup;
+  user={} as user;
 
   constructor(private userService: UserService, private fb: FormBuilder,private router: Router,  private toastr: ToastrService,private spinner: NgxSpinnerService) { }
 
@@ -39,25 +41,33 @@ export class LoginComponent implements OnInit {
   public  salvarlogin(): void {
     if(this.loginForm.valid){
 
-      this.log = {... this.loginForm.value}
+      this.email = {... this.loginForm.value.email}
+      this.senha = {... this.loginForm.value.senha}
 
 debugger
 
-    this.userService.login(this.log).subscribe(
-
-      () => this.toastr.success('login sucesso!', 'sucesso'),
-
-      () => this.spinner.hide()
-
-
-    );
+    this.userService.login(this.email, this.senha).subscribe(
+        (result: any)=>{
+            console.log(result);
+            this.toastr.success('Login aceito', 'OK');
+            this.spinner.hide();
+        },
+        (error: any)=>{
+          console.error(error);
+          this.toastr.error('Erro ao tentar entrar, verifique seu email e sua senha!', 'Erro');
+        },
+        ()=>   this.spinner.hide(),
+      );
 
   }
-  }
-
-
-
-
-
-
 }
+
+
+  }
+
+
+
+
+
+
+

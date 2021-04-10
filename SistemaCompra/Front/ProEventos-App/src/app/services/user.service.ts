@@ -18,19 +18,24 @@ export class UserService {
    debugger
     return this.http.post<user>(`${this.baseURL}/Registrar`,user);
   }
-
-  public login(log: any) {
+  public AtualizaUser(id: number ,user:user) : Observable<user>{
     debugger
-     return this.http.post(`${this.baseURL}/Login/`,log);
+     return this.http.put<user>(`${this.baseURL}/Atualiza/${id}`,user);
    }
 
-   public RecuperarSenha( id: number,email: string, user: user) {
+  public login(email: string, senha: string): Observable<any>  {
     debugger
-     return this.http.put<user>(`${this.baseURL}/login`,{id, email, user});
+
+     return this.http.post<any>(`${this.baseURL}/Login/`, {email, senha}).pipe(take(1));;
+   }
+
+   public RecuperarSenha(id: string,email: string, user: user) {
+    debugger
+     return this.http.put<user>(`${this.baseURL}/login/`,{id, email, user});
    }
    public AlterarSenha( id: number,email: string, user: user) {
     debugger
-     return this.http.put<user>(`${this.baseURL}/login`,{id, email, user});'    '
+     return this.http.put<user>(`${this.baseURL}/login/`,{id, email, user});'    '
    }
 
    getUserById(id: number): Observable<user>{

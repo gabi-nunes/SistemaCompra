@@ -97,8 +97,8 @@ export class UserListaComponent implements OnInit {
     this.isvalid= false;
   }
 
-  DetalharEvento(id: number): void{
-    this.router.navigate([`User/detalhe/${id}`]);
+  DetalharUser(id: number): void{
+    this.router.navigate([`user/cadastro/${id}`]);
   }
 
 

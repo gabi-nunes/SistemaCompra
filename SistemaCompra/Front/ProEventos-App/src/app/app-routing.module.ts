@@ -13,13 +13,16 @@ import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { UserCadastroComponent } from './components/user/user-cadastro/user-cadastro.component';
 import { UserListaComponent } from './components/user/UserLista/UserLista.component';
+import { UserRecuperarSenhaComponent } from './components/user/user-RecuperarSenha/user-RecuperarSenha.component';
 
 const routes: Routes = [
   {path: 'user', component: UserComponent,
     children:[
       {path: 'login', component: LoginComponent},
       {path: 'cadastro', component: UserCadastroComponent},
-      {path: 'lista', component: UserListaComponent}
+      {path: 'cadastro/:id', component: UserCadastroComponent},
+      {path: 'lista', component: UserListaComponent},
+      {path: 'recuperar', component: UserRecuperarSenhaComponent}
     ]
   },
   {path: 'eventos', redirectTo: 'eventos/lista'},

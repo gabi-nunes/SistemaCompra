@@ -118,26 +118,27 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<dynamic>> PostLogin( string email , string senha)
+        public async Task<ActionResult> PostLogin([FromQuery]string email , [FromQuery]string senha)
         {
             try
             {
             var usuario = await UserService.Login(email, senha);
+           
             // Verifica se o usuário existe
             if (usuario == null)
                 return NotFound(new { message = "Usuário ou senha inválidos" });
-
+            return Ok(new { messagem = "Login ok"});
             // Gera o Token
-            var token = TokenService.GenerateToken(usuario);
+            // var token = TokenService.GenerateToken(usuario);
 
             // Oculta a senha
-            usuario.Senha= "";
+            // usuario.Senha= "";
             
             // Retorna os dados
-            return new{
-                usuario= usuario,
-                token = token
-            };
+            // return new{
+            //     usuario= usuario,
+            //     token = token
+            // };
             }
             catch (Exception ex)
             {
@@ -179,5 +180,6 @@ namespace SistemaCompra.API.Controllers
         }
 
     }
+
 
 }
