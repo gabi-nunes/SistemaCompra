@@ -44,7 +44,15 @@ namespace SistemaCompra.Persistence
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
-         public async Task<user> GetLogin(string email, string senha)
+        public async Task<user> GetUserByEmailAsync(string Email)
+        {
+            IQueryable<user> query = Context.Users;
+
+            query = query.Where(e => e.email.ToLower().Contains(Email.ToLower()));
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
+        }
+
+        public async Task<user> GetLogin(string email, string senha)
        {
             IQueryable<user> query = Context.Users;
             //atreção aqui

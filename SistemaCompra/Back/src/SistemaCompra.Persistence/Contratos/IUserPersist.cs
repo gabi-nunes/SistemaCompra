@@ -9,6 +9,8 @@ namespace SistemaCompra.Persistence.Contratos
         Task<user> GetAllUserByIdAsync(int id); 
         Task<user[]> GetUserByNameAsync(string Name);
         Task<user> GetLogin(string email, string senha);
+
+        Task<user> GetUserByEmailAsync(string Email);
         Task<user> recuperarSenha(string email);
         
     }

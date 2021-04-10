@@ -118,27 +118,27 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult> PostLogin([FromQuery]string email , [FromQuery]string senha)
+        public async Task<ActionResult> Login([FromBody] Login login) 
         {
+            if(login == null || login.email == null || login.senha== null ){
+                return BadRequest("Usuario ou senha invalidos!");
+            }
             try
             {
-            var usuario = await UserService.Login(email, senha);
-           
-            // Verifica se o usuário existe
-            if (usuario == null)
-                return NotFound(new { message = "Usuário ou senha inválidos" });
-            return Ok(new { messagem = "Login ok"});
-            // Gera o Token
-            // var token = TokenService.GenerateToken(usuario);
 
-            // Oculta a senha
-            // usuario.Senha= "";
-            
-            // Retorna os dados
-            // return new{
-            //     usuario= usuario,
-            //     token = token
-            // };
+                var usuario = await UserService.Login(login);
+
+                // Verifica se o usuário existe
+                if (usuario == null)
+                {
+                    return NotFound(new { message = "Usuário ou senha inválidos" });
+                }
+                // Gera o Token
+                var token = TokenService.GenerateToken(usuario);
+
+                Response.Headers.Add("token", token);
+                return Ok(usuario);
+
             }
             catch (Exception ex)
             {
@@ -146,15 +146,18 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpPut("RecuperarSenha")]
-        public async Task<IActionResult> PutRecuperarSenha(int id, string email, user model)
+        [HttpPost("RecuperarSenha")]
+        public async Task<IActionResult> RecuperarSenha([FromQuery]string email)
         {
             try
             {
-                var usuario = await UserService.RecuperarSenha(id, email, model);
+                var usuario = await UserService.RecuperarSenha(email);
 
-            if (usuario == null ) return BadRequest("Erro ao recuperar. Tente Novamente!");
-            return Ok(usuario);
+                if (usuario == null)
+                {
+                    return BadRequest("Erro ao recuperar. Tente Novamente!");
+                }
+                return Ok(usuario);
             }
             catch (Exception ex)
             {
@@ -164,11 +167,11 @@ namespace SistemaCompra.API.Controllers
 
 
         [HttpPut("AlterarSenha")]
-        public async Task<IActionResult> PutAlterarSenha(int id, string senha, user model)
+        public async Task<IActionResult> PutAlterarSenha(int id, string senha)
         {
             try
             {
-                var usuario = await UserService.AlterarSenha(id, senha, model);
+                var usuario = await UserService.AlterarSenha(id, senha);
 
                 if (usuario == null) return BadRequest("Erro ao alterar senha. Tente Novamente!");
                 return Ok(usuario);

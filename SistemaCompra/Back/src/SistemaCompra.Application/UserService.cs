@@ -118,13 +118,16 @@ namespace SistemaCompra.Application
             }
         }
 
-         public async Task<user> Login(string email, string senha)
+         public async Task<user> Login(Login login)
         {
+            if(login==null || login.email==null || login.senha==null ){
+                return null;
+            }
             try
             {
-                var login = await _userPresist.GetLogin(email, senha);
-                if (login == null) return null;
-                return login; 
+                var userlogin = await _userPresist.GetLogin(login.email, login.senha);
+                if (userlogin == null) return null;
+                return userlogin; 
             }
             catch (Exception ex)
             {
@@ -132,24 +135,21 @@ namespace SistemaCompra.Application
             }
         }
 
-         public async Task<user> RecuperarSenha(int id, string email, user model)
+         public async Task<user> RecuperarSenha(string email)
         {
             try
             {
-                var LEuser = await _userPresist.GetAllUserByIdAsync(id);
+                var LEuser = await _userPresist.GetUserByEmailAsync(email);
+                LEuser.Senha = "Senha@123";
                 var emails = EnviarEmail(email);
                 if (LEuser == null && emails == false) return null;
                 //atenção aqui
-                model.Senha = "Senha123@";
 
-                FGeralPersist.Update<user>(model);
-                if (await FGeralPersist.SaveChangesAsync())
-                {
-                    return await _userPresist.GetAllUserByIdAsync(model.Id);
-                }
-                return null;
-              
-                
+                return LEuser;
+
+
+
+
             }
             catch (Exception ex)
             {
@@ -196,19 +196,19 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<user> AlterarSenha(int id, string senha, user model)
+        public async Task<user> AlterarSenha(int id, string senha)
         {
             try
             {
                 var LEuser = await _userPresist.GetAllUserByIdAsync(id);
                 if (LEuser == null) return null;
                 //atenção aqui
-                model.Senha = senha;
+                LEuser.Senha = senha;
 
-                FGeralPersist.Update<user>(model);
+                FGeralPersist.Update<user>(LEuser);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    return await _userPresist.GetAllUserByIdAsync(model.Id);
+                    return await _userPresist.GetAllUserByIdAsync(LEuser.Id);
                 }
                 return null;
 
@@ -219,7 +219,6 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
-
 
     }
 }

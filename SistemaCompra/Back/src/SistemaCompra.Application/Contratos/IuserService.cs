@@ -15,12 +15,12 @@ namespace SistemaCompra.Application.Contratos
 
         Task<user> GetuserbyIdAsync(int userId);
 
-        Task<user> Login(string email, string senha);
+      Task<user> Login(Login login);
 
-        Task<user> RecuperarSenha(int id, string email, user model);
+        Task<user> RecuperarSenha(string email);
 
         bool EnviarEmail(string email);
 
-        Task<user> AlterarSenha(int id, string senha, user model);
+        Task<user> AlterarSenha(int id, string senha);
     }
 }
