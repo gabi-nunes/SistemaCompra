@@ -1,6 +1,11 @@
 import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { Evento } from 'src/app/models/Evento';
+import { EventoService } from 'src/app/services/evento.service';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -8,15 +13,43 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
   styleUrls: ['./evento-detalhe.component.scss']
 })
 export class EventoDetalheComponent implements OnInit {
-  form: FormGroup = new FormGroup({});
+  form = {} as FormGroup;
+  evento = {} as Evento;
 
   constructor(private fb: FormBuilder,
-              private localeService: BsLocaleService
+              private localeService: BsLocaleService,
+              private actRouter: ActivatedRoute,
+              private eventoService: EventoService,
+              private spinner: NgxSpinnerService,
+              private tostr: ToastrService
               ) {
-                this.localeService.use('pt-br')
-              }
+    this.localeService.use('pt-br');
+  }
+
+  public CarregarEvento(): void{
+    const eventoId = this.actRouter.snapshot.paramMap.get('id');
+
+    if (eventoId !== null){
+      this.spinner.show();
+      this.eventoService.getEventoById(+eventoId).subscribe(
+        (e: Evento) => {
+          this.evento = {...e},
+          this.form.patchValue(e);
+        },
+        (error: any) => {
+          this.spinner.hide()
+          this.tostr.error('Erro ao tentar carregar o evento', 'Erro');
+          console.error(error);
+        },
+        () => {
+          this.spinner.hide();
+        }
+      );
+    }
+  }
 
   ngOnInit(): void{
+    this.CarregarEvento();
     this.validation();
   }
 
@@ -29,10 +62,8 @@ export class EventoDetalheComponent implements OnInit {
       dateInputFormat: 'MM/DD/YYYY - h:mm',
       adaptivePosition: true,
       showWeekNumbers: false,
-
     };
   }
-
 
   public validation(): void{
     this.form = this.fb.group({
@@ -51,6 +82,6 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   cssValidation(control: FormControl): any{
-    return {'is-invalid': control?.errors && control?.touched}
+    return {'is-invalid': control?.errors && control?.touched};
   }
 }

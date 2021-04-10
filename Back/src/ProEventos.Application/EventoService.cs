@@ -64,19 +64,18 @@ namespace ProEventos.Application
         }
         public async Task<bool> DeleteEvento(int eventoId)
         {
-            return false;
-            // try
-            // {
-            //     var LEvento = await FEventoPresist.GetEventoByIdAsync(eventoId, false);
-            //     if (LEvento == null) throw new Exception("Evento não foi Deletado pois não foi      encontrado");
+            try
+            {
+                var LEvento = await FEventoPresist.GetEventoByIdAsync(eventoId, false);
+                if (LEvento == null) throw new Exception("Evento não foi Deletado pois não foi      encontrado");
 
-            //     FGeralPersist.Delete<EventoDto>(LEvento);
-            //     return await FGeralPersist.SaveChangesAsync();
-            // }
-            // catch (Exception ex)
-            // {
-            //     throw new Exception(ex.Message);
-            // }
+                FGeralPersist.Delete<Evento>(LEvento);
+                return await FGeralPersist.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
         }
 
