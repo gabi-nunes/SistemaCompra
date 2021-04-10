@@ -44,6 +44,7 @@ export class UserListaComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+     this.spinner.hide()
     this.spinner.show();
     this.Carregar();
   }
@@ -78,7 +79,7 @@ export class UserListaComponent implements OnInit {
     this.userService.deleteUser(this.userId).subscribe(
       (result: any)=>{
           console.log(result);
-          this.toastr.success('User deletado com Sucesso', 'Deletado');
+          this.toastr.success('Usuario deletado com Sucesso', 'Deletado');
           this.spinner.hide();
           this.Carregar();
 
@@ -95,7 +96,7 @@ export class UserListaComponent implements OnInit {
   decline(): void {
     this.modalRef.hide();
     this.isvalid= false;
-  }
+  };
 
   DetalharUser(id: number): void{
     this.router.navigate([`user/cadastro/${id}`]);

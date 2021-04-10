@@ -102,7 +102,7 @@ public salvarUser(): void {
 
   );
    this.spinner.hide()
-   //colocar um treco de carregar
+
     this.router.navigate(['/user/lista']);
 }
 
@@ -113,7 +113,7 @@ Salvarsenha(){
     this.alterarS= false;
     this.usuario = {... this.form.value}
 
-    this.service.AlterarSenha(this.usuario.id, this.usuario.email, this.usuario).subscribe(
+    this.service.AlterarSenha(this.usuario.id, this.usuario.email).subscribe(
 
       () => this.toastr.success('Senha alterada com sucesso!', 'sucesso'),
 

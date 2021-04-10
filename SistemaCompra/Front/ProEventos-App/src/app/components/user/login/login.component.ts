@@ -1,4 +1,3 @@
-import { login } from './../../../models/login';
 import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,6 +5,7 @@ import { user } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Login } from 'src/app/models/login';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +13,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  log = {} as login;
+  log = {} as Login;
   email: string;
   senha: string;
   id: string;
   loginForm: FormGroup;
   user={} as user;
+  usuario: any;
 
   constructor(private userService: UserService, private fb: FormBuilder,private router: Router,  private toastr: ToastrService,private spinner: NgxSpinnerService) { }
 
@@ -41,12 +42,11 @@ export class LoginComponent implements OnInit {
   public  salvarlogin(): void {
     if(this.loginForm.valid){
 
-      this.email = {... this.loginForm.value.email}
-      this.senha = {... this.loginForm.value.senha}
+      this.usuario = {... this.loginForm.value}
 
 debugger
 
-    this.userService.login(this.email, this.senha).subscribe(
+    this.userService.login(this.usuario).subscribe(
         (result: any)=>{
             console.log(result);
             this.toastr.success('Login aceito', 'OK');
