@@ -1,0 +1,151 @@
+<app-titulo [titulo]="'Perfil'" [subtitulo]="'Esse aqui é você'" [icone]="'fas fa-user-circle'"></app-titulo>
+
+<div class="card shadow-sm rounded">
+<form [formGroup]="form">
+	<div class="row p-3">
+		<div class="col-lg-3 pt-1">
+			<div class="card mb-3">
+				<div class="card-header"></div>
+				<div class="d-flex align-self-center pt-3">
+					<a>
+						<img
+						src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
+						name="aboutme" width="120" height="120" class="rounded-circle">
+					</a>
+				</div>
+				<div class="card-body">
+					<div class="h4 text-center mb-3">@UserName</div>
+					<div class="h7 text-bold pb-1"><b>Nome:</b> Miracles Lee Cross</div>
+					<div class="h7">
+						Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
+						etc.
+					</div>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<div class="row">
+							<div class="col-6 text-center border-right">
+								<div class="h5">1342</div>
+								<div class="h6 text-muted">Eventos Ministrados</div>
+							</div>
+							<div class="col-6 text-center">
+								<div class="h5">1342</div>
+								<div class="h6 text-muted">Eventos Participados</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="card-footer"></div>
+			</div>
+		</div>
+		<div class="col-lg-9">
+			<div class="form-row">
+				<div class="form-group col-12">
+					<h3 class="border-bottom">Detalhe Perfil</h3>
+				</div>
+				<div class="form-group col">
+					<label>Título</label>
+					<select class="form-control" formControlName="titulo" [ngClass]="{'is-invalid': f.titulo?.errors && f.titulo?.touched}">
+						<option value=""></option>
+						<option value="0">Não Quero</option>
+						<option value="Senhorita">Tecnólogo(a)</option>
+						<option value="Senhorita">Bacharel</option>
+						<option value="Senhorita">Especialista</option>
+						<option value="Senhorita">Pós Graduado(a)</option>
+						<option value="Senhorita">Mestre</option>
+						<option value="Senhorita">Doutor(a)</option>
+						<option value="Senhorita">Pós Doc</option>
+					</select>
+          <div class="invalid-feedback" *ngIf="f.titulo.errors?.required">
+            O Campo titulo é obrigatório
+          </div>
+				</div>
+				<div class="form-group col-sm-5">
+					<label>Primeiro Nome</label>
+          <input [ngClass]="{'is-invalid': f.firstName?.errors && f.firstName?.touched}" formControlName="firstName" type="text" class="form-control"/>
+					<div class="invalid-feedback" *ngIf="f.firstName.errors?.required">
+            O Campo Primeiro Nome é obrigatório
+          </div>
+
+				</div>
+				<div class="form-group col-sm-5">
+					<label>Último nome</label>
+          <input [ngClass]="{'is-invalid': f.lastName?.errors && f.lastName?.touched}" formControlName="lastName" type="text" class="form-control"/>
+					<div class="invalid-feedback" *ngIf="f.lastName.errors?.required">
+            O Campo Último Nome é obrigatório
+          </div>
+
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-sm-5">
+					<label>E-mail</label>
+          <input [ngClass]="{'is-invalid': f.email?.errors && f.email?.touched}" formControlName="email" type="text" class="form-control" />
+					<div class="invalid-feedback" *ngIf="f.email.errors?.required">
+            O Campo email é obrigatório
+          </div>
+				</div>
+				<div class="form-group col-sm-4">
+					<label>Telefone</label>
+          <input [ngClass]="{'is-invalid': f.telefone?.errors && f.telefone?.touched}" formControlName="telefone" type="text" class="form-control" />
+					<div class="invalid-feedback" *ngIf="f.telefone.errors?.required">
+            O Campo telefone é obrigatório
+          </div>
+				</div>
+				<div class="form-group col-sm">
+					<label>Função</label>
+					<select class="form-control" formControlName="funcao"
+          [ngClass]="{'is-invalid': f.funcao?.errors && f.funcao?.touched}">
+						<option value=""></option>
+						<option value="Participante">Participante</option>
+						<option value="Palestrante">Palestrante</option>
+					</select>
+          <div class="invalid-feedback" *ngIf="f.funcao.errors?.required">
+            O Campo funcao é obrigatório
+          </div>
+				</div>
+				<form-group class="col-12">
+					<label>Descrição</label>
+          <input [ngClass]="{'is-invalid': f.descricao?.errors && f.descricao?.touched}" formControlName="descricao" type="text" class="form-control" />
+					<div class="invalid-feedback" *ngIf="f.descricao.errors?.required">
+            O Campo descricao é obrigatório
+          </div>
+				</form-group>
+			</div>
+			<div>
+				<h3 class="pt-3 border-bottom">Mudar Senha</h3>
+				<p>Caso mude de senha, preencha os campos abaixo:</p>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-sm">
+					<label>Senha</label>
+          <input [ngClass]="{'is-invalid': f.password?.errors && f.password?.touched}" formControlName="password" type="password" class="form-control" />
+					<div class="invalid-feedback" *ngIf="f.password.errors?.required">
+            O Campo password é obrigatório
+          </div>
+				</div>
+				<div class="form-group col-sm">
+					<label>Confirmar Senha</label>
+          <input [ngClass]="{'is-invalid': f.pswdConfirm?.errors && f.pswdConfirm?.touched}" formControlName="pswdConfirm" type="password" class="form-control" />
+					<div class="invalid-feedback" *ngIf="f.pswdConfirm.errors?.required">
+            O Campo pswdConfirm é obrigatório
+          </div>
+					<div class="invalid-feedback" *ngIf="f.pswdConfirm.errors?.mustMatch">
+            Precisa bater com a outra Gênio
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-footer">
+		<div class="d-flex">
+			<button class="btn btn-outline-secondary mr-auto border">
+				Cancelar Alteração
+			</button>
+			<button class="btn btn-success">
+				<!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+				Salvar Alteração
+			</button>
+		</div>
+	</div>
+</form>

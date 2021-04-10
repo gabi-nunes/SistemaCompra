@@ -1,0 +1,89 @@
+  <div class="row mt-4 align-middle">
+
+    <div class="col-md-6 d-none d-md-block border-right" style="height: 450px;">
+      <div class="text-center col-md-12 my-auto side-heder">
+        <h1>Cadastro de Usuário</h1>
+        <img src="../../../../assets/registerImage.png" class="my-4" alt="" width="400px">
+      </div>
+    </div>
+
+    <div class="col-md-6">
+
+      <form [formGroup]="form" class="p-1">
+        <div class="pb-2 d-block d-md-none">
+          <h3 class="border-bottom">Cadastro de Usuário</h3>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <label>Primeiro Nome</label>
+            <input formControlName="firstName" type="text" class="form-control"
+            [ngClass]="{'is-invalid': f.firstName?.errors && f.firstName?.touched}"  placeholder="Insira o Primeiro nome" />
+            <div *ngIf="f.firstName.errors?.required" class="invalid-feedback">
+              O campo Primeiro Nome é obrigatório
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label>Último nome</label>
+            <input formControlName="lastName" type="text" class="form-control" [ngClass]="{'is-invalid': f.lastName?.errors && f.lastName?.touched}" placeholder="Insira o Último nome" />
+            <div *ngIf="f.lastName.errors?.required" class="invalid-feedback">
+              O campo Último Nome é obrigatório
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email:</label>
+          <input class="form-control" formControlName="email" type="text" [ngClass]="{'is-invalid': f.email?.errors && f.email?.touched}" placeholder="Insira o Nome Completo" />
+          <div *ngIf="f.email.errors?.required" class="invalid-feedback">
+            O campo Email é obrigatório
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Usuario:</label>
+          <input class="form-control" formControlName="userName" type="text" [ngClass]="{'is-invalid': f.userName?.errors && f.userName?.touched}" placeholder="Insira o nome de Usuário" />
+          <div *ngIf="f.userName.errors?.required" class="invalid-feedback">
+            O campo Usuario é obrigatório
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <label>Senha:</label>
+            <input class="form-control" formControlName="password" type="password" [ngClass]="{'is-invalid': f.password?.errors && f.password?.touched}" placeholder="Digite uma Senha" />
+            <div *ngIf="f.password.errors?.required" class="invalid-feedback">
+              O campo Senha é obrigatório
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label>Confirmar Senha:</label>
+            <input class="form-control" formControlName="pswdConfirm" type="password" [ngClass]="{'is-invalid': f.pswdConfirm?.errors && f.pswdConfirm?.touched}" placeholder="Confirme a Senha" />
+            <div *ngIf="f.pswdConfirm.errors?.required" class="invalid-feedback">
+              O campo Confirmar Senha é obrigatório
+            </div>
+            <div *ngIf="f.pswdConfirm.errors?.mustMatch" class="invalid-feedback">
+              Tem que bater com a outra amigão
+            </div>
+          </div>
+        </div>
+        <div class="form-row p-1 mb-3">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck1">
+            <label class="custom-control-label">Eu concordo com os <a href="#">Termos de Uso</a>.</label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-12">
+            <button class="btn btn-lg btn-success btn-block px-5">
+              Registar
+            </button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-12">
+            <a class="btn btn-link btn-block" routerlink="/user/login">
+              Já sou Cadastrado
+            </a>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
