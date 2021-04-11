@@ -1,11 +1,12 @@
+import { Login } from './../../../models/Login';
 import { UserService } from 'src/app/services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { user } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Login } from 'src/app/models/login';
+
 
 @Component({
   selector: 'app-login',
@@ -13,15 +14,19 @@ import { Login } from 'src/app/models/login';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
   log = {} as Login;
   email: string;
   senha: string;
   id: string;
   loginForm: FormGroup;
-  user={} as user;
+  userO={} as user;
   usuario: any;
+  perfil: any = 0;
 
-  constructor(private userService: UserService, private fb: FormBuilder,private router: Router,  private toastr: ToastrService,private spinner: NgxSpinnerService) { }
+  userperfil = new EventEmitter<user>()
+
+constructor(private userService: UserService, private fb: FormBuilder,private router: Router,  private toastr: ToastrService,private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.validation();
@@ -49,7 +54,11 @@ debugger
     this.userService.login(this.usuario).subscribe(
         (result: any)=>{
             console.log(result);
+          this.perfil = result;
+          this.userperfil.emit(this.perfil);
             this.toastr.success('Login aceito', 'OK');
+            this.router.navigate(['/user/lista']);
+
             this.spinner.hide();
         },
         (error: any)=>{
@@ -60,6 +69,8 @@ debugger
       );
 
   }
+
+
 }
 
 
@@ -70,4 +81,8 @@ debugger
 
 
 
+
+function output() {
+  throw new Error('Function not implemented.');
+}
 

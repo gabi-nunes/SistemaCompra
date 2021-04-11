@@ -20,7 +20,7 @@ export class UserListaComponent implements OnInit {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private router: Router
-  ) {}
+  ) {} 
 
   public user: user[] = [];
   public UserFiltrados: user[] = [];

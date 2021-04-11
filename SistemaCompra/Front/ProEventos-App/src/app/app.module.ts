@@ -15,7 +15,7 @@ import { NavComponent } from './shared/nav/nav.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 import { ContatosComponent } from './components/contatos/contatos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -34,6 +34,8 @@ import { UserCadastroComponent } from './components/user/user-cadastro/user-cada
 import { UserListaComponent } from './components/user/UserLista/UserLista.component';
 import { UserRecuperarSenhaComponent } from './components/user/user-RecuperarSenha/user-RecuperarSenha.component';
 import { UserDetalheComponent } from './components/user/User-detalhe/User-detalhe.component';
+import { PerfilComponent } from './components/user/login/perfil/perfil.component';
+
 
 
 @NgModule({
@@ -48,13 +50,15 @@ import { UserDetalheComponent } from './components/user/User-detalhe/User-detalh
     TituloComponent,
     ContatosComponent,
     DashboardComponent,
-    PerfilComponent,
     UserComponent,
     LoginComponent,
     UserCadastroComponent,
     UserListaComponent,
     UserRecuperarSenhaComponent,
     UserDetalheComponent,
+    PerfilComponent,
+
+
 
    ],
   imports: [

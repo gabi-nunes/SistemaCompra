@@ -1,9 +1,9 @@
+import { Login } from './../../../models/Login';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr'
-import { Login } from 'src/app/models/login';
 import { user } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 

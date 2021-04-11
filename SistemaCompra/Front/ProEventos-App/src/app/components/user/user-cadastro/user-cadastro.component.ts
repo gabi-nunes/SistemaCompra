@@ -111,7 +111,7 @@ public salvarUser(): void {
 
 Salvarsenha(){
     this.alterarS= false;
-    this.usuario = {... this.form.value}
+    this.usuario = {id: this.usuario.id , ... this.form.value}
 
     this.service.AlterarSenha(this.usuario.id, this.usuario.email).subscribe(
 
