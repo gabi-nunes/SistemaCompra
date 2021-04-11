@@ -137,7 +137,8 @@ namespace SistemaCompra.Application
             }
         }
 
-         public async Task<user> RecuperarSenha(string email)
+
+        public async Task<user> RecuperarSenha(string email)
         {
             try
             {
