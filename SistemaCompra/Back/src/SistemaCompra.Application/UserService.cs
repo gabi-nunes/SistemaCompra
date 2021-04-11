@@ -13,6 +13,8 @@ namespace SistemaCompra.Application
     {
         private readonly IGeralPersist FGeralPersist;
         private readonly IUserPersist _userPresist;
+
+        private user userUsuario;
         public UserService(IUserPersist UserPresist, IGeralPersist geral)
         {
             _userPresist = UserPresist;
@@ -140,12 +142,18 @@ namespace SistemaCompra.Application
             try
             {
                 var LEuser = await _userPresist.GetUserByEmailAsync(email);
-                LEuser.Senha = "Senha@123";
                 var emails = EnviarEmail(email);
                 if (LEuser == null && emails == false) return null;
-                //atenção aqui
+                LEuser.Senha = "Senha@123";
+    
 
-                return LEuser;
+                FGeralPersist.Update<user>(LEuser);
+                if (await FGeralPersist.SaveChangesAsync())
+                {
+                    return await _userPresist.GetAllUserByIdAsync(LEuser.Id);
+                }
+
+                return null;
 
 
 

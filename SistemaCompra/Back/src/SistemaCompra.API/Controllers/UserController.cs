@@ -152,6 +152,7 @@ namespace SistemaCompra.API.Controllers
             try
             {
                 var usuario = await UserService.RecuperarSenha(email);
+                usuario.Senha = "Senha@123";
 
                 if (usuario == null)
                 {
