@@ -1,4 +1,4 @@
-import { Login } from './../../../models/Login';
+import { Login } from '../../../models/Login';
 import { UserService } from 'src/app/services/user.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

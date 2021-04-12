@@ -1,4 +1,3 @@
-
 import { user } from './../models/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -13,7 +12,7 @@ import { Login } from './../models/Login';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  public baseURL = 'https://localhost:44358/User';
+  public baseURL = 'https://localhost:5001/User';
 
   // tslint:disable-next-line: typedef
  public RegisterUser(user:user) : Observable<user>{
@@ -31,7 +30,7 @@ export class UserService {
     return  this.http.post<user>(`${this.baseURL}/Login/`, login).pipe(take(1));
    }
 
-   
+
 
    public RecuperarSenha(email: string): Observable<user>{
     debugger
