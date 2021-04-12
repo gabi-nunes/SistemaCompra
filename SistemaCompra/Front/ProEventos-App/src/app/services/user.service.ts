@@ -2,16 +2,22 @@
 import { user } from './../models/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { Login } from './../models/Login';
 
 
 @Injectable(
   // {providedIn: 'root'}
   )
+
 export class UserService {
-  constructor(private http: HttpClient) {}
+  private currentUserSubject: BehaviorSubject<user>;
+  public currentUser: Observable<user>;
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<user>(JSON.parse(localStorage.getItem('currentUser') || '{}'));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
   public baseURL = 'https://localhost:44358/User';
 
@@ -28,18 +34,26 @@ export class UserService {
   public login(login: Login): Observable<user>{
     debugger
 
-    return  this.http.post<user>(`${this.baseURL}/Login/`, login).pipe(take(1));
+    return this.http.post<user>(`${this.baseURL}/Login/`, login)
+    .pipe(map(user => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        debugger
+        return user;
+    }));
+
    }
 
-   
+
 
    public RecuperarSenha(email: string): Observable<user>{
     debugger
      return this.http.post<user>(`${this.baseURL}/RecuperarSenha?${email}`,email).pipe(take(1));
    }
-   public AlterarSenha( id: number,email: string): Observable<user>  {
+
+   public AlterarSenha( id: number,senha: string): Observable<user>  {
     debugger
-     return this.http.put<user>(`${this.baseURL}/AlterarSenha?${id}&`,email);
+     return this.http.put<user>(`${this.baseURL}/AlterarSenha?${id}&`,senha);
    }
 
    getUserById(id: number): Observable<user>{
