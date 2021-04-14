@@ -2,17 +2,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaCompra.Persistence;
 
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(ProEventosContext))]
-    [Migration("20210404154342_initial")]
-    partial class initial
+    partial class ProEventosContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,7 +151,6 @@ namespace SistemaCompra.Persistence.Migrations
             modelBuilder.Entity("SistemaCompra.Domain.user", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Cargo")
