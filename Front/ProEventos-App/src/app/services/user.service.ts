@@ -4,7 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { Login } from './../models/Login';
+import { Login } from './../models/login';
+
 
 
 @Injectable(
@@ -46,14 +47,14 @@ export class UserService {
 
 
 
-   public RecuperarSenha(email: string): Observable<user>{
+   public RecuperarSenha(login: Login): Observable<user>{
     debugger
-     return this.http.post<user>(`${this.baseURL}/RecuperarSenha?${email}`,email).pipe(take(1));
+     return this.http.post<user>(`${this.baseURL}/RecuperarSenha/`,login).pipe(take(1));
    }
 
-   public AlterarSenha( id: number,senha: string): Observable<user>  {
+   public AlterarSenha( login: Login): Observable<user>  {
     debugger
-     return this.http.put<user>(`${this.baseURL}/AlterarSenha?${id}&`,senha);
+     return this.http.put<user>(`${this.baseURL}/AlterarSenha/`, login);
    }
 
    getUserById(id: number): Observable<user>{
@@ -68,7 +69,13 @@ export class UserService {
       .delete(`${this.baseURL}/${id}`)
       .pipe(take(1));
   }
+
+  getUserByEmail(email: string): Observable<user>{
+    debugger
+    return this.http.get<user>(`${this.baseURL}/email/${email}`);
+  }
 }
+
 
 
 

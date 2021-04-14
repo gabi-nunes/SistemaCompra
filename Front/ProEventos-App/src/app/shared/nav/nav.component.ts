@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { user } from 'src/app/models/user';
 
 @Component({
   selector: 'app-nav',
@@ -8,9 +9,12 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   isCollapsed = true;
+  user: user;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    const userJson = localStorage.getItem('currentUser') || '{}';
+    this.user = JSON.parse(userJson);
   }
 
   showMenu(): boolean{

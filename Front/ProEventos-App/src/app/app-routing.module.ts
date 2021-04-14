@@ -21,7 +21,6 @@ const routes: Routes = [
     children:[
       {path: 'login', component: LoginComponent},
       {path: 'cadastro', component: UserCadastroComponent},
-      {path: 'cadastro/:id', component: UserCadastroComponent},
       {path: 'lista', component: UserListaComponent},
       {path: 'recuperar', component: UserRecuperarSenhaComponent},
       {path: 'perfil', component: PerfilComponent}

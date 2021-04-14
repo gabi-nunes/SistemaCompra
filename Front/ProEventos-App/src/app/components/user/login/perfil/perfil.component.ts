@@ -8,6 +8,7 @@ import { user } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Login } from 'src/app/models/login';
 
 @Component({
   selector: 'app-perfil',
@@ -22,10 +23,12 @@ export class PerfilComponent implements OnInit {
   public userId = 0;
   form: FormGroup;
   public isvalid: boolean= false;
-  senha: boolean = true;
+  senha: string;
   alterarS: boolean = true;
   txtSenha: string;
   txtConfirmar: string;
+  login:Login;
+
 
   constructor(  private userService: UserService,
     private modalService: BsModalService,
@@ -95,11 +98,10 @@ Salvarsenha(){
 
     this.alterarS= false;
 
+    this.login= {id: this.user.id,email: this.user.email, senha: this.senha}
+    debugger;
 
-  this.user = {id: this.user.id , ... this.form.value}
-
-
-  this.userService.AlterarSenha(this.user.id, this.user.senha).subscribe(
+  this.userService.AlterarSenha(this.login).subscribe(
 
     () => this.toastr.success('Senha alterada com sucesso!', 'sucesso'),
 
@@ -110,6 +112,10 @@ Salvarsenha(){
 }
 alterarsenha(){
   this.alterarS= false;
+}
+
+Cancelar(){
+  this.alterarS= true;
 }
 
 

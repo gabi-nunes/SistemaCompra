@@ -1,4 +1,4 @@
-import { Login } from './../../../models/Login';
+import { Login } from './../../../models/login';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -34,14 +34,34 @@ export class UserRecuperarSenhaComponent implements OnInit {
 
   RecuperarSenha(){
 debugger
-    this.email = {... this.recuperarFrom.value}
-    this.userService.RecuperarSenha(this.email).subscribe(
+if (this.email  !== null) {
+  // this.spinner.show();
+   this.userService.getUserByEmail(this.email ).subscribe(
+     (usuario: user) => {
+       this.user= {...usuario}
+       this.recuperarFrom.patchValue(this.user);
+       this.log= {id: this.user.id,email: this.user.email,senha: this.user.senha}
+       debugger
+         this.userService.RecuperarSenha(this.log).subscribe(
 
-      () => this.toastr.success('Email enviado com sucesso!', 'sucesso'),
+           () => this.toastr.success('Email enviado com sucesso!', 'sucesso'),
 
-      () => this.spinner.hide()
-    );
-    this.router.navigate(['/user/login']);
-}
+           () => this.spinner.hide()
+         );
+         this.router.navigate(['/user/login']);
+     },
 
+     (error: any) => {
+       this.spinner.hide();
+       this.toastr.error('Erro ao tentar carregar Evento.', 'Erro!');
+       console.error(error);
+     },
+     () => this.spinner.hide(),
+   );
+ }
+
+
+
+
+  }
 }
