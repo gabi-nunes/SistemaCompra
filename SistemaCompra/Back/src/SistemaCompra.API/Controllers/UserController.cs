@@ -168,7 +168,7 @@ namespace SistemaCompra.API.Controllers
 
 
         [HttpPut("AlterarSenha")]
-        public async Task<IActionResult> PutAlterarSenha(int id, string senha)
+        public async Task<IActionResult> PutAlterarSenha(int id,string senha)
         {
             try
             {
