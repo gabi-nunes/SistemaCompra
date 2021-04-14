@@ -147,11 +147,11 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPost("RecuperarSenha")]
-        public async Task<IActionResult> RecuperarSenha([FromQuery]string email)
+        public async Task<IActionResult> RecuperarSenha([FromBody] Login login)
         {
             try
             {
-                var usuario = await UserService.RecuperarSenha(email);
+                var usuario = await UserService.RecuperarSenha(login.email);
                 usuario.Senha = "Senha@123";
 
                 if (usuario == null)
@@ -168,11 +168,11 @@ namespace SistemaCompra.API.Controllers
 
 
         [HttpPut("AlterarSenha")]
-        public async Task<IActionResult> PutAlterarSenha(int id,string senha)
+        public async Task<IActionResult> PutAlterarSenha([FromBody] Login login)
         {
             try
             {
-                var usuario = await UserService.AlterarSenha(id, senha);
+                var usuario = await UserService.AlterarSenha(login.id, login.senha);
 
                 if (usuario == null) return BadRequest("Erro ao alterar senha. Tente Novamente!");
                 return Ok(usuario);
@@ -180,6 +180,21 @@ namespace SistemaCompra.API.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar efetuar a alteração de senha. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpGet("email/{email}")]
+        public async Task<IActionResult> GetByemail(string email)
+        {
+            try
+            {
+                var usuarios = await UserService.GetAllUserbyemailAsync(email);
+                if (usuarios == null) return NotFound("Nenhum usuarios foi Encontrado com o Id informado.");
+                return Ok(usuarios);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o usuario pelo Id. Erro: {ex.Message}");
             }
         }
 

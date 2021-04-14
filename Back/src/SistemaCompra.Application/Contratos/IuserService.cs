@@ -10,7 +10,8 @@ namespace SistemaCompra.Application.Contratos
         Task<bool> DeleteUser(int userId);
 
         Task<user[]> GetAllUserAsync();
-       
+
+        Task<user> GetAllUserbyemailAsync(string email);
         Task<user[]> GetAllUserbyNameAsync(string nome);
 
         Task<user> GetuserbyIdAsync(int userId);
