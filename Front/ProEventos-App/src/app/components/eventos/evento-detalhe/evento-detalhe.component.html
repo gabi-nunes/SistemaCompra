@@ -32,7 +32,7 @@
         <label>Data e Hora</label>
         <input type="datetime" class="form-control"
         [ngClass]="cssValidation(f.dataEvento)" formControlName="dataEvento" placeholder="00/00/0000 - 00:00"
-        bsDatepicker [bsConfig]="bsConfig" value="{{evento.dataEvento | DateTimeFormatter}}">
+        bsDatepicker [bsConfig]="bsConfig" value="{{evento.dataEvento}}">
         <div *ngIf="f.dataEvento?.errors?.required" class="invalid-feedback">
           O campo Data e Hora é obrigatório
         </div>
@@ -87,7 +87,7 @@
       <button class="btn btn-outline-secondary mr-auto border" (click)="ResetForm()">
         Cancelar Alteração
       </button>
-      <button class="btn btn-success" [disabled]="!form.valid">
+      <button class="btn btn-success" [disabled]="!form.valid" (click)="SalvarEvento()">
         <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
         Salvar Evento
       </button>
