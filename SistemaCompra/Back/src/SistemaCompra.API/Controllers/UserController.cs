@@ -17,10 +17,10 @@ namespace SistemaCompra.API.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IuserService UserService;
-        public UserController (IuserService userService)
+        private readonly IUserService UserService;
+        public UserController (IUserService UserService)
         {
-            this.UserService = userService;
+            this.UserService = UserService;
         }
 
        [HttpGet]
@@ -43,7 +43,7 @@ namespace SistemaCompra.API.Controllers
         {
             try
             {
-            var usuarios = await UserService.GetuserbyIdAsync(Id);
+            var usuarios = await UserService.GetUserbyIdAsync(Id);
             if (usuarios == null ) return NotFound("Nenhum usuarios foi Encontrado com o Id informado.");
             return Ok(usuarios);
             }
@@ -69,7 +69,7 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPost("Registrar")]
-        public async Task<IActionResult> Post([FromBody] user model)
+        public async Task<IActionResult> Post([FromBody] User model)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPut("Atualiza/{Id}")]
-        public async Task<IActionResult> Put(int Id, user model)
+        public async Task<IActionResult> Put(int Id, User model)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace SistemaCompra.API.Controllers
         {
             try
             {
-                var usuario = await UserService.GetuserbyIdAsync(id);
+                var usuario = await UserService.GetUserbyIdAsync(id);
                 if (usuario == null) return NoContent();
 
                 return await UserService.DeleteUser(id) ? 

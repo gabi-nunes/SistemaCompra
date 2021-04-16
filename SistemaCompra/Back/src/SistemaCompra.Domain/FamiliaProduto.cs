@@ -7,6 +7,7 @@ namespace SistemaCompra.Domain
         public int Id { get; set; }
         public string Descricao { get; set; }
         public IEnumerable<Produto> Produtos { get; set; }
+        public IEnumerable<Fornecedor> Fornecedores { get; set; }
 
     }
 }

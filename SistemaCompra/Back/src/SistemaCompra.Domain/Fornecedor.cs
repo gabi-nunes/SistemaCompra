@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace SistemaCompra.Domain
 {
     public class Fornecedor
@@ -10,7 +12,7 @@ namespace SistemaCompra.Domain
         public int Endereco { get; set; }
         public string Bairro { get; set; }
         public int Numero { get; set; }
-        public string? Complemento { get; set; }
+        public string Complemento { get; set; }
         public string Estado { get; set; }
         public string CEP { get; set; }
         public int InscricaoMunicipal { get; set; }
@@ -19,5 +21,9 @@ namespace SistemaCompra.Domain
         public string Telefone { get; set; }
         public string Celular { get; set; }
         public int PontuacaoRanking { get; set; }
+        public int FamiliaProdId { get; set; }
+         public FamiliaProduto FamiliaProduto { get; set; }
+        public IEnumerable<Cotacao> Cotacoes { get; set; }
+
     }
 }

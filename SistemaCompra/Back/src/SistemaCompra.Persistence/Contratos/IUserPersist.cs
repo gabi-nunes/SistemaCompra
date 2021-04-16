@@ -5,13 +5,13 @@ namespace SistemaCompra.Persistence.Contratos
 {
     public interface IUserPersist
     {
-        Task<user[]> GetAllUserAsync(); 
-        Task<user> GetAllUserByIdAsync(int id); 
-        Task<user[]> GetUserByNameAsync(string Name);
-        Task<user> GetLogin(string email, string senha);
+        Task<User[]> GetAllUserAsync(); 
+        Task<User> GetAllUserByIdAsync(int id); 
+        Task<User[]> GetUserByNameAsync(string Name);
+        Task<User> GetLogin(string email, string senha);
 
-        Task<user> GetUserByEmailAsync(string Email);
-        Task<user> recuperarSenha(string email);
+        Task<User> GetUserByEmailAsync(string Email);
+        Task<User> recuperarSenha(string email);
         
     }
 }

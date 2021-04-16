@@ -3,24 +3,24 @@ using SistemaCompra.Domain;
 
 namespace SistemaCompra.Application.Contratos
 {
-    public interface IuserService
+    public interface IUserService
     {
-        Task<user> AddUser(user model);
-       Task<user> UpdateUser(int userId, user model);
-        Task<bool> DeleteUser(int userId);
+        Task<User> AddUser(User model);
+       Task<User> UpdateUser(int UserId, User model);
+        Task<bool> DeleteUser(int UserId);
 
-        Task<user[]> GetAllUserAsync();
+        Task<User[]> GetAllUserAsync();
        
-        Task<user[]> GetAllUserbyNameAsync(string nome);
+        Task<User[]> GetAllUserbyNameAsync(string nome);
 
-        Task<user> GetuserbyIdAsync(int userId);
+        Task<User> GetUserbyIdAsync(int UserId);
 
-      Task<user> Login(Login login);
+      Task<User> Login(Login login);
 
-        Task<user> RecuperarSenha(string email);
+        Task<User> RecuperarSenha(string email);
 
         bool EnviarEmail(string email);
 
-        Task<user> AlterarSenha(int id, string senha);
+        Task<User> AlterarSenha(int id, string senha);
     }
 }
