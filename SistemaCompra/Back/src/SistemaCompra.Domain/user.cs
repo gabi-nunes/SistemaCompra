@@ -3,21 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaCompra.Domain
 {
-    public class user
+    public class User
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Key] public int Id { get; set; }
-    
+        public int Id { get; set; }
         public string Name { get; set; }
         public string email { get; set; }
         public string Setor { get; set; }
         public string Senha { get; set; }
         public string Cargo { get; set; }
-        
-        
-        
-        
-        
-        
     }
 }

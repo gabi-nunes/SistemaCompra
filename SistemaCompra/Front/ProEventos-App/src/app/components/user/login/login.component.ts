@@ -1,4 +1,3 @@
-import { loginService } from './login.service';
 import { Login } from './../../../models/Login';
 import { UserService } from 'src/app/services/user.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';

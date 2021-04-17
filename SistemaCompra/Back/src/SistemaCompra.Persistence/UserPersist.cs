@@ -10,25 +10,25 @@ namespace SistemaCompra.Persistence
     public class UserPersist : IUserPersist
     {
         
-        private readonly ProEventosContext Context;
+        private readonly GoodPlaceContext Context;
 
-        public UserPersist(ProEventosContext context)
+        public UserPersist(GoodPlaceContext  context)
         {
             this.Context = context;
             Context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public async Task<user[]> GetAllUserAsync()
+        public async Task<User[]> GetAllUserAsync()
         {
-            IQueryable<user> query = Context.Users;
+            IQueryable<User> query = Context.Users;
         
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
-        public async Task<user> GetAllUserByIdAsync(int id)
+        public async Task<User> GetAllUserByIdAsync(int id)
         {
            
-            IQueryable<user> query =  Context.Users;
+            IQueryable<User> query =  Context.Users;
                 
             query = query.AsNoTracking().OrderBy(e => e.Id)
                          .Where(e => e.Id == id);
@@ -36,36 +36,37 @@ namespace SistemaCompra.Persistence
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<user[]> GetUserByNameAsync(string Name)
+        public async Task<User[]> GetUserByNameAsync(string Name)
        {
-            IQueryable<user> query = Context.Users;
+            IQueryable<User> query = Context.Users;
 
             query = query.Where(e => e.Name.ToLower().Contains(Name.ToLower()));
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
-        public async Task<user> GetUserByEmailAsync(string Email)
+        public async Task<User> GetUserByEmailAsync(string Email)
         {
-            IQueryable<user> query = Context.Users;
+            IQueryable<User> query = Context.Users;
 
             query = query.Where(e => e.email.ToLower().Contains(Email.ToLower()));
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
 
-        public async Task<user> GetLogin(string email, string senha)
+        public async Task<User> GetLogin(string email, string senha)
        {
-            IQueryable<user> query = Context.Users;
+            IQueryable<User> query = Context.Users;
             //atreção aqui
             query = query.Where(e => e.email.ToLower()==email.ToLower() && e.Senha==senha);
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
 
-           public async Task<user> recuperarSenha(string email)
+           public async Task<User> recuperarSenha(string email)
        {
-            IQueryable<user> query = Context.Users;
+            IQueryable<User> query = Context.Users;
             //atreção aqui
             query = query.Where(e => e.email.ToLower().Contains(email.ToLower()));
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
+
     }
 }

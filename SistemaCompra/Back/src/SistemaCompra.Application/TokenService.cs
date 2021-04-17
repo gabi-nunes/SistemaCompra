@@ -10,7 +10,7 @@ namespace SistemaCompra.Application
 {
     public class TokenService
     {
-        public static string GenerateToken(user user)
+        public static string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
