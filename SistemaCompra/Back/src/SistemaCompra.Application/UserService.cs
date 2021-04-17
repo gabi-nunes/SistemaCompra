@@ -9,29 +9,29 @@ using SistemaCompra.Persistence.Contratos;
 
 namespace SistemaCompra.Application
 {
-    public class UserService : IuserService
+    public class UserService : IUserService
     {
         private readonly IGeralPersist FGeralPersist;
-        private readonly IUserPersist _userPresist;
+        private readonly IUserPersist _UserPresist;
 
-        private user userUsuario;
+        private User UserUsuario;
         public UserService(IUserPersist UserPresist, IGeralPersist geral)
         {
-            _userPresist = UserPresist;
+            _UserPresist = UserPresist;
             FGeralPersist = geral;
 
         }
-          public async Task<user> AddUser(user model)
+          public async Task<User> AddUser(User model)
     {
         try
         {
-            FGeralPersist.Add<user>(model);
+            FGeralPersist.Add<User>(model);
 
             if (await FGeralPersist.SaveChangesAsync())
             {
-                var userRetorno = await _userPresist.GetAllUserByIdAsync(model.Id);
+                var UserRetorno = await _UserPresist.GetAllUserByIdAsync(model.Id);
 
-                return userRetorno;
+                return UserRetorno;
             }
             return null;
         }
@@ -41,19 +41,19 @@ namespace SistemaCompra.Application
         }
     }
 
-        public async Task<user> UpdateUser(int userId, user model)
+        public async Task<User> UpdateUser(int UserId, User model)
         {
             try
             {
-                var LEuser = await _userPresist.GetAllUserByIdAsync(userId);
-                if (LEuser == null) return null;
+                var LEUser = await _UserPresist.GetAllUserByIdAsync(UserId);
+                if (LEUser == null) return null;
                  //atenção aqui
-                model.Id = LEuser.Id;
+                model.Id = LEUser.Id;
 
-                FGeralPersist.Update<user>(model);
+                FGeralPersist.Update<User>(model);
                 if (await FGeralPersist.SaveChangesAsync())        
                 {
-                    return await _userPresist.GetAllUserByIdAsync(model.Id);
+                    return await _UserPresist.GetAllUserByIdAsync(model.Id);
                 }
                 return null;
             }
@@ -62,14 +62,14 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
-         public async Task<bool> DeleteUser(int userId)
+         public async Task<bool> DeleteUser(int UserId)
     {
         try
         {
-            var usuario = await _userPresist.GetAllUserByIdAsync(userId);
+            var usuario = await _UserPresist.GetAllUserByIdAsync(UserId);
             if (usuario == null) throw new Exception("Usuario para delete não encontrado.");
 
-            FGeralPersist.Delete<user>(usuario);
+            FGeralPersist.Delete<User>(usuario);
             return await FGeralPersist.SaveChangesAsync();
         }
         catch (Exception ex)
@@ -78,13 +78,13 @@ namespace SistemaCompra.Application
         }
     }
 
-        public async Task<user[]> GetAllUserAsync()
+        public async Task<User[]> GetAllUserAsync()
         {
             try
             {
-                var user = await _userPresist.GetAllUserAsync();
-                if (user == null) return null;
-                return user; 
+                var usuario = await _UserPresist.GetAllUserAsync();
+                if (usuario == null) return null;
+                return usuario; 
             }
             catch (Exception ex)
             {
@@ -92,11 +92,11 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<user[]> GetAllUserbyNameAsync(string nome)
+        public async Task<User[]> GetAllUserbyNameAsync(string nome)
         {
             try
             {
-                var usuarios = await _userPresist.GetUserByNameAsync(nome);
+                var usuarios = await _UserPresist.GetUserByNameAsync(nome);
                 if (usuarios == null) return null;
                 return usuarios; 
             }
@@ -106,11 +106,11 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<user> GetuserbyIdAsync(int userId)
+        public async Task<User> GetUserbyIdAsync(int UserId)
         {
             try
             {
-                var usuarios = await _userPresist.GetAllUserByIdAsync(userId);
+                var usuarios = await _UserPresist.GetAllUserByIdAsync(UserId);
                 if (usuarios == null) return null;
                 return usuarios; 
             }
@@ -120,16 +120,16 @@ namespace SistemaCompra.Application
             }
         }
 
-         public async Task<user> Login(Login login)
+         public async Task<User> Login(Login login)
         {
             if(login==null || login.email==null || login.senha==null ){
                 return null;
             }
             try
             {
-                var userlogin = await _userPresist.GetLogin(login.email, login.senha);
-                if (userlogin == null) return null;
-                return userlogin; 
+                var Userlogin = await _UserPresist.GetLogin(login.email, login.senha);
+                if (Userlogin == null) return null;
+                return Userlogin; 
             }
             catch (Exception ex)
             {
@@ -137,21 +137,20 @@ namespace SistemaCompra.Application
             }
         }
 
-
-        public async Task<user> RecuperarSenha(string email)
+         public async Task<User> RecuperarSenha(string email)
         {
             try
             {
-                var LEuser = await _userPresist.GetUserByEmailAsync(email);
+                var LEUser = await _UserPresist.GetUserByEmailAsync(email);
                 var emails = EnviarEmail(email);
-                if (LEuser == null && emails == false) return null;
-                LEuser.Senha = "Senha@123";
+                if (LEUser == null && emails == false) return null;
+                LEUser.Senha = "Senha@123";
     
 
-                FGeralPersist.Update<user>(LEuser);
+                FGeralPersist.Update<User>(LEUser);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    return await _userPresist.GetAllUserByIdAsync(LEuser.Id);
+                    return await _UserPresist.GetAllUserByIdAsync(LEUser.Id);
                 }
 
                 return null;
@@ -205,19 +204,19 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<user> AlterarSenha(int id, string senha)
+        public async Task<User> AlterarSenha(int id, string senha)
         {
             try
             {
-                var LEuser = await _userPresist.GetAllUserByIdAsync(id);
-                if (LEuser == null) return null;
+                var LEUser = await _UserPresist.GetAllUserByIdAsync(id);
+                if (LEUser == null) return null;
                 //atenção aqui
-                LEuser.Senha = senha;
+                LEUser.Senha = senha;
 
-                FGeralPersist.Update<user>(LEuser);
+                FGeralPersist.Update<User>(LEUser);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    return await _userPresist.GetAllUserByIdAsync(LEuser.Id);
+                    return await _UserPresist.GetAllUserByIdAsync(LEUser.Id);
                 }
                 return null;
 

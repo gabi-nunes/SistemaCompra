@@ -1,4 +1,3 @@
-
 import { user } from './../models/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -19,7 +18,7 @@ export class UserService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public baseURL = 'https://localhost:44358/User';
+  public baseURL = 'https://localhost:5001/User';
 
   // tslint:disable-next-line: typedef
  public RegisterUser(user:user) : Observable<user>{
