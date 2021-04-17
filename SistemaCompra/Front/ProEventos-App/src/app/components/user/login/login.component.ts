@@ -26,9 +26,9 @@ export class LoginComponent implements OnInit {
 
   userperfil = new EventEmitter<user>()
 
-constructor(private userService: UserService, private fb: FormBuilder,private router: Router,  private toastr: ToastrService,private spinner: NgxSpinnerService, private logService: loginService) 
+constructor(private userService: UserService, private fb: FormBuilder,private router: Router,  private toastr: ToastrService,private spinner: NgxSpinnerService)
 {
-  
+
 }
 
   ngOnInit(): void {
@@ -62,7 +62,7 @@ debugger
           this.logService.passandoUser.subscribe(
             this.logService.addUser(this.perfil)
             );
-          
+
           debugger
           this.userperfil.emit(this.perfil);
             this.toastr.success('Login aceito', 'OK');
