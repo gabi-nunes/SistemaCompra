@@ -28,7 +28,7 @@ namespace SistemaCompra.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<ProEventosContext>(
+            services.AddDbContext<GoodPlaceContext>(
                 context => context.UseMySql(Configuration.GetConnectionString("Default"))
             );
             services.AddControllers()
@@ -54,9 +54,8 @@ namespace SistemaCompra.API
                         ValidateAudience = false
                     };
                 });
-            services.AddScoped<IEventoService, EventoService>();
+           
             services.AddScoped<IGeralPersist, GeralPersist>();
-            services.AddScoped<IEventoPersist, EventoPersist>();
              services.AddScoped<IUserPersist, UserPersist>();
               services.AddScoped<IuserService, UserService>();
 

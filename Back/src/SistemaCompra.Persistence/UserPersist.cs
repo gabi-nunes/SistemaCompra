@@ -10,9 +10,9 @@ namespace SistemaCompra.Persistence
     public class UserPersist : IUserPersist
     {
         
-        private readonly ProEventosContext Context;
+        private readonly GoodPlaceContext Context;
 
-        public UserPersist(ProEventosContext context)
+        public UserPersist(GoodPlaceContext context)
         {
             this.Context = context;
             Context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
