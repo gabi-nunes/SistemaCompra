@@ -3,8 +3,10 @@
     "",
     "\\Back",
     "\\Back\\src",
+    "\\Back\\src\\SistemaCompra.API",
+    "\\Back\\src\\SistemaCompra.API\\Controllers",
     "\\Back\\src\\SistemaCompra.Domain"
   ],
-  "SelectedNode": "\\Back\\src\\SistemaCompra.Domain\\Cotacao.cs",
+  "SelectedNode": "\\Back\\src\\SistemaCompra.Domain\\Fornecedor.cs",
   "PreviewInSolutionExplorer": false
 }

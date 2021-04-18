@@ -9,7 +9,7 @@ using SistemaCompra.Persistence;
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(GoodPlaceContext))]
-    [Migration("20210417023053_init")]
+    [Migration("20210417181941_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,6 +131,9 @@ namespace SistemaCompra.Persistence.Migrations
 
                     b.Property<int>("PontuacaoRanking")
                         .HasColumnType("int");
+
+                    b.Property<string>("Senha")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Telefone")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

@@ -78,6 +78,7 @@ namespace SistemaCompra.Persistence.Migrations
                     Celular = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     PontuacaoRanking = table.Column<int>(type: "int", nullable: false),
                     FamiliaProdId = table.Column<int>(type: "int", nullable: false),
+                    Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     FamiliaProdutoId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
