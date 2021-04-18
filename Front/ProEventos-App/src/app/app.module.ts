@@ -36,6 +36,10 @@ import { UserRecuperarSenhaComponent } from './components/user/user-RecuperarSen
 import { UserDetalheComponent } from './components/user/User-detalhe/User-detalhe.component';
 import { PerfilComponent } from './components/user/login/perfil/perfil.component';
 
+import { FornecedorListaComponent } from './components/fornecedor/fornecedor-lista/fornecedor-lista.component';
+import { FornecedorDetalheComponent } from './components/fornecedor/fornecedor-detalhe/fornecedor-detalhe.component';
+import { FornecedorComponent } from './components/fornecedor/fornecedor.component';
+
 
 
 @NgModule({
@@ -57,9 +61,9 @@ import { PerfilComponent } from './components/user/login/perfil/perfil.component
     UserRecuperarSenhaComponent,
     UserDetalheComponent,
     PerfilComponent,
-
-
-
+    FornecedorComponent,
+    FornecedorListaComponent,
+    FornecedorDetalheComponent
    ],
   imports: [
     CommonModule,
