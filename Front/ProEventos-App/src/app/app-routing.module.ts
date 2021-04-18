@@ -16,7 +16,12 @@ import { UserListaComponent } from './components/user/UserLista/UserLista.compon
 import { UserRecuperarSenhaComponent } from './components/user/user-RecuperarSenha/user-RecuperarSenha.component';
 import { PerfilComponent } from './components/user/login/perfil/perfil.component';
 
+import { FornecedorComponent } from './components/fornecedor/fornecedor.component';
+import { FornecedorDetalheComponent } from './components/fornecedor/fornecedor-detalhe/fornecedor-detalhe.component';
+import { FornecedorListaComponent } from './components/fornecedor/fornecedor-lista/fornecedor-lista.component';
+
 const routes: Routes = [
+  {path: 'user', redirectTo: 'user/lista'},
   {path: 'user', component: UserComponent,
     children:[
       {path: 'login', component: LoginComponent},
@@ -26,6 +31,16 @@ const routes: Routes = [
       {path: 'perfil', component: PerfilComponent}
     ]
   },
+
+  {path: 'fornecedor', redirectTo: 'fornecedor/lista'},
+  {path: 'fornecedor', component: FornecedorComponent,
+    children: [
+      {path: 'detalhe', component: FornecedorDetalheComponent},
+      {path: 'detalhe/:id', component: FornecedorDetalheComponent},
+      {path: 'lista', component: FornecedorListaComponent}
+    ]
+  },
+
   {path: 'eventos', redirectTo: 'eventos/lista'},
   {path: 'eventos', component: EventosComponent,
     children: [
@@ -40,6 +55,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: '**', redirectTo: 'dashboard', pathMatch: 'full'}
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
