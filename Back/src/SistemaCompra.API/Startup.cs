@@ -36,7 +36,8 @@ namespace SistemaCompra.API
                         x => x.SerializerSettings.ReferenceLoopHandling = 
                             Newtonsoft.Json.ReferenceLoopHandling.Ignore
                     );
-                        var key = Encoding.ASCII.GetBytes(Settings.Secret);
+                 
+            var key = Encoding.ASCII.GetBytes(Settings.Secret);
                 services.AddAuthentication(x =>
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -58,8 +59,15 @@ namespace SistemaCompra.API
             services.AddScoped<IGeralPersist, GeralPersist>();
              services.AddScoped<IUserPersist, UserPersist>();
               services.AddScoped<IuserService, UserService>();
+            services.AddScoped<IFornecedorPersist, FornecedorPersist>();
+            services.AddScoped<IFornecedorService, FornecedorService>();
+            services.AddScoped<IProdutoPersist, ProdutoPersist>();
+            services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IProdutoService, ProdutoService>();
 
-             services.AddCors();
+            services.AddTransient<IProdutoPersist, ProdutoPersist>();
+
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SistemaCompra.API", Version = "v1" });

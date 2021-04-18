@@ -130,6 +130,9 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<int>("PontuacaoRanking")
                         .HasColumnType("int");
 
+                    b.Property<string>("Senha")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<string>("Telefone")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 

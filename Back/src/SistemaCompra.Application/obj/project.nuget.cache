@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YCdoWSrFAsRvRu3NpLlGV8sYe053UVI5SI5IWJWwR+hVQmJ+EBEdnfh38dVYBnAuiST05WSJKeTPEdfTUJ18Ng==",
+  "dgSpecHash": "FzU5K7CeVEkzP7fYsaZmKc9Od9iJKhW2ZHehcPli8zqY06irfop+tfzBQIPu40cQC1RKDK/Hnc3vcF6DYSpT4w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
+  "projectFilePath": "C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\gabie\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.4\\microsoft.entityframeworkcore.5.0.4.nupkg.sha512",
