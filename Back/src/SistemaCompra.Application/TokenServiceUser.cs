@@ -8,7 +8,7 @@ using SistemaCompra.Domain;
 
 namespace SistemaCompra.Application
 {
-    public class TokenService
+    public class TokenServiceUser
     {
         public static string GenerateToken(user user)
         {

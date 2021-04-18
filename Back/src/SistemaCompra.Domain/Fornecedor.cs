@@ -7,9 +7,8 @@ namespace SistemaCompra.Domain
         public int Id { get; set; }
         public string CNPJ { get; set; }
         public string Nome { get; set; }
-        public int IdFamiliaProduto { get; set; }
         public string Cidade { get; set; }
-        public int Endereco { get; set; }
+        public string Endereco { get; set; }
         public string Bairro { get; set; }
         public int Numero { get; set; }
         public string Complemento { get; set; }
@@ -21,7 +20,8 @@ namespace SistemaCompra.Domain
         public string Telefone { get; set; }
         public string Celular { get; set; }
         public int PontuacaoRanking { get; set; }
-        public int FamiliaProdId { get; set; }
+        public int FamiliaProdutoId { get; set; }
+        public string Senha { get; set; }
         public FamiliaProduto FamiliaProduto { get; set; }
         public IEnumerable<Cotacao> Cotacoes { get; set; }
 
