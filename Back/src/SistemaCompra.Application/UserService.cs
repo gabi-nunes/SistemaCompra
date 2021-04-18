@@ -13,8 +13,6 @@ namespace SistemaCompra.Application
     {
         private readonly IGeralPersist FGeralPersist;
         private readonly IUserPersist _userPresist;
-
-        private user userUsuario;
         public UserService(IUserPersist UserPresist, IGeralPersist geral)
         {
             _userPresist = UserPresist;
@@ -168,10 +166,6 @@ namespace SistemaCompra.Application
                 }
 
                 return null;
-
-
-
-
             }
             catch (Exception ex)
             {

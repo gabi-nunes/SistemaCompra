@@ -8,8 +8,8 @@ namespace SistemaCompra.Persistence
 {
     public class GeralPersist : IGeralPersist
     {
-        private readonly ProEventosContext Context;
-        public GeralPersist(ProEventosContext context)
+        private readonly GoodPlaceContext Context;
+        public GeralPersist(GoodPlaceContext context)
         {
             Context = context;
         }

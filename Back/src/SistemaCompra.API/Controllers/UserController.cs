@@ -134,7 +134,7 @@ namespace SistemaCompra.API.Controllers
                     return NotFound(new { message = "Usuário ou senha inválidos" });
                 }
                 // Gera o Token
-                var token = TokenService.GenerateToken(usuario);
+                var token = TokenServiceUser.GenerateToken(usuario);
 
                 Response.Headers.Add("token", token);
                 return Ok(usuario);
