@@ -1,9 +1,12 @@
 
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EventosComponent } from './components/eventos/eventos.component';
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
+
+import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
+// import { SolicitacaoDetalheComponent } from './components/solicitacoes/solicitacao-detalhe.component';
 
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
 import { ContatosComponent } from './components/contatos/contatos.component';
@@ -15,6 +18,7 @@ import { UserCadastroComponent } from './components/user/user-cadastro/user-cada
 import { UserListaComponent } from './components/user/UserLista/UserLista.component';
 import { UserRecuperarSenhaComponent } from './components/user/user-RecuperarSenha/user-RecuperarSenha.component';
 import { PerfilComponent } from './components/user/login/perfil/perfil.component';
+import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
 
 const routes: Routes = [
   {path: 'user', component: UserComponent,
@@ -34,12 +38,22 @@ const routes: Routes = [
       {path: 'lista', component: EventoListaComponent}
     ]
   },
+  {
+    path: 'solicitações', component: SolicitacoesComponent,
+    children: [
+      {path: 'lista', component: SolicitacaoListaComponent}
+    ]
+  },
   {path: 'palestrantes', component: PalestrantesComponent},
   {path: 'contatos', component: ContatosComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: '**', redirectTo: 'dashboard', pathMatch: 'full'}
-];
+    ]
+
+
+
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

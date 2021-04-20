@@ -35,6 +35,9 @@ import { UserListaComponent } from './components/user/UserLista/UserLista.compon
 import { UserRecuperarSenhaComponent } from './components/user/user-RecuperarSenha/user-RecuperarSenha.component';
 import { UserDetalheComponent } from './components/user/User-detalhe/User-detalhe.component';
 import { PerfilComponent } from './components/user/login/perfil/perfil.component';
+import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
+import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
+import { SolicitacaoService } from './services/solicitacao.service';
 
 
 
@@ -57,6 +60,8 @@ import { PerfilComponent } from './components/user/login/perfil/perfil.component
     UserRecuperarSenhaComponent,
     UserDetalheComponent,
     PerfilComponent,
+    SolicitacoesComponent,
+    SolicitacaoListaComponent
 
 
 
@@ -80,7 +85,7 @@ import { PerfilComponent } from './components/user/login/perfil/perfil.component
     }),
     NgxSpinnerModule
   ],
-  providers: [EventoService, UserService],
+  providers: [EventoService, SolicitacaoService, UserService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
