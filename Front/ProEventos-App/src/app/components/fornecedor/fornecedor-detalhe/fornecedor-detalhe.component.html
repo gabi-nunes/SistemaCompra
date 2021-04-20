@@ -25,16 +25,19 @@
         </div>
         <div class="form-group col-md-2">
 					<label>Família de Produtos</label>
-					<select class="form-control"  [ngClass]="{'is-invalid': form.get('familiaProdId')?.errors && form.get('familiaProdId')?.touched}"
-          formControlName="familiaProdId">
+					<select class="form-control"  [ngClass]="{'is-invalid': form.get('familiaProdutoId')?.errors && form.get('familiaProdutoId')?.touched}" [(ngModel)]="familiaId"
+          formControlName="familiaProdutoId" >
 						<option value=""></option>
-						<option value="Senhorita">Higiene(a)</option>
-						<option value="Senhorita">Laticínios</option>
-						<option value="Senhorita">Papelaria</option>
-						<option value="Senhorita">Açougue</option>
-						<option value="Senhorita">Panificação</option>
-						<option value="Senhorita">Frios</option>
-						<option value="Senhorita">Bebidas</option>
+            <!-- <option *ngFor="let famProd of familiaProdutos" value="{{famProd.Id}}">
+              {{famProd.Descricao}}
+            </option> -->
+						<option value="0">Higiene</option>
+						<option value="1">Laticínios</option>
+						<option value="2">Papelaria</option>
+						<option value="3">Açougue</option>
+						<option value="4">Panificação</option>
+						<option value="5">Frios</option>
+						<option value="6">Bebidas</option>
 					</select>
 				</div>
       </div>
@@ -154,7 +157,7 @@
         </div>
         <div class="form-group col-md-2">
             <label>Pontuação</label>
-            <input type="text" class="form-control" readonly formControlName="pontuacaoRanking" placeholder="89">
+            <input type="text" class="form-control" formControlName="pontuacaoRanking" placeholder="89">
         </div>
       </div>
 

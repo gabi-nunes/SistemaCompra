@@ -1,3 +1,5 @@
+import { FamiliaProduto } from "./FamiliaProduto";
+
 export class Fornecedor {
   id: number;
   cnpj: string;
@@ -15,5 +17,7 @@ export class Fornecedor {
   telefone: string;
   celular: string;
   pontuacaoRanking: number;
-  familiaProdId: number;
+  familiaProdutoId: number;
+  familiaProduto: FamiliaProduto;
+
 }

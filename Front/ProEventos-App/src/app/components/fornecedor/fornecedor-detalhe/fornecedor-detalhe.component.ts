@@ -4,7 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { FamiliaProduto } from 'src/app/models/FamiliaProduto';
 import { Fornecedor } from 'src/app/models/Fornecedor';
+import { FamiliaProdutoService } from 'src/app/services/familiaProduto.service';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 
 @Component({
@@ -19,6 +21,7 @@ export class FornecedorDetalheComponent implements OnInit {
 constructor(private spinner: NgxSpinnerService,
             private toastr: ToastrService,
             private fornecedorService: FornecedorService,
+            private familiaProdService: FamiliaProdutoService,
             private actRouter: ActivatedRoute,
             private modalService: BsModalService,
             private router: Router,
@@ -28,17 +31,20 @@ constructor(private spinner: NgxSpinnerService,
   fornecedor = {} as Fornecedor;
   fornecedorId = {} as any;
   modalRef = {} as BsModalRef;
+  familiaProdutos = [{}] as FamiliaProduto[];
+  familiaId: number;
 
   ngOnInit(): void{
     this.validation();
     this.CarregarFornecedor();
+    // this.CarregarFamiliaProdutos();
   }
 
   public validation(): void{
     this.form = new FormGroup({
       nome: new FormControl('', Validators.required),
       cnpj: new FormControl('', Validators.required),
-      familiaProdId: new FormControl('', Validators.required),
+      familiaProdutoId: new FormControl('', Validators.required),
       cep: new FormControl('', Validators.required),
       estado: new FormControl('', Validators.required),
       cidade: new FormControl('', Validators.required),
@@ -57,6 +63,29 @@ constructor(private spinner: NgxSpinnerService,
     });
   }
 
+  public CarregarFamiliaProdutos(): void{
+    this.familiaProdService.getFamiliaProdutos().subscribe(
+      (familias: FamiliaProduto[]) => {
+        this.familiaProdutos = familias;
+      },
+      (error: any) => {
+        this.spinner.hide();
+        this.toastr.error('Erro ao tentar carregar as Famílias de Produtos', 'Erro');
+        console.error(error);
+      },
+      () => {
+        this.spinner.hide();
+      }
+    );
+  }
+
+  public setFamiliaProduto(famProdId: number): FamiliaProduto{
+    const famProds = this.familiaProdutos.filter(
+      (fp: FamiliaProduto) => fp.Id === famProdId
+      );
+    return famProds[0];
+  }
+
   public CarregarFornecedor(): void{
     this.fornecedorId = this.actRouter.snapshot.paramMap.get('id');
 
@@ -69,7 +98,7 @@ constructor(private spinner: NgxSpinnerService,
         },
         (error: any) => {
           this.spinner.hide();
-          this.toastr.error('Erro ao tentar carregar o evento', 'Erro');
+          this.toastr.error('Erro ao tentar carregar o Fornecedor', 'Erro');
           console.error(error);
         },
         () => {
@@ -82,7 +111,10 @@ constructor(private spinner: NgxSpinnerService,
   public SalvarFornecedor(): void{
     this.spinner.show();
     if (this.form.valid){
+      debugger;
+      // this.fornecedor.familiaProduto = this.setFamiliaProduto(this.familiaId);
       if (this.fornecedorId === null){
+
         this.fornecedor = {...this.form.value};
         this.fornecedorService.postFornecedor(this.fornecedor).subscribe(
           () => {this.toastr.success('Fornecedor salvo com Sucesso', 'Fornecedor Salvo'); },

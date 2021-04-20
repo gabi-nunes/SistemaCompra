@@ -47,8 +47,8 @@ export class FornecedorListaComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    // this.spinner.show();
-    // this.CarregarFornecedores();
+    this.spinner.show();
+    this.CarregarFornecedores();
   }
 
   public AlteraVisibilidadeImg(): void{

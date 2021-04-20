@@ -8,25 +8,25 @@ import { Fornecedor } from '../models/Fornecedor';
 })
 export class FornecedorService {
 
-constructor(private http: HttpClient) {
-}
-public baseURL = 'https://localhost:44358/Fornecedores';
+  constructor(private http: HttpClient) {
+  }
+  public baseURL = 'https://localhost:5001/Fornecedor';
 
-getFornecedores(): Observable<Fornecedor[]>{
-  return this.http.get<Fornecedor[]>(this.baseURL);
-}
-getFornecedorById(id: number): Observable<Fornecedor>{
-  return this.http.get<Fornecedor>(`${this.baseURL}/${id}`);
-}
+  getFornecedores(): Observable<Fornecedor[]>{
+    return this.http.get<Fornecedor[]>(this.baseURL);
+  }
+  getFornecedorById(id: number): Observable<Fornecedor>{
+    return this.http.get<Fornecedor>(`${this.baseURL}/${id}`);
+  }
 
-postFornecedor(fornecedor: Fornecedor): Observable<Fornecedor>{
-  return this.http.post<Fornecedor>(`${this.baseURL}/`, fornecedor);
-}
-putFornecedor(id: number, fornecedor: Fornecedor): Observable<Fornecedor>{
-  return this.http.put<Fornecedor>(`${this.baseURL}/${id}`, fornecedor);
-}
-deleteFornecedor(id: number): Observable<any>{
-  return this.http.delete(`${this.baseURL}/${id}`);
-}
+  postFornecedor(fornecedor: Fornecedor): Observable<Fornecedor>{
+    return this.http.post<Fornecedor>(`${this.baseURL}/Registrar`, fornecedor);
+  }
+  putFornecedor(id: number, fornecedor: Fornecedor): Observable<Fornecedor>{
+    return this.http.put<Fornecedor>(`${this.baseURL}/Atualiza/${id}`, fornecedor);
+  }
+  deleteFornecedor(id: number): Observable<any>{
+    return this.http.delete(`${this.baseURL}/${id}`);
+  }
 
 }
