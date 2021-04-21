@@ -14,7 +14,6 @@ import { PalestrantesComponent } from './components/palestrantes/palestrantes.co
 import { NavComponent } from './shared/nav/nav.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 import { ContatosComponent } from './components/contatos/contatos.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -35,6 +34,13 @@ import { UserListaComponent } from './components/user/UserLista/UserLista.compon
 import { UserRecuperarSenhaComponent } from './components/user/user-RecuperarSenha/user-RecuperarSenha.component';
 import { UserDetalheComponent } from './components/user/User-detalhe/User-detalhe.component';
 import { PerfilComponent } from './components/user/login/perfil/perfil.component';
+
+import { FornecedorListaComponent } from './components/fornecedor/fornecedor-lista/fornecedor-lista.component';
+import { FornecedorDetalheComponent } from './components/fornecedor/fornecedor-detalhe/fornecedor-detalhe.component';
+import { FornecedorComponent } from './components/fornecedor/fornecedor.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
+import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
 
 
 
@@ -57,9 +63,11 @@ import { PerfilComponent } from './components/user/login/perfil/perfil.component
     UserRecuperarSenhaComponent,
     UserDetalheComponent,
     PerfilComponent,
-
-
-
+    FornecedorComponent,
+    FornecedorListaComponent,
+    FornecedorDetalheComponent,
+    SolicitacoesComponent,
+    SolicitacaoListaComponent
    ],
   imports: [
     CommonModule,

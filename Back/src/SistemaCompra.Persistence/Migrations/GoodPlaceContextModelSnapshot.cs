@@ -100,19 +100,13 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("Endereco")
-                        .HasColumnType("int");
+                    b.Property<string>("Endereco")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Estado")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("FamiliaProdId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FamiliaProdutoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdFamiliaProduto")
+                    b.Property<int>("FamiliaProdutoId")
                         .HasColumnType("int");
 
                     b.Property<int>("InscricaoEstadual")
@@ -384,7 +378,8 @@ namespace SistemaCompra.Persistence.Migrations
                     b.HasOne("SistemaCompra.Domain.FamiliaProduto", "FamiliaProduto")
                         .WithMany("Fornecedores")
                         .HasForeignKey("FamiliaProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("FamiliaProduto");
                 });

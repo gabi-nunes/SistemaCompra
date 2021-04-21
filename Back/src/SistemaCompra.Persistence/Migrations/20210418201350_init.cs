@@ -63,9 +63,8 @@ namespace SistemaCompra.Persistence.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CNPJ = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Nome = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    IdFamiliaProduto = table.Column<int>(type: "int", nullable: false),
                     Cidade = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Endereco = table.Column<int>(type: "int", nullable: false),
+                    Endereco = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Bairro = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Numero = table.Column<int>(type: "int", nullable: false),
                     Complemento = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
@@ -77,9 +76,8 @@ namespace SistemaCompra.Persistence.Migrations
                     Telefone = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Celular = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     PontuacaoRanking = table.Column<int>(type: "int", nullable: false),
-                    FamiliaProdId = table.Column<int>(type: "int", nullable: false),
-                    Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    FamiliaProdutoId = table.Column<int>(type: "int", nullable: true)
+                    FamiliaProdutoId = table.Column<int>(type: "int", nullable: false),
+                    Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
                 },
                 constraints: table =>
                 {

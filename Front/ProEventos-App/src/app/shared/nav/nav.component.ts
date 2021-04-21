@@ -12,9 +12,11 @@ export class NavComponent implements OnInit {
   user: user;
   constructor(private router: Router) { }
 
+
   ngOnInit(): void {
     const userJson = localStorage.getItem('currentUser') || '{}';
     this.user = JSON.parse(userJson);
+
   }
 
   showMenu(): boolean{
