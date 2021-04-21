@@ -20,35 +20,23 @@ namespace SistemaCompra.Persistence
         protected override void OnModelCreating(ModelBuilder mb){
             mb.Entity<SolicitacaoProduto>().HasKey(PE => new {PE.Solicitacaoid, PE.Produtoid});
 
-            mb.Entity<Solicitacao>().HasMany(e => e.SolicitaoProdutos)
+            mb.Entity<Solicitacao>().HasMany(e => e.SolicitacaoProdutos)
                                .WithOne(rs => rs.Solicitacao)
                                .OnDelete(DeleteBehavior.Cascade);
-
-             mb.Entity<FamiliaProduto>().HasMany(p => p.Fornecedores)
-                               .WithOne(rs => rs.FamiliaProduto)
+             mb.Entity<Produto>().HasMany(e => e.SolicitacaoProdutos)
+                               .WithOne(rs => rs.Produto)
                                .OnDelete(DeleteBehavior.Cascade);
 
-             mb.Entity<FamiliaProduto>().HasMany(p => p.Produtos)
-                               .WithOne(rs => rs.FamiliaProduto)
-                               .OnDelete(DeleteBehavior.Cascade);
 
             mb.Entity<Pedido>()
             .HasOne(a => a.cotacao)
             .WithOne(a => a.Pedido)
             .HasForeignKey<Cotacao>(c => c.Id);
 
-            mb.Entity<Solicitacao>()
-            .HasOne(a => a.Cotacao)
-            .WithOne(a => a.Solicitacao)
-            .HasForeignKey<Cotacao>(c => c.Id);
-
             mb.Entity<ItemCotacao>()
             .HasOne(a => a.itemPedido)
             .WithOne(a => a.itemCotacao)
             .HasForeignKey<ItemPedido>(c => c.Id);
-
-           
-        
 
              mb.Entity<user>().HasKey(e => e.Id);
                                

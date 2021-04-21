@@ -63,9 +63,8 @@ namespace SistemaCompra.Persistence.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CNPJ = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Nome = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    IdFamiliaProduto = table.Column<int>(type: "int", nullable: false),
                     Cidade = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Endereco = table.Column<int>(type: "int", nullable: false),
+                    Endereco = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Bairro = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Numero = table.Column<int>(type: "int", nullable: false),
                     Complemento = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
@@ -77,9 +76,8 @@ namespace SistemaCompra.Persistence.Migrations
                     Telefone = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Celular = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     PontuacaoRanking = table.Column<int>(type: "int", nullable: false),
-                    FamiliaProdId = table.Column<int>(type: "int", nullable: false),
-                    Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    FamiliaProdutoId = table.Column<int>(type: "int", nullable: true)
+                    FamiliaProdutoId = table.Column<int>(type: "int", nullable: false),
+                    Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -111,7 +109,7 @@ namespace SistemaCompra.Persistence.Migrations
                         column: x => x.FamiliaProdutoId,
                         principalTable: "FamiliaProdutos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,12 +120,11 @@ namespace SistemaCompra.Persistence.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     Observacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    DataNecessidade = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DataAprovacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DataSolicitacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataNecessidade = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    DataAprovacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    DataSolicitacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     StatusAprovacao = table.Column<int>(type: "int", nullable: false),
-                    Aprovador = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    CotacaoId = table.Column<int>(type: "int", nullable: false)
+                    Aprovador = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -148,6 +145,7 @@ namespace SistemaCompra.Persistence.Migrations
                     PrazoCotacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     SolicitacaoId = table.Column<int>(type: "int", nullable: false),
                     Frete = table.Column<double>(type: "double", nullable: false),
+                    status = table.Column<int>(type: "int", nullable: false),
                     FrmPagamento = table.Column<int>(type: "int", nullable: false),
                     PrazoOferta = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Parcelas = table.Column<int>(type: "int", nullable: false),
@@ -172,8 +170,8 @@ namespace SistemaCompra.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cotacoes_Solcitacoes_Id",
-                        column: x => x.Id,
+                        name: "FK_Cotacoes_Solcitacoes_SolicitacaoId",
+                        column: x => x.SolicitacaoId,
                         principalTable: "Solcitacoes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -271,6 +269,11 @@ namespace SistemaCompra.Persistence.Migrations
                 name: "IX_Cotacoes_fornecedorId",
                 table: "Cotacoes",
                 column: "fornecedorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cotacoes_SolicitacaoId",
+                table: "Cotacoes",
+                column: "SolicitacaoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fornecedores_FamiliaProdutoId",
