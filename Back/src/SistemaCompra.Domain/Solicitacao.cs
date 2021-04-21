@@ -10,17 +10,12 @@ namespace SistemaCompra.Domain
         public int UserId { get; set; }
         public user User { get; set; }
         public string Observacao { get; set; }
-        public DateTime DataNecessidade { get; set; }
-        public DateTime DataAprovacao { get; set; }
-        public DateTime DataSolicitacao { get; set; }
+        public string DataNecessidade { get; set; }
+        public string DataAprovacao { get; set; }
+        public string DataSolicitacao { get; set; }
         public int StatusAprovacao { get; set; }
         public string Aprovador { get; set; }
-        public int CotacaoId { get; set; }
-        public Cotacao Cotacao { get; set; }
-        public IEnumerable<SolicitacaoProduto> SolicitaoProdutos { get; set; }
-
-
-
-
+        public IEnumerable<Cotacao> Cotacoes { get; set; }
+        public IEnumerable<SolicitacaoProduto> SolicitacaoProdutos { get; set; }
     }
 }

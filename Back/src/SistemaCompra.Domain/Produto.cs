@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace SistemaCompra.Domain
 {
     public class Produto
@@ -7,5 +9,6 @@ namespace SistemaCompra.Domain
         public string UnidMedida { get; set; }
         public int FamiliaProdId { get; set; }
         public FamiliaProduto FamiliaProduto { get; set; }
+        public IEnumerable<SolicitacaoProduto> SolicitacaoProdutos { get; set; }
     }
 }

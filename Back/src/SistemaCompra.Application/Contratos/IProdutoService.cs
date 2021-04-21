@@ -11,6 +11,7 @@ namespace SistemaCompra.Application.Contratos
     {
         Task<Produto[]> GetAllProdutoAsync();
         Task<Produto> GetAllProdutoByIdAsync(int id);
+        Task<Produto[]> GetProdutobyFamiliaId(int idFamilia);
         Task<Produto> GetByDescricaoAsync(string desc);
         Task<Produto[]> GetProdutobyFamilia(string desc);
         

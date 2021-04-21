@@ -21,14 +21,16 @@ namespace SistemaCompra.Persistence
 
         public async Task<Solicitacao[]> GetAllSolicitacaoAsync()
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes;
+            IQueryable<Solicitacao> query = Context.Solcitacoes
+                .Include(e => e.SolicitacaoProdutos);
 
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
         public async Task<Solicitacao> GetAllSolicitacaoByIdAsync(int id)
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes;
+            IQueryable<Solicitacao> query = Context.Solcitacoes
+                .Include(e => e.SolicitacaoProdutos);
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
                          .Where(e => e.Id == id);
@@ -36,9 +38,32 @@ namespace SistemaCompra.Persistence
             return await query.FirstOrDefaultAsync();
         }
 
-        public Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(DateTime Data)
+        public async  Task<SolicitacaoProduto> GetAllSolicitacaoProdByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            IQueryable<SolicitacaoProduto> query = Context.solicitacaoProduto;
+          
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(string DataCriacao)
+        {
+            IQueryable<Solicitacao> query = Context.Solcitacoes
+               .Include(e => e.SolicitacaoProdutos);
+
+            query = query.Where(e => e.DataSolicitacao == DataCriacao);
+            return await query.OrderBy(e => e.Id).ToArrayAsync();
+        }
+
+        public  async  Task<Solicitacao[]> GetSolicitacaoByPendenteAsync()
+        {
+            IQueryable<Solicitacao> query = Context.Solcitacoes
+                .Include(e => e.SolicitacaoProdutos).Where(e=> e.StatusAprovacao == 2);
+
+            return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
     }
 }
