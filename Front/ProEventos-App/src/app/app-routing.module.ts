@@ -19,11 +19,13 @@ import { PerfilComponent } from './components/user/login/perfil/perfil.component
 import { FornecedorComponent } from './components/fornecedor/fornecedor.component';
 import { FornecedorDetalheComponent } from './components/fornecedor/fornecedor-detalhe/fornecedor-detalhe.component';
 import { FornecedorListaComponent } from './components/fornecedor/fornecedor-lista/fornecedor-lista.component';
+import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
+import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
 
 const routes: Routes = [
   {path: 'user', redirectTo: 'user/lista'},
   {path: 'user', component: UserComponent,
-    children:[
+    children: [
       {path: 'login', component: LoginComponent},
       {path: 'cadastro', component: UserCadastroComponent},
       {path: 'lista', component: UserListaComponent},
@@ -38,6 +40,13 @@ const routes: Routes = [
       {path: 'detalhe', component: FornecedorDetalheComponent},
       {path: 'detalhe/:id', component: FornecedorDetalheComponent},
       {path: 'lista', component: FornecedorListaComponent}
+    ]
+  },
+
+  {
+    path: 'solicitações', component: SolicitacoesComponent,
+    children: [
+      {path: 'lista', component: SolicitacaoListaComponent}
     ]
   },
 

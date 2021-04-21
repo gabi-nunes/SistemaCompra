@@ -49,7 +49,7 @@
       <tr *ngFor="let fornecedor of fornecedoresFiltrados" (dblclick)="DetalharFornecedor(fornecedor.id)">
         <td class="d-none d-md-table-cell text-center">{{fornecedor.id}}</td>
         <td class="text-center">{{fornecedor.nome}}</td>
-        <td class="text-center">{{fornecedor.familiaProdId}}</td>
+         <td class="text-center">Higiene<!--{{fornecedor.familiaProdutos[0].Descricao}}--></td>
         <td class="text-center">
             <i class="fas fa-times fa-2x" (click)="openModal(template, fornecedor.id)" style="color: red; cursor: pointer;"></i>
         </td>

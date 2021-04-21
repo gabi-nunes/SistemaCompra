@@ -1,4 +1,4 @@
-import { FamiliaProduto } from "./FamiliaProduto";
+import { FamiliaProduto } from './FamiliaProduto';
 
 export class Fornecedor {
   id: number;
@@ -18,6 +18,6 @@ export class Fornecedor {
   celular: string;
   pontuacaoRanking: number;
   familiaProdutoId: number;
-  familiaProduto: FamiliaProduto;
+  familiaProdutos: FamiliaProduto[];
 
 }
