@@ -1,0 +1,188 @@
+<div class="card shadow-sm rounded">
+  <form [formGroup]="form">
+    <div class="p-3">
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label>Nome</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('nome')?.errors && form.get('nome')?.touched}"
+          formControlName="nome" placeholder="Insira o nome">
+          <div class="invalid-feedback" *ngIf="form.get('nome')?.hasError('required')">
+            O campo Nome é obrigatório
+          </div>
+          <div *ngIf="form.get('nome')?.hasError('maxlength')" class="invalid-feedback">
+            O campo Nome deve ter no máximo 50 caracteres
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label>CNPJ</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('cnpj')?.errors && form.get('cnpj')?.touched}"
+          formControlName="cnpj" placeholder="00.000.000/0000-00">
+          <div class="invalid-feedback" *ngIf="form.get('cnpj')?.hasError('required')">
+            O campo CNPJ é obrigatório
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+					<label>Família de Produtos</label>
+					<select class="form-control"  [ngClass]="{'is-invalid': form.get('familiaProdutoId')?.errors && form.get('familiaProdutoId')?.touched}" [(ngModel)]="familiaId"
+          formControlName="familiaProdutoId" >
+						<option value=""></option>
+            <!-- <option *ngFor="let famProd of familiaProdutos" value="{{famProd.Id}}">
+              {{famProd.Descricao}}
+            </option> -->
+						<option value="0">Higiene</option>
+						<option value="1">Laticínios</option>
+						<option value="2">Papelaria</option>
+						<option value="3">Açougue</option>
+						<option value="4">Panificação</option>
+						<option value="5">Frios</option>
+						<option value="6">Bebidas</option>
+					</select>
+				</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label>CEP</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('cep')?.errors && form.get('cep')?.touched}"
+          formControlName="cep" placeholder="00000-000">
+          <div class="invalid-feedback" *ngIf="form.get('cep')?.hasError('required')">
+            O campo CEP é obrigatório
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Estado</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('estado')?.errors && form.get('estado')?.touched}" placeholder="Insira o Estado"
+          formControlName="estado">
+          <div class="invalid-feedback" *ngIf="form.get('estado')?.hasError('required')">
+            O campo Estado é obrigatório
+          </div>
+        </div>
+        <div class="form-group col-md-8">
+          <label>Cidade</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('cidade')?.errors && form.get('cidade')?.touched}" placeholder="Insira a Cidade"
+          formControlName="cidade">
+          <div class="invalid-feedback" *ngIf="form.get('cidade')?.hasError('required')">
+            O campo Cidade é obrigatório
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label>Endereço</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('endereco')?.errors && form.get('endereco')?.touched}" placeholder="Insira o Endereco"
+          formControlName="endereco">
+          <div class="invalid-feedback" *ngIf="form.get('endereco')?.hasError('required')">
+            O campo Endereco é obrigatório
+          </div>
+        </div>
+        <div class="form-group col-md-1">
+          <label>Número</label>
+          <input type="number" class="form-control"
+          [ngClass]="{'is-invalid': form.get('numero')?.errors && form.get('numero')?.touched}" placeholder="0000"
+          formControlName="numero">
+          <div class="invalid-feedback" *ngIf="form.get('numero')?.hasError('required')">
+            O campo Número é obrigatório
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label>Bairro</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('bairro')?.errors && form.get('bairro')?.touched}" placeholder="Insira o Bairro"
+          formControlName="bairro">
+          <div class="invalid-feedback" *ngIf="form.get('bairro')?.hasError('required')">
+            O campo Bairro é obrigatório
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Complemento</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('complemento')?.errors && form.get('complemento')?.touched}" placeholder="Apartamento..."
+          formControlName="complemento">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label>Telefone</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('telefone')?.errors && form.get('telefone')?.touched}"
+          formControlName="telefone" placeholder="(00) 90000-0000">
+          <div class="invalid-feedback">
+            O campo Telefone é obrigatório
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Celular</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('celular')?.errors && form.get('celular')?.touched}"
+          formControlName="celular" placeholder="(00) 0000-0000">
+          <div class="invalid-feedback">
+            O campo Celular é obrigatório
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label>E-mail</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('email')?.errors && form.get('email')?.touched}"
+          formControlName="email" placeholder="exemplo@gmail.com">
+          <div class="invalid-feedback">
+            O campo Email é obrigatório
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Inscrição Municipal</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('inscricaoMunicipal')?.errors && form.get('inscricaoMunicipal')?.touched}"
+          formControlName="inscricaoMunicipal" placeholder="000000">
+          <div class="invalid-feedback">
+            O campo Inscrição Municipal é obrigatório
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Inscrição Estadual</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('inscricaoEstadual')?.errors && form.get('inscricaoEstadual')?.touched}"
+          formControlName="inscricaoEstadual" placeholder="000.000.000.000">
+          <div class="invalid-feedback">
+            O campo Inscrição Estadual é obrigatório
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-10">
+        </div>
+        <div class="form-group col-md-2">
+            <label>Pontuação</label>
+            <input type="text" class="form-control" formControlName="pontuacaoRanking" placeholder="89">
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <div class="d-flex">
+        <button class="btn btn-outline-secondary mr-auto border" (click)="OpenModal(template)">
+          Cancelar Alteração
+        </button>
+        <button class="btn btn-success"
+        [disabled]= "!form.valid" (click)="SalvarFornecedor()">
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Salvar Fornecedor
+        </button>
+      </div>
+    </div>
+  </form>
+  </div>
+
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p>Deseja realmente cancelar a alteração?</p>
+      <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+      <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+    </div>
+  </ng-template>
+
+
