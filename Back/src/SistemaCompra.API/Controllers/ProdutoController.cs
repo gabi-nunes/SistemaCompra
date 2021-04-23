@@ -48,7 +48,7 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("Produto/{Id}")]
+        [HttpGet("FamiProduto/{Id}")]
         public async Task<IActionResult> GetFamiliaById(int Id)
         {
             try

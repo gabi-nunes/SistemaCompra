@@ -1,4 +1,5 @@
 ﻿using SistemaCompra.Application.Contratos;
+using SistemaCompra.Application.DTO.Request;
 using SistemaCompra.Domain;
 using SistemaCompra.Persistence.Contratos;
 using System;
@@ -14,20 +15,33 @@ namespace SistemaCompra.Application
 
         private readonly IGeralPersist FGeralPersist;
         private readonly ISolicitacaoPersist _SolicitacaoPresist;
+        public Solicitacao solicitacao;
+        public List<SolicitacaoProduto> sps;
+
+
         public SolicitacaoService(ISolicitacaoPersist solicitacaoPresist, IGeralPersist geral)
         {
             _SolicitacaoPresist = solicitacaoPresist;
             FGeralPersist = geral;
         }
-        public async Task<Solicitacao> AddSolicitacao(Solicitacao model)
+        public async Task<Solicitacao> CreatSolicitacao(int userId, SolicitacaoDTO model)
         {
             try
             {
-                FGeralPersist.Add<Solicitacao>(model);
+                var user = await _SolicitacaoPresist.GetAllUserByIdAsync(userId);
+
+                solicitacao = new Solicitacao();
+                solicitacao.Observacao = model.Observacao;
+                solicitacao.DataNecessidade = model.DataNecessidade;
+                solicitacao.DataSolicitacao = model.DataSolicitacao;
+                solicitacao.user_id = user.Id;
+      
+
+                FGeralPersist.Add<Solicitacao>(solicitacao);
 
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    var SolicitacaoRetorno = await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(model.Id);
+                    var SolicitacaoRetorno = await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(solicitacao.Id);
 
                     return SolicitacaoRetorno;
                 }
@@ -38,38 +52,70 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
-
-        public async Task<SolicitacaoProduto> AddSolicitacaoProduto(SolicitacaoProduto model)
+        public async Task<user> GetuserbyIdAsync(int userId)
         {
             try
             {
-                FGeralPersist.Add<SolicitacaoProduto>(model);
-
-                if (await FGeralPersist.SaveChangesAsync())
-                {
-                    var SolicitacaoRetorno = await _SolicitacaoPresist.GetAllSolicitacaoProdByIdAsync(model.Id);
-
-                    return SolicitacaoRetorno;
-                }
-                return null;
+                var usuarios = await _SolicitacaoPresist.GetAllUserByIdAsync(userId);
+                if (usuarios == null) return null;
+                return usuarios;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-
-        public async Task<Solicitacao> AprovaSolicitacaoAsync(int id ,int statusAprovacao, string nomeAprovador)
+        public async Task<SolicitacaoProduto[]> AddSolicitacaoProduto(int solicitacaId, List<SolicitacaoProdutoDTO> model)
         {
             try
             {
+                int id = 1;
+                bool aux = false;
+                var solicitacao = await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(solicitacaId);
+                if (solicitacao == null) return null;
+                
+                sps = new List<SolicitacaoProduto>();
+
+                foreach (SolicitacaoProdutoDTO m in model)
+                {
+                    var produto = await _SolicitacaoPresist.GetAllProduByIdAsync(m.ProdutoId);
+                    SolicitacaoProduto sp = new SolicitacaoProduto();
+                    sp.Solicitacao_Id = solicitacao.Id;
+                    sp.Produto_Id = produto.Id;
+                    sp.Id = m.id;
+                    sp.QtdeProduto = m.QtdeProduto;
+                    FGeralPersist.Add<SolicitacaoProduto>(sp);
+              
+                }
+
+                //  FGeralPersist.Update<SolicitacaoProduto>(sps);
+                if (await FGeralPersist.SaveChangesAsync())
+                {
+                    return await _SolicitacaoPresist.GetAllSolicitacaoProdByIdAsync(solicitacaId);
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<Solicitacao> AprovaSolicitacaoAsync(int id, AprovaSolicitacaoDTO model)
+        {
+            try
+            {
+              
                 var LESolicitacao = await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(id);
                 if (LESolicitacao == null) return null;
-                //atenção aqui
-                LESolicitacao.StatusAprovacao = statusAprovacao;
-                LESolicitacao.Aprovador = nomeAprovador;
 
-                FGeralPersist.Update<Solicitacao>(LESolicitacao);
+                solicitacao = LESolicitacao;
+                solicitacao.DataAprovacao = model.DataAprovacao;
+                solicitacao.Aprovador = model.Aprovador;
+                 solicitacao.StatusAprovacao = model.StatusAprovacao;
+
+                FGeralPersist.Update<Solicitacao>(solicitacao);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
                     return await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(LESolicitacao.Id);
@@ -112,7 +158,7 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<Solicitacao[]> GetAllSolicitacaobyDataAsync(string DataCriacao)
+        public async Task<Solicitacao[]> GetAllSolicitacaobyDataAsync(DateTime DataCriacao)
         {
             try
             {
@@ -175,5 +221,7 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
+
+       
     }
 }

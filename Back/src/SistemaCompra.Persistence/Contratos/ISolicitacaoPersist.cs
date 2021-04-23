@@ -11,9 +11,11 @@ namespace SistemaCompra.Persistence.Contratos
     {
         Task<Solicitacao[]> GetAllSolicitacaoAsync();
         Task<Solicitacao> GetAllSolicitacaoByIdAsync(int id);
-        Task<SolicitacaoProduto> GetAllSolicitacaoProdByIdAsync(int id);
-        Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(string Data);
+        Task<SolicitacaoProduto[]> GetAllSolicitacaoProdByIdAsync(int id);
+        Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(DateTime Data);
         Task<Solicitacao[]> GetSolicitacaoByPendenteAsync();
+        Task<Produto> GetAllProduByIdAsync(int id);
+        Task<user> GetAllUserByIdAsync(int id);
 
 
     }

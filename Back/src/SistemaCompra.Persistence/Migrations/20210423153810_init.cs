@@ -98,8 +98,7 @@ namespace SistemaCompra.Persistence.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Descricao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     UnidMedida = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    FamiliaProdId = table.Column<int>(type: "int", nullable: false),
-                    FamiliaProdutoId = table.Column<int>(type: "int", nullable: true)
+                    FamiliaProdutoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,7 +108,7 @@ namespace SistemaCompra.Persistence.Migrations
                         column: x => x.FamiliaProdutoId,
                         principalTable: "FamiliaProdutos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,11 +117,12 @@ namespace SistemaCompra.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    user_id = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
                     Observacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    DataNecessidade = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    DataAprovacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    DataSolicitacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    DataNecessidade = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataAprovacao = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DataSolicitacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     StatusAprovacao = table.Column<int>(type: "int", nullable: false),
                     Aprovador = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
                 },
@@ -134,7 +134,7 @@ namespace SistemaCompra.Persistence.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,23 +181,24 @@ namespace SistemaCompra.Persistence.Migrations
                 name: "solicitacaoProduto",
                 columns: table => new
                 {
-                    Solicitacaoid = table.Column<int>(type: "int", nullable: false),
-                    Produtoid = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    QtdeProduto = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    QtdeProduto = table.Column<int>(type: "int", nullable: false),
+                    Solicitacao_Id = table.Column<int>(type: "int", nullable: false),
+                    Produto_Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_solicitacaoProduto", x => new { x.Solicitacaoid, x.Produtoid });
+                    table.PrimaryKey("PK_solicitacaoProduto", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_solicitacaoProduto_Produtos_Produtoid",
-                        column: x => x.Produtoid,
+                        name: "FK_solicitacaoProduto_Produtos_Produto_Id",
+                        column: x => x.Produto_Id,
                         principalTable: "Produtos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_solicitacaoProduto_Solcitacoes_Solicitacaoid",
-                        column: x => x.Solicitacaoid,
+                        name: "FK_solicitacaoProduto_Solcitacoes_Solicitacao_Id",
+                        column: x => x.Solicitacao_Id,
                         principalTable: "Solcitacoes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -211,8 +212,7 @@ namespace SistemaCompra.Persistence.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IdCotacao = table.Column<int>(type: "int", nullable: false),
                     IdSolicitacaoProduto = table.Column<int>(type: "int", nullable: false),
-                    SolicitacaoProdutoSolicitacaoid = table.Column<int>(type: "int", nullable: true),
-                    SolicitacaoProdutoProdutoid = table.Column<int>(type: "int", nullable: true),
+                    SolicitacaoProdutoId = table.Column<int>(type: "int", nullable: true),
                     IdProduto = table.Column<int>(type: "int", nullable: false),
                     QtdeProduto = table.Column<int>(type: "int", nullable: false),
                     PrecoUnit = table.Column<double>(type: "double", nullable: false),
@@ -229,10 +229,10 @@ namespace SistemaCompra.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_itensCotacao_solicitacaoProduto_SolicitacaoProdutoSolicitaca~",
-                        columns: x => new { x.SolicitacaoProdutoSolicitacaoid, x.SolicitacaoProdutoProdutoid },
+                        name: "FK_itensCotacao_solicitacaoProduto_SolicitacaoProdutoId",
+                        column: x => x.SolicitacaoProdutoId,
                         principalTable: "solicitacaoProduto",
-                        principalColumns: new[] { "Solicitacaoid", "Produtoid" },
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -286,9 +286,9 @@ namespace SistemaCompra.Persistence.Migrations
                 column: "cotacaoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_itensCotacao_SolicitacaoProdutoSolicitacaoid_SolicitacaoProd~",
+                name: "IX_itensCotacao_SolicitacaoProdutoId",
                 table: "itensCotacao",
-                columns: new[] { "SolicitacaoProdutoSolicitacaoid", "SolicitacaoProdutoProdutoid" });
+                column: "SolicitacaoProdutoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_itensPedido_PedidoId",
@@ -306,9 +306,14 @@ namespace SistemaCompra.Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_solicitacaoProduto_Produtoid",
+                name: "IX_solicitacaoProduto_Produto_Id",
                 table: "solicitacaoProduto",
-                column: "Produtoid");
+                column: "Produto_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_solicitacaoProduto_Solicitacao_Id",
+                table: "solicitacaoProduto",
+                column: "Solicitacao_Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
