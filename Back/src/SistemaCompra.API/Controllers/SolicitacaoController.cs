@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaCompra.Application.Contratos;
+using SistemaCompra.Application.DTO.Request;
 using SistemaCompra.Domain;
 using System;
 using System.Collections.Generic;
@@ -48,8 +49,8 @@ namespace SistemaCompra.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o Solicitacao pelo Id. Erro: {ex.Message}");
             }
         }
-        [HttpGet("Data/{data}")]
-        public async Task<IActionResult> GetBynome(string dataCriacao)
+        [HttpGet("Data/{dataCriacao}")]
+        public async Task<IActionResult> GetBynome(DateTime dataCriacao)
         {
             try
             {
@@ -78,37 +79,39 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpPost("Registrar")]
-        public async Task<IActionResult> Post([FromBody] Solicitacao model)
+        [HttpPost("Registrar/{userId}")]
+        public async Task<IActionResult> Post(int userId, [FromBody] SolicitacaoDTO model)
         {
             try
             {
-                var solicitacao = await SolicitacaoService.AddSolicitacao(model);
+                var solicitacao = await SolicitacaoService.CreatSolicitacao(userId, model);
                 if (solicitacao == null) return BadRequest("Erro ao tentar Adicionar o Solicitacao.");
                 return Ok(solicitacao);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar adicionar o Solicitacao. Erro: {ex.Message}");
+                Console.WriteLine(ex.InnerException.Message);
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar adicionar o Solicitacao Produto. Erro: {ex.Message}");
             }
         }
-        [HttpPost("RegistrarSolProduto")]
-        public async Task<IActionResult> PostSolicitacaoProduto([FromBody] SolicitacaoProduto model)
+        [HttpPost("SolicitacaoProd/{solicitacaoId}")]
+        public async Task<IActionResult> PutSolicitacaoProduto(int solicitacaoId, [FromBody] List<SolicitacaoProdutoDTO> model)
         {
             try
             {
-                var solicitacao = await SolicitacaoService.AddSolicitacaoProduto(model);
+                var solicitacao = await SolicitacaoService.AddSolicitacaoProduto(solicitacaoId, model);
                 if (solicitacao == null) return BadRequest("Erro ao tentar Adicionar o Solicitacao produto.");
                 return Ok(solicitacao);
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.InnerException.Message);
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar adicionar o Solicitacao Produto. Erro: {ex.Message}");
             }
         }
 
         [HttpPut("Atualiza/{Id}")]
-        public async Task<IActionResult> Put(int Id, Solicitacao model)
+        public async Task<IActionResult> Put(int Id, [FromBody] Solicitacao model)
         {
             try
             {
@@ -141,15 +144,15 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpPut("AlterarStatus")]
-        public async Task<IActionResult> Putalterarstatus([FromBody] Solicitacao model)
+        [HttpPut("AlterarStatus/{id}")]
+        public async Task<IActionResult> Putalterarstatus(int id, [FromBody] AprovaSolicitacaoDTO model)
         {
             try
             {
-                var usuario = await SolicitacaoService.AprovaSolicitacaoAsync(model.Id, model.StatusAprovacao, model.Aprovador);
+                var solicitacao = await SolicitacaoService.AprovaSolicitacaoAsync(id, model);
 
-                if (usuario == null) return BadRequest("Erro ao alterar status. Tente Novamente!");
-                return Ok(usuario);
+                if (solicitacao == null) return BadRequest("Erro ao alterar status. Tente Novamente!");
+                return Ok(solicitacao);
             }
             catch (Exception ex)
             {

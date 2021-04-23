@@ -21,16 +21,15 @@ namespace SistemaCompra.Persistence
 
         public async Task<Solicitacao[]> GetAllSolicitacaoAsync()
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes
-                .Include(e => e.SolicitacaoProdutos);
+            IQueryable<Solicitacao> query = Context.Solcitacoes;
+
 
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
         public async Task<Solicitacao> GetAllSolicitacaoByIdAsync(int id)
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes
-                .Include(e => e.SolicitacaoProdutos);
+            IQueryable<Solicitacao> query = Context.Solcitacoes;
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
                          .Where(e => e.Id == id);
@@ -38,21 +37,21 @@ namespace SistemaCompra.Persistence
             return await query.FirstOrDefaultAsync();
         }
 
-        public async  Task<SolicitacaoProduto> GetAllSolicitacaoProdByIdAsync(int id)
+        public async  Task<SolicitacaoProduto[]> GetAllSolicitacaoProdByIdAsync(int id)
         {
             IQueryable<SolicitacaoProduto> query = Context.solicitacaoProduto;
-          
-
+   
             query = query.AsNoTracking().OrderBy(e => e.Id)
-                         .Where(e => e.Id == id);
+                         .Where(e => e.Solicitacao_Id == id);
 
-            return await query.FirstOrDefaultAsync();
+            return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
-        public async Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(string DataCriacao)
+        public async Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(DateTime DataCriacao)
         {
             IQueryable<Solicitacao> query = Context.Solcitacoes
-               .Include(e => e.SolicitacaoProdutos);
+               .Include(e => e.SolicitacaoProdutos)
+               .ThenInclude(pe => pe.Produto);
 
             query = query.Where(e => e.DataSolicitacao == DataCriacao);
             return await query.OrderBy(e => e.Id).ToArrayAsync();
@@ -61,9 +60,31 @@ namespace SistemaCompra.Persistence
         public  async  Task<Solicitacao[]> GetSolicitacaoByPendenteAsync()
         {
             IQueryable<Solicitacao> query = Context.Solcitacoes
-                .Include(e => e.SolicitacaoProdutos).Where(e=> e.StatusAprovacao == 2);
+                .Include(e => e.SolicitacaoProdutos)
+                .ThenInclude(pe => pe.Produto);
 
-            return await query.OrderBy(e => e.Id).ToArrayAsync();
+            return await query.Where(e=> e.StatusAprovacao == 2).ToArrayAsync();
+        }
+        public async Task<user> GetAllUserByIdAsync(int id)
+        {
+
+            IQueryable<user> query = Context.Users;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<Produto> GetAllProduByIdAsync(int id)
+        {
+
+            IQueryable<Produto> query = Context.Produtos;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.FirstOrDefaultAsync();
         }
     }
 }

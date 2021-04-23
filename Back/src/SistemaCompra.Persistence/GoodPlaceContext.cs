@@ -18,16 +18,7 @@ namespace SistemaCompra.Persistence
         public DbSet<Pedido> Pedido { get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb){
-            mb.Entity<SolicitacaoProduto>().HasKey(PE => new {PE.Solicitacaoid, PE.Produtoid});
-
-            mb.Entity<Solicitacao>().HasMany(e => e.SolicitacaoProdutos)
-                               .WithOne(rs => rs.Solicitacao)
-                               .OnDelete(DeleteBehavior.Cascade);
-             mb.Entity<Produto>().HasMany(e => e.SolicitacaoProdutos)
-                               .WithOne(rs => rs.Produto)
-                               .OnDelete(DeleteBehavior.Cascade);
-
-
+           
             mb.Entity<Pedido>()
             .HasOne(a => a.cotacao)
             .WithOne(a => a.Pedido)
