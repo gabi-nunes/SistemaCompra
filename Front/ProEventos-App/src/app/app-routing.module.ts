@@ -21,6 +21,7 @@ import { FornecedorDetalheComponent } from './components/fornecedor/fornecedor-d
 import { FornecedorListaComponent } from './components/fornecedor/fornecedor-lista/fornecedor-lista.component';
 import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
 import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
+import { SolicitacoesDetalheComponent } from './components/solicitacoes/solicitacoes-detalhe/solicitacoes-detalhe.component';
 
 const routes: Routes = [
   {path: 'user', redirectTo: 'user/lista'},
@@ -30,7 +31,8 @@ const routes: Routes = [
       {path: 'cadastro', component: UserCadastroComponent},
       {path: 'lista', component: UserListaComponent},
       {path: 'recuperar', component: UserRecuperarSenhaComponent},
-      {path: 'perfil', component: PerfilComponent}
+      {path: 'perfil', component: PerfilComponent},
+      {path: 'perfil/:id', component: PerfilComponent},
     ]
   },
 
@@ -43,10 +45,11 @@ const routes: Routes = [
     ]
   },
 
-  {
-    path: 'solicitações', component: SolicitacoesComponent,
+  {path: 'solicitações', redirectTo: 'solicitações/lista'},
+  {path: 'solicitações', component: SolicitacoesComponent,
     children: [
-      {path: 'lista', component: SolicitacaoListaComponent}
+      {path: 'lista', component: SolicitacaoListaComponent},
+      {path: 'detalhe', component: SolicitacoesDetalheComponent}
     ]
   },
 
