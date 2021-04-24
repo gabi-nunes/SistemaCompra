@@ -79,6 +79,21 @@ namespace SistemaCompra.Application
             }
         }
 
-        
+        public async Task<Produto[]> GetProdutobyFamiliaId(int idFamilia)
+        {
+            try
+            {
+                var produto = await _produtoPresist.GetProdutobyFamilia(idFamilia);
+                if (produto == null) return null;
+                return produto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+
     }
 }

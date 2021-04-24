@@ -44,13 +44,12 @@ namespace SistemaCompra.Persistence
 
         public async  Task<Produto[]> GetProdutobyFamilia(int FamiliaProdutoid)
         {
-            IQueryable<Produto> query = Context.Produtos
-                .Include(e => e.FamiliaProduto);
+            IQueryable<Produto> query = Context.Produtos;
 
-            query = query.AsNoTracking().OrderBy(e => e.FamiliaProdId)
-                         .Where(e => e.FamiliaProdId == FamiliaProdutoid);
+            query = query.AsNoTracking().OrderBy(e => e.FamiliaProdutoId)
+                         .Where(e => e.FamiliaProdutoId == FamiliaProdutoid);
 
-            return await query.OrderBy(e => e.FamiliaProdId).ToArrayAsync();
+            return await query.OrderBy(e => e.FamiliaProdutoId).ToArrayAsync();
         }
 
         public async Task<FamiliaProduto> GetProdutobyDesFamiliaProduto(string Desc)
