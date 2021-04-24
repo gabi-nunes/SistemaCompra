@@ -21,9 +21,7 @@ namespace SistemaCompra.Persistence
         public async Task<Produto[]> GetAllProdutoAsync()
         {
 
-            IQueryable<Produto> query = Context.Produtos
-                  .Include(e => e.FamiliaProduto);
-
+            IQueryable<Produto> query = Context.Produtos;
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
@@ -39,22 +37,19 @@ namespace SistemaCompra.Persistence
 
         public async Task<Produto> GetProdutoByDescricaoAsync(string desc)
         {
-            IQueryable<Produto> query = Context.Produtos
-                .Include(e => e.FamiliaProduto);
-
+            IQueryable<Produto> query = Context.Produtos;
             query = query.Where(e => e.Descricao.ToLower().Contains(desc.ToLower()));
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
 
         public async  Task<Produto[]> GetProdutobyFamilia(int FamiliaProdutoid)
         {
-            IQueryable<Produto> query = Context.Produtos
-                .Include(e => e.FamiliaProduto);
+            IQueryable<Produto> query = Context.Produtos;
 
-            query = query.AsNoTracking().OrderBy(e => e.FamiliaProdId)
-                         .Where(e => e.FamiliaProdId == FamiliaProdutoid);
+            query = query.AsNoTracking().OrderBy(e => e.FamiliaProdutoId)
+                         .Where(e => e.FamiliaProdutoId == FamiliaProdutoid);
 
-            return await query.OrderBy(e => e.FamiliaProdId).ToArrayAsync();
+            return await query.OrderBy(e => e.FamiliaProdutoId).ToArrayAsync();
         }
 
         public async Task<FamiliaProduto> GetProdutobyDesFamiliaProduto(string Desc)

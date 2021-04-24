@@ -2,8 +2,14 @@
 @import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css";
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 @import "../node_modules/ngx-toastr/toastr.css";
-//@import "../node_modules/bootswatch/dist/lumen/bootstrap.min.css";
-// "node_modules/ngx-toastr/toastr.css"
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/fonts/Roboto-Regular.ttf') format("opentype");
+}
+
 .bg-logo{
   background-color: #09A28A;
   color: white;
@@ -15,4 +21,12 @@
 
 .cesta-color{
   color: #2E3C5A;
+}
+
+.roboto{
+  font-family: Roboto;
+}
+
+*{
+  font-family: Roboto;
 }

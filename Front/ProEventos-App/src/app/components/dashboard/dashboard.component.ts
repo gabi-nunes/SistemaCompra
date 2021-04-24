@@ -4,7 +4,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Cotacao } from 'src/app/models/Cotacao';
-import { Evento } from 'src/app/models/Evento';
 import { Pedido } from 'src/app/models/Pedido';
 import { Solicitacao } from 'src/app/models/Solicitacao';
 // import { MenuService } from 'src/app/services/menu.service';
@@ -34,9 +33,6 @@ export class DashboardComponent implements OnInit {
     public imgMargin = 2;
     public imgIsVisible = false;
 
-
-
-
     public ngOnInit(): void {
     }
 
@@ -59,7 +55,7 @@ export class DashboardComponent implements OnInit {
     }
 
     DetalharEvento(id: number): void{
-      this.router.navigate([`solicitacoes/detalhe/${id}`]);
+      this.router.navigate([`solicitações/detalhe/${id}`]);
     }
 
 }
