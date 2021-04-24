@@ -69,7 +69,7 @@ namespace SistemaCompra.Application
         {
             try
             {
-                int id = 1;
+               
                 bool aux = false;
                 var solicitacao = await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(solicitacaId);
                 if (solicitacao == null) return null;
