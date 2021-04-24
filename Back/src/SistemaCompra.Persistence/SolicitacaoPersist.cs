@@ -21,13 +21,34 @@ namespace SistemaCompra.Persistence
 
         public async Task<Solicitacao[]> GetAllSolicitacaoAsync()
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes;
-
-
+            IQueryable<Solicitacao> query = Context.Solcitacoes
+                 .Include(e => e.SolicitacaoProdutos);
+    
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
+        public async Task<Solicitacao> GetIdLast()
+        {
+            IQueryable<Solicitacao> query = Context.Solcitacoes;
+             
+
+            return await query.OrderByDescending(e => e.Id).FirstOrDefaultAsync();
+        }
+
+
         public async Task<Solicitacao> GetAllSolicitacaoByIdAsync(int id)
+        {
+            IQueryable<Solicitacao> query = Context.Solcitacoes
+                .Include(e => e.SolicitacaoProdutos)
+                .ThenInclude(e => e.Produto);
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<Solicitacao> GetAllSolicitacaoByIdsemProdAsync(int id)
         {
             IQueryable<Solicitacao> query = Context.Solcitacoes;
 
@@ -37,14 +58,34 @@ namespace SistemaCompra.Persistence
             return await query.FirstOrDefaultAsync();
         }
 
-        public async  Task<SolicitacaoProduto[]> GetAllSolicitacaoProdByIdAsync(int id)
+        public async  Task<SolicitacaoProduto> GetAllSolicitacaoProdutoByIdAsync(int id)
         {
             IQueryable<SolicitacaoProduto> query = Context.solicitacaoProduto;
    
             query = query.AsNoTracking().OrderBy(e => e.Id)
                          .Where(e => e.Solicitacao_Id == id);
 
-            return await query.OrderBy(e => e.Id).ToArrayAsync();
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
+        }
+
+        public async Task<SolicitacaoProduto> GetAllSolicitacaoProdByIdAsync(int id)
+        {
+            IQueryable<SolicitacaoProduto> query = Context.solicitacaoProduto;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
+        }
+
+        public async Task<SolicitacaoProduto> GetSolicitacaoProdByIdAsync(int id)
+        {
+            IQueryable<SolicitacaoProduto> query = Context.solicitacaoProduto;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
 
         public async Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(DateTime DataCriacao)

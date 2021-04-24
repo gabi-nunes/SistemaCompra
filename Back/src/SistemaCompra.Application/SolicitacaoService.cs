@@ -65,7 +65,7 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<SolicitacaoProduto[]> AddSolicitacaoProduto(int solicitacaId, List<SolicitacaoProdutoDTO> model)
+        public async Task<SolicitacaoProduto> AddSolicitacaoProduto(int solicitacaId, List<SolicitacaoProdutoDTO> model)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace SistemaCompra.Application
             try
             {
               
-                var LESolicitacao = await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(id);
+                var LESolicitacao = await _SolicitacaoPresist.GetAllSolicitacaoByIdsemProdAsync(id);
                 if (LESolicitacao == null) return null;
 
                 solicitacao = LESolicitacao;
@@ -200,16 +200,19 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<Solicitacao> UpdateSolicitacao(int SolicitacaoId, Solicitacao model)
+        public async Task<Solicitacao> UpdateSolicitacao(int SolicitacaoId, SolicitacaoDTO model)
         {
             try
             {
-                var LEuser = await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(SolicitacaoId);
-                if (LEuser == null) return null;
+                var LESolicitacao = await _SolicitacaoPresist.GetAllSolicitacaoByIdsemProdAsync(SolicitacaoId);
+                if (LESolicitacao == null) return null;
                 //atenção aqui
-                model.Id = LEuser.Id;
+                LESolicitacao.DataNecessidade = model.DataNecessidade;
+                LESolicitacao.DataSolicitacao = model.DataSolicitacao;
+                LESolicitacao.Observacao = model.Observacao;
+                solicitacao = LESolicitacao;
 
-                FGeralPersist.Update<Solicitacao>(model);
+                FGeralPersist.Update<Solicitacao>(solicitacao);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
                     return await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(model.Id);
@@ -222,6 +225,60 @@ namespace SistemaCompra.Application
             }
         }
 
-       
+        public async Task<SolicitacaoProduto> UpdateSolicitacaoProduto(int Id, SolicitacaoProdutoDTO model)
+        {
+            try
+            {
+                var LESolicitacaoprod = await _SolicitacaoPresist.GetSolicitacaoProdByIdAsync(Id);
+                if (LESolicitacaoprod == null) return null;
+                //atenção aqui
+                LESolicitacaoprod.QtdeProduto = model.QtdeProduto;
+
+                FGeralPersist.Update<SolicitacaoProduto>(LESolicitacaoprod);
+                if (await FGeralPersist.SaveChangesAsync())
+                {
+                    return await _SolicitacaoPresist.GetAllSolicitacaoProdByIdAsync(Id);
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> DeleteSolicitacaoProduto(int SolicitacaoPrdoId)
+        {
+            try
+            {
+                var solicitacaoProduto = await _SolicitacaoPresist.GetSolicitacaoProdByIdAsync(SolicitacaoPrdoId);
+                if (solicitacaoProduto == null) throw new Exception("Solicitacao para delete não encontrado.");
+
+                FGeralPersist.Delete<SolicitacaoProduto>(solicitacaoProduto);
+                return await FGeralPersist.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<int > TheLastID()
+        {
+            try
+            {
+                int idLats;
+                var solicitacao = await _SolicitacaoPresist.GetIdLast();
+                if (solicitacao == null) throw new Exception("Solicitacao para delete não encontrado.");
+
+                idLats = solicitacao.Id;
+                return idLats;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
