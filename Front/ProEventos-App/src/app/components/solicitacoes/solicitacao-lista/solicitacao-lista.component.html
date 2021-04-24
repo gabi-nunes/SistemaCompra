@@ -14,7 +14,7 @@
     </div>
 
     <div>
-      <a class="d-flex btn btn-outline-primary" routerLink="/solicitacoes/detalhe">
+      <a class="d-flex btn btn-outline-primary" routerLink="/solicitações/detalhe">
         <i class="fas fa-plus-circle my-1"></i>
         <b class="ml-1 d-none d-md-block">Nova</b>
       </a>
@@ -32,10 +32,10 @@
       </tr>
     </thead>
     <tbody *ngIf="solicitacoes && solicitacoes.length">
-      <tr *ngFor="let solicitacao of solicitacoesFiltradas" (dblclick)="DetalharSolicitacao(solicitacao.Id)">
-        <td class="d-none d-md-table-cell text-center">{{solicitacao.Id}}</td>
-        <td class="text-center">{{solicitacao.DataNecessidade}}</td>
-        <td class="text-center">{{solicitacao.StatusAprovacao}}</td>
+      <tr *ngFor="let solicitacao of solicitacoesFiltradas" (dblclick)="DetalharSolicitacao(solicitacao.id)">
+        <td class="d-none d-md-table-cell text-center">{{solicitacao.id}}</td>
+        <td class="text-center">{{solicitacao.dataNecessidade}}</td>
+        <td class="text-center">{{solicitacao.statusAprovacao}}</td>
         <td class="text-center">
             <i class="fas fa-times fa-2x" (click)="openModal(template)" style="color: red; cursor: pointer;"></i>
         </td>

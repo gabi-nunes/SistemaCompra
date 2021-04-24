@@ -21,9 +21,7 @@ namespace SistemaCompra.Persistence
         public async Task<Produto[]> GetAllProdutoAsync()
         {
 
-            IQueryable<Produto> query = Context.Produtos
-                  .Include(e => e.FamiliaProduto);
-
+            IQueryable<Produto> query = Context.Produtos;
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
@@ -39,9 +37,7 @@ namespace SistemaCompra.Persistence
 
         public async Task<Produto> GetProdutoByDescricaoAsync(string desc)
         {
-            IQueryable<Produto> query = Context.Produtos
-                .Include(e => e.FamiliaProduto);
-
+            IQueryable<Produto> query = Context.Produtos;
             query = query.Where(e => e.Descricao.ToLower().Contains(desc.ToLower()));
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
