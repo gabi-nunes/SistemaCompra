@@ -70,7 +70,6 @@ namespace SistemaCompra.Application
         {
             try
             {
-
                 var solicitacao = await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(solicitacaId);
                 if (solicitacao == null) return null;
 
@@ -278,6 +277,5 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
-
     }
 }
