@@ -31,13 +31,13 @@ constructor(private spinner: NgxSpinnerService,
   fornecedor = {} as Fornecedor;
   fornecedorId = {} as any;
   modalRef = {} as BsModalRef;
-  familiaProdutos = [{}] as FamiliaProduto[];
+  familiaProdutos: FamiliaProduto[] = [];
   familiaId: number;
 
   ngOnInit(): void{
-    this.validation();
     this.CarregarFornecedor();
-    // this.CarregarFamiliaProdutos();
+    this.CarregarFamiliaProdutos();
+    this.validation();
   }
 
   public validation(): void{
@@ -57,7 +57,7 @@ constructor(private spinner: NgxSpinnerService,
       email: new FormControl('', [Validators.required, Validators.email]),
       inscricaoMunicipal: new FormControl('', Validators.required),
       inscricaoEstadual: new FormControl('', Validators.required),
-      pontuacaoRanking: new FormControl('')
+      pontuacaoRanking: new FormControl(this.fornecedor?.pontuacaoRanking ?? 0)
       // tema: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
       // qtdePessoas: new FormControl('', [Validators.required, Validators.max(12000)]),
     });
@@ -81,7 +81,7 @@ constructor(private spinner: NgxSpinnerService,
 
   public setFamiliaProduto(famProdId: number): FamiliaProduto{
     const famProds = this.familiaProdutos.filter(
-      (fp: FamiliaProduto) => fp.Id === famProdId
+      (fp: FamiliaProduto) => fp.id === famProdId
       );
     return famProds[0];
   }
@@ -111,13 +111,14 @@ constructor(private spinner: NgxSpinnerService,
   public SalvarFornecedor(): void{
     this.spinner.show();
     if (this.form.valid){
-      debugger;
-      // this.fornecedor.familiaProduto = this.setFamiliaProduto(this.familiaId);
+      this.fornecedor.familiaProduto = this.setFamiliaProduto(+this.familiaId);
       if (this.fornecedorId === null){
-
         this.fornecedor = {...this.form.value};
         this.fornecedorService.postFornecedor(this.fornecedor).subscribe(
-          () => {this.toastr.success('Fornecedor salvo com Sucesso', 'Fornecedor Salvo'); },
+          () => {
+            this.toastr.success('Fornecedor salvo com Sucesso', 'Fornecedor Salvo');
+            this.router.navigate([`/fornecedor/lista`]);
+          },
           (error: any) => {
             console.log(error);
             this.toastr.error('Erro ao tentar salvar Fornecedor', 'Erro');
@@ -127,21 +128,27 @@ constructor(private spinner: NgxSpinnerService,
             this.spinner.hide();
           }
         );
-      }else{
-        this.fornecedor = {id: this.fornecedor.id, ...this.form.value};
-        this.fornecedorService.putFornecedor(this.fornecedor.id, this.fornecedor).subscribe(
-          () => {this.toastr.success('Fornecedor salvo com Sucesso', 'Fornecedor Salvo'); },
-          (error: any) => {
-            console.log(error);
-            this.toastr.error('Erro ao tentar salvar Fornecedor', 'Erro');
-            this.spinner.hide();
-          },
-          () => {
-            this.spinner.hide();
-          }
-          );
-        }
+        return;
       }
+
+      this.fornecedor = {id: this.fornecedor.id, ...this.form.value};
+      this.fornecedorService.putFornecedor(this.fornecedor.id, this.fornecedor).subscribe(
+        () => {
+          this.toastr.success('Fornecedor salvo com Sucesso', 'Fornecedor Salvo');
+          this.router.navigate([`/fornecedor/lista`]);
+        },
+        (error: any) => {
+          console.log(error);
+          this.toastr.error('Erro ao tentar salvar Fornecedor', 'Erro');
+          this.spinner.hide();
+        },
+        () => {
+          this.spinner.hide();
+        }
+        );
+
+      }
+
     }
 
     public OpenModal(template: TemplateRef<any>): void{

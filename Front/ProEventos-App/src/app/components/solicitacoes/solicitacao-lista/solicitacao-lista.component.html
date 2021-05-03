@@ -16,7 +16,7 @@
     <div>
       <a class="d-flex btn btn-outline-primary" routerLink="/solicitações/detalhe">
         <i class="fas fa-plus-circle my-1"></i>
-        <b class="ml-1 d-none d-md-block">Nova</b>
+        <b class="ml-1 d-none d-md-block">Nova Solicitação</b>
       </a>
     </div>
   </div>
@@ -26,18 +26,22 @@
       <tr>
         <th class="d-none d-md-table-cell text-center">Código</th>
         <th class="text-center">Data Necessaria</th>
-        <th class="text-center">Status</th>
         <th class="text-center">Data</th>
+        <th class="text-center">Status</th>
         <th class="text-center">Opções</th>
       </tr>
     </thead>
     <tbody *ngIf="solicitacoes && solicitacoes.length">
       <tr *ngFor="let solicitacao of solicitacoesFiltradas" (dblclick)="DetalharSolicitacao(solicitacao.id)">
         <td class="d-none d-md-table-cell text-center">{{solicitacao.id}}</td>
-        <td class="text-center">{{solicitacao.dataNecessidade}}</td>
-        <td class="text-center">{{solicitacao.statusAprovacao}}</td>
+        <td class="text-center">{{solicitacao.dataNecessidade | DateTimeFormatter}}</td>
+        <td class="text-center">{{solicitacao.dataSolicitacao | DateTimeFormatter}}</td>
         <td class="text-center">
-            <i class="fas fa-times fa-2x" (click)="openModal(template)" style="color: red; cursor: pointer;"></i>
+          <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(solicitacao.statusAprovacao)}" [tooltip]="GetTooltipByStatus(solicitacao.statusAprovacao)"></i>
+        </td>
+        <!-- [ngClass]="{cssClass: expression}">{{GetColorByStatus(solicitacao.statusAprovacao)}}</td> -->
+        <td class="text-center">
+          <i class="fas fa-times fa-2x" (click)="openModal(template, solicitacao.id )" style="color: red; cursor: pointer;"></i>
         </td>
       </tr>
     </tbody>

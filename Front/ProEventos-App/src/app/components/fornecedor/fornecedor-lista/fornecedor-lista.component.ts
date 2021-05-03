@@ -1,9 +1,12 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { NumberValueAccessor } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { FamiliaProduto } from 'src/app/models/FamiliaProduto';
 import { Fornecedor } from 'src/app/models/Fornecedor';
+import { FamiliaProdutoService } from 'src/app/services/familiaProduto.service';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 
 @Component({
@@ -19,7 +22,8 @@ export class FornecedorListaComponent implements OnInit {
     private modalService: BsModalService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    private familiaProdService: FamiliaProdutoService,
   ) {}
 
   public fornecedores: Fornecedor[] = [];
@@ -28,7 +32,11 @@ export class FornecedorListaComponent implements OnInit {
   public imgWidth = 150;
   public imgMargin = 2;
   public imgIsVisible = false;
+  public familiaProdutoFornecedor = {} as FamiliaProduto;
+  public familiaProdutos: FamiliaProduto[] = [];
+  private familiaIdFiltro: number;
   private gridFilter = '';
+
 
   public get GridFilter(): string{
     return this.gridFilter;
@@ -38,16 +46,45 @@ export class FornecedorListaComponent implements OnInit {
     this.fornecedoresFiltrados = this.gridFilter ? this.Filtrar(this.gridFilter) : this.fornecedores;
   }
 
+  public get FamiliaIdFiltro(): number{
+    return this.familiaIdFiltro;
+  }
+  public set FamiliaIdFiltro(value: number){
+    this.familiaIdFiltro = value;
+    this.fornecedoresFiltrados = this.familiaIdFiltro ? this.FiltrarByFamilia(this.familiaIdFiltro) : this.fornecedores;
+  }
+
   public Filtrar(filter: string): Fornecedor[]{
     filter = filter.toLocaleLowerCase();
     return this.fornecedores.filter(
-      (fornecedor: any) => fornecedor.nome.toLocaleLowerCase().indexOf(filter) !== -1
+      (fornecedor: Fornecedor) => fornecedor.nome.toLocaleLowerCase().indexOf(filter) !== -1
+     );
+  }
 
-      );
+  public FiltrarByFamilia(filter: number): Fornecedor[]{
+    return this.fornecedores.filter(
+      (fornecedor: Fornecedor) => fornecedor.familiaProdutoId == filter);
+  }
+
+  public CarregarFamiliaProdutos(): void{
+    this.familiaProdService.getFamiliaProdutos().subscribe(
+      (familias: FamiliaProduto[]) => {
+        this.familiaProdutos = familias;
+      },
+      (error: any) => {
+        this.spinner.hide();
+        this.toastr.error('Erro ao tentar carregar as Famílias de Produtos', 'Erro');
+        console.error(error);
+      },
+      () => {
+        this.spinner.hide();
+      }
+    );
   }
 
   public ngOnInit(): void {
     this.spinner.show();
+    this.CarregarFamiliaProdutos();
     this.CarregarFornecedores();
   }
 
@@ -60,6 +97,7 @@ export class FornecedorListaComponent implements OnInit {
       (fornecedoresResponse: Fornecedor[]) => {
         this.fornecedores = fornecedoresResponse,
         this.fornecedoresFiltrados = fornecedoresResponse;
+        this.setFamiliaProduto();
       },
       () => {
         this.spinner.hide(),
@@ -67,6 +105,15 @@ export class FornecedorListaComponent implements OnInit {
       },
       () => this.spinner.hide()
     );
+  }
+
+  public setFamiliaProduto(): void{
+    this.fornecedores.forEach(forn => {
+      const famProds = this.familiaProdutos.filter(
+        (fp: FamiliaProduto) => fp.id === forn.familiaProdutoId
+        );
+      forn.familiaProduto = famProds[0];
+    });
   }
 
   openModal(template: TemplateRef<any>, fornecedorId: number): void{

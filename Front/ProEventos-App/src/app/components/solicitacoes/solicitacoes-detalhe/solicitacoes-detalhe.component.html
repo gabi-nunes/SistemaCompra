@@ -24,7 +24,7 @@
         class="form-control"
         bsDatepicker
         formControlName="dataSolicitacao" [ngClass]="cssValidation(f.dataSolicitacao)"
-        [bsConfig]="bsConfig" value="{{dataHoje}}" placeholder="{{dataHoje | DateTimeFormatter}}">
+        [bsConfig]="bsConfig">
           <div *ngIf="f.dataSolicitacao?.errors?.required" class="invalid-feedback">
             O campo Data de Solicitacao é obrigatório
           </div>
@@ -34,7 +34,7 @@
           <label>Data de Necessidade</label>
           <input
         class="form-control"
-        bsDatepicker [ngClass]="cssValidation(f.dataNecessidade)"
+        bsDatepicker [ngClass]="cssValidation(f.dataNecessidade )"
         formControlName="dataNecessidade"
         [bsConfig]="bsConfig">
           <div *ngIf="f.dataNecessidade.errors?.required" class="invalid-feedback">
@@ -47,16 +47,9 @@
           <select class="form-control"  [ngClass]="cssValidation(f.familiaProdutoId)" [(ngModel)]="familiaId"
             formControlName="familiaProdutoId" >
 						<option value=""></option>
-            <!-- <option *ngFor="let famProd of familiaProdutos" value="{{famProd.Id}}">
-              {{famProd.Descricao}}
-            </option> -->
-						<option value="0">Higiene</option>
-						<option value="1">Laticínios</option>
-						<option value="2">Papelaria</option>
-						<option value="3">Açougue</option>
-						<option value="4">Panificação</option>
-						<option value="5">Frios</option>
-						<option value="6">Bebidas</option>
+            <option *ngFor="let famProd of familiaProdutos" value="{{famProd.id}}">
+              {{famProd.descricao}}
+            </option>
 					</select>
           <div *ngIf="f.dataNecessidade.errors?.required" class="invalid-feedback">
             O campo Família de Produtos é obrigatório
@@ -71,7 +64,7 @@
           <label>Data de Aprovação</label>
           <input
         class="form-control"
-        bsDatepicker
+        bsDatepicker readonly
         formControlName="dataAprovacao"
         [bsConfig]="bsConfig">
         </div>
@@ -82,12 +75,12 @@
           Itens
         </h2>
         <div>
-          <a class="d-flex btn btn-outline-primary" (click)="OpenProdutosModal(SelecaoProduto)">
+          <button class="d-flex btn btn-outline-primary" [disabled]="!familiaId" (click)="OpenProdutosModal(SelecaoProduto)">
             <i class="fas fa-plus-circle my-1"></i>
             <b class="ml-1 d-none d-md-block">
               Adicionar
             </b>
-          </a>
+          </button>
         </div>
       </div>
       <hr class="mt-2">
@@ -117,7 +110,7 @@
               {{item.qtdeProduto}}
             </td>
             <td class="text-center" style="width: 30%">
-                <i class="fas fa-times fa-2x" (click)="OpenModal(template)" style="color: red; cursor: pointer;"></i>
+                <i class="fas fa-times fa-2x" (click)="OpenModal(template, item.id)" style="color: red; cursor: pointer;"></i>
             </td>
           </tr>
         </tbody>
@@ -130,7 +123,7 @@
         </tfoot>
       </table>
 
-      <textarea class="form-control mt-5" placeholder="Observações:" style="height: 100px"></textarea>
+      <textarea class="form-control mt-5" formControlName="observacao" placeholder="Observações:" style="height: 100px"></textarea>
 
     </div>
 
@@ -151,23 +144,38 @@
 
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Deseja realmente cancelar a alteração?</p>
+    <p>Deseja realmente excluir esse Item?</p>
     <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
     <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
   </div>
 </ng-template>
 
 <ng-template #SelecaoProduto>
-
         <div class="modal-header">
           <h5 class="modal-title">Selecione um Produto</h5>
         </div>
 
         <div class="modal-body">
+
           <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
             Produtos
           </h2>
           <hr>
+          <div class="d-flex">
+            <div class="flex-grow-1 pr-2">
+              <div class="input-group mb-2">
+                <input type="text"
+                class="form-control"
+                placeholder="Filtrar pela Descrição do Produto"
+                [(ngModel)]="GridFilter">
+                <div class="input-group-append">
+                  <div class="input-group-text bg-logo">
+                    <i class="fas fa-filter"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <table class="table table-striped table-hover">
             <thead class="bg-logo">
               <tr>
@@ -178,7 +186,7 @@
               </tr>
             </thead>
             <tbody *ngIf="produtos && produtos.length">
-              <tr *ngFor="let produto of produtos">
+              <tr *ngFor="let produto of produtosFiltrados">
                 <td class="d-none d-md-table-cell text-center" style="width: 10%">
                   {{produto.id}}
                 </td>
@@ -196,7 +204,7 @@
             <tfoot *ngIf="!produtos || produtos.length == 0">
               <tr>
                 <td colspan="5" class="text-center">
-                  <h4 >Não há Produtos cadastradas</h4>
+                  <h4 >Não há Produtos cadastrados para essa Família</h4>
                 </td>
               </tr>
             </tfoot>
@@ -216,14 +224,14 @@
   <div class="modal-body text-center">
     <p>
       Escolha a quantidade para <br>
-      Maçã-Pera em Kg:
+      {{ProdSelecionado.descricao}} em {{ProdSelecionado.unidMedida}}:
     </p>
     <input [(ngModel)]="qtdeProd" type="number" class="form-control d-flex fit">
   </div>
 
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="CloseModalQtde()">Cancelar</button>
-    <button type="button" class="btn btn-success" (click)="IncluirItemSolic()">Adicionar Produto</button>
+    <button type="button" class="btn btn-success" [disabled]="!(qtdeProd > 0)" (click)="IncluirItemSolic()">Adicionar Produto</button>
   </div>
 </ng-template>
 
