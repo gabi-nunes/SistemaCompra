@@ -286,6 +286,9 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<string>("Observacao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("ObservacaoRejeicao")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<int>("StatusAprovacao")
                         .HasColumnType("int");
 

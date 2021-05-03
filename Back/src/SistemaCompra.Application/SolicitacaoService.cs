@@ -208,6 +208,9 @@ namespace SistemaCompra.Application
                 LESolicitacao.DataNecessidade = model.DataNecessidade;
                 LESolicitacao.DataSolicitacao = model.DataSolicitacao;
                 LESolicitacao.Observacao = model.Observacao;
+                LESolicitacao.StatusAprovacao = model.StatusAprovacao;
+                LESolicitacao.ObservacaoRejeicao = model.ObservacaoRejeicao;
+
                 solicitacao = LESolicitacao;
 
                 FGeralPersist.Update<Solicitacao>(solicitacao);
