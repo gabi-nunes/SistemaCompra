@@ -18,6 +18,6 @@ export class Fornecedor {
   celular: string;
   pontuacaoRanking: number;
   familiaProdutoId: number;
-  familiaProdutos: FamiliaProduto[];
+  familiaProduto: FamiliaProduto;
 
 }

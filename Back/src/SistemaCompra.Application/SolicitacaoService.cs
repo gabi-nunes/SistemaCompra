@@ -24,7 +24,7 @@ namespace SistemaCompra.Application
             _SolicitacaoPresist = solicitacaoPresist;
             FGeralPersist = geral;
         }
-        public async Task<Solicitacao> CreatSolicitacao(int userId, SolicitacaoDTO model)
+        public async Task<Solicitacao> CreateSolicitacao(int userId, SolicitacaoDTO model)
         {
             try
             {
@@ -35,6 +35,7 @@ namespace SistemaCompra.Application
                 solicitacao.DataNecessidade = model.DataNecessidade;
                 solicitacao.DataSolicitacao = model.DataSolicitacao;
                 solicitacao.user_id = user.Id;
+                solicitacao.StatusAprovacao = model.StatusAprovacao;
       
 
                 FGeralPersist.Add<Solicitacao>(solicitacao);
@@ -65,28 +66,26 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<SolicitacaoProduto> AddSolicitacaoProduto(int solicitacaId, List<SolicitacaoProdutoDTO> model)
+        public async Task<SolicitacaoProduto> AddSolicitacaoProduto(int solicitacaId, SolicitacaoProdutoDTO model)
         {
             try
             {
-                int id = 1;
-                bool aux = false;
+
                 var solicitacao = await _SolicitacaoPresist.GetAllSolicitacaoByIdAsync(solicitacaId);
                 if (solicitacao == null) return null;
-                
+
                 sps = new List<SolicitacaoProduto>();
 
-                foreach (SolicitacaoProdutoDTO m in model)
-                {
-                    var produto = await _SolicitacaoPresist.GetAllProduByIdAsync(m.ProdutoId);
+
+                    var produto = await _SolicitacaoPresist.GetAllProduByIdAsync(model.ProdutoId);
                     SolicitacaoProduto sp = new SolicitacaoProduto();
                     sp.Solicitacao_Id = solicitacao.Id;
                     sp.Produto_Id = produto.Id;
-                    sp.Id = m.id;
-                    sp.QtdeProduto = m.QtdeProduto;
+                    sp.Id = model.id;
+                    sp.QtdeProduto = model.QtdeProduto;
                     FGeralPersist.Add<SolicitacaoProduto>(sp);
-              
-                }
+
+
 
                 //  FGeralPersist.Update<SolicitacaoProduto>(sps);
                 if (await FGeralPersist.SaveChangesAsync())
@@ -267,12 +266,12 @@ namespace SistemaCompra.Application
         {
             try
             {
-                int idLats;
+                int idLast;
                 var solicitacao = await _SolicitacaoPresist.GetIdLast();
-                if (solicitacao == null) throw new Exception("Solicitacao para delete não encontrado.");
+                if (solicitacao == null) throw new Exception("Última Solicitacao não encontrada.");
 
-                idLats = solicitacao.Id;
-                return idLats;
+                idLast = solicitacao.Id;
+                return idLast;
             }
             catch (Exception ex)
             {

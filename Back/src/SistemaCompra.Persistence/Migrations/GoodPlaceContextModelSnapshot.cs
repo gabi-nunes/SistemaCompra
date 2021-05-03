@@ -296,7 +296,7 @@ namespace SistemaCompra.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Solcitacoes");
+                    b.ToTable("Solicitacoes");
                 });
 
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoProduto", b =>

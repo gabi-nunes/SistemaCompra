@@ -9,8 +9,8 @@ using SistemaCompra.Persistence;
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(GoodPlaceContext))]
-    [Migration("20210423153810_init")]
-    partial class init
+    [Migration("20210425131254_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -298,7 +298,7 @@ namespace SistemaCompra.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Solcitacoes");
+                    b.ToTable("Solicitacoes");
                 });
 
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoProduto", b =>

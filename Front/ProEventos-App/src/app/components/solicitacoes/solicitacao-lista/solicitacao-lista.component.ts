@@ -28,6 +28,7 @@ export class SolicitacaoListaComponent implements OnInit {
   public imgWidth = 150;
   public imgMargin = 2;
   public imgIsVisible = false;
+  solicitacaoId = 0;
  /* private gridFilter = 0;
 
   public get GridFilter(): number{
@@ -68,13 +69,27 @@ export class SolicitacaoListaComponent implements OnInit {
     });
   }
 
-  openModal(template: TemplateRef<any>): void{
+  openModal(template: TemplateRef<any>, solId: number): void{
+    this.solicitacaoId = solId;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
   confirm(): void {
     this.modalRef.hide();
-    this.toastr.success('Solicitação deletada com sucesso', 'Deletada');
+    this.spinner.show();
+    this.solicitacaoService.deleteSolicitacao(this.solicitacaoId).subscribe(
+      () => {
+          this.toastr.success('Solicitação deletada com Sucesso', 'Deletada');
+          this.spinner.hide();
+          this.GetSolicitacoes();
+      },
+      (error: any) => {
+        console.error(error);
+        this.toastr.error('Falha ao tentar deletar a Solicitação', 'Erro');
+        this.spinner.hide();
+      },
+      () => {}
+    );
   }
 
   decline(): void {
@@ -82,6 +97,38 @@ export class SolicitacaoListaComponent implements OnInit {
   }
 
   DetalharSolicitacao(id: number): void{
-    this.router.navigate([`solicitacoes/detalhe/${id}`]);
+    this.router.navigate([`solicitações/detalhe/${id}`]);
+  }
+
+  GetColorByStatus(status: number): any{
+    let resultColor: any;
+    switch (status) {
+      case 0:
+        resultColor = '#5cb85c';
+        break;
+      case 1:
+        resultColor = '#d9534f';
+        break;
+      case 2:
+        resultColor = '#f0ad4e';
+        break;
+    }
+    return resultColor;
+  }
+
+  GetTooltipByStatus(status: number): string{
+    let resultTooltip: any;
+    switch (status) {
+      case 0:
+        resultTooltip = 'Aprovado';
+        break;
+      case 1:
+        resultTooltip = 'Recusado';
+        break;
+      case 2:
+        resultTooltip = 'Pendente';
+        break;
+    }
+    return resultTooltip;
   }
 }

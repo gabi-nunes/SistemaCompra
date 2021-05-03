@@ -12,8 +12,8 @@ namespace SistemaCompra.Application.Contratos
     
     public interface ISolicitacaoService
     {
-        Task<Solicitacao> CreatSolicitacao(int userId, SolicitacaoDTO model);
-        Task<SolicitacaoProduto> AddSolicitacaoProduto(int solicitacaId, List<SolicitacaoProdutoDTO> model);
+        Task<Solicitacao> CreateSolicitacao(int userId, SolicitacaoDTO model);
+        Task<SolicitacaoProduto> AddSolicitacaoProduto(int solicitacaId, SolicitacaoProdutoDTO model);
         Task<Solicitacao> UpdateSolicitacao(int SolicitacaoId, SolicitacaoDTO model);
 
         Task<SolicitacaoProduto> UpdateSolicitacaoProduto(int Id, SolicitacaoProdutoDTO model);

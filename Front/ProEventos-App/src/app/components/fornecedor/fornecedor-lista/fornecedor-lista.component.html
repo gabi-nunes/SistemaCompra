@@ -16,15 +16,11 @@
     </div>
 
     <div class="mr-2">
-      <select class="form-control">
-        <option value="">Família de Produtos</option>
-        <option value="Senhorita">Higiene(a)</option>
-        <option value="Senhorita">Laticínios</option>
-        <option value="Senhorita">Papelaria</option>
-        <option value="Senhorita">Açougue</option>
-        <option value="Senhorita">Panificação</option>
-        <option value="Senhorita">Frios</option>
-        <option value="Senhorita">Bebidas</option>
+      <select class="form-control" [(ngModel)]="FamiliaIdFiltro">
+        <option value="">Todas</option>
+        <option *ngFor="let famProd of familiaProdutos" value="{{famProd.id}}">
+          {{famProd.descricao}}
+        </option>
       </select>
     </div>
 
@@ -39,7 +35,7 @@
   <table class="table table-striped table-hover">
     <thead class="bg-logo">
       <tr>
-        <th class="text-center">Código</th>
+        <th class="d-none d-md-table-cell text-center ">Código</th>
         <th class="text-center">Nome</th>
         <th class="text-center">Família de Produto</th>
         <th class="text-center">Opções</th>
@@ -49,7 +45,7 @@
       <tr *ngFor="let fornecedor of fornecedoresFiltrados" (dblclick)="DetalharFornecedor(fornecedor.id)">
         <td class="d-none d-md-table-cell text-center">{{fornecedor.id}}</td>
         <td class="text-center">{{fornecedor.nome}}</td>
-         <td class="text-center">Higiene<!--{{fornecedor.familiaProdutos[0].Descricao}}--></td>
+        <td class="text-center">{{fornecedor.familiaProduto.descricao}}</td>
         <td class="text-center">
             <i class="fas fa-times fa-2x" (click)="openModal(template, fornecedor.id)" style="color: red; cursor: pointer;"></i>
         </td>
