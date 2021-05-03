@@ -22,24 +22,6 @@ namespace SistemaCompra.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pedido",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StatusAprov = table.Column<int>(type: "int", nullable: false),
-                    DataEmissao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Aprovador = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    DataAprovacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Observacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    cotacaoId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pedido", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -112,7 +94,7 @@ namespace SistemaCompra.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Solcitacoes",
+                name: "Solicitacoes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -128,9 +110,9 @@ namespace SistemaCompra.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Solcitacoes", x => x.Id);
+                    table.PrimaryKey("PK_Solicitacoes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Solcitacoes_Users_UserId",
+                        name: "FK_Solicitacoes_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -141,17 +123,18 @@ namespace SistemaCompra.Persistence.Migrations
                 name: "Cotacoes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     PrazoCotacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     SolicitacaoId = table.Column<int>(type: "int", nullable: false),
                     Frete = table.Column<double>(type: "double", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false),
                     FrmPagamento = table.Column<int>(type: "int", nullable: false),
+                    DataEntrega = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     PrazoOferta = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Parcelas = table.Column<int>(type: "int", nullable: false),
                     FornecedorGanhadorId = table.Column<int>(type: "int", nullable: false),
                     Total = table.Column<double>(type: "double", nullable: false),
-                    PedidoId = table.Column<int>(type: "int", nullable: false),
                     fornecedorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -164,15 +147,9 @@ namespace SistemaCompra.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cotacoes_Pedido_Id",
-                        column: x => x.Id,
-                        principalTable: "Pedido",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Cotacoes_Solcitacoes_SolicitacaoId",
+                        name: "FK_Cotacoes_Solicitacoes_SolicitacaoId",
                         column: x => x.SolicitacaoId,
-                        principalTable: "Solcitacoes",
+                        principalTable: "Solicitacoes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -197,9 +174,33 @@ namespace SistemaCompra.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_solicitacaoProduto_Solcitacoes_Solicitacao_Id",
+                        name: "FK_solicitacaoProduto_Solicitacoes_Solicitacao_Id",
                         column: x => x.Solicitacao_Id,
-                        principalTable: "Solcitacoes",
+                        principalTable: "Solicitacoes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pedido",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    StatusAprov = table.Column<int>(type: "int", nullable: false),
+                    DataEmissao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Aprovador = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    DataAprovacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Observacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    cotacaoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pedido", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pedido_Cotacoes_cotacaoId",
+                        column: x => x.cotacaoId,
+                        principalTable: "Cotacoes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -296,14 +297,14 @@ namespace SistemaCompra.Persistence.Migrations
                 column: "PedidoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Pedido_cotacaoId",
+                table: "Pedido",
+                column: "cotacaoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Produtos_FamiliaProdutoId",
                 table: "Produtos",
                 column: "FamiliaProdutoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Solcitacoes_UserId",
-                table: "Solcitacoes",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_solicitacaoProduto_Produto_Id",
@@ -314,6 +315,11 @@ namespace SistemaCompra.Persistence.Migrations
                 name: "IX_solicitacaoProduto_Solicitacao_Id",
                 table: "solicitacaoProduto",
                 column: "Solicitacao_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Solicitacoes_UserId",
+                table: "Solicitacoes",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -325,22 +331,22 @@ namespace SistemaCompra.Persistence.Migrations
                 name: "itensCotacao");
 
             migrationBuilder.DropTable(
-                name: "Cotacoes");
+                name: "Pedido");
 
             migrationBuilder.DropTable(
                 name: "solicitacaoProduto");
 
             migrationBuilder.DropTable(
-                name: "Fornecedores");
-
-            migrationBuilder.DropTable(
-                name: "Pedido");
+                name: "Cotacoes");
 
             migrationBuilder.DropTable(
                 name: "Produtos");
 
             migrationBuilder.DropTable(
-                name: "Solcitacoes");
+                name: "Fornecedores");
+
+            migrationBuilder.DropTable(
+                name: "Solicitacoes");
 
             migrationBuilder.DropTable(
                 name: "FamiliaProdutos");

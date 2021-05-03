@@ -15,7 +15,7 @@ namespace SistemaCompra.Application.Contratos
         Task<Solicitacao> CreatSolicitacao(int userId, SolicitacaoDTO model);
         Task<Solicitacao> UpdateSolicitacao(int SolicitacaoId, SolicitacaoDTO model);
 
-        Task<SolicitacaoProduto> AddSolicitacaoProduto(int solicitacaId, List<SolicitacaoProdutoDTO> model);
+        Task<SolicitacaoProduto> AddSolicitacaoProduto(int solicitacaId, SolicitacaoProdutoDTO model);
 
         Task<SolicitacaoProduto> UpdateSolicitacaoProduto(int Id, SolicitacaoProdutoDTO model);
         Task<bool> DeleteSolicitacao(int SolicitacaoId);

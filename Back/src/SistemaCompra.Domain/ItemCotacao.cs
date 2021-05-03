@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SistemaCompra.Domain
 {
     public class ItemCotacao
@@ -11,7 +13,7 @@ namespace SistemaCompra.Domain
         public double PrecoUnit { get; set; }
         public int cotacaoId { get; set; }
         public Cotacao Cotacao { get; set; }
-        public int itemPedidoId { get; set; }
+         [ForeignKey("ItemPedido")]public int itemPedidoId { get; set; }
         public ItemPedido itemPedido { get; set; }
 
     }

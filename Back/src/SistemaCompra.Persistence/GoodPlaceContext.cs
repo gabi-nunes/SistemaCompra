@@ -7,7 +7,7 @@ namespace SistemaCompra.Persistence
     {
         public GoodPlaceContext(DbContextOptions<GoodPlaceContext> options) : base(options){}
         public DbSet<user> Users { get; set; }
-        public DbSet<Solicitacao> Solcitacoes { get; set; }
+        public DbSet<Solicitacao> Solicitacoes { get; set; }
         public DbSet<SolicitacaoProduto> solicitacaoProduto { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<FamiliaProduto> FamiliaProdutos { get; set; }
@@ -18,13 +18,8 @@ namespace SistemaCompra.Persistence
         public DbSet<Pedido> Pedido { get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb){
-           
-            mb.Entity<Pedido>()
-            .HasOne(a => a.cotacao)
-            .WithOne(a => a.Pedido)
-            .HasForeignKey<Cotacao>(c => c.Id);
-
-            mb.Entity<ItemCotacao>()
+          
+                mb.Entity<ItemCotacao>()
             .HasOne(a => a.itemPedido)
             .WithOne(a => a.itemCotacao)
             .HasForeignKey<ItemPedido>(c => c.Id);

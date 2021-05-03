@@ -65,7 +65,7 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<SolicitacaoProduto> AddSolicitacaoProduto(int solicitacaId, List<SolicitacaoProdutoDTO> model)
+        public async Task<SolicitacaoProduto> AddSolicitacaoProduto(int solicitacaId, SolicitacaoProdutoDTO model)
         {
             try
             {
@@ -76,17 +76,16 @@ namespace SistemaCompra.Application
                 
                 sps = new List<SolicitacaoProduto>();
 
-                foreach (SolicitacaoProdutoDTO m in model)
-                {
-                    var produto = await _SolicitacaoPresist.GetAllProduByIdAsync(m.ProdutoId);
+                
+                    var produto = await _SolicitacaoPresist.GetAllProduByIdAsync(model.ProdutoId);
                     SolicitacaoProduto sp = new SolicitacaoProduto();
                     sp.Solicitacao_Id = solicitacao.Id;
                     sp.Produto_Id = produto.Id;
-                    sp.Id = m.id;
-                    sp.QtdeProduto = m.QtdeProduto;
+                    sp.Id = model.id;
+                    sp.QtdeProduto = model.QtdeProduto;
                     FGeralPersist.Add<SolicitacaoProduto>(sp);
               
-                }
+                
 
                 //  FGeralPersist.Update<SolicitacaoProduto>(sps);
                 if (await FGeralPersist.SaveChangesAsync())
