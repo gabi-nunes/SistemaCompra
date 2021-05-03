@@ -75,7 +75,7 @@ namespace SistemaCompra.Application
 
                 sps = new List<SolicitacaoProduto>();
 
-
+                
                     var produto = await _SolicitacaoPresist.GetAllProduByIdAsync(model.ProdutoId);
                     SolicitacaoProduto sp = new SolicitacaoProduto();
                     sp.Solicitacao_Id = solicitacao.Id;
@@ -83,8 +83,8 @@ namespace SistemaCompra.Application
                     sp.Id = model.id;
                     sp.QtdeProduto = model.QtdeProduto;
                     FGeralPersist.Add<SolicitacaoProduto>(sp);
-
-
+              
+                
 
                 //  FGeralPersist.Update<SolicitacaoProduto>(sps);
                 if (await FGeralPersist.SaveChangesAsync())

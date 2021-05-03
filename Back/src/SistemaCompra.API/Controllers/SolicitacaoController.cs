@@ -49,6 +49,8 @@ namespace SistemaCompra.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o Solicitacao pelo Id. Erro: {ex.Message}");
             }
         }
+
+        
         [HttpGet("Data/{dataCriacao}")]
         public async Task<IActionResult> GetBynome(DateTime dataCriacao)
         {
@@ -109,7 +111,7 @@ namespace SistemaCompra.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar adicionar o Solicitacao Produto. Erro: {ex.Message}");
             }
         }
-
+        
         [HttpPut("Atualiza/{Id}")]
         public async Task<IActionResult> Put(int Id, [FromBody] SolicitacaoDTO model)
         {

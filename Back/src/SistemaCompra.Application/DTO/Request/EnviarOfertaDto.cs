@@ -9,15 +9,14 @@ namespace SistemaCompra.Application.DTO.Request
 {
     public class EnviarOfertaDto
     {
-        public int  Id { get; set; }
         public double Frete { get; set; }
         public int status { get; set; }
         public int FrmPagamento { get; set; }
         public int Parcelas { get; set; }
         public double Total { get; set; }
+        public DateTime DataEntrega { get; set; }
         public int fornecedorId { get; set; }
 
-        public IEnumerable<ItemCotacao> ItensCotacao { get; set; }
 
 
     }

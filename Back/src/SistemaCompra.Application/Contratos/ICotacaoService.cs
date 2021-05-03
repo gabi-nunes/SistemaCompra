@@ -1,4 +1,5 @@
 ﻿using SistemaCompra.Application.DTO.Request;
+using SistemaCompra.Application.DTO.Response;
 using SistemaCompra.Domain;
 using System;
 using System.Collections.Generic;
@@ -11,26 +12,28 @@ namespace SistemaCompra.Application.Contratos
     public interface ICotacaoService
     {
         Task<Cotacao> CreatCotacao(int SolicitacaoId, CotacaoDto model);
-        Task<ItemCotacao[]> AddCotacaoProduto(int SolicitacaoId, ItemCotacaoDto model);
+        Task<Cotacao> AddCotacaoProduto(int CotacaoId);
         Task<Cotacao> UpdateCotacao(int CotacaoId, CotacaoDto model);
+        Task<double> CalcQuantAsync(int id);
 
-        Task<ItemCotacao> UpdateCotacaoProduto(int Id, ItemCotacaoDto model);
         Task<bool> DeleteCotacao(int CotacaoId);
 
         Task<Cotacao[]> GetAllCotacaoAsync();
         Task<int> TheLastID();
-
-        Task<user> GetuserbyIdAsync(int userId);
-
+       
         Task<Cotacao[]> GetAllCotacaobyDataAsync(DateTime DataCriacao);
 
         Task<Cotacao> GetCotacaobyIdAsync(int CotacaoId);
 
+        Task<FornecedorIdealDto> fornecedorIdeal(int idsol);
+        Task<FornecedorIdealDto> GetFornecedorMaioresRankingAsync(int id);
+        Task<Cotacao> CotacaoVencedora(int idCot);
         Task<Cotacao[]> GetCotacaoPendenteAsync();
+        Task<Cotacao[]> GetCotacaoEncerradaAsync();
+        Task<ItemCotacao[]> GetAllCotacaobyItemAsync(int CotacaoId);
+        Task<Cotacao[]> GetAllCotacaobySolicitacaoAsync(int SolicitacaoId);
 
-        Task<Cotacao> EnviarCotacaoAsync(int id, EnviarOfertaDto model);
-
-        Task<bool> DeleteCotacaoProduto(int CotacaoPrdoId);
+        Task<Cotacao> EnviarOfetarAsync(int idCot, EnviarOfertaDto model);
 
         Task<ItemCotacao> EnviarPrecooAsync(int id, double value);
     }
