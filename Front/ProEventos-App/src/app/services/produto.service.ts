@@ -19,4 +19,8 @@ export class ProdutoService {
     return this.http.get<Produto>(`${this.baseURL}/${ProdutoId}`);
   }
 
+  getProdutosByFamiliaProdId(FamProdId: number): Observable<Produto[]>{
+    return this.http.get<Produto[]>(`${this.baseURL}/FamiProduto/${FamProdId}`);
+  }
+
 }

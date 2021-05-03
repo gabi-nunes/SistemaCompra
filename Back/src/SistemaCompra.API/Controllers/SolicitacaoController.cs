@@ -26,7 +26,7 @@ namespace SistemaCompra.API.Controllers
             try
             {
                 var solicitacaos = await SolicitacaoService.GetAllSolicitacaoAsync();
-                if (solicitacaos == null) return NotFound("Nenhum Solicitacao encontrado!");
+                if (solicitacaos == null) return NotFound("Nenhuma Solicitacao encontrado!");
                 return Ok(solicitacaos);
             }
             catch (Exception ex)
@@ -84,7 +84,7 @@ namespace SistemaCompra.API.Controllers
         {
             try
             {
-                var solicitacao = await SolicitacaoService.CreatSolicitacao(userId, model);
+                var solicitacao = await SolicitacaoService.CreateSolicitacao(userId, model);
                 if (solicitacao == null) return BadRequest("Erro ao tentar Adicionar o Solicitacao.");
                 return Ok(solicitacao);
             }
@@ -95,7 +95,7 @@ namespace SistemaCompra.API.Controllers
             }
         }
         [HttpPost("SolicitacaoProd/{solicitacaoId}")]
-        public async Task<IActionResult> PutSolicitacaoProduto(int solicitacaoId, [FromBody] List<SolicitacaoProdutoDTO> model)
+        public async Task<IActionResult> PutSolicitacaoProduto(int solicitacaoId, [FromBody] SolicitacaoProdutoDTO model)
         {
             try
             {
@@ -166,7 +166,7 @@ namespace SistemaCompra.API.Controllers
             try
             {
                 var solicitacao = await SolicitacaoService.DeleteSolicitacaoProduto(id);
-                if (solicitacao == null) return NoContent();
+                if (!solicitacao) return NoContent();
 
                 return Ok(new { messagem = "Deletado" });
                        
@@ -208,7 +208,7 @@ namespace SistemaCompra.API.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar deletar eventos. Erro: {ex.Message}");
+                    $"Erro ao tentar recuperar a última Solicitação . Erro: {ex.Message}");
             }
         }
 

@@ -29,7 +29,7 @@ namespace SistemaCompra.Persistence
 
         public async Task<Solicitacao> GetAllSolicitacaoByIdAsync(int id)
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes
+            IQueryable<Solicitacao> query = Context.Solicitacoes
                 .Include(e => e.SolicitacaoProdutos)
                 .ThenInclude(e => e.Produto);
 

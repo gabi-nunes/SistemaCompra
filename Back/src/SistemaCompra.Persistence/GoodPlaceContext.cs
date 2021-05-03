@@ -7,7 +7,7 @@ namespace SistemaCompra.Persistence
     {
         public GoodPlaceContext(DbContextOptions<GoodPlaceContext> options) : base(options){}
         public DbSet<user> Users { get; set; }
-        public DbSet<Solicitacao> Solcitacoes { get; set; }
+        public DbSet<Solicitacao> Solicitacoes { get; set; }
         public DbSet<SolicitacaoProduto> solicitacaoProduto { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<FamiliaProduto> FamiliaProdutos { get; set; }

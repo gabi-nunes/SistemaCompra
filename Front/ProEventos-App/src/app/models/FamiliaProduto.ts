@@ -1,4 +1,4 @@
 export class FamiliaProduto {
-    Id: number;
-    Descricao: string;
+    id: number;
+    descricao: string;
 }

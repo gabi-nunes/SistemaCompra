@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemaCompra.Persistence.Migrations
 {
-    public partial class init : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -112,7 +112,7 @@ namespace SistemaCompra.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Solcitacoes",
+                name: "Solicitacoes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -128,9 +128,9 @@ namespace SistemaCompra.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Solcitacoes", x => x.Id);
+                    table.PrimaryKey("PK_Solicitacoes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Solcitacoes_Users_UserId",
+                        name: "FK_Solicitacoes_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -170,9 +170,9 @@ namespace SistemaCompra.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cotacoes_Solcitacoes_SolicitacaoId",
+                        name: "FK_Cotacoes_Solicitacoes_SolicitacaoId",
                         column: x => x.SolicitacaoId,
-                        principalTable: "Solcitacoes",
+                        principalTable: "Solicitacoes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -197,9 +197,9 @@ namespace SistemaCompra.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_solicitacaoProduto_Solcitacoes_Solicitacao_Id",
+                        name: "FK_solicitacaoProduto_Solicitacoes_Solicitacao_Id",
                         column: x => x.Solicitacao_Id,
-                        principalTable: "Solcitacoes",
+                        principalTable: "Solicitacoes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -301,11 +301,6 @@ namespace SistemaCompra.Persistence.Migrations
                 column: "FamiliaProdutoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Solcitacoes_UserId",
-                table: "Solcitacoes",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_solicitacaoProduto_Produto_Id",
                 table: "solicitacaoProduto",
                 column: "Produto_Id");
@@ -314,6 +309,11 @@ namespace SistemaCompra.Persistence.Migrations
                 name: "IX_solicitacaoProduto_Solicitacao_Id",
                 table: "solicitacaoProduto",
                 column: "Solicitacao_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Solicitacoes_UserId",
+                table: "Solicitacoes",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -340,7 +340,7 @@ namespace SistemaCompra.Persistence.Migrations
                 name: "Produtos");
 
             migrationBuilder.DropTable(
-                name: "Solcitacoes");
+                name: "Solicitacoes");
 
             migrationBuilder.DropTable(
                 name: "FamiliaProdutos");

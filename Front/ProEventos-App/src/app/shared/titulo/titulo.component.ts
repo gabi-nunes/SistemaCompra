@@ -19,4 +19,8 @@ export class TituloComponent implements OnInit {
   Listar(): void{
     this.router.navigate([`/${this.titulo.toLocaleLowerCase()}/lista`]);
   }
+
+  ShowMenu(): boolean{
+    return this.router.url !== '/user/login';
+  }
 }

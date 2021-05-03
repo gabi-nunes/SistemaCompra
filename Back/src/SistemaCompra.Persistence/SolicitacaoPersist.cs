@@ -21,7 +21,7 @@ namespace SistemaCompra.Persistence
 
         public async Task<Solicitacao[]> GetAllSolicitacaoAsync()
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes
+            IQueryable<Solicitacao> query = Context.Solicitacoes
                  .Include(e => e.SolicitacaoProdutos);
     
             return await query.OrderBy(e => e.Id).ToArrayAsync();
@@ -29,7 +29,7 @@ namespace SistemaCompra.Persistence
 
         public async Task<Solicitacao> GetIdLast()
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes;
+            IQueryable<Solicitacao> query = Context.Solicitacoes;
              
 
             return await query.OrderByDescending(e => e.Id).FirstOrDefaultAsync();
@@ -38,7 +38,7 @@ namespace SistemaCompra.Persistence
 
         public async Task<Solicitacao> GetAllSolicitacaoByIdAsync(int id)
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes
+            IQueryable<Solicitacao> query = Context.Solicitacoes
                 .Include(e => e.SolicitacaoProdutos)
                 .ThenInclude(e => e.Produto);
 
@@ -50,7 +50,7 @@ namespace SistemaCompra.Persistence
 
         public async Task<Solicitacao> GetAllSolicitacaoByIdsemProdAsync(int id)
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes;
+            IQueryable<Solicitacao> query = Context.Solicitacoes;
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
                          .Where(e => e.Id == id);
@@ -90,7 +90,7 @@ namespace SistemaCompra.Persistence
 
         public async Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(DateTime DataCriacao)
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes
+            IQueryable<Solicitacao> query = Context.Solicitacoes
                .Include(e => e.SolicitacaoProdutos)
                .ThenInclude(pe => pe.Produto);
 
@@ -100,7 +100,7 @@ namespace SistemaCompra.Persistence
 
         public  async  Task<Solicitacao[]> GetSolicitacaoByPendenteAsync()
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes
+            IQueryable<Solicitacao> query = Context.Solicitacoes
                 .Include(e => e.SolicitacaoProdutos)
                 .ThenInclude(pe => pe.Produto);
 
