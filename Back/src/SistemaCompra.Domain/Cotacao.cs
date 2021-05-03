@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaCompra.Domain
 {
@@ -12,12 +13,11 @@ namespace SistemaCompra.Domain
         public double Frete { get; set; }
         public int status { get; set; }
         public int FrmPagamento { get; set; }
+        public DateTime DataEntrega { get; set; }
         public DateTime PrazoOferta { get; set; }
         public int Parcelas { get; set; }
         public int FornecedorGanhadorId { get; set; }
         public double Total { get; set; }
-        public int PedidoId { get; set; }
-        public Pedido Pedido { get; set; }
         public int fornecedorId { get; set; }
         public Fornecedor fornecedorid { get; set; }
         public IEnumerable<ItemCotacao> ItensCotacao { get; set; }
@@ -27,3 +27,4 @@ namespace SistemaCompra.Domain
 
     }
 }
+
