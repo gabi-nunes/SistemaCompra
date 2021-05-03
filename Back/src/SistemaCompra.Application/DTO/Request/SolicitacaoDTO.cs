@@ -14,5 +14,7 @@ namespace SistemaCompra.Application.DTO.Request
         public DateTime DataNecessidade { get; set; }
         public DateTime DataSolicitacao { get; set; }
         public int StatusAprovacao { get; set; }
+        public string? ObservacaoRejeicao { get; set; }
+
     }
 }

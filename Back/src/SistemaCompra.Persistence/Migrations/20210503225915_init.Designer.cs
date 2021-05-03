@@ -9,7 +9,7 @@ using SistemaCompra.Persistence;
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(GoodPlaceContext))]
-    [Migration("20210426233748_init")]
+    [Migration("20210503225915_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -286,6 +286,9 @@ namespace SistemaCompra.Persistence.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Observacao")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ObservacaoRejeicao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int>("StatusAprovacao")
