@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace SistemaCompra.Application.DTO.Request
 {
-    public class CotacaoDto
+    public class PedidoDto
     {
         public int Id { get; set; }
-        public DateTime DataEmissaoCotacao { get; set; }
-        public int status { get; set; }
-        public DateTime PrazoOfertas { get; set; }
-        public int fornecedorId { get; set; }
+        public DateTime DataEmissao { get; set; }
+        public string Observacao { get; set; }
+        public int cotacaoId { get; set; }
 
     }
 }

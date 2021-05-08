@@ -15,12 +15,14 @@ namespace SistemaCompra.Application.Contratos
         Task<Cotacao> AddCotacaoProduto(int CotacaoId);
         Task<Cotacao> UpdateCotacao(int CotacaoId, CotacaoDto model);
         Task<double> CalcQuantAsync(int id);
-
+        Task<bool> EnviarEmail(int id);
         Task<bool> DeleteCotacao(int CotacaoId);
 
         Task<Cotacao[]> GetAllCotacaoAsync();
         Task<int> TheLastID();
-       
+        Task<Cotacao[]> GetCotacaobyFornecedorAsync(int FornecedorId);
+
+
         Task<Cotacao[]> GetAllCotacaobyDataAsync(DateTime DataCriacao);
 
         Task<Cotacao> GetCotacaobyIdAsync(int CotacaoId);

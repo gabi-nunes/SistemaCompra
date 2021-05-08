@@ -6,6 +6,8 @@ using SistemaCompra.Persistence.Contratos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -150,7 +152,7 @@ namespace SistemaCompra.Application
             double Total = 0;
             foreach (ItemCotacao item in Itemcotacao)
             {
-                Total = item.QtdeProduto * item.PrecoUnit;
+                Total += item.QtdeProduto * item.PrecoUnit;
             }
 
 
@@ -199,10 +201,10 @@ namespace SistemaCompra.Application
 
                 Cotacao = new Cotacao();
                 Cotacao.Id = model.Id;
-                Cotacao.PrazoCotacao = model.PrazoCotacao;
+                Cotacao.DataEmissaoCotacao = model.DataEmissaoCotacao;
                 Cotacao.SolicitacaoId = SolicitacaoId;
                 Cotacao.status = model.status;
-                Cotacao.PrazoOferta = model.PrazoOferta;
+                Cotacao.PrazoOfertas = model.PrazoOfertas;
                 Cotacao.fornecedorId = model.fornecedorId;
 
 
@@ -313,6 +315,19 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
+        public async Task<Cotacao[]> GetCotacaobyFornecedorAsync(int FornecedorId)
+        {
+            try
+            {
+                var cotacaos = await _CotacaoPresist.GetFornecedorPorCotacaoByIdAsync(FornecedorId);
+                if (cotacaos == null) return null;
+                return cotacaos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public  async Task<Cotacao[]> GetCotacaoPendenteAsync()
         {
@@ -366,8 +381,8 @@ namespace SistemaCompra.Application
             {
                 var cotacao = await _CotacaoPresist.GetAllCotacaoByIdsemProdAsync(CotacaoId);
                 if (cotacao == null) return null;
-                cotacao.PrazoCotacao = model.PrazoCotacao;
-                cotacao.PrazoOferta = model.PrazoOferta;
+                cotacao.DataEmissaoCotacao = model.DataEmissaoCotacao;
+                cotacao.PrazoOfertas = model.PrazoOfertas;
 
                 if (cotacao.status != 1)
                 {
@@ -513,6 +528,49 @@ namespace SistemaCompra.Application
             }
 
             return model;
+        }
+
+        public async Task<bool> EnviarEmail(int id)
+        {
+            try
+            {
+                var fornecedor = await _CotacaoPresist.getEmailFornecedor(id);
+                // Estancia da Classe de Mensagem
+                MailMessage _mailMessage = new MailMessage();
+                // Remetente
+                _mailMessage.From = new MailAddress("goodplacecompras@gmail.com");
+
+                // Destinatario seta no metodo abaixo
+
+                //Contrói o MailMessage
+                _mailMessage.CC.Add(fornecedor.Email);
+                _mailMessage.Subject = "Good Place ";
+                _mailMessage.IsBodyHtml = true;
+                _mailMessage.Body = "<p>Bem vindo ao Good Place!</p><p>Parabens Forncedor!</p>Informamos que voce foi selecionado participar de uma cotação, entre no sistema Good Place e visualize a cotação enviada para você</p> <p>Esperamos que a nossa parceria seja duradoura e que nosso trabalho sempre corresponda com as expectativas! </p>";
+
+
+
+                //CONFIGURAÇÃO COM PORTA
+                SmtpClient _smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32("587"));
+
+                //CONFIGURAÇÃO SEM PORTA
+                // SmtpClient _smtpClient = new SmtpClient(UtilRsource.ConfigSmtp);
+
+                // Credencial para envio por SMTP Seguro (Quando o servidor exige autenticação)
+                _smtpClient.UseDefaultCredentials = false;
+                _smtpClient.Credentials = new NetworkCredential("goodplacecompras@gmail.com", "Tcc123456");
+
+                _smtpClient.EnableSsl = true;
+
+                _smtpClient.Send(_mailMessage);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

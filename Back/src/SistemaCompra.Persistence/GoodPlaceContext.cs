@@ -18,11 +18,7 @@ namespace SistemaCompra.Persistence
         public DbSet<Pedido> Pedido { get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb){
-          
-                mb.Entity<ItemCotacao>()
-            .HasOne(a => a.itemPedido)
-            .WithOne(a => a.itemCotacao)
-            .HasForeignKey<ItemPedido>(c => c.Id);
+        
 
              mb.Entity<user>().HasKey(e => e.Id);
                                
