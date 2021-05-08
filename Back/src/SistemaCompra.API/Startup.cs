@@ -69,6 +69,8 @@ namespace SistemaCompra.API
             services.AddScoped<IFamiliaProdutoService, FamiliaProdutoService>();
             services.AddScoped<ICotacaoPersist, CotacaoPersist>();
             services.AddScoped<ICotacaoService, CotacaoService>();
+            services.AddScoped<IpedidoPersist, PedidoPersist>();
+            services.AddScoped<IPedidoService, PedidoService>();
 
             services.AddTransient<IProdutoPersist, ProdutoPersist>();
 

@@ -126,13 +126,13 @@ namespace SistemaCompra.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    PrazoCotacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataEmissaoCotacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     SolicitacaoId = table.Column<int>(type: "int", nullable: false),
                     Frete = table.Column<double>(type: "double", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false),
                     FrmPagamento = table.Column<int>(type: "int", nullable: false),
                     DataEntrega = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    PrazoOferta = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    PrazoOfertas = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Parcelas = table.Column<int>(type: "int", nullable: false),
                     FornecedorGanhadorId = table.Column<int>(type: "int", nullable: false),
                     Total = table.Column<double>(type: "double", nullable: false),
@@ -190,9 +190,10 @@ namespace SistemaCompra.Persistence.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     StatusAprov = table.Column<int>(type: "int", nullable: false),
                     DataEmissao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Aprovador = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    AprovadorId = table.Column<int>(type: "int", nullable: false),
                     DataAprovacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Observacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    ObservacaoRejeicao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     cotacaoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -242,23 +243,24 @@ namespace SistemaCompra.Persistence.Migrations
                 name: "itensPedido",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    IdPedido = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IdProduto = table.Column<int>(type: "int", nullable: false),
                     QtdeProduto = table.Column<int>(type: "int", nullable: false),
                     PrecoUnit = table.Column<double>(type: "double", nullable: false),
                     itemCotacaoId = table.Column<int>(type: "int", nullable: false),
+                    ItemCotacao = table.Column<int>(type: "int", nullable: true),
                     PedidoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_itensPedido", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_itensPedido_itensCotacao_Id",
-                        column: x => x.Id,
+                        name: "FK_itensPedido_itensCotacao_ItemCotacao",
+                        column: x => x.ItemCotacao,
                         principalTable: "itensCotacao",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_itensPedido_Pedido_PedidoId",
                         column: x => x.PedidoId,
@@ -291,6 +293,12 @@ namespace SistemaCompra.Persistence.Migrations
                 name: "IX_itensCotacao_SolicitacaoProdutoId",
                 table: "itensCotacao",
                 column: "SolicitacaoProdutoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_itensPedido_ItemCotacao",
+                table: "itensPedido",
+                column: "ItemCotacao",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_itensPedido_PedidoId",
