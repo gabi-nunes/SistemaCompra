@@ -18,13 +18,13 @@ namespace SistemaCompra.Application
             _FamiliaProdutoPersist = familiaProdutoPersist;
             FGeralPersist = geral;
         }
-        public async Task<FamiliaProduto[]> GetAllProdutoAsync()
+        public async Task<FamiliaProduto[]> GetAllFamiliaProdutoAsync()
         {
             try
             {
-                var produto = await _FamiliaProdutoPersist.GetAllprodutoAsync();
-                if (produto == null) return null;
-                return produto;
+                var famProduto = await _FamiliaProdutoPersist.GetAllFamiliaProdutoAsync();
+                if (famProduto == null) return null;
+                return famProduto;
             }
             catch (Exception ex)
             {
@@ -32,5 +32,18 @@ namespace SistemaCompra.Application
             }
         }
 
+        public async Task<FamiliaProduto> GetFamiliaProdutoByIdAsync(int FamiliaProdId)
+        {
+            try
+            {
+                var famProduto = await _FamiliaProdutoPersist.GetFamiliaProdutoByIdAsync(FamiliaProdId);
+                if (famProduto == null) return null;
+                return famProduto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

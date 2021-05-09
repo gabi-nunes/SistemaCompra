@@ -205,6 +205,7 @@ namespace SistemaCompra.Application
                 Cotacao.status = model.status;
                 Cotacao.PrazoOfertas = model.PrazoOfertas;
                 Cotacao.fornecedorId = model.fornecedorId;
+                Cotacao.CotadorId = model.CotadorId;
                 Cotacao.FrmPagamento = model.FrmPagamento;
                 Cotacao.Parcelas = model.Parcelas;
 
@@ -401,6 +402,20 @@ namespace SistemaCompra.Application
             }
         }
 
+        public async Task<Fornecedor[]> GetFornecedorMaiorRankingAsync(int id)
+        {
+            try
+            {
+                var Fornecedor = await _CotacaoPresist.GetFornecedorGanhadorAsync(id);
+                if (Fornecedor == null) return null;
+
+                return Fornecedor;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public async Task<FornecedorIdealDto> fornecedorIdeal(int idsol)
         {

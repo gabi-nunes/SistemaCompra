@@ -1,0 +1,12 @@
+@keyframes rotate-up {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(180deg);
+	}
+}
+
+.animate-rotation{
+  animation: rotate-up 0.2s linear;
+}

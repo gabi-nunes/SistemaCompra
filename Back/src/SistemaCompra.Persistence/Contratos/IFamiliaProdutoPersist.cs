@@ -9,6 +9,7 @@ namespace SistemaCompra.Persistence.Contratos
 {
     public interface IFamiliaProdutoPersist
     {
-        Task<FamiliaProduto[]> GetAllprodutoAsync();
+        Task<FamiliaProduto[]> GetAllFamiliaProdutoAsync();
+        Task<FamiliaProduto> GetFamiliaProdutoByIdAsync(int FamiliaProdId);
     }
 }

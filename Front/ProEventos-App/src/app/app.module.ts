@@ -52,6 +52,10 @@ import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.co
 import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
 import { SolicitacoesDetalheComponent } from './components/solicitacoes/solicitacoes-detalhe/solicitacoes-detalhe.component';
 import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
+import { AprovarSolicitacaoComponent } from './shared/aprovar-solicitacao/aprovar-solicitacao.component';
+import { CotacoesComponent } from './components/cotacoes/cotacoes.component';
+import { CotacoesDetalheComponent } from './components/cotacoes/cotacoes-detalhe/cotacoes-detalhe.component';
+import { CotacoesListaComponent } from './components/cotacoes/cotacoes-lista/cotacoes-lista.component';
 defineLocale('pt-br', ptBrLocale);
 
 
@@ -79,7 +83,11 @@ defineLocale('pt-br', ptBrLocale);
     FornecedorDetalheComponent,
     SolicitacoesComponent,
     SolicitacaoListaComponent,
-    SolicitacoesDetalheComponent
+    SolicitacoesDetalheComponent,
+    AprovarSolicitacaoComponent,
+    CotacoesComponent,
+    CotacoesDetalheComponent,
+    CotacoesListaComponent
    ],
   imports: [
     CommonModule,

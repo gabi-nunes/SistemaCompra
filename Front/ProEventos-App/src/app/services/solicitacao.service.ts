@@ -32,6 +32,9 @@ export class SolicitacaoService {
   putSolicitacao(id: number, solicitacaoDto: SolicitacaoDTO): Observable<SolicitacaoDTO>{
     return this.http.put<SolicitacaoDTO>(`${this.baseURL}/Atualiza/${id}`, solicitacaoDto);
   }
+  putAlteraStatusSolicitacao(id: number, solicitacaoDto: any): Observable<SolicitacaoDTO>{
+    return this.http.put<any>(`${this.baseURL}/AlterarStatus/${id}`, solicitacaoDto);
+  }
 
   putSolicitacaoProd(solicitacaoId: number, solicitacaoProdDto: SolicitacaoProdutoDTO): Observable<SolicitacaoProdutoDTO>{
     return this.http.put<SolicitacaoProdutoDTO>(`${this.baseURL}/AtualizaSolicitacaoProduto/${solicitacaoId}`, solicitacaoProdDto);
