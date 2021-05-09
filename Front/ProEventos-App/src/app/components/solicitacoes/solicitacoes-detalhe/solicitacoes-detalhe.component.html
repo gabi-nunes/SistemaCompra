@@ -1,11 +1,28 @@
 <div class="card shadow-sm rounded">
   <form [formGroup]="form">
     <div class="p-3">
-      <h2 class="roboto text-muted mr-auto mb-0 pb-0">
-        Solicitação n°{{f.id.value}}
-      </h2>
-      <hr>
-      <div class="form-row">
+      <div class="d-flex">
+        <h2 class="roboto text-muted mr-auto mb-0 pb-0">
+          Solicitação n°{{f.id.value | number:'3.0'}}
+        </h2>
+        <h4 class="roboto text-muted mb-0 pb-0 mt-2">
+          Data: {{dataHoje | DateTimeFormatter}}
+        </h4>
+      </div>
+      <hr class="mt-1">
+      <div *ngIf="solicitacao.statusAprovacao === 1 || solicitacao.statusAprovacao === 0">
+        <label *ngIf="solicitacao.statusAprovacao === 0" class="text-success">
+          Essa Solicitação já foi Aprovada portanto não pode mais ser alterada <br>
+          Comentários de {{aprovador?.name}}(Aprovador):
+        </label>
+        <label *ngIf="solicitacao.statusAprovacao === 1" class="text-danger">
+          Essa Solicitação foi Reprovada. <br> Leia os comentários de quem a reprovou, preencha e envie para a avaliação novamente. <br>
+          Comentários de {{aprovador?.name}}(Avaliador):
+        </label>
+        <textarea class="form-control my-1 is-valid" readonly formControlName="observacaoRejeicao" placeholder="Observações:" style="height: 100px" [ngClass]="cssStatusValidation()"></textarea>
+      </div>
+
+      <div class="form-row mt-3">
         <div class="form-group col-md-1">
           <label>Código</label>
           <input type="text" class="form-control" readonly
@@ -19,18 +36,6 @@
         </div>
 
         <div class="form-group col-md-2">
-          <label>Data da Solicitação</label>
-          <input
-        class="form-control"
-        bsDatepicker
-        formControlName="dataSolicitacao" [ngClass]="cssValidation(f.dataSolicitacao)"
-        [bsConfig]="bsConfig">
-          <div *ngIf="f.dataSolicitacao?.errors?.required" class="invalid-feedback">
-            O campo Data de Solicitacao é obrigatório
-          </div>
-        </div>
-
-        <div class="form-group col-md-2">
           <label>Data de Necessidade</label>
           <input
         class="form-control"
@@ -41,6 +46,15 @@
             O campo Data de Necessidade é obrigatório
           </div>
         </div>
+
+        <div class="form-group col-md-2">
+          <label>Data de Aprovação</label>
+          <input
+        class="form-control"
+        readonly
+        formControlName="dataAprovacao">
+        </div>
+
         <div class="col-md-1"></div>
         <div class="form-group col-md-2">
           <label>Família de Produtos</label>
@@ -60,14 +74,7 @@
       <div class="form-row">
         <div class="col-md-10"></div>
 
-        <div class="form-group col-md-2">
-          <label>Data de Aprovação</label>
-          <input
-        class="form-control"
-        bsDatepicker readonly
-        formControlName="dataAprovacao"
-        [bsConfig]="bsConfig">
-        </div>
+
       </div>
 
       <div class="d-flex mt-4 ">
@@ -110,7 +117,7 @@
               {{item.qtdeProduto}}
             </td>
             <td class="text-center" style="width: 30%">
-                <i class="fas fa-times fa-2x" (click)="OpenModal(template, item.id)" style="color: red; cursor: pointer;"></i>
+                <i class="fas fa-times fa-2x" (click)="OpenModal(template, item.id)" style="color: #d9534f; cursor: pointer;"></i>
             </td>
           </tr>
         </tbody>
@@ -127,20 +134,29 @@
 
     </div>
 
-
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-secondary mr-auto border" (click)="CancelarForm()">
+        <button class="btn btn-outline-secondary mr-auto border" (click)="OpenModalCancel(CancelarTemplate)">
           Cancelar Alteração
         </button>
+        <button class="btn btn-primary mr-2" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarSolicitacao)">
+          <div class="d-flex">
+            <i class="fas fa-search fa-lg my-1"></i>
+            <p class="ml-1 my-0">Aprovar</p>
+          </div>
+        </button>
         <button class="btn btn-success" [disabled]="!form.valid" (click)="SalvarSolicitacao()">
-          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
-          Salvar Solicitação
+          <div class="d-flex">
+            <i class="fas fa-save fa-lg my-1"></i>
+            <p class="ml-1 my-0">Salvar</p>
+          </div>
         </button>
       </div>
     </div>
   </form>
   </div>
+
+
 
 <ng-template #template>
   <div class="modal-body text-center">
@@ -232,6 +248,19 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="CloseModalQtde()">Cancelar</button>
     <button type="button" class="btn btn-success" [disabled]="!(qtdeProd > 0)" (click)="IncluirItemSolic()">Adicionar Produto</button>
+  </div>
+</ng-template>
+
+<ng-template #AprovarSolicitacao>
+  <app-aprovar-solicitacao [modal]="modalRefAprovacao" [solicitacao]="solicitacao" (carregaEventos)="onMudouEvento($event)"></app-aprovar-solicitacao>
+</ng-template>
+
+<ng-template #CancelarTemplate>
+  <div class="modal-body text-center">
+    <p>Deseja realmente Cancelar o registro da Solicitação? <br>
+       Você perderá todos os dados não salvos</p>
+    <button type="button" class="btn btn-default" (click)="CancelarForm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="declineCancel()">Não</button>
   </div>
 </ng-template>
 

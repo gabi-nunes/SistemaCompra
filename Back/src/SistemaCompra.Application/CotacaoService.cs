@@ -199,11 +199,12 @@ namespace SistemaCompra.Application
 
                 Cotacao = new Cotacao();
                 Cotacao.Id = model.Id;
-                Cotacao.PrazoCotacao = model.PrazoCotacao;
+                Cotacao.DataEmissaoCotacao = model.DataEmissaoCotacao;
                 Cotacao.SolicitacaoId = SolicitacaoId;
                 Cotacao.status = model.status;
-                Cotacao.PrazoOferta = model.PrazoOferta;
+                Cotacao.PrazoOfertas = model.PrazoOfertas;
                 Cotacao.fornecedorId = model.fornecedorId;
+                Cotacao.CotadorId = model.CotadorId;
 
 
                 FGeralPersist.Add<Cotacao>(Cotacao);
@@ -366,8 +367,8 @@ namespace SistemaCompra.Application
             {
                 var cotacao = await _CotacaoPresist.GetAllCotacaoByIdsemProdAsync(CotacaoId);
                 if (cotacao == null) return null;
-                cotacao.PrazoCotacao = model.PrazoCotacao;
-                cotacao.PrazoOferta = model.PrazoOferta;
+                cotacao.DataEmissaoCotacao = model.DataEmissaoCotacao;
+                cotacao.PrazoOfertas = model.PrazoOfertas;
 
                 if (cotacao.status != 1)
                 {
@@ -391,6 +392,7 @@ namespace SistemaCompra.Application
             {
                 var Fornecedor = await _CotacaoPresist.GetFornecedorGanhadorAsync(id);
                 if (Fornecedor == null) return null;
+
                 return Fornecedor;
             }
             catch (Exception ex)

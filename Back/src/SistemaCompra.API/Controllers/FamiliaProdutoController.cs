@@ -23,13 +23,28 @@ namespace SistemaCompra.API.Controllers
         {
             try
             {
-                var produto = await FamiliaProdutoService.GetAllProdutoAsync();
+                var produto = await FamiliaProdutoService.GetAllFamiliaProdutoAsync();
                 if (produto == null) return NotFound("Nenhum Produto encontrado!");
                 return Ok(produto);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar usuarios. Erro: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar Famílias de Produtos. Erro: {ex.Message}");
+            }
+        }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
+                var familiaProduto = await FamiliaProdutoService.GetFamiliaProdutoByIdAsync(id);
+                if (familiaProduto == null) return NotFound("Nenhuma Família de Produto encontrada!");
+                return Ok(familiaProduto);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar Família de Produto. Erro: {ex.Message}");
             }
         }
 

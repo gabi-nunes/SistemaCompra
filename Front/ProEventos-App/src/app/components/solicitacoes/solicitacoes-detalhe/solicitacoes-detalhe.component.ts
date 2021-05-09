@@ -32,6 +32,7 @@ import { UserService } from 'src/app/services/user.service';
 export class SolicitacoesDetalheComponent implements OnInit {
 //#region "Variáveis"
   user: user;
+  aprovador: user;
   produtoId: number;
   produtos: Produto[] = [];
   ProdSelecionado: Produto;
@@ -44,6 +45,8 @@ export class SolicitacoesDetalheComponent implements OnInit {
   modalRefQtde = {} as BsModalRef;
   modalRefProd = {} as BsModalRef;
   modalRef = {} as BsModalRef;
+  modalRefAprovacao = {} as BsModalRef;
+  modalRefCancel = {} as BsModalRef;
 
   familiaProdutos: FamiliaProduto[] = [];
   familiaId: number;
@@ -106,9 +109,10 @@ export class SolicitacoesDetalheComponent implements OnInit {
       user: [this.user?.name, Validators.required],
       familiaProdutoId: [this.solicitacaoProdutos[0]?.produto.familiaProdutoId, Validators.required],
       dataSolicitacao: [this.solicitacao.dataSolicitacao ?? this.dataHoje, Validators.required],
-      dataNecessidade: [df.format(this.solicitacao?.dataNecessidade, 'dd/MM/yyyy', 'pt-br'), Validators.required],
+      dataNecessidade: [this.solicitacao?.dataNecessidade, Validators.required],
       dataAprovacao: [this.solicitacao?.dataAprovacao],
       observacao: [this.solicitacao?.observacao],
+      observacaoRejeicao: [this.solicitacao?.observacaoRejeicao]
     });
   }
 
@@ -131,6 +135,11 @@ export class SolicitacoesDetalheComponent implements OnInit {
 
   cssValidation(control: FormControl): any{
     return {'is-invalid': control?.errors && control?.touched};
+  }
+
+  cssStatusValidation(): any{
+    if (this.solicitacao.statusAprovacao === 1) {return {'is-invalid': true}; }
+    return {'is-valid': true};
   }
 
   get bsConfig(): any{
@@ -182,6 +191,7 @@ public CarregarSolicitacao(): void{
         this.solicitacaoProdutos.push(item);
         this.solicitacaoProdutosOriginal.push(item);
       });
+      this.CarregarAprovador(s.idAprovador);
     },
     (error: any) => {
       this.spinner.hide();
@@ -221,15 +231,6 @@ public CarregarUser(userId: number = 0): void{
       this.user = userResponse;
       this.form.value.user = this.user.name;
       this.validation();
-      console.log(this.form);
-      console.log(`Imprimindo o Usuário DENTRO do Carregar Usuário:`);
-      console.log(userResponse);
-      console.log(`Imprimindo o FORM DENTRO do Carregar Usuário:`);
-      console.log(this.form);
-      console.log(this.solicitacaoProdutos);
-      // this.solicitacaoProdutos.forEach(item => {
-      //   console.log(item.produto.descricao);
-      // });
     },
     error: () => {
       this.spinner.hide(),
@@ -238,6 +239,23 @@ public CarregarUser(userId: number = 0): void{
     complete: () => this.spinner.hide()
   });
 }
+public CarregarAprovador(userId: number): void{
+  if (userId === null) {return; }
+  const isRegistro = this.actRouter.snapshot.paramMap.get('id') === null;
+  if (!isRegistro) {
+    this.userService.getUserById(userId).subscribe({
+      next: (aprovadorResponse: user) => {
+        this.aprovador = aprovadorResponse;
+      },
+      error: () => {
+        this.spinner.hide(),
+        this.toastr.error('Erro ao carregar o Aprovador', 'Erro');
+      },
+      complete: () => this.spinner.hide()
+    });
+  }
+}
+
 //#endregion
 //#region "Salvar"
   public SalvarSolicitacao(): void{
@@ -255,6 +273,7 @@ public CarregarUser(userId: number = 0): void{
         solicitacaoDto.dataSolicitacao = this.solicitacao.dataSolicitacao;
         solicitacaoDto.observacao = this.solicitacao.observacao;
         solicitacaoDto.statusAprovacao = 2;
+        solicitacaoDto.observacao = '';
         this.solicitacaoService.postSolicitacao(this.user.id, solicitacaoDto).subscribe(
           () => {
             this.toastr.success('Solicitação salva com Sucesso', 'Solicitação Salva');
@@ -354,15 +373,29 @@ public CarregarUser(userId: number = 0): void{
     this.solProdIdExluidos.push(solProdId);
   }
 
+  OpenModalAprovacao(template: TemplateRef<any>): void{
+    this.modalRefAprovacao = this.modalService.show(template, {class: 'modal-md modal-dialog-centered'});
+  }
+
+  CloseModalAprovacao(): void{
+    this.modalRefAprovacao.hide();
+  }
+
   decline(): void {this.modalRef.hide(); }
+  declineCancel(): void {this.modalRefCancel.hide(); }
 
   confirm(): void {
     this.solicitacaoProdutos = this.solicitacaoProdutos.filter(s => !this.solProdIdExluidos.includes(s.id));
     this.modalRef.hide();
   }
 
+  public OpenModalCancel(template: TemplateRef<any>): void{
+    this.modalRefCancel = this.modalService.show(template, {class: 'modal-sm'});
+  }
 
   public CancelarForm(): void{
+    this.modalRefCancel.hide()
+    this.router.navigate([`/solicitações/lista`]);
   }
 
   public IncluirItemSolic(): void{
@@ -393,6 +426,10 @@ public CarregarUser(userId: number = 0): void{
   }
   CloseModalQtde(): void{
     this.modalRefQtde.hide();
+  }
+
+  onMudouEvento(evento: any): void{
+    console.log(evento);
   }
 //#endregion
 }

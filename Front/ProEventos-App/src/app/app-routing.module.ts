@@ -22,6 +22,9 @@ import { FornecedorListaComponent } from './components/fornecedor/fornecedor-lis
 import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
 import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
 import { SolicitacoesDetalheComponent } from './components/solicitacoes/solicitacoes-detalhe/solicitacoes-detalhe.component';
+import { CotacoesListaComponent } from './components/cotacoes/cotacoes-lista/cotacoes-lista.component';
+import { CotacoesComponent } from './components/cotacoes/cotacoes.component';
+import { CotacoesDetalheComponent } from './components/cotacoes/cotacoes-detalhe/cotacoes-detalhe.component';
 
 const routes: Routes = [
   {path: 'user', redirectTo: 'user/lista'},
@@ -54,6 +57,15 @@ const routes: Routes = [
     ]
   },
 
+  {path: 'cotacoes', redirectTo: 'cotacoes/lista'},
+  {path: 'cotacoes', component: CotacoesComponent,
+    children: [
+      {path: 'lista', component: CotacoesListaComponent},
+      {path: 'detalhe/:id', component: CotacoesDetalheComponent}
+    ]
+  },
+
+
   {path: 'eventos', redirectTo: 'eventos/lista'},
   {path: 'eventos', component: EventosComponent,
     children: [
@@ -66,7 +78,7 @@ const routes: Routes = [
   {path: 'contatos', component: ContatosComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: '**', redirectTo: 'dashboard', pathMatch: 'full'}
+  {path: '**', redirectTo: '/user/login', pathMatch: 'full'}
 ];
 
 @NgModule({

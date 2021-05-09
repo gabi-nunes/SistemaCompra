@@ -24,7 +24,6 @@ export class loginService {
 
     // Service message command
     addUser(usuario: user){
-      debugger
       this.usuarioPerfil.push(usuario);
       //passar eventos
       loginService.pegandoUser.emit(usuario);

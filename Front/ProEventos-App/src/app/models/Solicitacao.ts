@@ -6,11 +6,12 @@ export interface Solicitacao {
   user_id: number;
   user: user;
   observacao: string;
+  observacaoRejeicao: string;
   dataNecessidade: Date;
   dataAprovacao: Date;
   dataSolicitacao: Date;
   statusAprovacao: number;
-  aprovador: string;
+  idAprovador: number;
   solicitacaoProdutos: SolicitacaoProduto[];
 }
 

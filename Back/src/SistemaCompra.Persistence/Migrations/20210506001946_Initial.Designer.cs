@@ -9,8 +9,8 @@ using SistemaCompra.Persistence;
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(GoodPlaceContext))]
-    [Migration("20210503225915_init")]
-    partial class init
+    [Migration("20210506001946_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -273,9 +273,6 @@ namespace SistemaCompra.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Aprovador")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
                     b.Property<DateTime?>("DataAprovacao")
                         .HasColumnType("datetime(6)");
 
@@ -284,6 +281,9 @@ namespace SistemaCompra.Persistence.Migrations
 
                     b.Property<DateTime>("DataSolicitacao")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("IdAprovador")
+                        .HasColumnType("int");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

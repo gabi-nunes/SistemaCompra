@@ -23,6 +23,12 @@ namespace SistemaCompra.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("CotadorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataEmissaoCotacao")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("DataEntrega")
                         .HasColumnType("datetime(6)");
 
@@ -38,10 +44,7 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<int>("Parcelas")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PrazoCotacao")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("PrazoOferta")
+                    b.Property<DateTime>("PrazoOfertas")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("SolicitacaoId")
@@ -271,9 +274,6 @@ namespace SistemaCompra.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Aprovador")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
                     b.Property<DateTime?>("DataAprovacao")
                         .HasColumnType("datetime(6)");
 
@@ -282,6 +282,9 @@ namespace SistemaCompra.Persistence.Migrations
 
                     b.Property<DateTime>("DataSolicitacao")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("IdAprovador")
+                        .HasColumnType("int");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -362,13 +365,13 @@ namespace SistemaCompra.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemaCompra.Domain.Fornecedor", "fornecedorid")
+                    b.HasOne("SistemaCompra.Domain.Fornecedor", "Fornecedor")
                         .WithMany("Cotacoes")
                         .HasForeignKey("fornecedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("fornecedorid");
+                    b.Navigation("Fornecedor");
 
                     b.Navigation("Solicitacao");
                 });

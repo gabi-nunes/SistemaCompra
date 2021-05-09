@@ -118,7 +118,7 @@ namespace SistemaCompra.Persistence
                 .Include(e => e.ItensCotacao);
 
 
-            query = query.Where(e => e.PrazoOferta == Data);
+            query = query.Where(e => e.PrazoOfertas == Data);
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 

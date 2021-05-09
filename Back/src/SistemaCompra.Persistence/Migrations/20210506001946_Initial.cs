@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemaCompra.Persistence.Migrations
 {
-    public partial class init : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -106,7 +106,7 @@ namespace SistemaCompra.Persistence.Migrations
                     DataAprovacao = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     DataSolicitacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     StatusAprovacao = table.Column<int>(type: "int", nullable: false),
-                    Aprovador = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    IdAprovador = table.Column<int>(type: "int", nullable: true),
                     ObservacaoRejeicao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
                 },
                 constraints: table =>

@@ -13,7 +13,7 @@ import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 })
 export class SolicitacaoListaComponent implements OnInit {
 
-
+  modalRefAprovacao = {} as BsModalRef;
   modalRef = {} as BsModalRef;
   constructor(
     private solicitacaoService: SolicitacaoService,
@@ -23,6 +23,7 @@ export class SolicitacaoListaComponent implements OnInit {
     private router: Router
   ) {}
 
+  public solicitacao = {} as Solicitacao;
   public solicitacoes: Solicitacao[] = [];
   public solicitacoesFiltradas: Solicitacao[] = [];
   public imgWidth = 150;
@@ -74,6 +75,11 @@ export class SolicitacaoListaComponent implements OnInit {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
+  openModalAprovacao(template: TemplateRef<any>, solicitacao: Solicitacao): void{
+    this.solicitacao = solicitacao;
+    this.modalRefAprovacao = this.modalService.show(template, {class: 'modal-md modal-dialog-centered'});
+  }
+
   confirm(): void {
     this.modalRef.hide();
     this.spinner.show();
@@ -123,12 +129,16 @@ export class SolicitacaoListaComponent implements OnInit {
         resultTooltip = 'Aprovado';
         break;
       case 1:
-        resultTooltip = 'Recusado';
+        resultTooltip = 'Reprovado';
         break;
       case 2:
         resultTooltip = 'Pendente';
         break;
     }
     return resultTooltip;
+  }
+
+  onMudouEvento(evento: any): void{
+    console.log(evento);
   }
 }

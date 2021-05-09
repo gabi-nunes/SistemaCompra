@@ -14,7 +14,7 @@ namespace SistemaCompra.Domain
         public DateTime? DataAprovacao { get; set; }
         public DateTime DataSolicitacao { get; set; }
         public int StatusAprovacao { get; set; }
-        public string? Aprovador { get; set; }
+        public int? IdAprovador { get; set; }
         public string? ObservacaoRejeicao { get; set; }
         public IEnumerable<Cotacao> Cotacoes { get; set; }
         public IEnumerable<SolicitacaoProduto> SolicitacaoProdutos { get; set; }
