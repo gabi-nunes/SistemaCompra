@@ -36,6 +36,7 @@ export class SolicitacoesDetalheComponent implements OnInit {
   produtos: Produto[] = [];
   ProdSelecionado: Produto;
   qtdeProd: number;
+  isvalid: boolean = false;
 
   form: FormGroup = new FormGroup({});
   solicitacao = {} as Solicitacao;
@@ -393,6 +394,10 @@ public CarregarUser(userId: number = 0): void{
   }
   CloseModalQtde(): void{
     this.modalRefQtde.hide();
+  }
+
+  GerarRelatrio(): void{
+    window.print();
   }
 //#endregion
 }

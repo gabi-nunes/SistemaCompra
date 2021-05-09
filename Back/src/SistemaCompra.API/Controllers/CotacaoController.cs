@@ -151,20 +151,6 @@ namespace SistemaCompra.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
             }
         }
-        [HttpGet("FornecedorGanhador/{FamiliaId}")]
-        public async Task<IActionResult> GetFornecedorMaiorRankigId(int FamiliaId)
-        {
-            try
-            {
-                var Cotacao = await CotacaoService.GetFornecedorMaioresRankingAsync(FamiliaId);
-                if (Cotacao == null) return NotFound("Nenhum cotacao encontrado!");
-                return Ok(Cotacao);
-            }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
-            }
-        }
 
 
         [HttpPost("Registrar/{SolicitcaoId}")]
@@ -230,12 +216,27 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
+        [HttpGet("RetornarQuantidadeporItem/{ItemCotacaoId}")]
+        public async Task<IActionResult> GetQuantidadeporItem(int ItemCotacaoId)
+        {
+            try
+            {
+                var Cotacao = await CotacaoService.CalcQuantporItemAsync(ItemCotacaoId);
+                if (Cotacao == null) return NotFound("Nenhum cotacao encontrado!");
+                return Ok(Cotacao);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
+            }
+        }
+
+
         [HttpPut("EnviarOferta/{CotacaoId}")]
         public async Task<IActionResult> PutEnviarOfeta(int CotacaoId,[FromBody] EnviarOfertaDto model)
         {
             try
-            {
-                var email = await CotacaoService.EnviarEmail(model.fornecedorId);
+            { 
                 var cotacao = await CotacaoService.EnviarOfetarAsync(CotacaoId, model);
                 if (cotacao == null) return BadRequest("Erro ao tentar Adicionar a cotacao.");
                 return Ok(cotacao);
@@ -279,12 +280,12 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("FornecedorIdeal/{cotacaoId}")]
-        public async Task<IActionResult> GetFornecedorIdeal(int cotacaoId)
+        [HttpGet("FornecedorIdeal/{SolicitacaoId}")]
+        public async Task<IActionResult> GetFornecedorIdeal(int SolicitacaoId)
         {
             try
             {
-                var cotacao = await CotacaoService.fornecedorIdeal(cotacaoId);
+                var cotacao = await CotacaoService.fornecedorIdeal(SolicitacaoId);
                 if (cotacao == null) return BadRequest("Erro ao tentar Definir Fornecedor Ganhador.");
                 return Ok(cotacao);
             }
@@ -300,7 +301,7 @@ namespace SistemaCompra.API.Controllers
         {
             try
             {
-                var cotacao = await CotacaoService.GetFornecedorMaioresRankingAsync(familiaId);
+                var cotacao = await CotacaoService.FornecedorMaioresRankingAsync(familiaId);
                 if (cotacao == null) return BadRequest("Erro ao tentar Definir Fornecedor Ganhador.");
                 return Ok(cotacao);
             }
@@ -336,6 +337,20 @@ namespace SistemaCompra.API.Controllers
             try
             {
                 var cotacao = await CotacaoService.UpdateCotacao(Id, model);
+                if (cotacao == null) return BadRequest("Não foi possível encontrar cotacao ou ja encerrada!");
+                return Ok(cotacao);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar Atualizar cotacao. Erro: {ex.Message}");
+            }
+        }
+        [HttpPut("EscolherFornecedorGanhador/{SolicitacaoId}")]
+        public async Task<IActionResult> PutGanhador(int SolicitacaoId)
+        {
+            try
+            {
+                var cotacao = await CotacaoService.EscolherFornecedorGanhador(SolicitacaoId);
                 if (cotacao == null) return BadRequest("Não foi possível encontrar cotacao ou ja encerrada!");
                 return Ok(cotacao);
             }
