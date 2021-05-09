@@ -1,0 +1,12 @@
+.only-print{
+  display: inline;
+}
+
+@media print{
+  .no-print{
+    display: none !important;
+  }
+  .only-print{
+    display: block;
+  }
+}

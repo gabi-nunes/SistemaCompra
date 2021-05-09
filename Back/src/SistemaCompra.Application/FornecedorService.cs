@@ -1,4 +1,5 @@
 ﻿using SistemaCompra.Application.Contratos;
+using SistemaCompra.Application.DTO.Request;
 using SistemaCompra.Domain;
 using SistemaCompra.Persistence.Contratos;
 using System;
@@ -21,15 +22,35 @@ namespace SistemaCompra.Application
             FGeralPersist = geral;
         }
 
-        public async Task<Fornecedor> AddFornecedor(Fornecedor model)
+        public async Task<Fornecedor> AddFornecedor(FornecedorDto model)
         {
             try
             {
-                FGeralPersist.Add<Fornecedor>(model);
+
+                Fornecedor fornecedor = new Fornecedor();
+                fornecedor.CNPJ = model.CNPJ;
+                fornecedor.Nome = model.Nome;
+                fornecedor.Cidade = model.Cidade;
+                fornecedor.Endereco = model.Endereco;
+                fornecedor.Bairro = model.Bairro;
+                fornecedor.Numero = model.Numero;
+                fornecedor.Complemento = model.Complemento;
+                fornecedor.Estado = model.Estado;
+                fornecedor.CEP = model.CEP;
+                fornecedor.InscricaoMunicipal = model.InscricaoMunicipal;
+                fornecedor.InscricaoEstadual = model.InscricaoEstadual;
+                fornecedor.Email = model.Email;
+                fornecedor.Telefone= model.Telefone;
+                fornecedor.Celular = model.Celular;
+                fornecedor.PontuacaoRanking = model.PontuacaoRanking;
+                fornecedor.FamiliaProdutoId = model.FamiliaProdutoId;
+                fornecedor.Senha = model.Senha;
+
+                FGeralPersist.Add<Fornecedor>(fornecedor);
 
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    var FornecedorRetorno = await _FornecedorPresist.GetAllFornecedorByIdAsync(model.Id);
+                    var FornecedorRetorno = await _FornecedorPresist.GetAllFornecedorByIdAsync(fornecedor.Id);
 
                     return FornecedorRetorno;
                 }

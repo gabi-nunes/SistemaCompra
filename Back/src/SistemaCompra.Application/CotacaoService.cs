@@ -6,6 +6,8 @@ using SistemaCompra.Persistence.Contratos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -81,9 +83,8 @@ namespace SistemaCompra.Application
             cotacao.Frete = model.Frete;
             cotacao.DataEntrega = model.DataEntrega;
             cotacao.status = model.status;
-            cotacao.FrmPagamento = model.FrmPagamento;
-            cotacao.Parcelas = model.Parcelas;
             cotacao.Total = await CalcQuantAsync(cotacao.Id);
+            cotacao.Total += cotacao.Frete;
 
             FGeralPersist.Update<Cotacao>(cotacao);
 
@@ -97,7 +98,6 @@ namespace SistemaCompra.Application
 
 
         }
-
 
         public async Task<Cotacao> EscolherFornecedorGanhador(int idsol)
         {
@@ -150,8 +150,9 @@ namespace SistemaCompra.Application
             double Total = 0;
             foreach (ItemCotacao item in Itemcotacao)
             {
-                Total = item.QtdeProduto * item.PrecoUnit;
+                Total += item.QtdeProduto * item.PrecoUnit;
             }
+            
 
 
             return Total;
@@ -205,6 +206,8 @@ namespace SistemaCompra.Application
                 Cotacao.PrazoOfertas = model.PrazoOfertas;
                 Cotacao.fornecedorId = model.fornecedorId;
                 Cotacao.CotadorId = model.CotadorId;
+                Cotacao.FrmPagamento = model.FrmPagamento;
+                Cotacao.Parcelas = model.Parcelas;
 
 
                 FGeralPersist.Add<Cotacao>(Cotacao);
@@ -306,6 +309,19 @@ namespace SistemaCompra.Application
             try
             {
                 var cotacaos = await _CotacaoPresist.GetAllCotacaoByIdAsync(CotacaoId);
+                if (cotacaos == null) return null;
+                return cotacaos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<Cotacao[]> GetCotacaobyFornecedorAsync(int FornecedorId)
+        {
+            try
+            {
+                var cotacaos = await _CotacaoPresist.GetFornecedorPorCotacaoByIdAsync(FornecedorId);
                 if (cotacaos == null) return null;
                 return cotacaos;
             }
@@ -455,8 +471,7 @@ namespace SistemaCompra.Application
             {
                 var CotacaoRetorno = await _CotacaoPresist.GetAllCotacaoByIdAsync(idPrice);
                 model.FornecedorIdeal = CotacaoRetorno.fornecedorId;
-                
-                    model.isForncedorMaior = true;
+            
                     return model;
                
             }
@@ -492,29 +507,79 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<FornecedorIdealDto> GetFornecedorMaioresRankingAsync(int id)
+        public async Task<Fornecedor[]> FornecedorMaioresRankingAsync(int id)
         {
             var fornecedorMaiorRanking = await _CotacaoPresist.GetFornecedorGanhadorAsync(id);
-            FornecedorIdealDto model = new FornecedorIdealDto();
 
-            model.FornecedoresRanking = new Fornecedor[3];
-
-            if (fornecedorMaiorRanking.Length > 3)
+            bool salvar = false;
+            foreach (var LForn in fornecedorMaiorRanking)
             {
-                for (int i = 0; i < 3; i++)
+                LForn.Posicao= fornecedorMaiorRanking.ToList().IndexOf(LForn);
+                LForn.Posicao += 1;
+                FGeralPersist.Update<Fornecedor>(LForn);
+                if (await FGeralPersist.SaveChangesAsync())
                 {
-                    model.FornecedoresRanking[i] = fornecedorMaiorRanking[i];
+                    salvar = true;
+
+                }
+                else
+                {
+                    salvar = false;
                 }
             }
-            else
-            {
-                for (int i = 0; i < fornecedorMaiorRanking.Length; i++)
-                {
-                    model.FornecedoresRanking[i] = fornecedorMaiorRanking[i];
-                }
-            }
 
-            return model;
+            if (salvar)
+            {
+                return await _CotacaoPresist.GetFornecedorGanhadorAsync(id);
+            }
+           
+            return null;
+        }
+
+
+    
+
+        public async Task<bool> EnviarEmail(int id)
+        {
+            try
+            {
+                var fornecedor = await _CotacaoPresist.getEmailFornecedor(id);
+                // Estancia da Classe de Mensagem
+                MailMessage _mailMessage = new MailMessage();
+                // Remetente
+                _mailMessage.From = new MailAddress("goodplacecompras@gmail.com");
+
+                // Destinatario seta no metodo abaixo
+
+                //Contrói o MailMessage
+                _mailMessage.CC.Add(fornecedor.Email);
+                _mailMessage.Subject = "Good Place ";
+                _mailMessage.IsBodyHtml = true;
+                _mailMessage.Body = "<p>Bem vindo ao Good Place!</p><p>Parabens Forncedor!</p>Informamos que voce foi selecionado participar de uma cotação, entre no sistema Good Place e visualize a cotação enviada para você</p> <p>Esperamos que a nossa parceria seja duradoura e que nosso trabalho sempre corresponda com as expectativas! </p>";
+
+
+
+                //CONFIGURAÇÃO COM PORTA
+                SmtpClient _smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32("587"));
+
+                //CONFIGURAÇÃO SEM PORTA
+                // SmtpClient _smtpClient = new SmtpClient(UtilRsource.ConfigSmtp);
+
+                // Credencial para envio por SMTP Seguro (Quando o servidor exige autenticação)
+                _smtpClient.UseDefaultCredentials = false;
+                _smtpClient.Credentials = new NetworkCredential("goodplacecompras@gmail.com", "Tcc123456");
+
+                _smtpClient.EnableSsl = true;
+
+                _smtpClient.Send(_mailMessage);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

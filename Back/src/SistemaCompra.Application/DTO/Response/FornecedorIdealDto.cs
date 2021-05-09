@@ -12,8 +12,8 @@ namespace SistemaCompra.Application.DTO.Response
         public int? FornecedorIdeal { get; set; }
         public int? FornecedorMenorPreco { get; set; }
         public int? FornecedorMenorData { get; set; }
-        public Fornecedor[] FornecedoresRanking { get; set; }
-        public bool isForncedorMaior { get; set; }
+       
+
 
     }
 }

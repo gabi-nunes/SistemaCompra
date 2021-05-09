@@ -39,6 +39,17 @@ namespace SistemaCompra.Persistence
             return await query.FirstOrDefaultAsync();
         }
 
+        public async Task<Cotacao[]> GetFornecedorPorCotacaoByIdAsync(int Fornecedorid)
+        {
+            IQueryable<Cotacao> query = Context.Cotacoes
+               .Include(e => e.ItensCotacao);
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.fornecedorId == Fornecedorid);
+
+            return await query.OrderBy(e => e.Id).ToArrayAsync();
+        }
+
 
         public async Task<Cotacao[]> GetCotByCotacaoMenorPreco(int id)
         {
@@ -120,6 +131,13 @@ namespace SistemaCompra.Persistence
 
             query = query.Where(e => e.PrazoOfertas == Data);
             return await query.OrderBy(e => e.Id).ToArrayAsync();
+        }
+        public async Task<Fornecedor> getEmailFornecedor(int idFornecedor)
+        {
+            IQueryable<Fornecedor> query = Context.Fornecedores;
+                
+            query = query.Where(e => e.Id == idFornecedor);
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
 
         public  async Task<Cotacao[]> GetCotacaoByPendenteAsync()

@@ -64,6 +64,21 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
+        [HttpGet("CotacaoPorFornecedor/{CotacaoId}")]
+        public async Task<IActionResult> GeFornecedortbyCotacaoId(int FornecedorId)
+        {
+            try
+            {
+                var Cotacao = await CotacaoService.GetCotacaobyFornecedorAsync(FornecedorId);
+                if (Cotacao == null) return NotFound("Nenhum cotacao encontrado!");
+                return Ok(Cotacao);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
+            }
+        }
+
         [HttpGet("CotacaoPorSolicitacao/{CotacaoId}")]
         public async Task<IActionResult> GetcotacaobyId(int CotacaoId)
         {
@@ -136,28 +151,14 @@ namespace SistemaCompra.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
             }
         }
-        [HttpGet("FornecedorGanhador/{FamiliaId}")]
-        public async Task<IActionResult> GetFornecedorMaiorRankigId(int FamiliaId)
+
+
+        [HttpPost("Registrar/{SolicitcaoId}")]
+        public async Task<IActionResult> Post(int SolicitcaoId, [FromBody] CotacaoDto model)
         {
             try
             {
-                var Cotacao = await CotacaoService.GetFornecedorMaioresRankingAsync(FamiliaId);
-                if (Cotacao == null) return NotFound("Nenhum cotacao encontrado!");
-                return Ok(Cotacao);
-            }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
-            }
-        }
-
-
-        [HttpPost("Registrar/{CotacaoId}")]
-        public async Task<IActionResult> Post(int CotacaoId, [FromBody] CotacaoDto model)
-        {
-            try
-            {
-                var cotacao = await CotacaoService.CreatCotacao(CotacaoId, model);
+                var cotacao = await CotacaoService.CreatCotacao(SolicitcaoId, model);
                 if (cotacao == null) return BadRequest("Erro ao tentar Adicionar a cotacao.");
                 return Ok(cotacao);
             }
@@ -215,11 +216,27 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
+        [HttpGet("RetornarQuantidadeporItem/{ItemCotacaoId}")]
+        public async Task<IActionResult> GetQuantidadeporItem(int ItemCotacaoId)
+        {
+            try
+            {
+                var Cotacao = await CotacaoService.CalcQuantporItemAsync(ItemCotacaoId);
+                if (Cotacao == null) return NotFound("Nenhum cotacao encontrado!");
+                return Ok(Cotacao);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
+            }
+        }
+
+
         [HttpPut("EnviarOferta/{CotacaoId}")]
         public async Task<IActionResult> PutEnviarOfeta(int CotacaoId,[FromBody] EnviarOfertaDto model)
         {
             try
-            {
+            { 
                 var cotacao = await CotacaoService.EnviarOfetarAsync(CotacaoId, model);
                 if (cotacao == null) return BadRequest("Erro ao tentar Adicionar a cotacao.");
                 return Ok(cotacao);
@@ -230,6 +247,21 @@ namespace SistemaCompra.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar adicionar Cotacao. Erro: {ex.Message}");
             }
         }
+        [HttpGet("EnviarAlerta/{FornecedorId}")]
+        public async Task<IActionResult> EnviarOfertaFornecedor(int FornecedorId)
+        {
+            try
+            {
+                var email = await CotacaoService.EnviarEmail(FornecedorId);
+                if (email == false) return NotFound("Nenhum cotacao encontrado!");
+                return Ok(email);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
+            }
+        }
+
 
 
         [HttpPut("CotacaoGanhadore/{IdCot}")]
@@ -248,12 +280,12 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("FornecedorIdeal/{cotacaoId}")]
-        public async Task<IActionResult> GetFornecedorIdeal(int cotacaoId)
+        [HttpGet("FornecedorIdeal/{SolicitacaoId}")]
+        public async Task<IActionResult> GetFornecedorIdeal(int SolicitacaoId)
         {
             try
             {
-                var cotacao = await CotacaoService.fornecedorIdeal(cotacaoId);
+                var cotacao = await CotacaoService.fornecedorIdeal(SolicitacaoId);
                 if (cotacao == null) return BadRequest("Erro ao tentar Definir Fornecedor Ganhador.");
                 return Ok(cotacao);
             }
@@ -269,7 +301,7 @@ namespace SistemaCompra.API.Controllers
         {
             try
             {
-                var cotacao = await CotacaoService.GetFornecedorMaioresRankingAsync(familiaId);
+                var cotacao = await CotacaoService.FornecedorMaioresRankingAsync(familiaId);
                 if (cotacao == null) return BadRequest("Erro ao tentar Definir Fornecedor Ganhador.");
                 return Ok(cotacao);
             }
@@ -311,6 +343,38 @@ namespace SistemaCompra.API.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar Atualizar cotacao. Erro: {ex.Message}");
+            }
+        }
+        [HttpPut("EscolherFornecedorGanhador/{SolicitacaoId}")]
+        public async Task<IActionResult> PutGanhador(int SolicitacaoId)
+        {
+            try
+            {
+                var cotacao = await CotacaoService.EscolherFornecedorGanhador(SolicitacaoId);
+                if (cotacao == null) return BadRequest("Não foi possível encontrar cotacao ou ja encerrada!");
+                return Ok(cotacao);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar Atualizar cotacao. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpGet("UltimoId")]
+        public async Task<IActionResult> GetidLast()
+        {
+            try
+            {
+                int id = await CotacaoService.TheLastID();
+                if (id == null) return NoContent();
+
+                return Ok(id);
+
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar a última Solicitação . Erro: {ex.Message}");
             }
         }
 

@@ -37,6 +37,7 @@ export class SolicitacoesDetalheComponent implements OnInit {
   produtos: Produto[] = [];
   ProdSelecionado: Produto;
   qtdeProd: number;
+  isvalid: boolean = false;
 
   form: FormGroup = new FormGroup({});
   solicitacao = {} as Solicitacao;
@@ -428,8 +429,13 @@ public CarregarAprovador(userId: number): void{
     this.modalRefQtde.hide();
   }
 
+<<<<<<< HEAD
   onMudouEvento(evento: any): void{
     console.log(evento);
+=======
+  GerarRelatrio(): void{
+    window.print();
+>>>>>>> master
   }
 //#endregion
 }
