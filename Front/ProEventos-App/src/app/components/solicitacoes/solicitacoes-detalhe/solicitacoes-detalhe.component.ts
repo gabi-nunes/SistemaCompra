@@ -21,6 +21,9 @@ import { FamiliaProdutoService } from 'src/app/services/familiaProduto.service';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { UserService } from 'src/app/services/user.service';
+import * as jsPDF from 'jspdf';
+
+
 
 @Component({
   selector: 'app-solicitacoes-detalhe',
@@ -397,7 +400,13 @@ public CarregarUser(userId: number = 0): void{
   }
 
   GerarRelatrio(): void{
+
+    const doc= new jsPDF();
+    
+
     window.print();
+
+
   }
 //#endregion
 }
