@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemaCompra.Persistence.Migrations
 {
-    public partial class init : Migration
+    public partial class segundint : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,7 +59,8 @@ namespace SistemaCompra.Persistence.Migrations
                     Celular = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     PontuacaoRanking = table.Column<int>(type: "int", nullable: false),
                     FamiliaProdutoId = table.Column<int>(type: "int", nullable: false),
-                    Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
+                    Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Posicao = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

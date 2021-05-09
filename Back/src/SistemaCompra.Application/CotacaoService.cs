@@ -83,9 +83,8 @@ namespace SistemaCompra.Application
             cotacao.Frete = model.Frete;
             cotacao.DataEntrega = model.DataEntrega;
             cotacao.status = model.status;
-            cotacao.FrmPagamento = model.FrmPagamento;
-            cotacao.Parcelas = model.Parcelas;
             cotacao.Total = await CalcQuantAsync(cotacao.Id);
+            cotacao.Total += cotacao.Frete;
 
             FGeralPersist.Update<Cotacao>(cotacao);
 
@@ -99,7 +98,6 @@ namespace SistemaCompra.Application
 
 
         }
-
 
         public async Task<Cotacao> EscolherFornecedorGanhador(int idsol)
         {
@@ -154,6 +152,7 @@ namespace SistemaCompra.Application
             {
                 Total += item.QtdeProduto * item.PrecoUnit;
             }
+            
 
 
             return Total;
@@ -206,6 +205,8 @@ namespace SistemaCompra.Application
                 Cotacao.status = model.status;
                 Cotacao.PrazoOfertas = model.PrazoOfertas;
                 Cotacao.fornecedorId = model.fornecedorId;
+                Cotacao.FrmPagamento = model.FrmPagamento;
+                Cotacao.Parcelas = model.Parcelas;
 
 
                 FGeralPersist.Add<Cotacao>(Cotacao);
@@ -400,19 +401,6 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<Fornecedor[]> GetFornecedorMaiorRankingAsync(int id)
-        {
-            try
-            {
-                var Fornecedor = await _CotacaoPresist.GetFornecedorGanhadorAsync(id);
-                if (Fornecedor == null) return null;
-                return Fornecedor;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
 
         public async Task<FornecedorIdealDto> fornecedorIdeal(int idsol)
         {
@@ -468,8 +456,7 @@ namespace SistemaCompra.Application
             {
                 var CotacaoRetorno = await _CotacaoPresist.GetAllCotacaoByIdAsync(idPrice);
                 model.FornecedorIdeal = CotacaoRetorno.fornecedorId;
-                
-                    model.isForncedorMaior = true;
+            
                     return model;
                
             }
@@ -505,30 +492,37 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<FornecedorIdealDto> GetFornecedorMaioresRankingAsync(int id)
+        public async Task<Fornecedor[]> FornecedorMaioresRankingAsync(int id)
         {
             var fornecedorMaiorRanking = await _CotacaoPresist.GetFornecedorGanhadorAsync(id);
-            FornecedorIdealDto model = new FornecedorIdealDto();
 
-            model.FornecedoresRanking = new Fornecedor[3];
-
-            if (fornecedorMaiorRanking.Length > 3)
+            bool salvar = false;
+            foreach (var LForn in fornecedorMaiorRanking)
             {
-                for (int i = 0; i < 3; i++)
+                LForn.Posicao= fornecedorMaiorRanking.ToList().IndexOf(LForn);
+                LForn.Posicao += 1;
+                FGeralPersist.Update<Fornecedor>(LForn);
+                if (await FGeralPersist.SaveChangesAsync())
                 {
-                    model.FornecedoresRanking[i] = fornecedorMaiorRanking[i];
+                    salvar = true;
+
+                }
+                else
+                {
+                    salvar = false;
                 }
             }
-            else
-            {
-                for (int i = 0; i < fornecedorMaiorRanking.Length; i++)
-                {
-                    model.FornecedoresRanking[i] = fornecedorMaiorRanking[i];
-                }
-            }
 
-            return model;
+            if (salvar)
+            {
+                return await _CotacaoPresist.GetFornecedorGanhadorAsync(id);
+            }
+           
+            return null;
         }
+
+
+    
 
         public async Task<bool> EnviarEmail(int id)
         {

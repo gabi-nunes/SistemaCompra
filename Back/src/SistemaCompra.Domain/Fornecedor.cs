@@ -22,6 +22,7 @@ namespace SistemaCompra.Domain
         public int PontuacaoRanking { get; set; }
         public int FamiliaProdutoId { get; set; }
         public string Senha { get; set; }
+        public int Posicao { get; set; }
         public FamiliaProduto FamiliaProduto { get; set; }
         public IEnumerable<Cotacao> Cotacoes { get; set; }
 

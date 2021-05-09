@@ -1,4 +1,5 @@
-﻿using SistemaCompra.Domain;
+﻿using SistemaCompra.Application.DTO.Request;
+using SistemaCompra.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace SistemaCompra.Application.Contratos
 {
     public interface IFornecedorService
     {
-        Task<Fornecedor> AddFornecedor(Fornecedor model);
+        Task<Fornecedor> AddFornecedor(FornecedorDto model);
         Task<Fornecedor> UpdateFornecedor(int FornecedorId, Fornecedor model);
         Task<bool> DeleteFornecedor(int FornecedorId);
 

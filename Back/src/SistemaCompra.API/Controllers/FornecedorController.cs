@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemaCompra.Application;
 using SistemaCompra.Application.Contratos;
+using SistemaCompra.Application.DTO.Request;
 using SistemaCompra.Domain;
 using System;
 using System.Collections.Generic;
@@ -67,7 +68,7 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPost("Registrar")]
-        public async Task<IActionResult> Post([FromBody] Fornecedor model)
+        public async Task<IActionResult> Post([FromBody] FornecedorDto model)
         {
             try
             {

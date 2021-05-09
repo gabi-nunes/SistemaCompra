@@ -9,8 +9,8 @@ using SistemaCompra.Persistence;
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(GoodPlaceContext))]
-    [Migration("20210508175621_init")]
-    partial class init
+    [Migration("20210509030125_segundint")]
+    partial class segundint
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -130,6 +130,9 @@ namespace SistemaCompra.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("PontuacaoRanking")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Posicao")
                         .HasColumnType("int");
 
                     b.Property<string>("Senha")
