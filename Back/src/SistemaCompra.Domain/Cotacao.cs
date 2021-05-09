@@ -7,6 +7,7 @@ namespace SistemaCompra.Domain
     public class Cotacao
     {
         public int Id { get; set; }
+        public int CotadorId { get; set; }
         public DateTime DataEmissaoCotacao { get; set; }
         public int SolicitacaoId { get; set; }
         public Solicitacao Solicitacao { get; set; }

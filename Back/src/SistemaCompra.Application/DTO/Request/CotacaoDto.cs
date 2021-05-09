@@ -16,6 +16,7 @@ namespace SistemaCompra.Application.DTO.Request
         public int FrmPagamento { get; set; }
         public DateTime PrazoOfertas { get; set; }
         public int fornecedorId { get; set; }
+        public int CotadorId { get; set; }
 
     }
 }

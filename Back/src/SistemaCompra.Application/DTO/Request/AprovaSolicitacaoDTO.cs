@@ -10,6 +10,7 @@ namespace SistemaCompra.Application.DTO.Request
     {
         public DateTime DataAprovacao { get; set; }
         public int StatusAprovacao { get; set; }
-        public string? Aprovador { get; set; }
+        public int? IdAprovador { get; set; }
+        public string? ObservacaoRejeicao { get; set; }
     }
 }

@@ -5,6 +5,7 @@ import { Solicitacao } from './Solicitacao';
 
 export interface Cotacao {
   id: number;
+  CotadorId: number;
   prazoCotacao: Date;
   solicitacaoId: number;
   solicitacao: Solicitacao;

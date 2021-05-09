@@ -110,8 +110,9 @@ namespace SistemaCompra.Application
 
                 solicitacao = LESolicitacao;
                 solicitacao.DataAprovacao = model.DataAprovacao;
-                solicitacao.Aprovador = model.Aprovador;
-                 solicitacao.StatusAprovacao = model.StatusAprovacao;
+                solicitacao.IdAprovador = model.IdAprovador;
+                solicitacao.StatusAprovacao = model.StatusAprovacao;
+                solicitacao.ObservacaoRejeicao = model.ObservacaoRejeicao;
 
                 FGeralPersist.Update<Solicitacao>(solicitacao);
                 if (await FGeralPersist.SaveChangesAsync())
@@ -270,7 +271,7 @@ namespace SistemaCompra.Application
             {
                 int idLast;
                 var solicitacao = await _SolicitacaoPresist.GetIdLast();
-                if (solicitacao == null) throw new Exception("Última Solicitacao não encontrada.");
+                if (solicitacao == null) return 0;
 
                 idLast = solicitacao.Id;
                 return idLast;

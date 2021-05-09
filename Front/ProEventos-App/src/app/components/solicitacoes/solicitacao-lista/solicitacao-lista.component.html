@@ -6,10 +6,6 @@
         <div class="input-group-prepend">
           <div class="input-group-text">Filtro:</div>
         </div>
-       <!-- <input type="text"
-        class="form-control"
-        placeholder="Filtrar por código"
-         [(ngModel)]="GridFilter"> -->
       </div>
     </div>
 
@@ -28,7 +24,7 @@
         <th class="text-center">Data Necessaria</th>
         <th class="text-center">Data</th>
         <th class="text-center">Status</th>
-        <th class="text-center">Opções</th>
+        <th class="text-center" style="width: 12%">Opções</th>
       </tr>
     </thead>
     <tbody *ngIf="solicitacoes && solicitacoes.length">
@@ -40,8 +36,9 @@
           <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(solicitacao.statusAprovacao)}" [tooltip]="GetTooltipByStatus(solicitacao.statusAprovacao)"></i>
         </td>
         <!-- [ngClass]="{cssClass: expression}">{{GetColorByStatus(solicitacao.statusAprovacao)}}</td> -->
-        <td class="text-center">
-          <i class="fas fa-times fa-2x" (click)="openModal(template, solicitacao.id )" style="color: red; cursor: pointer;"></i>
+        <td class="text-right" style="white-space: nowrap;">
+          <i *ngIf="solicitacao.statusAprovacao === 2" class="fas fa-search " tooltip="Avaliar" (click)="openModalAprovacao(AprovarSolicitacao, solicitacao)" style="color: #5bc0de; cursor: pointer; font-size: x-large;"></i>
+          <i tooltip="Excluir" class="far fa-trash-alt mx-3" (click)="openModal(template, solicitacao.id )" style="color: #d9534f; cursor: pointer; font-size: x-large;"></i>
         </td>
       </tr>
     </tbody>
@@ -61,5 +58,9 @@
     <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
     <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
   </div>
+</ng-template>
+
+<ng-template #AprovarSolicitacao>
+  <app-aprovar-solicitacao [modal]="modalRefAprovacao" [solicitacao]="solicitacao" (carregaEventos)="onMudouEvento($event)"></app-aprovar-solicitacao>
 </ng-template>
 

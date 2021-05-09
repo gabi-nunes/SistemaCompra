@@ -19,11 +19,20 @@ namespace SistemaCompra.Persistence.Contratos
         }
      
 
-        public async Task<FamiliaProduto[]> GetAllprodutoAsync()
+        public async Task<FamiliaProduto[]> GetAllFamiliaProdutoAsync()
         {
             IQueryable<FamiliaProduto> query = Context.FamiliaProdutos;
 
             return await query.OrderBy(e => e.Id).ToArrayAsync();
+        }
+        public async Task<FamiliaProduto> GetFamiliaProdutoByIdAsync(int FamiliaProdId)
+        {
+            IQueryable<FamiliaProduto> query = Context.FamiliaProdutos;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == FamiliaProdId);
+
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
 
     }

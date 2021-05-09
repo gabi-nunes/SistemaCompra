@@ -1,0 +1,250 @@
+<div class="card shadow-sm rounded">
+  <form [formGroup]="form">
+    <div class="p-3">
+      <div class="d-flex">
+        <h2 class="roboto text-muted mr-auto mb-0 pb-0">
+          Solicitação n°{{f.id.value | number:'3.0'}}
+        </h2>
+        <h4 class="roboto text-muted mb-0 pb-0 mt-2">
+          Data: {{dataHoje | DateTimeFormatter}}
+        </h4>
+      </div>
+      <hr class="mt-1">
+      <!-- <div *ngIf="solicitacao.statusAprovacao === 1 || solicitacao.statusAprovacao === 0">
+        <label *ngIf="solicitacao.statusAprovacao === 0" class="text-success">
+          Essa Solicitação já foi Aprovada portanto não pode mais ser alterada <br>
+          Comentários de {{aprovador?.name}}(Aprovador):
+        </label>
+        <label *ngIf="solicitacao.statusAprovacao === 1" class="text-danger">
+          Essa Solicitação foi Reprovada. <br> Leia os comentários de quem a reprovou, preencha e envie para a avaliação novamente. <br>
+          Comentários de {{aprovador?.name}}(Avaliador):
+        </label>
+        <textarea class="form-control my-1 is-valid" readonly formControlName="observacaoRejeicao" placeholder="Observações:" style="height: 100px" [ngClass]="cssStatusValidation()"></textarea>
+      </div> -->
+
+      <div class="form-row mt-3">
+        <div class="form-group col-md-1">
+          <label>Código</label>
+          <input type="text" class="form-control" readonly
+          formControlName="id">
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>Solicitante</label>
+          <input type="text" class="form-control"
+          readonly formControlName="user">
+        </div>
+
+        <div class="form-group col-md-2">
+          <label>Data de Necessidade</label>
+          <input
+        class="form-control" readonly
+        formControlName="dataNecessidade">
+        </div>
+
+        <div class="form-group col-md-2">
+          <label>Família de Produtos</label>
+          <input readonly
+        class="form-control"
+        formControlName="DesFamProd">
+        </div>
+
+        <div class="form-group col-md-2">
+          <label>Prazo da Cotação</label>
+          <input
+          class="form-control"
+          bsDatepicker [ngClass]="cssValidation(f.prazoCotacao)"
+          formControlName="prazoCotacao"
+          [bsConfig]="bsConfig">
+          <div *ngIf="f.prazoCotacao.errors?.required" class="invalid-feedback">
+            O campo Prazo de Cotação é obrigatório
+          </div>
+        </div>
+
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label>Cotador</label>
+          <input type="text" class="form-control"
+          readonly formControlName="cotador">
+        </div>
+      </div>
+
+      <!-- <div class="d-flex mt-4 ">
+        <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
+          Itens
+        </h2>
+      </div>
+      <hr class="mt-2">
+
+      <table class="table table-striped table-hover">
+        <thead class="bg-logo">
+          <tr>
+            <th class="d-none d-md-table-cell text-center">Código</th>
+            <th class="text-center">Descrição</th>
+            <th class="text-center d-none d-md-table-cell">Unid. Medida</th>
+            <th class="text-center">Quantidade</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="solicitacaoProdutos && solicitacaoProdutos.length">
+          <tr *ngFor="let item of solicitacaoProdutos">
+            <td class="d-none d-md-table-cell text-center" style="width: 10%">
+              {{item.produto.id}}
+            </td>
+            <td class="text-center" style="width: 50%">
+              {{item.produto.descricao}}
+            </td>
+            <td class="d-none d-md-table-cell text-center" style="width: 20%">
+              {{item.produto.unidMedida}}
+            </td>
+            <td class="text-center" style="width: 10%">
+              {{item.qtdeProduto}}
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+
+      <!-- <div class="d-flex mt-4">
+        <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
+          Fornecedores
+        </h2>
+      </div>
+      <hr class="mt-2">
+
+      <div class="row justify-content-around mt-2">
+        <div *ngFor="let item of [1, 2, 3]" class="col-lg-4 pt-1">
+          <div class="card mb-3 shadow">
+            <div class="card-header text-center">
+              <h4 class="text-muted m-0">Fornecedor {{item}}</h4>
+            </div>
+            <div class="card-body">
+              <div class="h4 text-center mb-3">{{user.name}}</div>
+              <div class="h7 text-center text-bold pb-1"><b>Ranking: </b>1°</div>
+              <div class="h7 text-center text-bold pb-1"><b>E-mail: </b>gabi_nunex@hotmail.com</div>
+              <div class="h7 text-center text-bold pb-1"><b>Telefone: </b>(15) 99740-5509</div>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex justify-content-around">
+                <button class="btn btn-info">
+                  <div class="d-flex">
+                    <i class="fas fa-search fa-lg my-1"></i>
+                    <p class="ml-1 my-0">Pesquisar</p>
+                  </div>
+                </button>
+                <button class="btn btn-success">
+                  <div class="d-flex">
+                    <i class="fas fa-paper-plane fa-lg my-1"></i>
+                    <p class="ml-1 my-0">Enviar</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+  <div class="border border-success rounded px-2 mb-1 " *ngFor="let item of [1, 2, 3]">
+      <div class="d-flex mt-4 ">
+        <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
+          Cotação n°{{f.id.value | number:'3.0'}}
+        </h2>
+        <i class="fa-2x text-logo pr-2 align-text-bottom" [ngClass]="cssRotate(isCollapsed[item])" (click)="isCollapsed[item] = !isCollapsed[item]" style="cursor: pointer;"></i>
+        <i class="fas fa-medal fa-2x text-success align-self-baseline"></i>
+      </div>
+      <hr class="mt-2">
+
+      <div [collapse]="isCollapsed[item]" [isAnimated]="true">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label>Fornecedor</label>
+          <input type="text" class="form-control"
+          readonly formControlName="fornecedor">
+        </div>
+
+        <div class="form-group col-md-2">
+          <label>Data de Entrega</label>
+          <input type="text" class="form-control"
+          readonly formControlName="frete">
+        </div>
+      </div>
+
+      <table class="table table-striped table-hover">
+        <thead class="bg-logo">
+          <tr>
+            <th class="d-none d-md-table-cell text-center">Código</th>
+            <th class="text-center">Descrição</th>
+            <th class="text-center d-none d-md-table-cell">Unid. Medida</th>
+            <th class="text-center">Quantidade</th>
+            <th class="text-center">Preço Unit.</th>
+            <th class="text-center">Total Produto</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="solicitacaoProdutos && solicitacaoProdutos.length">
+          <tr *ngFor="let item of solicitacaoProdutos">
+            <td class="d-none d-md-table-cell text-center" style="width: 10%">
+              {{item.produto.id}}
+            </td>
+            <td class="text-center" style="width: 40%">
+              {{item.produto.descricao}}
+            </td>
+            <td class="d-none d-md-table-cell text-center" style="width: 12%">
+              {{item.produto.unidMedida}}
+            </td>
+            <td class="text-center" style="width: 10%">
+              {{item.qtdeProduto}}
+            </td>
+            <td class="text-center" style="width: 10%">
+              {{item.qtdeProduto}}
+            </td>
+            <td class="text-center" style="width: 15%">
+              {{item.qtdeProduto}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row justify-content-end">
+        <div class="col-2">
+          <label>Valor Total</label>
+          <input type="text" class="form-control"
+          readonly formControlName="total">
+        </div>
+      </div>
+    </div>
+  </div>
+
+    </div>
+
+    <div class="card-footer">
+      <div class="d-flex">
+        <button class="btn btn-outline-secondary mr-auto border" (click)="OpenModalCancel(CancelarTemplate)">
+          Cancelar Alteração
+        </button>
+        <!-- <button class="btn btn-primary mr-2" [disabled]="!form.valid">
+          <div class="d-flex">
+            <i class="fas fa-search fa-lg my-1"></i>
+            <p class="ml-1 my-0">Aprovar</p>
+          </div>
+        </button> -->
+        <button class="btn btn-success" [disabled]="!form.valid" (click)="SalvarSolicitacao()">
+          <div class="d-flex">
+            <i class="fas fa-save fa-lg my-1"></i>
+            <p class="ml-1 my-0">Salvar</p>
+          </div>
+        </button>
+      </div>
+    </div>
+  </form>
+  </div>
+
+  <!-- <ng-template #AprovarSolicitacao>
+    <app-aprovar-solicitacao [modal]="modalRefAprovaca" [solicitacao]="solicitacao" (carregaEventos)="onMudouEvento($event)"></app-aprovar-solicitacao>
+  </ng-template> -->
+
+  <ng-template #CancelarTemplate>
+    <div class="modal-body text-center">
+      <p>Deseja realmente Cancelar o registro da Solicitação? <br>
+         Você perderá todos os dados não salvos</p>
+      <button type="button" class="btn btn-default" (click)="CancelarForm()">Sim</button>
+      <button type="button" class="btn btn-primary" (click)="declineCancel()">Não</button>
+    </div>
+  </ng-template>

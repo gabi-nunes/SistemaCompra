@@ -9,7 +9,8 @@ namespace SistemaCompra.Application.Contratos
 {
     public interface IFamiliaProdutoService
     {
-        Task<FamiliaProduto[]> GetAllProdutoAsync();
+        Task<FamiliaProduto[]> GetAllFamiliaProdutoAsync();
+        Task<FamiliaProduto> GetFamiliaProdutoByIdAsync(int FamiliaProdId);
         
         }
 }
