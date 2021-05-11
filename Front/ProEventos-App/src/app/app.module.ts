@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,6 +42,13 @@ import { FornecedorComponent } from './components/fornecedor/fornecedor.componen
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
 import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
+// import { ProdutoComponent } from './components/produtos/produto/produto.component';
+import { ProdutoListaComponent } from './components/produtos/produto-lista/produto-lista.component';
+import { SolicitacaoService } from './services/solicitacao.service';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { PedidoListaComponent } from './components/pedidos/pedido-lista/pedido-lista.component';
+import { PedidoDetalheComponent } from './components/pedidos/pedido-detalhe/pedido-detalhe.component';
+import { PedidoService } from './services/pedido.service';
 
 
 
@@ -67,13 +75,18 @@ import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao
     FornecedorListaComponent,
     FornecedorDetalheComponent,
     SolicitacoesComponent,
-    SolicitacaoListaComponent
+    SolicitacaoListaComponent,
+    ProdutoListaComponent,
+    PedidosComponent,
+    PedidoListaComponent,
+    PedidoDetalheComponent
    ],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -88,7 +101,7 @@ import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao
     }),
     NgxSpinnerModule
   ],
-  providers: [EventoService, UserService],
+  providers: [EventoService, UserService, SolicitacaoService, PedidoService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

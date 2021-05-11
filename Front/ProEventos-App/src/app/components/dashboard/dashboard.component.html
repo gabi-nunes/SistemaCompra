@@ -68,10 +68,10 @@
       </tr>
     </tfoot>
     <tbody *ngIf="pedidos && pedidos.length && opcao===2 || opcao===null">
-      <tr *ngFor="let pedido of pedidos" (dblclick)="DetalharEvento(pedido.Id)">
-        <td class="d-none d-md-table-cell text-center">{{pedido.Id}}</td>
-        <td class="text-center">{{pedido.StatusAprov}}</td>
-        <td class="text-center">{{ pedido.DataEmissao| DateTimeFormatter}}</td>
+      <tr *ngFor="let pedido of pedidos" (dblclick)="DetalharEvento(pedido.id)">
+        <td class="d-none d-md-table-cell text-center">{{pedido.id}}</td>
+        <td class="text-center">{{pedido.statusAprov}}</td>
+        <td class="text-center">{{ pedido.dataEmissao| DateTimeFormatter}}</td>
         <td class="text-center">
             <i class="fas fa-times fa-2x" (click)="openModal(template)" style="color: red; cursor: pointer;"></i>
         </td>

@@ -21,6 +21,10 @@ import { FornecedorDetalheComponent } from './components/fornecedor/fornecedor-d
 import { FornecedorListaComponent } from './components/fornecedor/fornecedor-lista/fornecedor-lista.component';
 import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
 import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
+import { ProdutoListaComponent } from './components/produtos/produto-lista/produto-lista.component';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { PedidoDetalheComponent } from './components/pedidos/pedido-detalhe/pedido-detalhe.component';
+import { PedidoListaComponent } from './components/pedidos/pedido-lista/pedido-lista.component';
 
 const routes: Routes = [
   {path: 'user', redirectTo: 'user/lista'},
@@ -43,8 +47,17 @@ const routes: Routes = [
     ]
   },
 
-  {
-    path: 'solicitações', component: SolicitacoesComponent,
+  {path: 'pedidos', redirectTo: 'pedidos/lista'},
+  {path: 'pedidos', component: PedidosComponent,
+    children: [
+      {path: 'detalhe', component: PedidoDetalheComponent},
+      {path: 'detalhe/:id', component: PedidoDetalheComponent},
+      {path: 'lista', component: PedidoListaComponent}
+    ]
+  },
+
+  {path: 'solicitações', redirectTo: 'solicitações/lista'},
+  {path: 'solicitações', component: SolicitacoesComponent,
     children: [
       {path: 'lista', component: SolicitacaoListaComponent}
     ]
@@ -58,6 +71,9 @@ const routes: Routes = [
       {path: 'lista', component: EventoListaComponent}
     ]
   },
+
+  {path: 'produtos', component: ProdutoListaComponent },
+
   {path: 'palestrantes', component: PalestrantesComponent},
   {path: 'contatos', component: ContatosComponent},
   {path: 'dashboard', component: DashboardComponent},
