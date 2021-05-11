@@ -70,7 +70,7 @@
         </div>
       </div>
 
-      <!-- <div class="d-flex mt-4 ">
+      <div class="d-flex mt-4 ">
         <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
           Itens
         </h2>
@@ -102,50 +102,48 @@
             </td>
           </tr>
         </tbody>
-      </table> -->
+      </table>
 
-      <!-- <div class="d-flex mt-4">
+      <div class="d-flex mt-4">
         <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
           Fornecedores
         </h2>
       </div>
       <hr class="mt-2">
 
-      <div class="row justify-content-around mt-2">
-        <div *ngFor="let item of [1, 2, 3]" class="col-lg-4 pt-1">
+      <div *ngIf="fornecedoresEscolhidos && fornecedoresEscolhidos.length" class="row justify-content-around mt-2">
+        <div *ngFor="let fornecedor of fornecedoresEscolhidos" class="col-lg-4 pt-1">
           <div class="card mb-3 shadow">
-            <div class="card-header text-center">
-              <h4 class="text-muted m-0">Fornecedor {{item}}</h4>
+            <div class="card-header text-center" style="background-color: #2E3C5A;">
+              <h4 class="text-light m-0">Fornecedor</h4>
             </div>
             <div class="card-body">
-              <div class="h4 text-center mb-3">{{user.name}}</div>
-              <div class="h7 text-center text-bold pb-1"><b>Ranking: </b>1°</div>
-              <div class="h7 text-center text-bold pb-1"><b>E-mail: </b>gabi_nunex@hotmail.com</div>
-              <div class="h7 text-center text-bold pb-1"><b>Telefone: </b>(15) 99740-5509</div>
-            </div>
-            <div class="card-footer">
-              <div class="d-flex justify-content-around">
-                <button class="btn btn-info">
+              <div class="h4 text-center my-3">{{fornecedor.nome}}</div>
+              <div class="h7 text-center text-bold pb-1"><b>Ranking: </b>{{fornecedor.posicao}}°</div>
+              <div class="h7 text-center text-bold pb-1"><b>E-mail: </b>{{fornecedor.email}}</div>
+              <div class="h7 text-center text-bold pb-1"><b>Telefone: </b>{{fornecedor.telefone}}</div>
+              <div class="d-flex justify-content-end mt-4">
+                <button class="btn btn-outline-info" (click)="OpenModalFornecedores(SelecaoFornecedor, fornecedor.id)">
                   <div class="d-flex">
-                    <i class="fas fa-search fa-lg my-1"></i>
-                    <p class="ml-1 my-0">Pesquisar</p>
+                    <i class="fas fa-sync-alt fa-lg my-1"></i>
+                    <p class="ml-1 my-0">Substituir</p>
                   </div>
                 </button>
-                <button class="btn btn-success">
+                <!-- <button class="btn btn-success">
                   <div class="d-flex">
                     <i class="fas fa-paper-plane fa-lg my-1"></i>
                     <p class="ml-1 my-0">Enviar</p>
                   </div>
-                </button>
-              </div>
+                </button> -->
+            </div>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
 
-  <div class="border border-success rounded px-2 mb-1 " *ngFor="let item of [1, 2, 3]">
+  <!-- <div class="border border-success rounded px-2 pb-2 mb-1 " *ngFor="let item of [1, 2, 3]">
       <div class="d-flex mt-4 ">
-        <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
+        <h2 class="roboto text-success mr-auto mb-0 pb-0 ">
           Cotação n°{{f.id.value | number:'3.0'}}
         </h2>
         <i class="fa-2x text-logo pr-2 align-text-bottom" [ngClass]="cssRotate(isCollapsed[item])" (click)="isCollapsed[item] = !isCollapsed[item]" style="cursor: pointer;"></i>
@@ -210,7 +208,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
     </div>
 
@@ -225,16 +223,76 @@
             <p class="ml-1 my-0">Aprovar</p>
           </div>
         </button> -->
-        <button class="btn btn-success" [disabled]="!form.valid" (click)="SalvarSolicitacao()">
+
+        <button class="btn btn-success" [disabled]="!form.valid" (click)="EnviarCotacoes()">
           <div class="d-flex">
-            <i class="fas fa-save fa-lg my-1"></i>
-            <p class="ml-1 my-0">Salvar</p>
+            <i class="fas fa-paper-plane fa-lg my-1"></i>
+            <p class="ml-1 my-0">Enviar aos Fornecedores</p>
           </div>
         </button>
       </div>
     </div>
   </form>
   </div>
+
+  <ng-template #SelecaoFornecedor>
+    <div class="modal-header">
+      <h5 class="modal-title">Selecione um Fornecedor</h5>
+    </div>
+
+    <div class="modal-body">
+
+      <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
+        Fornecedores
+      </h2>
+      <hr>
+      <div class="d-flex">
+        <div class="flex-grow-1 pr-2">
+          <div class="input-group mb-2">
+            <input type="text"
+            class="form-control"
+            placeholder="Filtrar pelo Nome"
+            [(ngModel)]="GridFilter">
+            <div class="input-group-append">
+              <div class="input-group-text bg-logo">
+                <i class="fas fa-filter"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped table-hover">
+        <thead class="bg-logo">
+          <tr>
+            <th class="d-none d-md-table-cell text-center">Ranking</th>
+            <th class="d-none d-md-table-cell text-center">Código</th>
+            <th class="text-center">Nome</th>
+            <th class="text-center">Opções</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="fornecedoresRanking && fornecedoresRanking.length">
+          <tr *ngFor="let fornecedor of fornecedoresRanking">
+            <td class="d-none d-md-table-cell text-center" style="width: 10%">
+              {{fornecedor.posicao}}°
+            </td>
+            <td class="text-center" style="width: 10%">
+              {{fornecedor.id | number:'3.0'}}
+            </td>
+            <td class="d-none d-md-table-cell text-left" style="width: 50%">
+              {{fornecedor.nome}}
+            </td>
+            <td class="text-center" style="width: 20%">
+                <i class="fas fa-plus fa-2x text-info" style="cursor: pointer;" (click)="SubstituirFornecedor(fornecedor.id)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="CloseModalFornecedores()">Fechar</button>
+    </div>
+</ng-template>
 
   <!-- <ng-template #AprovarSolicitacao>
     <app-aprovar-solicitacao [modal]="modalRefAprovaca" [solicitacao]="solicitacao" (carregaEventos)="onMudouEvento($event)"></app-aprovar-solicitacao>
@@ -248,3 +306,5 @@
       <button type="button" class="btn btn-primary" (click)="declineCancel()">Não</button>
     </div>
   </ng-template>
+
+

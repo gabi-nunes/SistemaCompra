@@ -127,6 +127,7 @@ namespace SistemaCompra.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CotadorId = table.Column<int>(type: "int", nullable: false),
                     DataEmissaoCotacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     SolicitacaoId = table.Column<int>(type: "int", nullable: false),
                     Frete = table.Column<double>(type: "double", nullable: false),

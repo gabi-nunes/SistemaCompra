@@ -20,6 +20,8 @@ import { SolicitacaoProdutoDTO } from 'src/app/models/SolicitacaoProdutoDTO';
 import { FamiliaProdutoService } from 'src/app/services/familiaProduto.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { UserService } from 'src/app/services/user.service';
+import { Fornecedor } from 'src/app/models/Fornecedor';
+import { CotacaoService } from 'src/app/services/cotacao.service';
 
 @Component({
   selector: 'app-cotacoes-detalhe',
@@ -42,7 +44,7 @@ export class CotacoesDetalheComponent implements OnInit {
   solicitacaoId = {} as any;
 
   modalRefQtde = {} as BsModalRef;
-  modalRefProd = {} as BsModalRef;
+  modalRefForn = {} as BsModalRef;
   modalRef = {} as BsModalRef;
   modalRefAprovacao = {} as BsModalRef;
   modalRefCancel = {} as BsModalRef;
@@ -55,10 +57,14 @@ export class CotacoesDetalheComponent implements OnInit {
   solicitacaoProdutos: SolicitacaoProduto[] = [];
   solicitacaoProdutosOriginal: SolicitacaoProduto[] = [];
 
+  fornecedoresRanking: Fornecedor[] = [];
+  fornecedoresEscolhidos: Fornecedor[] = [];
+  FornIdSubstituir = 0;
+
   isCadastro: boolean;
   isCollapsed: boolean[] = [];
   private gridFilter = '';
-  produtosFiltrados: Produto[] = [];
+  fornecedoresFiltrados: Fornecedor[] = [];
   cotador: any;
 
   public get GridFilter(): string{
@@ -66,7 +72,7 @@ export class CotacoesDetalheComponent implements OnInit {
   }
   public set GridFilter(value: string){
     this.gridFilter = value;
-    this.produtosFiltrados = this.gridFilter ? this.Filtrar(this.gridFilter) : this.produtos;
+    this.fornecedoresFiltrados = this.gridFilter ? this.Filtrar(this.gridFilter) : this.fornecedoresRanking;
   }
 
   get f(): any{
@@ -84,21 +90,21 @@ export class CotacoesDetalheComponent implements OnInit {
               private familiaProdService: FamiliaProdutoService,
               private solicitacaoService: SolicitacaoService,
               private userService: UserService,
+              private cotacaoService: CotacaoService
   ) { this.localeService.use('pt-br'); }
 
   ngOnInit(): void{
-    debugger;
-    this.isCollapsed.fill(true)
+    this.isCollapsed.fill(true);
     this.CarregarSolicitacao();
     this.CarregarUser(0, true);
     this.validation();
   }
 //#endregion
 //#region "Helpers"
-  public Filtrar(filter: string): Produto[]{
+  public Filtrar(filter: string): Fornecedor[]{
     filter = filter.toLocaleLowerCase();
-    return this.produtos.filter(
-      (produto: any) => produto.descricao.toLocaleLowerCase().indexOf(filter) !== -1
+    return this.fornecedoresRanking.filter(
+      (forn: any) => forn.nome.toLocaleLowerCase().indexOf(filter) !== -1
 
     );
   }
@@ -167,13 +173,6 @@ public CarregarSolicitacao(): void{
   this.spinner.show();
   this.solicitacaoId = this.actRouter.snapshot.paramMap.get('id');
 
-  if (this.solicitacaoId === null){
-    this.isCadastro = true;
-    this.PegarUltimoId();
-    this.CarregarUser();
-    return;
-  }
-
   this.isCadastro = false;
 
   this.solicitacaoService.getSolicitacaoById(+this.solicitacaoId).subscribe(
@@ -224,10 +223,12 @@ public CarregarUser(userId: number = 0, isCotador = false): void{
 }
 
 public CarregarFamiliaProduto(): void{
+    this.spinner.show();
     this.familiaProdService.getFamiliaProdutoById(this.familiaId).subscribe(
       (famProd: FamiliaProduto) => {
         this.familiaProduto = famProd;
         this.validation();
+        this.CarregarFornecedoresRanking();
       },
       () => {
         this.spinner.hide(),
@@ -237,9 +238,31 @@ public CarregarFamiliaProduto(): void{
     );
   }
 
+  public CarregarFornecedoresRanking(): void{
+    this.spinner.show();
+    let count = 0;
+    this.cotacaoService.getFornecedoresRankingByFamProdId(this.familiaProduto.id).subscribe(
+      (fornecedores: Fornecedor[]) => {
+        fornecedores.forEach(f => {
+          this.fornecedoresRanking.push(f);
+          if (count < 3){
+            this.fornecedoresEscolhidos.push(f);
+            count++;
+          }
+
+        });
+      },
+      () => {
+        this.spinner.hide(),
+        this.toastr.error('Erro a carregar os fornecedores', 'Erro');
+      },
+      () => this.spinner.hide()
+    );
+  }
+
 //#endregion
 //#region "Salvar"
-  public SalvarSolicitacao(): void{
+  public EnviarCotacoes(): void{
     this.spinner.show();
     const solicitacaoDto = {} as SolicitacaoDTO;
 
@@ -332,7 +355,7 @@ public CarregarFamiliaProduto(): void{
 
 //#endregion
 //#region "Modal"
-  public OpenModal(template: TemplateRef<any>, solProdId: number): void{
+  public OpenModal(template: TemplateRef<any>): void{
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
@@ -340,8 +363,24 @@ public CarregarFamiliaProduto(): void{
     this.modalRefAprovacao = this.modalService.show(template, {class: 'modal-md modal-dialog-centered'});
   }
 
+  OpenModalFornecedores(template: TemplateRef<any>, fornId: number): void{
+    this.modalRefForn = this.modalService.show(template, {class: 'modal-lg modal-dialog-centered'});
+    this.FornIdSubstituir = fornId;
+  }
+
+  SubstituirFornecedor(novoFornId: number): void{
+    this.fornecedoresEscolhidos = this.fornecedoresEscolhidos.filter(f => f.id !== this.FornIdSubstituir);
+    const novoForn = this.fornecedoresRanking.find(f => f.id === novoFornId);
+    this.fornecedoresEscolhidos.push(novoForn ?? new Fornecedor());
+    this.modalRefForn.hide();
+  }
+
   CloseModalAprovacao(): void{
     this.modalRefAprovacao.hide();
+  }
+
+  CloseModalFornecedores(): void{
+    this.modalRefForn.hide();
   }
 
   decline(): void {this.modalRef.hide(); }
@@ -362,7 +401,7 @@ public CarregarFamiliaProduto(): void{
 
   public IncluirItemSolic(): void{
     this.modalRefQtde.hide();
-    this.modalRefProd.hide();
+    this.modalRefForn.hide();
 
     const solItem = new SolicitacaoProduto();
     solItem.produto = this.ProdSelecionado;

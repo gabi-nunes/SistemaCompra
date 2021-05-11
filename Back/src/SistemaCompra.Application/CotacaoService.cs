@@ -402,21 +402,6 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<Fornecedor[]> GetFornecedorMaiorRankingAsync(int id)
-        {
-            try
-            {
-                var Fornecedor = await _CotacaoPresist.GetFornecedorGanhadorAsync(id);
-                if (Fornecedor == null) return null;
-
-                return Fornecedor;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
         public async Task<FornecedorIdealDto> fornecedorIdeal(int idsol)
         {
 

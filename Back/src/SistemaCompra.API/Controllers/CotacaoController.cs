@@ -296,7 +296,7 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("FornecedorMaiorRnaking")]
+        [HttpGet("FornecedorMaiorRanking/{familiaId}")]
         public async Task<IActionResult> GetFornecedorGanhador(int familiaId)
         {
             try

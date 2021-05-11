@@ -429,13 +429,11 @@ public CarregarAprovador(userId: number): void{
     this.modalRefQtde.hide();
   }
 
-<<<<<<< HEAD
   onMudouEvento(evento: any): void{
     console.log(evento);
-=======
+  }
   GerarRelatrio(): void{
     window.print();
->>>>>>> master
   }
 //#endregion
 }
