@@ -1,10 +1,11 @@
-import { FamiliaProduto } from './FamiliaProduto';
+import { FamiliaProduto } from "./FamiliaProduto";
+import { SolicitacaoProduto } from "./SolicitacaoProduto";
 
-export interface Produto {
-
-  id: number;
-  descricao: string;
-  unidMedida: string;
-  familiaProdId: number;
-  familiaProduto: FamiliaProduto;
+export class Produto {
+   id: number;
+   descricao: string;
+   unidMedida: string;
+   familiaProdutoId: number;
+   familiaProduto: FamiliaProduto;
+   solicitacaoProdutos: SolicitacaoProduto[];
 }

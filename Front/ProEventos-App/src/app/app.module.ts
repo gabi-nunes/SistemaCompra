@@ -1,4 +1,3 @@
-import { UserService } from 'src/app/services/user.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,39 +6,49 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { EventosComponent } from './components/eventos/eventos.component';
-import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
-import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
-import { NavComponent } from './shared/nav/nav.component';
-import { TituloComponent } from './shared/titulo/titulo.component';
-import { ContatosComponent } from './components/contatos/contatos.component';
-
-
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
 import { ToastrModule } from 'ngx-toastr';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { NavComponent } from './shared/nav/nav.component';
+import { TituloComponent } from './shared/titulo/titulo.component';
+
+import { ContatosComponent } from './components/contatos/contatos.component';
+
+import { DateTimeFormatterPipe } from './helpers/DateTimeFormatter.pipe';
+
+import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
 
 import { EventoService } from './services/evento.service';
-import { DateTimeFormatterPipe } from './helpers/DateTimeFormatter.pipe';
+import { EventosComponent } from './components/eventos/eventos.component';
+import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
-import { UserComponent } from './components/user/user.component';
+
+import { UserService } from 'src/app/services/user.service';
 import { LoginComponent } from './components/user/login/login.component';
+import { UserComponent } from './components/user/user.component';
 import { UserCadastroComponent } from './components/user/user-cadastro/user-cadastro.component';
 import { UserListaComponent } from './components/user/UserLista/UserLista.component';
 import { UserRecuperarSenhaComponent } from './components/user/user-RecuperarSenha/user-RecuperarSenha.component';
 import { UserDetalheComponent } from './components/user/User-detalhe/User-detalhe.component';
+
 import { PerfilComponent } from './components/user/login/perfil/perfil.component';
 
+import { FornecedorService } from './services/fornecedor.service';
 import { FornecedorListaComponent } from './components/fornecedor/fornecedor-lista/fornecedor-lista.component';
 import { FornecedorDetalheComponent } from './components/fornecedor/fornecedor-detalhe/fornecedor-detalhe.component';
 import { FornecedorComponent } from './components/fornecedor/fornecedor.component';
+
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+
+import { SolicitacaoService } from './services/solicitacao.service';
 import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
 import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
 // import { ProdutoComponent } from './components/produtos/produto/produto.component';
@@ -50,6 +59,13 @@ import { PedidoListaComponent } from './components/pedidos/pedido-lista/pedido-l
 import { PedidoDetalheComponent } from './components/pedidos/pedido-detalhe/pedido-detalhe.component';
 import { PedidoService } from './services/pedido.service';
 
+import { SolicitacoesDetalheComponent } from './components/solicitacoes/solicitacoes-detalhe/solicitacoes-detalhe.component';
+import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
+import { AprovarSolicitacaoComponent } from './shared/aprovar-solicitacao/aprovar-solicitacao.component';
+import { CotacoesComponent } from './components/cotacoes/cotacoes.component';
+import { CotacoesDetalheComponent } from './components/cotacoes/cotacoes-detalhe/cotacoes-detalhe.component';
+import { CotacoesListaComponent } from './components/cotacoes/cotacoes-lista/cotacoes-lista.component';
+defineLocale('pt-br', ptBrLocale);
 
 
 @NgModule({
@@ -76,6 +92,12 @@ import { PedidoService } from './services/pedido.service';
     FornecedorDetalheComponent,
     SolicitacoesComponent,
     SolicitacaoListaComponent,
+    SolicitacoesDetalheComponent,
+    AprovarSolicitacaoComponent,
+    CotacoesComponent,
+    CotacoesDetalheComponent,
+    CotacoesListaComponent
+    SolicitacaoListaComponent,
     ProdutoListaComponent,
     PedidosComponent,
     PedidoListaComponent,
@@ -99,9 +121,10 @@ import { PedidoService } from './services/pedido.service';
       preventDuplicates: true,
       progressBar: true
     }),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BsDatepickerModule.forRoot(),
   ],
-  providers: [EventoService, UserService, SolicitacaoService, PedidoService],
+  providers: [EventoService, UserService, SolicitacaoService, FornecedorService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

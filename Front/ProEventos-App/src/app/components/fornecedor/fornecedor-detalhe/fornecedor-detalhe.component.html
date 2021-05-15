@@ -28,16 +28,9 @@
 					<select class="form-control"  [ngClass]="{'is-invalid': form.get('familiaProdutoId')?.errors && form.get('familiaProdutoId')?.touched}" [(ngModel)]="familiaId"
           formControlName="familiaProdutoId" >
 						<option value=""></option>
-            <!-- <option *ngFor="let famProd of familiaProdutos" value="{{famProd.Id}}">
-              {{famProd.Descricao}}
-            </option> -->
-						<option value="0">Higiene</option>
-						<option value="1">Laticínios</option>
-						<option value="2">Papelaria</option>
-						<option value="3">Açougue</option>
-						<option value="4">Panificação</option>
-						<option value="5">Frios</option>
-						<option value="6">Bebidas</option>
+            <option *ngFor="let famProd of familiaProdutos" value="{{famProd.id}}">
+              {{famProd.descricao}}
+            </option>
 					</select>
 				</div>
       </div>
@@ -157,7 +150,7 @@
         </div>
         <div class="form-group col-md-2">
             <label>Pontuação</label>
-            <input type="text" class="form-control" formControlName="pontuacaoRanking" placeholder="89">
+            <input type="text" class="form-control" readonly formControlName="pontuacaoRanking">
         </div>
       </div>
 
@@ -184,5 +177,3 @@
       <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
     </div>
   </ng-template>
-
-

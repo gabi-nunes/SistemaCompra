@@ -5,8 +5,12 @@
     "\\Back\\src",
     "\\Back\\src\\SistemaCompra.API",
     "\\Back\\src\\SistemaCompra.API\\Controllers",
-    "\\Back\\src\\SistemaCompra.Domain"
+    "\\Back\\src\\SistemaCompra.Application",
+    "\\Back\\src\\SistemaCompra.Application\\Contratos",
+    "\\Back\\src\\SistemaCompra.Domain",
+    "\\Back\\src\\SistemaCompra.Persistence",
+    "\\Back\\src\\SistemaCompra.Persistence\\Contratos"
   ],
-  "SelectedNode": "\\Back\\src\\SistemaCompra.Domain\\Fornecedor.cs",
+  "SelectedNode": "\\Back\\src\\SistemaCompra.sln",
   "PreviewInSolutionExplorer": false
 }

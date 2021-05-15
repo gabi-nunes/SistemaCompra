@@ -1,3 +1,4 @@
+import { ItemCotacao } from './ItemCotacao';
 import { Pedido } from './Pedido';
 
 export interface ItemPedido {

@@ -21,14 +21,26 @@ namespace SistemaCompra.Persistence
 
         public async Task<Solicitacao[]> GetAllSolicitacaoAsync()
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes;
-
+            IQueryable<Solicitacao> query = Context.Solicitacoes
+                 .Include(e => e.SolicitacaoProdutos);
+    
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
+        public async Task<Solicitacao> GetIdLast()
+        {
+            IQueryable<Solicitacao> query = Context.Solicitacoes;
+             
+
+            return await query.OrderByDescending(e => e.Id).FirstOrDefaultAsync();
+        }
+
+
         public async Task<Solicitacao> GetAllSolicitacaoByIdAsync(int id)
         {
-            IQueryable<Solicitacao> query = Context.Solcitacoes;
+            IQueryable<Solicitacao> query = Context.Solicitacoes
+                .Include(e => e.SolicitacaoProdutos)
+                .ThenInclude(e => e.Produto);
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
                          .Where(e => e.Id == id);
@@ -36,9 +48,84 @@ namespace SistemaCompra.Persistence
             return await query.FirstOrDefaultAsync();
         }
 
-        public Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(DateTime Data)
+        public async Task<Solicitacao> GetAllSolicitacaoByIdsemProdAsync(int id)
         {
-            throw new NotImplementedException();
+            IQueryable<Solicitacao> query = Context.Solicitacoes;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async  Task<SolicitacaoProduto> GetAllSolicitacaoProdutoByIdAsync(int id)
+        {
+            IQueryable<SolicitacaoProduto> query = Context.solicitacaoProduto;
+   
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Solicitacao_Id == id);
+
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
+        }
+
+        public async Task<SolicitacaoProduto> GetAllSolicitacaoProdByIdAsync(int id)
+        {
+            IQueryable<SolicitacaoProduto> query = Context.solicitacaoProduto;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
+        }
+
+        public async Task<SolicitacaoProduto> GetSolicitacaoProdByIdAsync(int id)
+        {
+            IQueryable<SolicitacaoProduto> query = Context.solicitacaoProduto;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
+        }
+
+        public async Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(DateTime DataCriacao)
+        {
+            IQueryable<Solicitacao> query = Context.Solicitacoes
+               .Include(e => e.SolicitacaoProdutos)
+               .ThenInclude(pe => pe.Produto);
+
+            query = query.Where(e => e.DataSolicitacao == DataCriacao);
+            return await query.OrderBy(e => e.Id).ToArrayAsync();
+        }
+
+        public  async  Task<Solicitacao[]> GetSolicitacaoByPendenteAsync()
+        {
+            IQueryable<Solicitacao> query = Context.Solicitacoes
+                .Include(e => e.SolicitacaoProdutos)
+                .ThenInclude(pe => pe.Produto);
+
+            return await query.Where(e=> e.StatusAprovacao == 2).ToArrayAsync();
+        }
+        public async Task<user> GetAllUserByIdAsync(int id)
+        {
+
+            IQueryable<user> query = Context.Users;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<Produto> GetAllProduByIdAsync(int id)
+        {
+
+            IQueryable<Produto> query = Context.Produtos;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.FirstOrDefaultAsync();
         }
     }
 }

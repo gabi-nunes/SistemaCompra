@@ -20,7 +20,17 @@ namespace SistemaCompra.Persistence.Migrations
             modelBuilder.Entity("SistemaCompra.Domain.Cotacao", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<int>("CotadorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataEmissaoCotacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DataEntrega")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("FornecedorGanhadorId")
                         .HasColumnType("int");
@@ -34,13 +44,7 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<int>("Parcelas")
                         .HasColumnType("int");
 
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PrazoCotacao")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("PrazoOferta")
+                    b.Property<DateTime>("PrazoOfertas")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("SolicitacaoId")
@@ -52,7 +56,12 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<int>("fornecedorId")
                         .HasColumnType("int");
 
+                    b.Property<int>("status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SolicitacaoId");
 
                     b.HasIndex("fornecedorId");
 
@@ -124,6 +133,9 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<int>("PontuacaoRanking")
                         .HasColumnType("int");
 
+                    b.Property<int>("Posicao")
+                        .HasColumnType("int");
+
                     b.Property<string>("Senha")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -158,10 +170,7 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<int>("QtdeProduto")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SolicitacaoProdutoProdutoid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SolicitacaoProdutoSolicitacaoid")
+                    b.Property<int?>("SolicitacaoProdutoId")
                         .HasColumnType("int");
 
                     b.Property<int>("cotacaoId")
@@ -172,9 +181,9 @@ namespace SistemaCompra.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("cotacaoId");
+                    b.HasIndex("SolicitacaoProdutoId");
 
-                    b.HasIndex("SolicitacaoProdutoSolicitacaoid", "SolicitacaoProdutoProdutoid");
+                    b.HasIndex("cotacaoId");
 
                     b.ToTable("itensCotacao");
                 });
@@ -182,12 +191,13 @@ namespace SistemaCompra.Persistence.Migrations
             modelBuilder.Entity("SistemaCompra.Domain.ItemPedido", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPedido")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("IdProduto")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ItemCotacao")
                         .HasColumnType("int");
 
                     b.Property<int>("PedidoId")
@@ -204,6 +214,9 @@ namespace SistemaCompra.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ItemCotacao")
+                        .IsUnique();
+
                     b.HasIndex("PedidoId");
 
                     b.ToTable("itensPedido");
@@ -215,8 +228,8 @@ namespace SistemaCompra.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Aprovador")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("AprovadorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataAprovacao")
                         .HasColumnType("datetime(6)");
@@ -227,6 +240,9 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<string>("Observacao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("ObservacaoRejeicao")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<int>("StatusAprov")
                         .HasColumnType("int");
 
@@ -234,6 +250,8 @@ namespace SistemaCompra.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("cotacaoId");
 
                     b.ToTable("Pedido");
                 });
@@ -247,10 +265,7 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("FamiliaProdId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FamiliaProdutoId")
+                    b.Property<int>("FamiliaProdutoId")
                         .HasColumnType("int");
 
                     b.Property<string>("UnidMedida")
@@ -269,13 +284,7 @@ namespace SistemaCompra.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Aprovador")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<int>("CotacaoId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DataAprovacao")
+                    b.Property<DateTime?>("DataAprovacao")
                         .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataNecessidade")
@@ -284,39 +293,51 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<DateTime>("DataSolicitacao")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int?>("IdAprovador")
+                        .HasColumnType("int");
+
                     b.Property<string>("Observacao")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ObservacaoRejeicao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int>("StatusAprovacao")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("user_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Solcitacoes");
+                    b.ToTable("Solicitacoes");
                 });
 
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoProduto", b =>
                 {
-                    b.Property<int>("Solicitacaoid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Produtoid")
-                        .HasColumnType("int");
-
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Produto_Id")
                         .HasColumnType("int");
 
                     b.Property<int>("QtdeProduto")
                         .HasColumnType("int");
 
-                    b.HasKey("Solicitacaoid", "Produtoid");
+                    b.Property<int>("Solicitacao_Id")
+                        .HasColumnType("int");
 
-                    b.HasIndex("Produtoid");
+                    b.HasKey("Id");
+
+                    b.HasIndex("Produto_Id");
+
+                    b.HasIndex("Solicitacao_Id");
 
                     b.ToTable("solicitacaoProduto");
                 });
@@ -348,27 +369,19 @@ namespace SistemaCompra.Persistence.Migrations
 
             modelBuilder.Entity("SistemaCompra.Domain.Cotacao", b =>
                 {
-                    b.HasOne("SistemaCompra.Domain.Pedido", "Pedido")
-                        .WithOne("cotacao")
-                        .HasForeignKey("SistemaCompra.Domain.Cotacao", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SistemaCompra.Domain.Solicitacao", "Solicitacao")
-                        .WithOne("Cotacao")
-                        .HasForeignKey("SistemaCompra.Domain.Cotacao", "Id")
+                        .WithMany("Cotacoes")
+                        .HasForeignKey("SolicitacaoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemaCompra.Domain.Fornecedor", "fornecedorid")
+                    b.HasOne("SistemaCompra.Domain.Fornecedor", "Fornecedor")
                         .WithMany("Cotacoes")
                         .HasForeignKey("fornecedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("fornecedorid");
-
-                    b.Navigation("Pedido");
+                    b.Navigation("Fornecedor");
 
                     b.Navigation("Solicitacao");
                 });
@@ -386,15 +399,15 @@ namespace SistemaCompra.Persistence.Migrations
 
             modelBuilder.Entity("SistemaCompra.Domain.ItemCotacao", b =>
                 {
+                    b.HasOne("SistemaCompra.Domain.SolicitacaoProduto", "SolicitacaoProduto")
+                        .WithMany()
+                        .HasForeignKey("SolicitacaoProdutoId");
+
                     b.HasOne("SistemaCompra.Domain.Cotacao", "Cotacao")
                         .WithMany("ItensCotacao")
                         .HasForeignKey("cotacaoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SistemaCompra.Domain.SolicitacaoProduto", "SolicitacaoProduto")
-                        .WithMany()
-                        .HasForeignKey("SolicitacaoProdutoSolicitacaoid", "SolicitacaoProdutoProdutoid");
 
                     b.Navigation("Cotacao");
 
@@ -405,9 +418,7 @@ namespace SistemaCompra.Persistence.Migrations
                 {
                     b.HasOne("SistemaCompra.Domain.ItemCotacao", "itemCotacao")
                         .WithOne("itemPedido")
-                        .HasForeignKey("SistemaCompra.Domain.ItemPedido", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SistemaCompra.Domain.ItemPedido", "ItemCotacao");
 
                     b.HasOne("SistemaCompra.Domain.Pedido", "Pedido")
                         .WithMany("itensPedidos")
@@ -420,23 +431,31 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Navigation("Pedido");
                 });
 
+            modelBuilder.Entity("SistemaCompra.Domain.Pedido", b =>
+                {
+                    b.HasOne("SistemaCompra.Domain.Cotacao", "cotacao")
+                        .WithMany()
+                        .HasForeignKey("cotacaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("cotacao");
+                });
+
             modelBuilder.Entity("SistemaCompra.Domain.Produto", b =>
                 {
-                    b.HasOne("SistemaCompra.Domain.FamiliaProduto", "FamiliaProduto")
+                    b.HasOne("SistemaCompra.Domain.FamiliaProduto", null)
                         .WithMany("Produtos")
                         .HasForeignKey("FamiliaProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("FamiliaProduto");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SistemaCompra.Domain.Solicitacao", b =>
                 {
                     b.HasOne("SistemaCompra.Domain.user", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -444,14 +463,14 @@ namespace SistemaCompra.Persistence.Migrations
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoProduto", b =>
                 {
                     b.HasOne("SistemaCompra.Domain.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("Produtoid")
+                        .WithMany("SolicitacaoProdutos")
+                        .HasForeignKey("Produto_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SistemaCompra.Domain.Solicitacao", "Solicitacao")
-                        .WithMany("SolicitaoProdutos")
-                        .HasForeignKey("Solicitacaoid")
+                        .WithMany("SolicitacaoProdutos")
+                        .HasForeignKey("Solicitacao_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -484,16 +503,19 @@ namespace SistemaCompra.Persistence.Migrations
 
             modelBuilder.Entity("SistemaCompra.Domain.Pedido", b =>
                 {
-                    b.Navigation("cotacao");
-
                     b.Navigation("itensPedidos");
+                });
+
+            modelBuilder.Entity("SistemaCompra.Domain.Produto", b =>
+                {
+                    b.Navigation("SolicitacaoProdutos");
                 });
 
             modelBuilder.Entity("SistemaCompra.Domain.Solicitacao", b =>
                 {
-                    b.Navigation("Cotacao");
+                    b.Navigation("Cotacoes");
 
-                    b.Navigation("SolicitaoProdutos");
+                    b.Navigation("SolicitacaoProdutos");
                 });
 #pragma warning restore 612, 618
         }

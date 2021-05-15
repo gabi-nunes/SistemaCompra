@@ -48,6 +48,22 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
+        [HttpGet("FamiProduto/{Id}")]
+        public async Task<IActionResult> GetFamiliaById(int Id)
+        {
+            try
+            {
+                var usuarios = await ProdutoService.GetProdutobyFamiliaId(Id);
+                if (usuarios == null) return NotFound("Nenhum Produto foi Encontrado com o Id informado.");
+                return Ok(usuarios);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o usuario pelo Id. Erro: {ex.Message}");
+            }
+        }
+
+
         [HttpGet("Descricao/{desc}")]
         public async Task<IActionResult> GetBynome(string desc)
         {

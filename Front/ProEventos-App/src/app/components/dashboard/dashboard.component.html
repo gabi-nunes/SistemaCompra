@@ -34,10 +34,10 @@
       </tr>
     </thead>
     <tbody *ngIf="cotacoes && cotacoes.length && opcao===0 || opcao===null">
-      <tr *ngFor="let cotacao of cotacoes" (dblclick)="DetalharEvento(cotacao.Id)">
-        <td class="d-none d-md-table-cell text-center">{{cotacao.Id}}</td>
-        <td class="text-center">{{cotacao.StatusCotac}}</td>
-        <td class="text-center">{{cotacao.PrazoCotacao| DateTimeFormatter}}</td>
+      <tr *ngFor="let cotacao of cotacoes" (dblclick)="DetalharEvento(cotacao.id)">
+        <td class="d-none d-md-table-cell text-center">{{cotacao.id}}</td>
+        <td class="text-center">{{cotacao.statusCotacao}}</td>
+        <td class="text-center">{{cotacao.prazoCotacao| DateTimeFormatter}}</td>
         <td class="text-center">
             <i class="fas fa-times fa-2x" (click)="openModal(template)" style="color: red; cursor: pointer;"></i>
         </td>
@@ -51,10 +51,10 @@
       </tr>
     </tfoot>
     <tbody *ngIf="solicitacoes && solicitacoes.length && opcao===1 || opcao===null">
-      <tr *ngFor="let solicitao of solicitacoes" (dblclick)="DetalharEvento(solicitao.Id)">
-        <td class="d-none d-md-table-cell text-center">{{solicitao.Id}}</td>
-        <td class="text-center">{{solicitao.StatusAprovacao}}</td>
-        <td class="text-center">{{ solicitao.DataSolicitacao| DateTimeFormatter}}</td>
+      <tr *ngFor="let solicitao of solicitacoes" (dblclick)="DetalharEvento(solicitao.id)">
+        <td class="d-none d-md-table-cell text-center">{{solicitao.id}}</td>
+        <td class="text-center">{{solicitao.statusAprovacao}}</td>
+        <td class="text-center">{{ solicitao.dataSolicitacao| DateTimeFormatter}}</td>
         <td class="text-center">
             <i class="fas fa-times fa-2x" (click)="openModal(template)" style="color: red; cursor: pointer;"></i>
         </td>

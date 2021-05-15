@@ -25,6 +25,10 @@ import { ProdutoListaComponent } from './components/produtos/produto-lista/produ
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { PedidoDetalheComponent } from './components/pedidos/pedido-detalhe/pedido-detalhe.component';
 import { PedidoListaComponent } from './components/pedidos/pedido-lista/pedido-lista.component';
+import { SolicitacoesDetalheComponent } from './components/solicitacoes/solicitacoes-detalhe/solicitacoes-detalhe.component';
+import { CotacoesListaComponent } from './components/cotacoes/cotacoes-lista/cotacoes-lista.component';
+import { CotacoesComponent } from './components/cotacoes/cotacoes.component';
+import { CotacoesDetalheComponent } from './components/cotacoes/cotacoes-detalhe/cotacoes-detalhe.component';
 
 const routes: Routes = [
   {path: 'user', redirectTo: 'user/lista'},
@@ -34,7 +38,8 @@ const routes: Routes = [
       {path: 'cadastro', component: UserCadastroComponent},
       {path: 'lista', component: UserListaComponent},
       {path: 'recuperar', component: UserRecuperarSenhaComponent},
-      {path: 'perfil', component: PerfilComponent}
+      {path: 'perfil', component: PerfilComponent},
+      {path: 'perfil/:id', component: PerfilComponent},
     ]
   },
 
@@ -58,10 +63,23 @@ const routes: Routes = [
 
   {path: 'solicitações', redirectTo: 'solicitações/lista'},
   {path: 'solicitações', component: SolicitacoesComponent,
+  {path: 'solicitações', redirectTo: 'solicitações/lista'},
+  {path: 'solicitações', component: SolicitacoesComponent,
     children: [
-      {path: 'lista', component: SolicitacaoListaComponent}
+      {path: 'lista', component: SolicitacaoListaComponent},
+      {path: 'detalhe', component: SolicitacoesDetalheComponent},
+      {path: 'detalhe/:id', component: SolicitacoesDetalheComponent}
     ]
   },
+
+  {path: 'cotacoes', redirectTo: 'cotacoes/lista'},
+  {path: 'cotacoes', component: CotacoesComponent,
+    children: [
+      {path: 'lista', component: CotacoesListaComponent},
+      {path: 'detalhe/:id', component: CotacoesDetalheComponent}
+    ]
+  },
+
 
   {path: 'eventos', redirectTo: 'eventos/lista'},
   {path: 'eventos', component: EventosComponent,
@@ -78,7 +96,7 @@ const routes: Routes = [
   {path: 'contatos', component: ContatosComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: '**', redirectTo: 'dashboard', pathMatch: 'full'}
+  {path: '**', redirectTo: '/user/login', pathMatch: 'full'}
 ];
 
 @NgModule({

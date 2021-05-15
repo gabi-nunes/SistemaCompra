@@ -1,17 +1,17 @@
-import { Cotacao } from './Cotacao';
+import { SolicitacaoProduto } from './SolicitacaoProduto';
+import { user } from './user';
 
 export interface Solicitacao {
-   Id: number;
-     // SolicitacaoProdutoId: number;
-   UserId: number;
-   // User: user;
-   Observacao: string;
-   DataNecessidade: Date;
-   DataAprovacao: Date;
-   DataSolicitacao: Date;
-   StatusAprovacao: number;
-   Aprovador: string;
-   CotacaoId: number;
-   Cotacao: Cotacao;
-   // SolicitaoProdutos: IEnumerable<SolicitacaoProduto>;
+  id: number;
+  user_id: number;
+  user: user;
+  observacao: string;
+  observacaoRejeicao: string;
+  dataNecessidade: Date;
+  dataAprovacao: Date;
+  dataSolicitacao: Date;
+  statusAprovacao: number;
+  idAprovador: number;
+  solicitacaoProdutos: SolicitacaoProduto[];
 }
+

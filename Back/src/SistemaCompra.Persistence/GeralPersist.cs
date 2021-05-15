@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -37,5 +38,9 @@ namespace SistemaCompra.Persistence
         {
             return (await Context.SaveChangesAsync()) > 0; 
         }
+
+        
+
+       
     }
 }
