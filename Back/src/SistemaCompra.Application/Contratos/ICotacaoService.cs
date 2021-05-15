@@ -33,6 +33,7 @@ namespace SistemaCompra.Application.Contratos
         Task<Cotacao> CotacaoVencedora(int idCot);
         Task<Cotacao[]> GetCotacaoPendenteAsync();
         Task<Cotacao[]> GetCotacaoEncerradaAsync();
+        Task<Cotacao[]> GetCotacaoPorFornecedorIDAsync();
         Task<ItemCotacao[]> GetAllCotacaobyItemAsync(int CotacaoId);
         Task<Cotacao[]> GetAllCotacaobySolicitacaoAsync(int SolicitacaoId);
 

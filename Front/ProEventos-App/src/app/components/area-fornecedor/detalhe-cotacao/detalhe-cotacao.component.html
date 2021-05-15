@@ -1,0 +1,134 @@
+
+<div class="card shadow-sm rounded">
+  <form [formGroup]="form">
+    <div class="p-3">
+      <div class="d-flex">
+        <h2 class="roboto text-muted mr-auto mb-0 pb-0">
+          Cotação n°{{f.id.value | number:'3.0'}}
+        </h2>
+      </div>
+      <hr class="mt-1">
+
+      <div class="form-row mt-3">
+        <div class="form-group col-md-1">
+          <label>Código</label>
+          <input type="text" class="form-control" readonly
+          formControlName="id">
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Data Emissão</label>
+          <input type="text" class="form-control"
+          readonly formControlName="dataEmissaoCotacao" >
+        </div>
+        <div class="form-group col-md-2">
+          <label>Prazo Oferta</label>
+          <input
+        class="form-control"
+        readonly
+        formControlName="prazoOfertas">
+        </div>
+
+        <div class="form-group col-md-1">
+          <label>Frete</label>
+          <input type="text" class="form-control"
+          formControlName="frete" >
+        </div>
+
+      <div class="form-group col-md-3">
+        <label>Data Entrega</label>
+        <input type="text" class="form-control"
+        formControlName="id"
+        bsDatepicker [ngClass]="cssValidation(f.dataNecessidade )"
+        formControlName="dataEntrega"
+        [(ngModel)]="dataEntrega"
+        [bsConfig]="bsConfig">
+      </div>
+    </div>
+      <div class="d-flex mt-4 no-print">
+        <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
+          Itens
+        </h2>
+      </div>
+
+      <hr class="mt-2">
+
+      <table class="table table-striped table-hover">
+        <thead class="bg-logo">
+          <tr>
+            <th class="d-none d-md-table-cell text-center">Código</th>
+            <th class="text-center">Descrição</th>
+            <th class="text-center">Quantidade</th>
+            <th class="text-center no-print" *ngIf="cotacao.status!=3">Enviar Preço</th>
+            <th class="text-center no-print">Preço Unitario</th>
+            <th class="text-center no-print">Total</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr *ngFor="let item of itensCotacoes ">
+            <td class="d-none d-md-table-cell text-center" style="width: 10%">
+              {{item.idProduto}}
+            </td>
+            <td class="text-center" style="width: 30%">
+              {{getDescricaoproduto(item.idProduto)}}
+            </td>
+            <td class="d-none d-md-table-cell text-center" style="width: 20%">
+              {{item.qtdeProduto}}
+            </td>
+            <td class="text-center" style="width: 12%" *ngIf="cotacao.status!=3">
+              <button class="d-flex btn btn-outline-primary ml-4" (click)="OpenProdutosModal(item.id,itemCotacao)">
+                  <i class="fas fa-plus-circle my-1"></i>
+                </button>
+            </td>
+            <td class="text-center no-print" style="width: 20%">
+              R${{item.precoUnit || 0.0}}
+            </td>
+            <td class="text-center no-print" style="width: 10%">
+              R${{item.totalItem}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="form-group col-md-1 ml-5">
+      <label>Total Cotação</label>
+      <label>R$ {{cotacao.total || 0.0}}</label>
+    </div>
+    <div class="card-footer no-print">
+      <div class="d-flex">
+        <button class="btn btn-outline-secondary mr-auto border no-print" (click)="CancelarForm()">
+          Cancelar Alteração
+        </button>
+        <button class="btn btn-success no-print" *ngIf="cotacao.status!=3" [disabled]="!form.valid" (click)="EnviarOfertaFornecedor()" >
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Enviar
+        </button>
+      </div>
+    </div>
+  </form>
+  </div>
+
+<ng-template #itemCotacao>
+        <div class="modal-header">
+          <h5 class="modal-title">Adicione o Preço Unitario</h5>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group col-md-5 ">
+            <label>Informe o preço Unitario do item escolhido</label>
+            <input type="text"  class="form-control"
+            [(ngModel)]="valor">
+          </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success"  (click)="IncluirPrecoItem(valor)">Enviar</button>
+        </div>
+      </div>
+</ng-template>
+
+
+
+
+

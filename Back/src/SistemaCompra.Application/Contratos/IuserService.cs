@@ -11,7 +11,8 @@ namespace SistemaCompra.Application.Contratos
 
         Task<user[]> GetAllUserAsync();
 
-        Task<user> GetAllUserbyemailAsync(string email);
+        Task<bool> GetIsUserAsync(string email);
+        Task<user> GetUserByEmailAsync(string email);
         Task<user[]> GetAllUserbyNameAsync(string nome);
 
         Task<user> GetuserbyIdAsync(int userId);

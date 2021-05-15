@@ -18,7 +18,7 @@ namespace SistemaCompra.Application
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Name.ToString()),
+                    new Claim(ClaimTypes.Name, user.nome.ToString()),
                     new Claim(ClaimTypes.Role, user.Cargo.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),

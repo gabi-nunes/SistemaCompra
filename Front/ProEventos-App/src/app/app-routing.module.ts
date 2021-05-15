@@ -1,3 +1,4 @@
+import { ListagemPedidoComponent } from './components/area-fornecedor/listagem-pedido/listagem-pedido.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -25,6 +26,9 @@ import { SolicitacoesDetalheComponent } from './components/solicitacoes/solicita
 import { CotacoesListaComponent } from './components/cotacoes/cotacoes-lista/cotacoes-lista.component';
 import { CotacoesComponent } from './components/cotacoes/cotacoes.component';
 import { CotacoesDetalheComponent } from './components/cotacoes/cotacoes-detalhe/cotacoes-detalhe.component';
+import { AreaFornecedorComponent } from './components/area-fornecedor/area-fornecedor.component';
+import { DetalheCotacaoComponent } from './components/area-fornecedor/detalhe-cotacao/detalhe-cotacao.component';
+import { ListagemCotacaoComponent } from './components/area-fornecedor/listagem-cotacao/listagem-cotacao.component';
 
 const routes: Routes = [
   {path: 'user', redirectTo: 'user/lista'},
@@ -47,7 +51,6 @@ const routes: Routes = [
       {path: 'lista', component: FornecedorListaComponent}
     ]
   },
-
   {path: 'solicitações', redirectTo: 'solicitações/lista'},
   {path: 'solicitações', component: SolicitacoesComponent,
     children: [
@@ -64,8 +67,6 @@ const routes: Routes = [
       {path: 'detalhe/:id', component: CotacoesDetalheComponent}
     ]
   },
-
-
   {path: 'eventos', redirectTo: 'eventos/lista'},
   {path: 'eventos', component: EventosComponent,
     children: [
@@ -74,6 +75,14 @@ const routes: Routes = [
       {path: 'lista', component: EventoListaComponent}
     ]
   },
+  {path: 'areaFornecedor', redirectTo: 'areaFornecedor/listaCotacao'},
+{path: 'areaFornecedor', component: AreaFornecedorComponent,
+  children: [
+    {path: 'listaCotacao', component: ListagemCotacaoComponent},
+    {path: 'detalhe/:id', component: DetalheCotacaoComponent},
+    {path: 'listaPedido', component: ListagemPedidoComponent },
+  ]
+},
   {path: 'palestrantes', component: PalestrantesComponent},
   {path: 'contatos', component: ContatosComponent},
   {path: 'dashboard', component: DashboardComponent},

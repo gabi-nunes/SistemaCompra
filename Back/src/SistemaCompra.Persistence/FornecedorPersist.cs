@@ -33,6 +33,13 @@ namespace SistemaCompra.Persistence
 
             return await query.FirstOrDefaultAsync();
         }
+        public async Task<Fornecedor> GetUserByEmailAsync(string Email)
+        {
+            IQueryable<Fornecedor> query = Context.Fornecedores;
+
+            query = query.Where(e => e.Email.ToLower().Contains(Email.ToLower()));
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
+        }
 
         public async Task<Fornecedor[]> GetFornecedorByNameAsync(string nome)
         {

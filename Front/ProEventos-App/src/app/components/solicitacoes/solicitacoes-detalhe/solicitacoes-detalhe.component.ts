@@ -21,7 +21,7 @@ import { FamiliaProdutoService } from 'src/app/services/familiaProduto.service';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { UserService } from 'src/app/services/user.service';
-import * as jsPDF from 'jspdf';
+//import * as jsPDF from 'jspdf';
 
 
 
@@ -110,7 +110,7 @@ export class SolicitacoesDetalheComponent implements OnInit {
     const df = new DateFormatter();
     this.form = this.fb.group({
       id: [this.solicitacaoId, Validators.required],
-      user: [this.user?.name, Validators.required],
+      user: [this.user?.nome, Validators.required],
       familiaProdutoId: [this.solicitacaoProdutos[0]?.produto.familiaProdutoId, Validators.required],
       dataSolicitacao: [this.solicitacao.dataSolicitacao ?? this.dataHoje, Validators.required],
       dataNecessidade: [this.solicitacao?.dataNecessidade, Validators.required],
@@ -233,7 +233,7 @@ public CarregarUser(userId: number = 0): void{
   this.userService.getUserById(userId).subscribe({
     next: (userResponse: user) => {
       this.user = userResponse;
-      this.form.value.user = this.user.name;
+      this.form.value.user = this.user.nome;
       this.validation();
     },
     error: () => {
@@ -432,14 +432,14 @@ public CarregarAprovador(userId: number): void{
     this.modalRefQtde.hide();
   }
 
-<<<<<<< HEAD
+
   onMudouEvento(evento: any): void{
     console.log(evento);
-=======
+  }
+
   GerarRelatrio(): void{
 
-    const doc= new jsPDF();
-    
+
 
     window.print();
 

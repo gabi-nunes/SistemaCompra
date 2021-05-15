@@ -20,7 +20,7 @@ export class UserDetalheComponent implements OnInit {
   }
   public validation(): void{
     this.form = new FormGroup({
-      Nome: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
+      nome: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       Setor: new FormControl('', Validators.required),
       Cargo: new FormControl('', Validators.required),

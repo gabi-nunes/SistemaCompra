@@ -214,7 +214,7 @@ namespace SistemaCompra.Application
 
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    var SolicitacaoRetorno = await _CotacaoPresist.GetAllCotacaoByIdAsync(model.Id);
+                    var SolicitacaoRetorno = await _CotacaoPresist.GetAllCotacaoByIdAsync(Cotacao.Id);
 
                     return SolicitacaoRetorno;
                 }
@@ -580,6 +580,11 @@ namespace SistemaCompra.Application
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public Task<Cotacao[]> GetCotacaoPorFornecedorIDAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -16,8 +16,6 @@ import { Login } from 'src/app/models/login';
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
-
-
   public user: user;
   public UserFiltrados: user[] = [];
   public userId = 0;
@@ -47,7 +45,7 @@ export class PerfilComponent implements OnInit {
 
   public validation(): void {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
      email: ['', Validators.required],
       setor: ['', Validators.required],
       senha: ['', [Validators.required, Validators.max(120000)]],

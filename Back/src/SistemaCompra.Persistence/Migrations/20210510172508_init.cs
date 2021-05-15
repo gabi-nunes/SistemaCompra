@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemaCompra.Persistence.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,7 @@ namespace SistemaCompra.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    nome = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     email = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Setor = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
@@ -127,6 +127,7 @@ namespace SistemaCompra.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CotadorId = table.Column<int>(type: "int", nullable: false),
                     DataEmissaoCotacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     SolicitacaoId = table.Column<int>(type: "int", nullable: false),
                     Frete = table.Column<double>(type: "double", nullable: false),
