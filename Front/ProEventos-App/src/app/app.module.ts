@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -50,6 +51,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SolicitacaoService } from './services/solicitacao.service';
 import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
 import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
+// import { ProdutoComponent } from './components/produtos/produto/produto.component';
+import { ProdutoListaComponent } from './components/produtos/produto-lista/produto-lista.component';
+import { SolicitacaoService } from './services/solicitacao.service';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { PedidoListaComponent } from './components/pedidos/pedido-lista/pedido-lista.component';
+import { PedidoDetalheComponent } from './components/pedidos/pedido-detalhe/pedido-detalhe.component';
+import { PedidoService } from './services/pedido.service';
+
 import { SolicitacoesDetalheComponent } from './components/solicitacoes/solicitacoes-detalhe/solicitacoes-detalhe.component';
 import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
 import { AprovarSolicitacaoComponent } from './shared/aprovar-solicitacao/aprovar-solicitacao.component';
@@ -88,12 +97,18 @@ defineLocale('pt-br', ptBrLocale);
     CotacoesComponent,
     CotacoesDetalheComponent,
     CotacoesListaComponent
+    SolicitacaoListaComponent,
+    ProdutoListaComponent,
+    PedidosComponent,
+    PedidoListaComponent,
+    PedidoDetalheComponent
    ],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,

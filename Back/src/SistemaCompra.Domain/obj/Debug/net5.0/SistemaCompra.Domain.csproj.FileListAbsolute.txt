@@ -22,3 +22,15 @@ C:\Users\cliente\Desktop\Joabe\ADS\TCC\SistemaCompra\back\src\SistemaCompra.Doma
 C:\Users\cliente\Desktop\Joabe\ADS\TCC\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\SistemaCompra.Domain.dll
 C:\Users\cliente\Desktop\Joabe\ADS\TCC\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\ref\SistemaCompra.Domain.dll
 C:\Users\cliente\Desktop\Joabe\ADS\TCC\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\SistemaCompra.Domain.pdb
+D:\SistemaCompra\back\src\SistemaCompra.Domain\bin\Debug\net5.0\SistemaCompra.Domain.deps.json
+D:\SistemaCompra\back\src\SistemaCompra.Domain\bin\Debug\net5.0\SistemaCompra.Domain.dll
+D:\SistemaCompra\back\src\SistemaCompra.Domain\bin\Debug\net5.0\ref\SistemaCompra.Domain.dll
+D:\SistemaCompra\back\src\SistemaCompra.Domain\bin\Debug\net5.0\SistemaCompra.Domain.pdb
+D:\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\SistemaCompra.Domain.csprojAssemblyReference.cache
+D:\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\SistemaCompra.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\SistemaCompra.Domain.AssemblyInfoInputs.cache
+D:\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\SistemaCompra.Domain.AssemblyInfo.cs
+D:\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\SistemaCompra.Domain.csproj.CoreCompileInputs.cache
+D:\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\SistemaCompra.Domain.dll
+D:\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\ref\SistemaCompra.Domain.dll
+D:\SistemaCompra\back\src\SistemaCompra.Domain\obj\Debug\net5.0\SistemaCompra.Domain.pdb

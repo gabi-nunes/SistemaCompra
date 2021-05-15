@@ -1,12 +1,12 @@
 import { Cotacao } from './Cotacao';
 
 export interface Pedido {
- Id: number;
- StatusAprov: number;
- DataEmissao: Date;
- Aprovador: string;
- DataAprovacao: Date;
- Observacao: string;
+ id: number;
+ statusAprov: number;
+ dataEmissao: string;
+ aprovador: string;
+ dataAprovacao: string;
+ observacao: string;
  cotacaoId: number;
  cotacao: Cotacao;
  // itensPedidos: IEnumerable<ItemPedido>;
