@@ -1,0 +1,60 @@
+<div class="card shadow-sm rounded">
+  <form [formGroup]="form">
+    <div class="p-3">
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label>Nome do aprovador</label>
+          <input type="text" class="form-control" readonly
+          formControlName="aprovador" placeholder="Nome do aprovador">
+          </div>
+          <div class="form-group col-md-2">
+            <label>Código da cotação</label>
+            <input type="text" class="form-control" readonly
+            formControlName="cotacao" placeholder="Código da cotação">
+            </div>
+        </div>
+        <div class="form-row">
+        <div class="form-group col-md-2">
+          <label>Data de Emissão</label>
+          <input type="text" readonly class="form-control"
+          formControlName="dataEmissao" placeholder="00/00/0000">
+        </div>
+        <div class="ml-5">
+          <label>Nome do fornecedor</label>
+          <input type="text" class="form-control" readonly
+          formControlName="fornecedor" placeholder="Nome do fornecedor">
+        </div>
+      </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group ml-3 col-md-8">
+          <label>Observação</label>
+          <textarea class="form-control" formControlName="observacao"
+          placeholder="Observações:" style="height: 100px"></textarea>
+        </div>
+      </div>
+
+    <div class="card-footer">
+      <div class="d-flex">
+        <button class="btn btn-outline-secondary mr-auto border" (click)="OpenModal(template)">
+          Cancelar Alteração
+        </button>
+        <button class="btn btn-success"
+        [disabled]= "!form.valid" (click)="SalvarPedido()">
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Enviar para o fornecedor
+        </button>
+      </div>
+    </div>
+
+
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p>Deseja realmente cancelar a alteração?</p>
+      <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+      <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+    </div>
+  </ng-template>
+
+
+
