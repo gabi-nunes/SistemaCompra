@@ -9,8 +9,8 @@ using SistemaCompra.Persistence;
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(GoodPlaceContext))]
-    [Migration("20210508232931_CotadorId")]
-    partial class CotadorId
+    [Migration("20210515233814_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -135,6 +135,9 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<int>("PontuacaoRanking")
                         .HasColumnType("int");
 
+                    b.Property<int>("Posicao")
+                        .HasColumnType("int");
+
                     b.Property<string>("Senha")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -190,12 +193,13 @@ namespace SistemaCompra.Persistence.Migrations
             modelBuilder.Entity("SistemaCompra.Domain.ItemPedido", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPedido")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("IdProduto")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ItemCotacao")
                         .HasColumnType("int");
 
                     b.Property<int>("PedidoId")
@@ -212,6 +216,9 @@ namespace SistemaCompra.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ItemCotacao")
+                        .IsUnique();
+
                     b.HasIndex("PedidoId");
 
                     b.ToTable("itensPedido");
@@ -223,8 +230,8 @@ namespace SistemaCompra.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Aprovador")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("AprovadorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataAprovacao")
                         .HasColumnType("datetime(6)");
@@ -233,6 +240,9 @@ namespace SistemaCompra.Persistence.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Observacao")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ObservacaoRejeicao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int>("StatusAprov")
@@ -410,9 +420,7 @@ namespace SistemaCompra.Persistence.Migrations
                 {
                     b.HasOne("SistemaCompra.Domain.ItemCotacao", "itemCotacao")
                         .WithOne("itemPedido")
-                        .HasForeignKey("SistemaCompra.Domain.ItemPedido", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SistemaCompra.Domain.ItemPedido", "ItemCotacao");
 
                     b.HasOne("SistemaCompra.Domain.Pedido", "Pedido")
                         .WithMany("itensPedidos")
