@@ -9,9 +9,11 @@ export class ItemCotacao {
    solicitacaoProduto: SolicitacaoProduto;
    idProduto: number;
    qtdeProduto: number;
-   precoUnit: number;
+   precoUnit: number ;
+   totalItem: number ;
    cotacaoId: number;
    cotacao: Cotacao;
    itemPedidoId: number;
    itemPedido: ItemPedido;
+
 }

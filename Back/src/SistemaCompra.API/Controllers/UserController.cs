@@ -183,18 +183,32 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("email/{email}")]
+        [HttpGet("isUser/{email}")]
         public async Task<IActionResult> GetByemail(string email)
         {
             try
             {
-                var usuarios = await UserService.GetAllUserbyemailAsync(email);
-                if (usuarios == null) return NotFound("Nenhum usuarios foi Encontrado com o Id informado.");
+                var usuarios = await UserService.GetIsUserAsync(email);
                 return Ok(usuarios);
             }
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o usuario pelo Id. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpGet("Email/{email}")]
+        public async Task<IActionResult> GetByemailUser(string email)
+        {
+            try
+            {
+                var usuarios = await UserService.GetUserByEmailAsync(email);
+                if (usuarios == null) return NotFound("Nenhum usuario foi Encontrado com o nome informado.");
+                return Ok(usuarios);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o usuario pelo tema. Erro: {ex.Message}");
             }
         }
 

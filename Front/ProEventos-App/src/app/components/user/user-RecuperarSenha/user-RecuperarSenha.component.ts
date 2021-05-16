@@ -6,6 +6,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr'
 import { user } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { FornecedorService } from 'src/app/services/fornecedor.service';
+import { Fornecedor } from 'src/app/models/Fornecedor';
 
 @Component({
   selector: 'app-user-RecuperarSenha',
@@ -17,10 +19,12 @@ export class UserRecuperarSenhaComponent implements OnInit {
   email: string;
   senha: string;
   id: string;
+  isUser: boolean = false;
   recuperarFrom: FormGroup;
   user={} as user;
+  fornecedor={} as Fornecedor;
   usuario: any;
-  constructor(private userService: UserService, private fb: FormBuilder,private router: Router,  private toastr: ToastrService,private spinner: NgxSpinnerService) { }
+  constructor(private userService: UserService, private fb: FormBuilder,private router: Router,  private toastr: ToastrService,private spinner: NgxSpinnerService, private fornecedorService: FornecedorService) { }
 
   ngOnInit() {
     this.validation();
@@ -36,6 +40,11 @@ export class UserRecuperarSenhaComponent implements OnInit {
 debugger
 if (this.email  !== null) {
   // this.spinner.show();
+  this.userService.getIsUserByEmail(this.email).subscribe(
+    (result: any) => {
+      this.isUser= result;
+
+  if(this.isUser==true){
    this.userService.getUserByEmail(this.email ).subscribe(
      (usuario: user) => {
        this.user= {...usuario}
@@ -53,15 +62,41 @@ if (this.email  !== null) {
 
      (error: any) => {
        this.spinner.hide();
-       this.toastr.error('Erro ao tentar carregar Evento.', 'Erro!');
+       this.toastr.error('Erro ao tentar carregar Usuario.', 'Erro!');
        console.error(error);
      },
      () => this.spinner.hide(),
    );
+ }else{
+  this.fornecedorService.getByEmail(this.email ).subscribe(
+    (fornecedor: Fornecedor) => {
+      this.fornecedor= {...fornecedor}
+      this.recuperarFrom.patchValue(this.fornecedor);
+      this.log= {id: this.fornecedor.id,email: this.fornecedor.email,senha: this.fornecedor.senha}
+      debugger
+        this.fornecedorService.RecuperarSenha(this.log).subscribe(
+
+          () => this.toastr.success('Email enviado com sucesso!', 'sucesso'),
+
+          () => this.spinner.hide()
+        );
+        this.router.navigate(['/user/login']);
+    },
+
+    (error: any) => {
+      this.spinner.hide();
+      this.toastr.error('Erro ao tentar carregar Fornecedor.', 'Erro!');
+      console.error(error);
+    },
+    () => this.spinner.hide(),
+  );
+
  }
+}
+  );
 
 
 
-
+  }
   }
 }

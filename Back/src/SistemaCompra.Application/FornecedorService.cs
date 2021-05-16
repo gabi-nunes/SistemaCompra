@@ -21,6 +21,20 @@ namespace SistemaCompra.Application
             _FornecedorPresist = FornecedorPresist;
             FGeralPersist = geral;
         }
+        public async Task<Fornecedor> GetbyemailAsync(string email)
+        {
+            try
+            {
+                var usuarios = await _FornecedorPresist.GetFornecedorByEmailAsync(email);
+                if (usuarios == null) return null;
+                return usuarios;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
         public async Task<Fornecedor> AddFornecedor(FornecedorDto model)
         {

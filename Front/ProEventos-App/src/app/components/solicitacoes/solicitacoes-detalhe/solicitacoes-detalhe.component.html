@@ -19,14 +19,14 @@
         </h4>
       </div>
       <hr class="mt-1">
-      <div *ngIf="solicitacao.statusAprovacao === 1 || solicitacao.statusAprovacao === 0">
+      <div *ngIf="solicitacao.statusAprovacao === 1 || solicitacao.statusAprovacao === 0" class="no-print">
         <label *ngIf="solicitacao.statusAprovacao === 0" class="text-success">
           Essa Solicitação já foi Aprovada portanto não pode mais ser alterada <br>
-          Comentários de {{aprovador?.name}}(Aprovador):
+          Comentários de {{aprovador?.nome}}(Aprovador):
         </label>
         <label *ngIf="solicitacao.statusAprovacao === 1" class="text-danger">
           Essa Solicitação foi Reprovada. <br> Leia os comentários de quem a reprovou, preencha e envie para a avaliação novamente. <br>
-          Comentários de {{aprovador?.name}}(Avaliador):
+          Comentários de {{aprovador?.nome}}(Avaliador):
         </label>
         <textarea class="form-control my-1 is-valid" readonly formControlName="observacaoRejeicao" placeholder="Observações:" style="height: 100px" [ngClass]="cssStatusValidation()"></textarea>
       </div>
@@ -144,7 +144,7 @@
 
     </div>
 
-    <div class="card-footer">
+    <div class="card-footer no-print">
       <div class="d-flex">
         <button class="btn btn-outline-secondary mr-auto border" (click)="OpenModalCancel(CancelarTemplate)">
           Cancelar Alteração
@@ -160,6 +160,14 @@
             <i class="fas fa-save fa-lg my-1"></i>
             <p class="ml-1 my-0">Salvar</p>
           </div>
+        </button>
+        <button class="btn btn-outline-secondary mr-auto border no-print" (click)="CancelarForm()">
+          Cancelar Alteração
+        </button>
+        <button class="btn btn-success no-print" [disabled]="!form.valid" (click)="SalvarSolicitacao()">
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Salvar Solicitação
+
         </button>
         <button  class="btn btn-outline-primary ml-2 no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
@@ -275,6 +283,7 @@
        Você perderá todos os dados não salvos</p>
     <button type="button" class="btn btn-default" (click)="CancelarForm()">Sim</button>
     <button type="button" class="btn btn-primary" (click)="declineCancel()">Não</button>
+
   </div>
 </ng-template>
 

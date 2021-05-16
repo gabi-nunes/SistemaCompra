@@ -1,3 +1,5 @@
+import { FornecedorService } from 'src/app/services/fornecedor.service';
+import { Fornecedor } from 'src/app/models/Fornecedor';
 import { loginService } from './login.service';
 import { Login } from './../../../models/login';
 import { UserService } from 'src/app/services/user.service';
@@ -19,20 +21,24 @@ export class LoginComponent implements OnInit {
   log = {} as Login;
   email: string;
   senha: string;
+  isUser: boolean =false;
   id: string;
   loginForm: FormGroup;
   userO = {} as user;
   usuario: any;
+  Fornecedor: any;
   perfil: any = 0;
 
-  userperfil = new EventEmitter<user>()
+  userperfil = new EventEmitter<user>();
+  userFornecedor = new EventEmitter<Fornecedor>()
 
   constructor(private userService: UserService,
               private fb: FormBuilder,
               private router: Router,
               private toastr: ToastrService,
               private spinner: NgxSpinnerService,
-              private logService: loginService){}
+              private forncedorService: FornecedorService
+              ){}
 
   ngOnInit(): void {
     this.validation();
@@ -46,15 +52,19 @@ export class LoginComponent implements OnInit {
   }
 
   public  salvarlogin(): void {
+
     if (this.loginForm.valid){
+      debugger;
+      this.userService.getIsUserByEmail(this.email).subscribe(
+        (result: any) => {
+          this.isUser= result;
+
+      if(this.isUser==true){
+        debugger;
       this.usuario = {... this.loginForm.value}
       this.userService.login(this.usuario).subscribe(
         (result: any) => {
           this.perfil = result;
-
-          this.logService.passandoUser.subscribe(
-            this.logService.addUser(this.perfil)
-          );
 
           this.userperfil.emit(this.perfil);
           this.toastr.success('Login aceito', 'OK');
@@ -68,9 +78,39 @@ export class LoginComponent implements OnInit {
         },
         () => this.spinner.hide()
       );
+      }
+      else{
+        debugger;
+        this.Fornecedor = {... this.loginForm.value}
+        this.forncedorService.login(this.Fornecedor).subscribe(
+          (result: any) => {
+            this.perfil = result;
+
+            this.userperfil.emit(this.perfil);
+            this.toastr.success('Login aceito', 'OK');
+            this.router.navigate(['/areaFornecedor']);
+
+            this.spinner.hide();
+          },
+          (error: any) => {
+            console.error(error);
+            this.toastr.error('Erro ao tentar entrar, verifique seu email e sua senha!', 'Erro');
+          },
+          () => this.spinner.hide()
+        );
+      }
+    },
+        (error: any) => {
+          console.error(error);
+          this.toastr.error('Erro ao tentar entrar, verifique seu email e sua senha!', 'Erro');
+        },
+        () => this.spinner.hide()
+      );
+      }
+
     }
   }
-}
+
 
 
 

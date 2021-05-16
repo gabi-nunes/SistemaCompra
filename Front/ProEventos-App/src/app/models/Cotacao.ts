@@ -3,16 +3,17 @@ import { ItemCotacao } from './ItemCotacao';
 import { Pedido } from './Pedido';
 import { Solicitacao } from './Solicitacao';
 
-export interface Cotacao {
+export class Cotacao {
   id: number;
   CotadorId: number;
-  prazoCotacao: Date;
+  dataEmissaoCotacao: Date;
   solicitacaoId: number;
   solicitacao: Solicitacao;
   frete: number;
+  dataEntrega: Date;
   status: number;
   frmPagamento: number;
-  prazoOferta: Date;
+  prazoOfertas: Date;
   parcelas: number;
   fornecedorGanhadorId: number;
   total: number;
@@ -21,5 +22,16 @@ export interface Cotacao {
   pedido: Pedido[];
   fornecedorId: number;
   fornecedor: Fornecedor;
-  itensCotacaos: ItemCotacao[];
+  itensCotacao: ItemCotacao[];
+
+
+
+
+
+
+
+
+
+
+
 }

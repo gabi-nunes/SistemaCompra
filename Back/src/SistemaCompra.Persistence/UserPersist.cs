@@ -40,7 +40,7 @@ namespace SistemaCompra.Persistence
        {
             IQueryable<user> query = Context.Users;
 
-            query = query.Where(e => e.Name.ToLower().Contains(Name.ToLower()));
+            query = query.Where(e => e.nome.ToLower().Contains(Name.ToLower()));
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 

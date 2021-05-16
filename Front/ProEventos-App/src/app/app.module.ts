@@ -64,6 +64,10 @@ import { AprovarSolicitacaoComponent } from './shared/aprovar-solicitacao/aprova
 import { CotacoesComponent } from './components/cotacoes/cotacoes.component';
 import { CotacoesDetalheComponent } from './components/cotacoes/cotacoes-detalhe/cotacoes-detalhe.component';
 import { CotacoesListaComponent } from './components/cotacoes/cotacoes-lista/cotacoes-lista.component';
+import { AreaFornecedorComponent } from './components/area-fornecedor/area-fornecedor.component';
+import { DetalheCotacaoComponent } from './components/area-fornecedor/detalhe-cotacao/detalhe-cotacao.component';
+import { ListagemCotacaoComponent } from './components/area-fornecedor/listagem-cotacao/listagem-cotacao.component';
+import { ListagemPedidoComponent } from './components/area-fornecedor/listagem-pedido/listagem-pedido.component';
 defineLocale('pt-br', ptBrLocale);
 
 

@@ -6,7 +6,7 @@
           <i class="fa fa-users mb-2"></i>
           <h1 class="h3 mb-3 font-weight-normal">Entrar com</h1>
           <label for="username" class="sr-only">Usuário</label>
-          <input type="email" formControlName="email" id="username" class="form-control" placeholder="Usuário" name="username" required>
+          <input type="email" formControlName="email" id="email" class="form-control" placeholder="Usuário" name="email"  [(ngModel)]="email" required>
           <label for="password" class="sr-only">Password</label>
           <input type="password" id="password" formControlName="senha" class="form-control" placeholder="Senha" name="password" required>
           <button class="btn btn-lg bg-logo btn-block" type="submit" (click)="salvarlogin()">Entrar</button>

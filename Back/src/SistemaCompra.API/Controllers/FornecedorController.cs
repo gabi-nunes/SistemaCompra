@@ -66,6 +66,21 @@ namespace SistemaCompra.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o usuario pelo tema. Erro: {ex.Message}");
             }
         }
+        [HttpGet("email/{email}")]
+        public async Task<IActionResult> GetByemail(string email)
+        {
+            try
+            {
+                var usuarios = await fornecedorService.GetbyemailAsync(email);
+                if (usuarios == null) return NotFound("Nenhum usuarios foi Encontrado com o Id informado.");
+                return Ok(usuarios);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o usuario pelo Id. Erro: {ex.Message}");
+            }
+        }
+
 
         [HttpPost("Registrar")]
         public async Task<IActionResult> Post([FromBody] FornecedorDto model)
@@ -180,21 +195,6 @@ namespace SistemaCompra.API.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar efetuar a alteração de senha. Erro: {ex.Message}");
-            }
-        }
-
-        [HttpGet("email/{email}")]
-        public async Task<IActionResult> GetByemail(string email)
-        {
-            try
-            {
-                var usuarios = await fornecedorService.GetAllFornecedorbyemailAsync(email);
-                if (usuarios == null) return NotFound("Nenhum Fornecedor foi Encontrado com o Id informado.");
-                return Ok(usuarios);
-            }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o usuario pelo Id. Erro: {ex.Message}");
             }
         }
 

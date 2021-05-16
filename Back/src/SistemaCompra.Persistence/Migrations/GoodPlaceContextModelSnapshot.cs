@@ -350,9 +350,6 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<string>("Cargo")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
                     b.Property<string>("Senha")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -360,6 +357,9 @@ namespace SistemaCompra.Persistence.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("email")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("nome")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");

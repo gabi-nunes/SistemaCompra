@@ -11,6 +11,7 @@ namespace SistemaCompra.Persistence.Contratos
     {
         Task<Fornecedor[]> GetAllFornecedorAsync();
         Task<Fornecedor> GetAllFornecedorByIdAsync(int id);
+        Task<Fornecedor> GetUserByEmailAsync(string Email);
         Task<Fornecedor[]> GetFornecedorByNameAsync(string nome);
         Task<Fornecedor> GetLogin(string email, string senha);
         Task<Fornecedor> GetFornecedorByEmailAsync(string Email);

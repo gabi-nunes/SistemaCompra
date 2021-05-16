@@ -64,7 +64,7 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("CotacaoPorFornecedor/{CotacaoId}")]
+        [HttpGet("CotacaoPorFornecedor/{FornecedorId}")]
         public async Task<IActionResult> GeFornecedortbyCotacaoId(int FornecedorId)
         {
             try
@@ -186,11 +186,12 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPut("EnviaPrecoPorItem/{ItemCotacaoId}")]
-        public async Task<IActionResult> PutItem(int ItemCotacaoId, double value)
+        public async Task<IActionResult> PutItem(Preco model)
         {
             try
             {
-                var cotacao = await CotacaoService.EnviarPrecooAsync(ItemCotacaoId, value);
+            
+                var cotacao = await CotacaoService.EnviarPrecooAsync(model.itemcotacao,model.valor);
                 if (cotacao == null) return BadRequest("Erro ao tentar Adicionar a cotacao.");
                 return Ok(cotacao);
             }
@@ -264,7 +265,7 @@ namespace SistemaCompra.API.Controllers
 
 
 
-        [HttpPut("CotacaoGanhadore/{IdCot}")]
+        [HttpPut("CotacaoGanhador/{IdCot}")]
         public async Task<IActionResult> PutFornecedorVencedor(int IdCot)
         {
             try
@@ -320,9 +321,8 @@ namespace SistemaCompra.API.Controllers
                 var cotacao = await CotacaoService.DeleteCotacao(id);
                 if (cotacao == null) return NoContent();
 
-                return await CotacaoService.DeleteCotacao(id) ?
-                       Ok(new { messagem = "Deletado" }) :
-                       throw new Exception("Ocorreu um problem não específico ao tentar deletar cotacao.");
+                return Ok(new { messagem = "Deletado" });
+                       
             }
             catch (Exception ex)
             {
