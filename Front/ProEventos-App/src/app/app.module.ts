@@ -12,7 +12,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,7 +53,6 @@ import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.co
 import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
 // import { ProdutoComponent } from './components/produtos/produto/produto.component';
 import { ProdutoListaComponent } from './components/produtos/produto-lista/produto-lista.component';
-import { SolicitacaoService } from './services/solicitacao.service';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { PedidoListaComponent } from './components/pedidos/pedido-lista/pedido-lista.component';
 import { PedidoDetalheComponent } from './components/pedidos/pedido-detalhe/pedido-detalhe.component';
@@ -96,8 +95,7 @@ defineLocale('pt-br', ptBrLocale);
     AprovarSolicitacaoComponent,
     CotacoesComponent,
     CotacoesDetalheComponent,
-    CotacoesListaComponent
-    SolicitacaoListaComponent,
+    CotacoesListaComponent,
     ProdutoListaComponent,
     PedidosComponent,
     PedidoListaComponent,

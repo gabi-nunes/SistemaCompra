@@ -1,3 +1,5 @@
+import { FamiliaProdutoService } from 'src/app/services/familiaProduto.service';
+import { FamiliaProduto } from 'src/app/models/FamiliaProduto';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -19,13 +21,17 @@ export class ProdutoListaComponent implements OnInit {
     private modalService: BsModalService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    private familiaProdutoService: FamiliaProdutoService
   ) {}
 
   public produtos: Produto  [] = [];
+  familiaProdutos: FamiliaProduto[] = [];
   public produtosFiltrados: Produto  [] = [];
   public imgIsVisible = false;
   private gridFilter = '';
+  desc: string
+  Familia: FamiliaProduto;
 
   public get GridFilter(): string{
     return this.gridFilter;
@@ -65,10 +71,37 @@ export class ProdutoListaComponent implements OnInit {
         complete: () => this.spinner.hide()
       });
   }
-
-
-
-
+  public CarregarFamiliaProdutos(): void{
+    this.familiaProdutoService.getFamiliaProdutos().subscribe(
+      (familias: FamiliaProduto[]) => {
+        this.familiaProdutos = familias;
+      },
+      (error: any) => {
+        this.spinner.hide();
+        this.toastr.error('Erro ao tentar carregar as Famílias de Produtos', 'Erro');
+        console.error(error);
+      },
+      () => {
+        this.spinner.hide();
+      }
+    );
+  }
+  public CarregarFamiliaProdutosporId(id: number){
+    this.familiaProdutoService.getFamiliaProdutoById(id).subscribe(
+      (familias: FamiliaProduto) => {
+        this.Familia = familias;
+      },
+      (error: any) => {
+        this.spinner.hide();
+        this.toastr.error('Erro ao tentar carregar as Famílias de Produtos', 'Erro');
+        console.error(error);
+      },
+      () => {
+        this.spinner.hide();
+      }
+    );
+    return this.desc;
+  }
   decline(): void {
     this.modalRef.hide();
   }

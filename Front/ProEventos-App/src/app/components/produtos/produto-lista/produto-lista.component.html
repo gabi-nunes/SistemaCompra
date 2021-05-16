@@ -46,10 +46,10 @@
     </thead>
     <tbody *ngIf="produtos && produtos.length">
       <tr *ngFor="let produto of produtosFiltrados">
-        <td class="d-none d-md-table-cell text-center">{{produto.id}}</td>
-        <td class="text-center">{{produto.descricao}}</td>
-        <td class="text-center">{{produto.unidMedida}}</td>
-        <td class="text-center">{{produto.familiaProduto.Descricao}}</td>
+        <td class="d-none d-md-table-cell text-center">{{produto?.id}}</td>
+        <td class="text-center">{{produto?.descricao}}</td>
+        <td class="text-center">{{produto?.unidMedida}}</td>
+        <td class="text-center">{{Familia.descricao}}</td>
       </tr>
     </tbody>
     <tfoot *ngIf="!produtos || produtos.length == 0">

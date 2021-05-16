@@ -63,8 +63,6 @@ const routes: Routes = [
 
   {path: 'solicitações', redirectTo: 'solicitações/lista'},
   {path: 'solicitações', component: SolicitacoesComponent,
-  {path: 'solicitações', redirectTo: 'solicitações/lista'},
-  {path: 'solicitações', component: SolicitacoesComponent,
     children: [
       {path: 'lista', component: SolicitacaoListaComponent},
       {path: 'detalhe', component: SolicitacoesDetalheComponent},
