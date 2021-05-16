@@ -75,7 +75,7 @@ namespace SistemaCompra.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o usuario pelo tema. Erro: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o produto pela descrição. Erro: {ex.Message}");
             }
         }
 

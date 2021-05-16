@@ -26,7 +26,7 @@ namespace SistemaCompra.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    nome = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     email = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Setor = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),

@@ -18,12 +18,13 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="areaFornecedor/listagem" *ngIf="isFornecedor && !isUser">Pedidos</a>
           <a class="nav-link" routerLink="cotacao" *ngIf="!isFornecedor &&  isUser">Pedidos</a>
+          <a class="nav-link" routerLink="pedidos">Pedidos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="fornecedor/lista"  *ngIf="!isFornecedor" >Fornecedores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="contatos" *ngIf="!isFornecedor" >Produtos</a>
+          <a class="nav-link" routerLink="produtos">Produtos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="user/lista"  *ngIf="!isFornecedor">Usuários</a>
