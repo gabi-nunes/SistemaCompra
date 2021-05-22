@@ -93,13 +93,45 @@ export class PedidoListaComponent implements OnInit {
       () => {}
     );
   }
+  GetColorByStatus(status: number): any{
+    let resultColor: any;
+    switch (status) {
+      case 0:
+        resultColor = '#5cb85c';
+        break;
+      case 1:
+        resultColor = '#d9534f';
+        break;
+      case 2:
+        resultColor = '#f0ad4e';
+        break;
+    }
+    return resultColor;
+  }
+
+  GetTooltipByStatus(status: number): string{
+    let resultTooltip: any;
+    switch (status) {
+      case 0:
+        resultTooltip = 'Aprovado';
+        break;
+      case 1:
+        resultTooltip = 'Reprovado';
+        break;
+      case 2:
+        resultTooltip = 'Pendente';
+        break;
+    }
+    return resultTooltip;
+  }
+
 
   decline(): void {
     this.modalRef.hide();
   }
 
   DetalharPedido(id: number): void{
-    this.router.navigate([`pedido/detalhe/${id}`]);
+    this.router.navigate([`pedidos/detalhe/${id}`]);
   }
 
 

@@ -68,6 +68,7 @@ import { AreaFornecedorComponent } from './components/area-fornecedor/area-forne
 import { DetalheCotacaoComponent } from './components/area-fornecedor/detalhe-cotacao/detalhe-cotacao.component';
 import { ListagemCotacaoComponent } from './components/area-fornecedor/listagem-cotacao/listagem-cotacao.component';
 import { ListagemPedidoComponent } from './components/area-fornecedor/listagem-pedido/listagem-pedido.component';
+import { AlterarSenhaComponent } from './components/area-fornecedor/alterar-senha/alterar-senha.component';
 defineLocale('pt-br', ptBrLocale);
 
 
@@ -103,7 +104,12 @@ defineLocale('pt-br', ptBrLocale);
     ProdutoListaComponent,
     PedidosComponent,
     PedidoListaComponent,
-    PedidoDetalheComponent
+    PedidoDetalheComponent,
+    AreaFornecedorComponent,
+    ListagemCotacaoComponent,
+    ListagemPedidoComponent ,
+    DetalheCotacaoComponent,
+    AlterarSenhaComponent ,
    ],
   imports: [
     CommonModule,

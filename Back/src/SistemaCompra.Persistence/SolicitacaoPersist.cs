@@ -88,7 +88,7 @@ namespace SistemaCompra.Persistence
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
 
-        public async Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(DateTime DataCriacao)
+        public async Task<Solicitacao[]> GetSolicitacaoByDataSolicitacaoAsync(string DataCriacao)
         {
             IQueryable<Solicitacao> query = Context.Solicitacoes
                .Include(e => e.SolicitacaoProdutos)

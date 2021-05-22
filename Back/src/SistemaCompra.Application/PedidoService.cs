@@ -41,6 +41,7 @@ namespace SistemaCompra.Application
                     itemped.IdProduto = prod.IdProduto;
                     itemped.QtdeProduto = prod.QtdeProduto;
                     itemped.PrecoUnit = prod.PrecoUnit;
+                    itemped.TotalItem= prod.TotalItem;
                     itemped.itemCotacaoId = prod.Id;
                     
 
@@ -80,7 +81,8 @@ namespace SistemaCompra.Application
                 if (pedido == null) return null;
 
                 pedido.AprovadorId = model.AprovadorId;
-                pedido.DataAprovacao = model.DataAprovacao;
+                var data = model.DataAprovacao.ToString("dd/MM/yyyy");
+                pedido.DataAprovacao = data;
                 pedido.StatusAprov = model.StatusAprov;
                 pedido.ObservacaoRejeicao = model.ObservacaoRejeicao;
 
@@ -111,15 +113,17 @@ namespace SistemaCompra.Application
 
                 Pedido pedido = new Pedido();
 
-
-                pedido.DataEmissao = model.DataEmissao;
+                var data = model.DataEmissao.ToString("dd/MM/yyyy");
+                pedido.DataEmissao = data;
                 pedido.Observacao = model.Observacao;
                 pedido.cotacaoId = model.cotacaoId;
+                pedido.StatusAprov=2;
 
                 FGeralPersist.Add<Pedido>(pedido);
 
                 if (await FGeralPersist.SaveChangesAsync())
                 {
+                    await AddItemPedido(pedido.Id);
                     var pedidoRetorno = await _pedidoPresist.GetPedidoByIdAsync(pedido.Id);
 
                     return pedidoRetorno;
@@ -199,7 +203,20 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
+        public async Task<Cotacao> GetCotacaoByIdAsync(int cotacaoid)
+        {
+            try
+            {
+                var fornecedor = await _pedidoPresist.GetCotacaooByIdAsync(cotacaoid);
+                if (fornecedor == null) throw new Exception("Pedido não encontrado.");
 
+                return fornecedor;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public async Task<Fornecedor[]> GetFornecedorGanhadorAsync(int famailiaid)
         {
             try
@@ -245,7 +262,7 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<Pedido[]> GetPedidoByDataAdimicapPedidoAsync(DateTime DataAdicao)
+        public async Task<Pedido[]> GetPedidoByDataAdimicapPedidoAsync(string DataAdicao)
         {
             try
             {
@@ -260,11 +277,26 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async  Task<Pedido[]> GetPedidoByDataEmissaoPedidoAsync(DateTime DataEmissao)
+        public async  Task<Pedido[]> GetPedidoByDataEmissaoPedidoAsync(string DataEmissao)
         {
             try
             {
                 var pedido = await _pedidoPresist.GetPedidoByDataEmissaoPedidoAsync(DataEmissao);
+                if (pedido == null) throw new Exception("Pedido não encontrado.");
+
+                return pedido;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<Pedido[]> GetPedidoByfornecedorId(int fornecedorId)
+        {
+            try
+            {
+                var pedido = await _pedidoPresist.GetPedidoByfornecedorId(fornecedorId);
                 if (pedido == null) throw new Exception("Pedido não encontrado.");
 
                 return pedido;
@@ -352,7 +384,24 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<double> valorMaximo(double valor)
+        {
+            var pedido = await _pedidoPresist.GetAllPedidoAsync();
+
+            foreach(Pedido item in pedido)
+            {
+                item.valorMaximo = valor;
+
+                FGeralPersist.Update<Pedido>(item);
+                await FGeralPersist.SaveChangesAsync();
+            }
+            return valor;
+
+        }
+
+        }
     }
 
-    }
+    
 

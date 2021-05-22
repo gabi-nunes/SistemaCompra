@@ -31,7 +31,9 @@ export class ProdutoListaComponent implements OnInit {
   public imgIsVisible = false;
   private gridFilter = '';
   desc: string
-  Familia: FamiliaProduto;
+  familiaFiltrados: Produto[];
+  familiaIdFiltro: number;
+  Familia: string;
 
   public get GridFilter(): string{
     return this.gridFilter;
@@ -40,6 +42,16 @@ export class ProdutoListaComponent implements OnInit {
     this.gridFilter = value;
     this.produtosFiltrados = this.gridFilter ? this.Filtrar(this.gridFilter) : this.produtos;
   }
+
+  public get FamiliaIdFiltro(): number{
+    return this.familiaIdFiltro;
+  }
+
+  public set FamiliaIdFiltro(value: number){
+    this.familiaIdFiltro = value;
+    this.produtosFiltrados = this.familiaIdFiltro ? this.FiltrarByFamilia(this.familiaIdFiltro) : this.produtos;
+  }
+
 
   public Filtrar(filter: string): Produto  []{
     filter = filter.toLocaleLowerCase();
@@ -51,30 +63,47 @@ export class ProdutoListaComponent implements OnInit {
 
     public ngOnInit(): void {
       this.spinner.show();
+      this.CarregarFamiliaProdutos();
       this.CarregarProdutos();
+      this.setFamiliaProduto();
     }
 
-    public AlteraVisibilidadeImg(): void{
-      this.imgIsVisible = !this.imgIsVisible;
-    }
+
     public CarregarProdutos(): void{
       // tslint:disable-next-line: deprecation
-      this.produtoService.getProdutos().subscribe({
-        next: (produtosResponse: Produto []) => {
+      this.produtoService.getProdutos().subscribe(
+         (produtosResponse: Produto []) => {
           this.produtos = produtosResponse,
           this.produtosFiltrados = produtosResponse;
+          this.spinner.hide()
         },
-        error: () => {
+       (error: any) => {
           this.spinner.hide(),
           this.toastr.error('Erro ao carregar os Produtos', 'Erro');
-        },
-        complete: () => this.spinner.hide()
-      });
+        }
+      );
   }
+
+  public FiltrarByFamilia(filter: number): Produto[]{
+    return this.produtos.filter(
+      (produto: Produto) => produto.familiaProdutoId == filter);
+  }
+  public setFamiliaProduto(): void{
+    this.produtos.forEach(forn => {
+      const famProds = this.familiaProdutos.filter(
+        (fp: FamiliaProduto) => fp.id === forn.familiaProdutoId
+        );
+      forn.familiaProduto = famProds[0];
+      this.spinner.hide()
+    });
+  }
+
   public CarregarFamiliaProdutos(): void{
+    debugger
     this.familiaProdutoService.getFamiliaProdutos().subscribe(
       (familias: FamiliaProduto[]) => {
         this.familiaProdutos = familias;
+        this.spinner.hide()
       },
       (error: any) => {
         this.spinner.hide();
@@ -82,26 +111,16 @@ export class ProdutoListaComponent implements OnInit {
         console.error(error);
       },
       () => {
-        this.spinner.hide();
       }
     );
   }
-  public CarregarFamiliaProdutosporId(id: number){
-    this.familiaProdutoService.getFamiliaProdutoById(id).subscribe(
-      (familias: FamiliaProduto) => {
-        this.Familia = familias;
-      },
-      (error: any) => {
-        this.spinner.hide();
-        this.toastr.error('Erro ao tentar carregar as Famílias de Produtos', 'Erro');
-        console.error(error);
-      },
-      () => {
-        this.spinner.hide();
-      }
-    );
-    return this.desc;
+
+ public  getFamiliaDesc(FamiliaId: number): any {
+      const familiaProd = this.familiaProdutos.find(x=> x.id == FamiliaId);
+      return familiaProd?.descricao;
   }
+
+
   decline(): void {
     this.modalRef.hide();
   }

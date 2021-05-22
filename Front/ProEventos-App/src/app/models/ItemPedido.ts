@@ -7,8 +7,7 @@ export interface ItemPedido {
    idProduto: number;
    qtdeProduto: number;
    precoUnit: number;
+   totalItem: number
    itemCotacaoId: number;
-  //  itemCotacao: ItemCotacao;
-   pedidoId: number;
-   pedido: Pedido;
+
 }

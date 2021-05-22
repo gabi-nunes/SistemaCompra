@@ -17,11 +17,12 @@ namespace SistemaCompra.Persistence.Contratos
         Task<Pedido[]> GetPedidoByRejeitasAsync();
         Task<Pedido[]> GetPedidoByPendenteAsync();
         Task<Pedido[]> GetPedidoByAprovacaoAsync();
+        Task<Pedido[]> GetPedidoByfornecedorId(int fornecedorId);
         Task<Fornecedor[]> GetFornecedorGanhadorAsync(int famailiaid);
         Task<Fornecedor> GetFornecedorByIdAsync(int Fornecedorid);
         Task<Pedido> GetPedidoByIdCotacaoAsync(int id);
-        Task<Pedido[]> GetPedidoByDataEmissaoPedidoAsync(DateTime DataEmissao);
-        Task<Pedido[]> GetPedidoByDataAdimicapPedidoAsync(DateTime DataAdicao);
+        Task<Pedido[]> GetPedidoByDataEmissaoPedidoAsync(string DataEmissao);
+        Task<Pedido[]> GetPedidoByDataAdimicapPedidoAsync(string DataAdicao);
         Task<ItemPedido> GetItemPedidoByIdAsync(int id);
         Task<Fornecedor[]> GetvisualizarRankingAsync(int FamiliaProdutoid);
         Task<ItemCotacao[]> GetItemCotacaoByIdCotacaoAsync(int id);

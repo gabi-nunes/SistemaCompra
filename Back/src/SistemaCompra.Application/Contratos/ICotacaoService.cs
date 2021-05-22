@@ -23,7 +23,7 @@ namespace SistemaCompra.Application.Contratos
         Task<Cotacao> EscolherFornecedorGanhador(int idsol);
         Task<Cotacao[]> GetCotacaobyFornecedorAsync(int FornecedorId);
 
-        Task<Cotacao[]> GetAllCotacaobyDataAsync(DateTime DataCriacao);
+        Task<Cotacao[]> GetAllCotacaobyDataAsync(string DataCriacao);
 
         Task<Cotacao> GetCotacaobyIdAsync(int CotacaoId);
 
@@ -39,6 +39,6 @@ namespace SistemaCompra.Application.Contratos
 
         Task<Cotacao> EnviarOfetarAsync(int idCot, EnviarOfertaDto model);
 
-        Task<ItemCotacao> EnviarPrecooAsync(int id, double value);
+        Task<ItemCotacao> EnviarPrecooAsync(int id, Enviapreco model);
     }
 }

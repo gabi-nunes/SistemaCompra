@@ -12,11 +12,14 @@ namespace SistemaCompra.Application.Contratos
     {
         Task<Pedido> CreatePedido( PedidoDto model);
         Task<ItemPedido[]> AddItemPedido(int PedidoId);
+        Task<double> valorMaximo(double valor);
         Task<bool> DeletePedido(int PedidoId);
         Task<Pedido[]> GetAllPedidoAsync();
+        Task<Cotacao> GetCotacaoByIdAsync(int cotacaoid);
+        Task<Pedido[]> GetPedidoByfornecedorId(int fornecedorId);
         Task<int> TheLastID();
-        Task<Pedido[]> GetPedidoByDataEmissaoPedidoAsync(DateTime DataEmissao);
-        Task<Pedido[]> GetPedidoByDataAdimicapPedidoAsync(DateTime DataAdicao);
+        Task<Pedido[]> GetPedidoByDataEmissaoPedidoAsync(string DataEmissao);
+        Task<Pedido[]> GetPedidoByDataAdimicapPedidoAsync(string DataAdicao);
         Task<ItemPedido[]> GetItemPedidoByIdAsync(int id);
         Task<Pedido> GetPedidobyIdAsync(int Id);
         Task<Pedido[]> GetPedidoByRejeitasAsync();

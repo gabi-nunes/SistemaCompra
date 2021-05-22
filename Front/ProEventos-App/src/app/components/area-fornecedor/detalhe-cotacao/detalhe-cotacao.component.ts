@@ -21,7 +21,6 @@ import { ProdutoService } from 'src/app/services/produto.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { UserService } from 'src/app/services/user.service';
 import { preco } from 'src/app/models/preco';
-import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
 
 
 
@@ -216,8 +215,8 @@ public Carregarprodutos(): void{
 
     this.itensCotacoes.forEach(item=>{
       this.precoUnit.itemcotacao= item.id;
-      this.precoUnit.valor=item.precoUnit;
-      this.precoUnit.quant= item.qtdeProduto;
+      this.precoUnit.preco	=item.precoUnit;
+      this.precoUnit.total= item.totalItem;
       debugger
       this.cotacaoService.EnviarPreçoItem(this.precoUnit).subscribe(
         (result: any) => {
@@ -227,21 +226,19 @@ public Carregarprodutos(): void{
           this.toastr.error('Falha ao tentar adicionar', 'Erro');
           this.spinner.hide();
         },
-        () => {}
+        () => {
+          this.spinner.hide()
+        },
       );
     });
 
     this.cotacaoService.enviar(this.cotacaoid, enviaOf).subscribe(
       (result: any) => {
-      },
-      (error: any) => {
-        console.error(error);
-        this.toastr.error('Falha ao tentar adicionar', 'Erro');
-        this.spinner.hide();
+        this.toastr.success('Enviado com sucesso', 'Sucesso!');
       },
       () => {}
     );
-    this.router.navigate([`/areafornecedor/listagem`]);
+    this.router.navigate([`/areaFornecedor/listaCotacao`]);
 
   }
 

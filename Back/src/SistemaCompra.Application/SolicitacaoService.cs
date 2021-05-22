@@ -32,8 +32,10 @@ namespace SistemaCompra.Application
 
                 solicitacao = new Solicitacao();
                 solicitacao.Observacao = model.Observacao;
-                solicitacao.DataNecessidade = model.DataNecessidade;
-                solicitacao.DataSolicitacao = model.DataSolicitacao;
+                var dataN = model.DataNecessidade.ToString("dd/MM/yyyy");
+                solicitacao.DataNecessidade = dataN;
+                var data = model.DataSolicitacao.ToString("dd/MM/yyyy");
+                solicitacao.DataSolicitacao = data;
                 solicitacao.user_id = user.Id;
                 solicitacao.StatusAprovacao = model.StatusAprovacao;
       
@@ -109,7 +111,8 @@ namespace SistemaCompra.Application
                 if (LESolicitacao == null) return null;
 
                 solicitacao = LESolicitacao;
-                solicitacao.DataAprovacao = model.DataAprovacao;
+                var data = model.DataAprovacao.ToString("dd/MM/yyyy"); ;
+                solicitacao.DataAprovacao = data;
                 solicitacao.IdAprovador = model.IdAprovador;
                 solicitacao.StatusAprovacao = model.StatusAprovacao;
                 solicitacao.ObservacaoRejeicao = model.ObservacaoRejeicao;
@@ -157,7 +160,7 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<Solicitacao[]> GetAllSolicitacaobyDataAsync(DateTime DataCriacao)
+        public async Task<Solicitacao[]> GetAllSolicitacaobyDataAsync(string DataCriacao)
         {
             try
             {
@@ -206,8 +209,10 @@ namespace SistemaCompra.Application
                 var LESolicitacao = await _SolicitacaoPresist.GetAllSolicitacaoByIdsemProdAsync(SolicitacaoId);
                 if (LESolicitacao == null) return null;
                 //atenção aqui
-                LESolicitacao.DataNecessidade = model.DataNecessidade;
-                LESolicitacao.DataSolicitacao = model.DataSolicitacao;
+                var dataN = model.DataNecessidade.ToString("dd/MM/yyyy");
+                LESolicitacao.DataNecessidade = dataN;
+                var dataS = model.DataSolicitacao.ToString("dd/MM/yyyy");
+                LESolicitacao.DataSolicitacao = dataS;
                 LESolicitacao.Observacao = model.Observacao;
                 LESolicitacao.StatusAprovacao = model.StatusAprovacao;
                 LESolicitacao.ObservacaoRejeicao = model.ObservacaoRejeicao;

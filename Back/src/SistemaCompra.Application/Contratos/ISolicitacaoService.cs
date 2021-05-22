@@ -24,7 +24,7 @@ namespace SistemaCompra.Application.Contratos
 
          Task<user> GetuserbyIdAsync(int userId);
      
-        Task<Solicitacao[]> GetAllSolicitacaobyDataAsync(DateTime DataCriacao);
+        Task<Solicitacao[]> GetAllSolicitacaobyDataAsync(string DataCriacao);
 
         Task<Solicitacao> GetSolicitacaobyIdAsync(int SolicitacaoId);
 

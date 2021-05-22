@@ -94,7 +94,7 @@ namespace SistemaCompra.API.Controllers
             }
         }
         [HttpGet("CotacaoPorPrazo/{date}")]
-        public async Task<IActionResult> GetcotacaobyId(DateTime date)
+        public async Task<IActionResult> GetcotacaobyId(string date)
         {
             try
             {
@@ -186,12 +186,12 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPut("EnviaPrecoPorItem/{ItemCotacaoId}")]
-        public async Task<IActionResult> PutItem(Preco model)
+        public async Task<IActionResult> PutItem(Enviapreco model)
         {
             try
             {
             
-                var cotacao = await CotacaoService.EnviarPrecooAsync(model.itemcotacao,model.valor);
+                var cotacao = await CotacaoService.EnviarPrecooAsync(model.itemcotacao, model);
                 if (cotacao == null) return BadRequest("Erro ao tentar Adicionar a cotacao.");
                 return Ok(cotacao);
             }
@@ -202,12 +202,12 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("RetornarQuantidade/{ItemCotacaoId}")]
-        public async Task<IActionResult> GetQuantidade(int ItemCotacaoId)
+        [HttpGet("RetornarQuantidade/{CotacaoId}")]
+        public async Task<IActionResult> GetQuantidade(int CotacaoId)
         {
             try
             {
-                var Cotacao = await CotacaoService.CalcQuantAsync(ItemCotacaoId);
+                var Cotacao = await CotacaoService.CalcQuantAsync(CotacaoId);
                 if (Cotacao == null) return NotFound("Nenhum cotacao encontrado!");
                 return Ok(Cotacao);
             }
