@@ -1,4 +1,5 @@
 import { Cotacao } from './Cotacao';
+import { ItemPedido } from './ItemPedido';
 
 export interface Pedido {
  id: number;
@@ -9,5 +10,5 @@ export interface Pedido {
  observacao: string;
  cotacaoId: number;
  cotacao: Cotacao;
- // itensPedidos: IEnumerable<ItemPedido>;
+ itensPedidos: ItemPedido[];
 }

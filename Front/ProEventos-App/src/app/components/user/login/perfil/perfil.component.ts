@@ -7,8 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { user } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Login } from 'src/app/models/login';
+import { Validator } from 'src/app/helpers/Validator';
 
 @Component({
   selector: 'app-perfil',
@@ -44,13 +45,21 @@ export class PerfilComponent implements OnInit {
   }
 
   public validation(): void {
+    const formOptions: AbstractControlOptions = {
+      validators: Validator.MustMatch('senhaPas', 'confirmarSenha')
+    };
     this.form = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
      email: ['', Validators.required],
       setor: ['', Validators.required],
-      senha: ['', [Validators.required, Validators.max(120000)]],
+      senhaPas: ['', Validators.required],
+      confirmarSenha: ['', Validators.required],
       cargo: ['', Validators.required],
-    });
+    },formOptions);
+  }
+
+  get f(): any{
+    return this.form.controls;
   }
 
   public carregarUser(): void {
@@ -96,7 +105,7 @@ Salvarsenha(){
 
     this.alterarS= false;
 
-    this.login= {id: this.user.id,email: this.user.email, senha: this.senha}
+    this.login= {id: this.user.id,email: this.user.email, senha: this.form.value.senhaPas}
     debugger;
 
   this.userService.AlterarSenha(this.login).subscribe(

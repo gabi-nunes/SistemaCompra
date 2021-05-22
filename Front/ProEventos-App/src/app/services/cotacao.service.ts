@@ -18,6 +18,7 @@ export class CotacaoService {
   getCotacaoById(cotacaoId: number): Observable<Cotacao>{
     return this.http.get<Cotacao>(`${this.baseURL}/Id/${cotacaoId}`);
   }
+
   EnviarPreçoItem(precoUnit: preco): Observable<Cotacao>{
     return this.http.put<any>(`${this.baseURL}/EnviaPrecoPorItem/${precoUnit.itemcotacao}/`, precoUnit);
   }
@@ -41,6 +42,10 @@ export class CotacaoService {
   }
   enviar(id: number, enviar: EnviarOferta): Observable<any>{
     return this.http.put<any>(`${this.baseURL}/EnviarOferta/${id}`,enviar );
+  }
+
+  getCotacaoPedente() : Observable<Cotacao[]>{
+    return this.http.get<Cotacao[]>(`${this.baseURL}/CotacaoPendente`);
   }
 
   // postcotacao(userId: number, cotacaoDto: cotacaoDTO): Observable<cotacaoDTO>{

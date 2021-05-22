@@ -124,7 +124,7 @@ namespace SistemaCompra.Persistence
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
-        public async Task<Cotacao[]> GetCotacaoByDataCotacaoAsync(DateTime Data)
+        public async Task<Cotacao[]> GetCotacaoByDataCotacaoAsync(string Data)
         {
             IQueryable<Cotacao> query = Context.Cotacoes
                 .Include(e => e.ItensCotacao);

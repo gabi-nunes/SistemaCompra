@@ -14,11 +14,11 @@
     <tbody *ngIf="cotacao && cotacao.length">
       <tr *ngFor="let cotacoes of cotacao" (dblclick)=" DetalharCotacao(cotacoes.id)">
         <td class="d-none d-md-table-cell text-center">{{cotacoes.id}}</td>
-        <td class="text-center">{{cotacoes.dataEmissaoCotacao | DateTimeFormatter}}</td>
+        <td class="text-center">{{cotacoes.dataEmissaoCotacao}}</td>
         <td class="text-center">
           <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(cotacoes.status)}" [tooltip]="GetTooltipByStatus(cotacoes.status)"></i>
         </td>
-        <td class="text-center">{{cotacoes.prazoOfertas | DateTimeFormatter}}</td>
+        <td class="text-center">{{cotacoes.prazoOfertas}}</td>
         <td class="text-center">
         <i tooltip="Excluir" class="far fa-trash-alt mx-3" (click)="openModal(template, cotacoes.id)" style="color: #d9534f; cursor: pointer; font-size: x-large;"></i>
       </td>

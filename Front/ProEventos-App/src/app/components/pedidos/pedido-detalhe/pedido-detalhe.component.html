@@ -1,48 +1,157 @@
+<div class= "only-print"  >
+  <a class="navbar-brand mr-0 " routerLink="dashboard">
+    <img class="pr-2 pb-2" src="../../../assets/logo_editado_cortado1.png" alt="Responsive image">
+</a>
+  <h2 class="roboto text-muted mr-auto mb-0 pb-0">
+    Relatório de Pedido
+  </h2>
+</div>
+
+
 <div class="card shadow-sm rounded">
   <form [formGroup]="form">
     <div class="p-3">
       <div class="form-row">
-        <div class="form-group col-md-8">
-          <label>Nome do aprovador</label>
+        <div class="form-group col-md-2">
+          <label>Codigo Pedido</label>
           <input type="text" class="form-control" readonly
-          formControlName="aprovador" placeholder="Nome do aprovador">
+          formControlName="id" placeholder="Nome do aprovador">
           </div>
           <div class="form-group col-md-2">
             <label>Código da cotação</label>
             <input type="text" class="form-control" readonly
-            formControlName="cotacao" placeholder="Código da cotação">
+            formControlName="id2" placeholder="Código da cotação">
+            </div>
+            <div class="form-group col-md-2">
+              <label>Data Entrega</label>
+              <input type="text" class="form-control" readonly
+              formControlName="dataEntrega" placeholder="Nome do fornecedor">
+            </div>
+            <div class="form-group col-md-2">
+              <label>Data de Emissão</label>
+              <input type="text" readonly class="form-control"
+              formControlName="dataEmissao" placeholder="00/00/0000">
+            </div>
+            <div class="form-group col-md-4">
+              <label>CNPJ</label>
+              <input type="text" class="form-control" readonly
+              formControlName="cnpj" placeholder="Nome do fornecedor">
             </div>
         </div>
         <div class="form-row">
-        <div class="form-group col-md-2">
-          <label>Data de Emissão</label>
-          <input type="text" readonly class="form-control"
-          formControlName="dataEmissao" placeholder="00/00/0000">
-        </div>
-        <div class="ml-5">
+        <div class="form-group col-md-6">
           <label>Nome do fornecedor</label>
           <input type="text" class="form-control" readonly
-          formControlName="fornecedor" placeholder="Nome do fornecedor">
+          formControlName="nome" placeholder="Nome do fornecedor">
+        </div>
+        <div class="form-group col-md-2">
+          <label>Forma de Pagamento</label>
+          <input type="text" class="form-control" readonly
+          formControlName="formaPagamento" placeholder="Nome do fornecedor">
+        </div>
+        <div class="form-group col-md-2">
+          <label>Número</label>
+          <input type="text" class="form-control" readonly
+          formControlName="numero" placeholder="Nome do fornecedor">
+        </div>
+        <div class="form-group col-md-2">
+          <label>CEP</label>
+          <input type="text" class="form-control" readonly
+          formControlName="cep" placeholder="Nome do fornecedor">
         </div>
       </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Endereço</label>
+          <input type="text" class="form-control" readonly
+          formControlName="endereco" placeholder="Nome do fornecedor">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Bairro</label>
+          <input type="text" class="form-control" readonly
+          formControlName="bairro" placeholder="Nome do fornecedor">
+        </div>
+        
       </div>
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label>Estado</label>
+          <input type="text" class="form-control" readonly
+          formControlName="estado" placeholder="Nome do fornecedor">
+        </div>
+        <div class="form-group col-md-3">
+          <label>CEP</label>
+          <input type="text" class="form-control" readonly
+          formControlName="cep" placeholder="Nome do fornecedor">
+        </div>
+        <div class="form-group col-md-2">
+          <label>Inscrição Municipal</label>
+          <input type="text" class="form-control" readonly
+          formControlName="inscricaoMunicipal" placeholder="Nome do fornecedor">
+        </div>
+        <div class="form-group col-md-2">
+          <label>Inscrição Estatudal</label>
+          <input type="text" class="form-control" readonly
+          formControlName="inscricaoEstadual" placeholder="Nome do fornecedor">
+        </div>
+        <div class="form-group col-md-2">
+          <label>Frete</label>
+          <input type="text" class="form-control" readonly
+          formControlName="frete" placeholder="Nome do fornecedor">
+        </div>
+      </div>
+      <table class="table table-striped table-hover">
+        <thead class="bg-logo">
+          <tr>
+            <th class="d-none d-md-table-cell text-center">Código</th>
+            <th class="text-center">Descrição</th>
+            <th class="text-center">Quantidade</th>
+            <th class="text-center no-print">Preço Unitario</th>
+            <th class="text-center no-print">Total</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr *ngFor="let item of itensPedidos ">
+            <td class="d-none d-md-table-cell text-center" style="width: 10%">
+              {{item.idProduto}}
+            </td>
+            <td class="text-center" style="width: 30%">
+              {{getDescricaoproduto(item.idProduto)}}
+            </td>
+            <td class="d-none d-md-table-cell text-center" style="width: 20%">
+              {{item.qtdeProduto}}
+            </td>
+            <td class="text-center no-print" style="width: 20%">
+              R${{item.precoUnit}}
+            </td>
+            <td class="text-center no-print" style="width: 10%">
+              R${{item.totalItem}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
       <div class="form-row">
         <div class="form-group ml-3 col-md-8">
           <label>Observação</label>
           <textarea class="form-control" formControlName="observacao"
-          placeholder="Observações:" style="height: 100px"></textarea>
+          placeholder="observacao" style="height: 100px" readonly></textarea>
         </div>
-      </div>
+        <div class="form-group col-md-2 ml-4">
+          <label>Total</label>
+          <input type="text" class="form-control" readonly
+          formControlName="total" placeholder="Nome do fornecedor">
+        </div>
+        </div>
 
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-secondary mr-auto border" (click)="OpenModal(template)">
+        <button class="btn btn-outline-secondary mr-auto border no-print" (click)="OpenModal(template)">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success"
-        [disabled]= "!form.valid" (click)="SalvarPedido()">
+        <button  class="btn btn-outline-primary ml-2 no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
-          Enviar para o fornecedor
+          Gerar Relatório
         </button>
       </div>
     </div>

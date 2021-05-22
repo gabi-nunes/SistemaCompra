@@ -1,3 +1,7 @@
+import { ProdutoService } from './../../../services/produto.service';
+import { Fornecedor } from './../../../models/Fornecedor';
+import { Pedido } from './../../../models/Pedido';
+import { preco } from './../../../models/preco';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -5,11 +9,12 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ItemPedido } from 'src/app/models/ItemPedido';
-import { Pedido } from 'src/app/models/Pedido';
 import { user } from 'src/app/models/user';
 import { FamiliaProdutoService } from 'src/app/services/familiaProduto.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { UserService } from 'src/app/services/user.service';
+import { Cotacao } from 'src/app/models/Cotacao';
+import { Produto } from 'src/app/models/Produto';
 
 @Component({
   selector: 'app-pedido-detalhe',
@@ -26,24 +31,30 @@ export class PedidoDetalheComponent implements OnInit {
     private actRouter: ActivatedRoute,
     private modalService: BsModalService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private produtoService: ProdutoService
     ) {}
 
 public user: user;
+cotacao: Cotacao;
 public UserFiltrados: user[] = [];
 public userId = 0;
 form: FormGroup = new FormGroup({});
 pedido = {} as Pedido;
-pedidoId = {} as any;
+pedidoId = 0;
 modalRef = {} as BsModalRef;
-itensPedidos = [{}] as ItemPedido[];
+itensPedidos: ItemPedido[] = [];
 itemPedId: number;
+fornecedor: Fornecedor;
+produto: Produto[]=[];
 
 ngOnInit(): void{
 this.validation();
-this.CarregarPedido();
+this.actRouter.params.subscribe(params => this.pedidoId = params['id']);
 const userJson = localStorage.getItem('currentUser') || '{}';
 this.user = JSON.parse(userJson);
+this.CarregarPedidos();
+this.Carregarprodutos();
 // this.CarregarFamiliaProdutos();
 }
 
@@ -51,30 +62,92 @@ this.user = JSON.parse(userJson);
 
 public validation(): void{
 this.form = new FormGroup({
-dataEmissao: new FormControl(this.pedido.dataEmissao, Validators.required),
-observacao: new FormControl('', Validators.required),
-aprovador: new FormControl(this.user.name, Validators.required),
-fornecedor: new FormControl('', Validators.required)
-// cotacao: new FormControl(this.cotacao.id, Validators.required)
+id: new FormControl(this.pedido?.id),
+id2: new FormControl(this.pedido?.id),
+cotacaoId: new FormControl(this.pedido?.cotacaoId),
+dataEmissao: new FormControl(this.pedido?.dataEmissao),
+observacao: new FormControl(this.pedido?.observacao),
+nome: new FormControl(this.fornecedor?.nome),
+frete:new FormControl(this.pedido?.cotacao?.frete),
+formaPagamento: new FormControl(this.pedido?.cotacao?.frmPagamento),
+total: new FormControl(this.pedido?.cotacao?.total),
+cnpj: new FormControl(this.fornecedor?.cnpj),
+endereco: new FormControl(this.fornecedor?.endereco),
+bairro: new FormControl(this.fornecedor?.bairro),
+numero:new FormControl(this.fornecedor?.numero),
+estado:new FormControl(this.fornecedor?.estado),
+cep: new FormControl(this.fornecedor?.cep),
+inscricaoEstadual: new FormControl(this.fornecedor?.inscricaoEstadual),
+inscricaoMunicipal: new FormControl(this.fornecedor?.inscricaoMunicipal),
+dataEntrega: new FormControl(this.pedido?.cotacao?.dataEntrega),
+
 });
 }
 
-// public CarregarItensPedidos(): void{
-// this.itemPedidosService.getItensPedidos().subscribe(
-// (familias: FamiliaProduto[]) => {
-// this.itensPedidos = familias;
-// },
-// (error: any) => {
-// this.spinner.hide();
-// this.toastr.error('Erro ao tentar carregar os Itens do Pedido', 'Erro');
-// console.error(error);
-// },
-// () => {
-// this.spinner.hide();
-// }
-// );
-// }
+public CarregarPedidos(): void{
+debugger
+this.pedidoService.getPedidoById(this.pedidoId).subscribe(
+(pedidoresponse: Pedido) => {
+this.pedido = pedidoresponse;
+this.pedido.itensPedidos.forEach((item: ItemPedido) => {
+  this.itensPedidos.push(item);
+});
+this.CarregarFornecedor();
+},
+(error: any) => {
+this.spinner.hide();
+this.toastr.error('Erro ao tentar carregar o Pedido', 'Erro');
+console.error(error);
+},
+() => {
+this.spinner.hide();
+}
+);
+}
 
+public getDescricaoproduto(idProduto: number): string{
+  let produtoSelecionado = this.produto.find(x=> x.id== idProduto);
+  var descProduto= produtoSelecionado?.descricao ?? '';
+  return descProduto;
+}
+
+public Carregarprodutos(): void{
+  // tslint:disable-next-line: deprecation
+  this.produtoService.getProdutos().subscribe(
+    (produtoResponse: Produto[]) => {
+      this.produto = produtoResponse;
+      console.log(this.produto)
+    },
+    () => {
+      this.spinner.hide(),
+      this.toastr.error('Erro ao carregar os Cotacoes', 'Erro');
+    },
+    () => this.spinner.hide()
+  );
+
+
+}
+public CarregarFornecedor(): void{
+    debugger
+    this.pedidoService.getFornecedorById(this.pedido.cotacao.fornecedorId).subscribe(
+    (fornecedorresponse: any) => {
+    this.fornecedor = fornecedorresponse;
+    this.validation();
+    },
+    (error: any) => {
+    this.spinner.hide();
+    this.toastr.error('Erro ao tentar carregar o Pedido', 'Erro');
+    console.error(error);
+    },
+    () => {
+    this.spinner.hide();
+    }
+    );
+    
+    }
+
+
+      
 
 // public setItensPedidos(itemPid: number): ItemPedido{
 // const famProds = this.itensPedidos.filter(
@@ -82,50 +155,6 @@ fornecedor: new FormControl('', Validators.required)
 // );
 // return famProds[0];
 // }
-
-public CarregarPedido(): void{
-this.pedidoId = this.actRouter.snapshot.paramMap.get('id');
-
-if (this.pedidoId !== null){
-this.spinner.show();
-this.pedidoService.getPedidoById(+this.pedidoId).subscribe(
-(e: Pedido) => {
-  this.pedido = {...e},
-  this.form.patchValue(e);
-},
-(error: any) => {
-  this.spinner.hide();
-  this.toastr.error('Erro ao tentar carregar o Pedido', 'Erro');
-  console.error(error);
-},
-() => {
-  this.spinner.hide();
-}
-);
-}
-}
-
-public SalvarPedido(): void{
-this.spinner.show();
-if (this.form.valid){
-    // this.pedido.itemPedido = this.setItemPedido(this.itemPedidoId);
-    if (this.pedidoId === null){
-
-        this.pedido = {...this.form.value};
-        this.pedidoService.postPedido(this.pedido).subscribe(
-          () => {this.toastr.success('Pedido aprovado com Sucesso', 'Pedido Aprovado'); },
-          (error: any) => {
-            console.log(error);
-            this.toastr.error('Erro ao tentar aprovar Pedido', 'Erro');
-            this.spinner.hide();
-          },
-          () => {
-            this.spinner.hide();
-          }
-        );
-        }
-    }
-}
 
 public OpenModal(template: TemplateRef<any>): void{
 this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
@@ -139,6 +168,12 @@ this.modalRef.hide();
 }
 
 public CancelarForm(): void{
+}
+
+GerarRelatrio(): void{
+
+  window.print();
+
 }
 
 }

@@ -1,0 +1,147 @@
+<div class="card shadow-sm rounded">
+  <form [formGroup]="form">
+    <div class="p-3">
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label>Nome</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('nome')?.errors && form.get('nome')?.touched}"
+          formControlName="nome" readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>CNPJ</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('cnpj')?.errors && form.get('cnpj')?.touched}"
+          formControlName="cnpj"  readonly>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label>CEP</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('cep')?.errors && form.get('cep')?.touched}"
+          formControlName="cep"  readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Estado</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('estado')?.errors && form.get('estado')?.touched}" placeholder="Insira o Estado"
+          formControlName="estado"  readonly>
+
+        </div>
+        <div class="form-group col-md-8">
+          <label>Cidade</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('cidade')?.errors && form.get('cidade')?.touched}" placeholder="Insira a Cidade"
+          formControlName="cidade"  readonly>
+
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label>Endereço</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('endereco')?.errors && form.get('endereco')?.touched}" placeholder="Insira o Endereco"
+          formControlName="endereco"  readonly>
+        </div>
+        <div class="form-group col-md-1">
+          <label>Número</label>
+          <input type="number" class="form-control"
+          [ngClass]="{'is-invalid': form.get('numero')?.errors && form.get('numero')?.touched}" placeholder="0000"
+          formControlName="numero"  readonly>
+
+        </div>
+        <div class="form-group col-md-4">
+          <label>Bairro</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('bairro')?.errors && form.get('bairro')?.touched}" placeholder="Insira o Bairro"
+          formControlName="bairro"  readonly>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Complemento</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('complemento')?.errors && form.get('complemento')?.touched}"  readonly
+          formControlName="complemento">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label>Telefone</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('telefone')?.errors && form.get('telefone')?.touched}"
+          formControlName="telefone"  readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Celular</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('celular')?.errors && form.get('celular')?.touched}"
+          formControlName="celular"  readonly>
+        </div>
+        <div class="form-group col-md-4">
+          <label>E-mail</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('email')?.errors && form.get('email')?.touched}"
+          formControlName="email"  readonly>
+
+        </div>
+        <div class="form-group col-md-2">
+          <label>Inscrição Municipal</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('inscricaoMunicipal')?.errors && form.get('inscricaoMunicipal')?.touched}"
+          formControlName="inscricaoMunicipal"  readonly>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Inscrição Estadual</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': form.get('inscricaoEstadual')?.errors && form.get('inscricaoEstadual')?.touched}"
+          formControlName="inscricaoEstadual"  readonly>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-10">
+        </div>
+        <div class="form-group col-md-2">
+            <label>Pontuação</label>
+            <input type="text" class="form-control" readonly formControlName="pontuacaoRanking">
+        </div>
+      </div>
+      <div class="form-row ml-3">
+        <div *ngIf="!alterarS">
+          <h3 class="pt-3">Mudar Senha</h3>
+          <p>Caso mude de senha, preencha os campos abaixo:</p>
+          <div class="form-row">
+            <div class="form-group col-sm">
+                <label>Senha</label>
+      <input [ngClass]="{'is-invalid': f.senhaPas?.errors && f.senhaPas?.touched}" formControlName="senhaPas" type="password" class="form-control" />
+                <div class="invalid-feedback" *ngIf="f.senhaPas.errors?.required">
+        O Campo senha é obrigatório
+      </div>
+            </div>
+            <div class="form-group col-sm">
+                <label>Confirmar Senha</label>
+      <input [ngClass]="{'is-invalid': f.confirmarSenha?.errors && f.confirmarSenha?.touched}" formControlName="confirmarSenha" type="password" class="form-control" />
+                <div class="invalid-feedback" *ngIf="f.confirmarSenha.errors?.required">
+        O Campo confimar Senha é obrigatório
+      </div>
+                <div class="invalid-feedback" *ngIf="f.confirmarSenha.errors?.mustMatch">
+        As senhas precisam ser igual
+      </div>
+            </div>
+        </div>
+        <button class="btn btn-success ml-auto" (click)="Salvarsenha()">
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Salvar senha
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="d-flex col-2">
+        <button class="btn btn-success ml-auto" *ngIf="alterarS"  (click)="alterarsenha()">
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Alterar senha
+        </button>
+      </div>
+    </div>
+    </div>
+  </form>
+  </div>

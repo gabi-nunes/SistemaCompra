@@ -8,14 +8,14 @@ namespace SistemaCompra.Domain
     {
         public int Id { get; set; }
         public int CotadorId { get; set; }
-        public DateTime DataEmissaoCotacao { get; set; }
+        public string DataEmissaoCotacao { get; set; }
         public int SolicitacaoId { get; set; }
         public Solicitacao Solicitacao { get; set; }
         public double Frete { get; set; }
         public int status { get; set; }
         public int FrmPagamento { get; set; }
-        public DateTime DataEntrega { get; set; }
-        public DateTime PrazoOfertas { get; set; }
+        public string DataEntrega { get; set; }
+        public string PrazoOfertas { get; set; }
         public int Parcelas { get; set; }
         public int FornecedorGanhadorId { get; set; }
         public double Total { get; set; }

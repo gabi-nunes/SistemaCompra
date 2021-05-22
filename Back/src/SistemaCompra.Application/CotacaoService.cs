@@ -48,6 +48,7 @@ namespace SistemaCompra.Application
                     itemCot.IdProduto = prod.Produto_Id;
                     itemCot.QtdeProduto = prod.QtdeProduto;
                     itemCot.cotacaoId = Cotacao.Id;
+                    itemCot.TotalItem= 0.0;
                     itemCot.PrecoUnit = 0.0;
                     FGeralPersist.Add<ItemCotacao>(itemCot);
                     if (await FGeralPersist.SaveChangesAsync())
@@ -81,7 +82,8 @@ namespace SistemaCompra.Application
             if (cotacao == null) return null;
 
             cotacao.Frete = model.Frete;
-            cotacao.DataEntrega = model.DataEntrega;
+            var data = model.DataEntrega.ToString("dd/MM/yyyy");
+            cotacao.DataEntrega = data;
             cotacao.status = model.status;
             cotacao.Total = await CalcQuantAsync(cotacao.Id);
             cotacao.Total += cotacao.Frete;
@@ -160,12 +162,13 @@ namespace SistemaCompra.Application
         }
 
 
-        public async Task<ItemCotacao> EnviarPrecooAsync(int id, double value)
+        public async Task<ItemCotacao> EnviarPrecooAsync(int id, Enviapreco model)
         {
             var Itemcotacao = await _CotacaoPresist.GetAllItemCotacaoByIdAsync(id);
             if (Itemcotacao == null) return null;
 
-            Itemcotacao.PrecoUnit = value;
+            Itemcotacao.PrecoUnit = model.preco;
+            Itemcotacao.TotalItem = model.total;
 
             FGeralPersist.Update<ItemCotacao>(Itemcotacao);
 
@@ -200,10 +203,12 @@ namespace SistemaCompra.Application
 
                 Cotacao = new Cotacao();
                 Cotacao.Id = model.Id;
-                Cotacao.DataEmissaoCotacao = model.DataEmissaoCotacao;
+                var dataEmissao = model.DataEmissaoCotacao.ToString("dd/MM/yyyy");
+                Cotacao.DataEmissaoCotacao = dataEmissao;
                 Cotacao.SolicitacaoId = SolicitacaoId;
                 Cotacao.status = model.status;
-                Cotacao.PrazoOfertas = model.PrazoOfertas;
+                var prazo = model.PrazoOfertas.ToString("dd/MM/yyyy");
+                Cotacao.PrazoOfertas = prazo;
                 Cotacao.fornecedorId = model.fornecedorId;
                 Cotacao.CotadorId = model.CotadorId;
                 Cotacao.FrmPagamento = model.FrmPagamento;
@@ -262,10 +267,11 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<Cotacao[]> GetAllCotacaobyDataAsync(DateTime DataCriacao)
+        public async Task<Cotacao[]> GetAllCotacaobyDataAsync(string DataCriacao)
         {
             try
             {
+                
                 var cotacaos = await _CotacaoPresist.GetCotacaoByDataCotacaoAsync(DataCriacao);
                 if (cotacaos == null) return null;
                 return cotacaos;
@@ -383,8 +389,10 @@ namespace SistemaCompra.Application
             {
                 var cotacao = await _CotacaoPresist.GetAllCotacaoByIdsemProdAsync(CotacaoId);
                 if (cotacao == null) return null;
-                cotacao.DataEmissaoCotacao = model.DataEmissaoCotacao;
-                cotacao.PrazoOfertas = model.PrazoOfertas;
+                var dataE = model.DataEmissaoCotacao.ToString("dd/MM/yyyy");
+                cotacao.DataEmissaoCotacao = dataE;
+                var dataP = model.PrazoOfertas.ToString("dd/MM/yyyy");
+                cotacao.PrazoOfertas = dataP;
 
                 if (cotacao.status != 1)
                 {
@@ -455,14 +463,14 @@ namespace SistemaCompra.Application
             {
                 if (isFirstDate)
                 {
-                    menorData = item.DataEntrega;
+                    menorData = DateTime.Parse(item.DataEntrega);
                     isFirstDate = false;
                     idDate = item.Id;
                 }
 
-                if (item.DataEntrega < menorData)
+                if (DateTime.Parse(item.DataEntrega) < menorData)
                 {
-                    menorData = item.DataEntrega;
+                    menorData = DateTime.Parse( item.DataEntrega);
                     idDate = item.Id;
                 }
 

@@ -1,5 +1,5 @@
 export class preco {
   itemcotacao: number;
-  valor: number;
-  quant: number;
+ preco: number;
+ total: number;
 }

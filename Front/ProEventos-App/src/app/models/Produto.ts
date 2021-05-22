@@ -6,6 +6,7 @@ export class Produto {
    descricao: string;
    unidMedida: string;
    familiaProdutoId: number;
+   descricaoFamilia: string;
    familiaProduto: FamiliaProduto;
    solicitacaoProdutos: SolicitacaoProduto[];
 }

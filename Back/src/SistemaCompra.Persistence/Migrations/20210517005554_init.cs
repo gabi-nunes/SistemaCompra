@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemaCompra.Persistence.Migrations
@@ -26,7 +25,7 @@ namespace SistemaCompra.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    nome = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     email = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Setor = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Senha = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
@@ -103,9 +102,9 @@ namespace SistemaCompra.Persistence.Migrations
                     user_id = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     Observacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    DataNecessidade = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DataAprovacao = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DataSolicitacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataNecessidade = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    DataAprovacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    DataSolicitacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     StatusAprovacao = table.Column<int>(type: "int", nullable: false),
                     IdAprovador = table.Column<int>(type: "int", nullable: true),
                     ObservacaoRejeicao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
@@ -128,13 +127,13 @@ namespace SistemaCompra.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CotadorId = table.Column<int>(type: "int", nullable: false),
-                    DataEmissaoCotacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataEmissaoCotacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     SolicitacaoId = table.Column<int>(type: "int", nullable: false),
                     Frete = table.Column<double>(type: "double", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false),
                     FrmPagamento = table.Column<int>(type: "int", nullable: false),
-                    DataEntrega = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    PrazoOfertas = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataEntrega = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    PrazoOfertas = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Parcelas = table.Column<int>(type: "int", nullable: false),
                     FornecedorGanhadorId = table.Column<int>(type: "int", nullable: false),
                     Total = table.Column<double>(type: "double", nullable: false),
@@ -191,11 +190,12 @@ namespace SistemaCompra.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     StatusAprov = table.Column<int>(type: "int", nullable: false),
-                    DataEmissao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataEmissao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     AprovadorId = table.Column<int>(type: "int", nullable: false),
-                    DataAprovacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataAprovacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Observacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     ObservacaoRejeicao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    valorMaximo = table.Column<double>(type: "double", nullable: false),
                     cotacaoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -221,6 +221,7 @@ namespace SistemaCompra.Persistence.Migrations
                     IdProduto = table.Column<int>(type: "int", nullable: false),
                     QtdeProduto = table.Column<int>(type: "int", nullable: false),
                     PrecoUnit = table.Column<double>(type: "double", nullable: false),
+                    TotalItem = table.Column<double>(type: "double", nullable: false),
                     cotacaoId = table.Column<int>(type: "int", nullable: false),
                     itemPedidoId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -251,6 +252,7 @@ namespace SistemaCompra.Persistence.Migrations
                     QtdeProduto = table.Column<int>(type: "int", nullable: false),
                     PrecoUnit = table.Column<double>(type: "double", nullable: false),
                     itemCotacaoId = table.Column<int>(type: "int", nullable: false),
+                    TotalItem = table.Column<double>(type: "double", nullable: false),
                     ItemCotacao = table.Column<int>(type: "int", nullable: true),
                     PedidoId = table.Column<int>(type: "int", nullable: false)
                 },

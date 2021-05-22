@@ -33,6 +33,7 @@ import { CotacoesDetalheComponent } from './components/cotacoes/cotacoes-detalhe
 import { AreaFornecedorComponent } from './components/area-fornecedor/area-fornecedor.component';
 import { DetalheCotacaoComponent } from './components/area-fornecedor/detalhe-cotacao/detalhe-cotacao.component';
 import { ListagemCotacaoComponent } from './components/area-fornecedor/listagem-cotacao/listagem-cotacao.component';
+import { AlterarSenhaComponent } from './components/area-fornecedor/alterar-senha/alterar-senha.component';
 
 const routes: Routes = [
   {path: 'user', redirectTo: 'user/lista'},
@@ -59,7 +60,6 @@ const routes: Routes = [
   {path: 'pedidos', redirectTo: 'pedidos/lista'},
   {path: 'pedidos', component: PedidosComponent,
     children: [
-      {path: 'detalhe', component: PedidoDetalheComponent},
       {path: 'detalhe/:id', component: PedidoDetalheComponent},
       {path: 'lista', component: PedidoListaComponent}
     ]
@@ -95,6 +95,9 @@ const routes: Routes = [
     {path: 'listaCotacao', component: ListagemCotacaoComponent},
     {path: 'detalhe/:id', component: DetalheCotacaoComponent},
     {path: 'listaPedido', component: ListagemPedidoComponent },
+    {path: 'pedidos/detalhe/:id', component: PedidoDetalheComponent},
+    {path: 'alterarSenha/:id', component: AlterarSenhaComponent},
+
   ]
 },
 

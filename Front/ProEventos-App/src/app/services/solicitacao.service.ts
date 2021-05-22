@@ -16,7 +16,9 @@ export class SolicitacaoService {
   getSolicitacoes(): Observable<Solicitacao[]>{
     return this.http.get<Solicitacao[]>(this.baseURL);
   }
-
+  getPendentes(): Observable<Solicitacao[]>{
+    return this.http.get<Solicitacao[]>(`${this.baseURL}/AprovacaoPendente`);
+  }
   getSolicitacaoById(solicitacaoId: number): Observable<Solicitacao>{
     return this.http.get<Solicitacao>(`${this.baseURL}/${solicitacaoId}`);
   }

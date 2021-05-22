@@ -10,6 +10,7 @@ namespace SistemaCompra.Domain
         public int QtdeProduto { get; set; }
         public double PrecoUnit { get; set; }
         public int itemCotacaoId { get; set; }
+         public double TotalItem { get; set; }
         [ForeignKey("ItemCotacao")] public ItemCotacao itemCotacao { get; set; }
         public int PedidoId { get; set; }
         public Pedido Pedido { get; set; }

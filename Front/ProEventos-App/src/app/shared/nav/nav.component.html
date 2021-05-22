@@ -12,19 +12,18 @@
           <a class="nav-link ml-0 " aria-current="page" routerLink="solicitações/lista"  *ngIf="!isFornecedor">Solicitação</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="areaFornecedor/listagem" *ngIf="isFornecedor && !isUser">Cotacao</a>
-          <a class="nav-link" routerLink="cotacao" *ngIf="!isFornecedor &&  isUser">Cotação</a>
+          <a class="nav-link" routerLink="areaFornecedor/listaCotacao" *ngIf="isFornecedor && !isUser">Cotacao</a>
+          <a class="nav-link" routerLink="cotacao/lista" *ngIf="!isFornecedor &&  isUser">Cotação</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="areaFornecedor/listagem" *ngIf="isFornecedor && !isUser">Pedidos</a>
-          <a class="nav-link" routerLink="cotacao" *ngIf="!isFornecedor &&  isUser">Pedidos</a>
-          <a class="nav-link" routerLink="pedidos">Pedidos</a>
+          <a class="nav-link" routerLink="areaFornecedor/listaPedido" *ngIf="isFornecedor && !isUser">Pedidos</a>
+          <a class="nav-link" routerLink="pedidos/lista" *ngIf="!isFornecedor &&  isUser">Pedidos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="fornecedor/lista"  *ngIf="!isFornecedor" >Fornecedores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="produtos">Produtos</a>
+          <a class="nav-link" routerLink="produtos"  *ngIf="!isFornecedor">Produtos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="user/lista"  *ngIf="!isFornecedor">Usuários</a>
@@ -40,6 +39,12 @@
             <a routerLink="user/perfil/{{usuario.id}}" class="dropdown-item pl-3">
               <i class="fas fa-user-circle mr-1"></i>
               Perfil
+            </a>
+          </div>
+          <div *ngIf="isFornecedor && !isUser">
+            <a routerLink="areaFornecedor/alterarSenha/{{usuario.id}}" class="dropdown-item pl-3">
+              <i class="fas fa-user-circle mr-1"></i>
+              Alterar senha
             </a>
           </div>
             <div role="separator" class="divider"></div>

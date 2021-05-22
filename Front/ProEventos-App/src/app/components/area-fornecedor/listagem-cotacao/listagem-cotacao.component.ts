@@ -60,9 +60,16 @@ export class ListagemCotacaoComponent implements OnInit {
   public ngOnInit(): void {
     const userJson = localStorage.getItem('currentUser') || '{}';
     this.fornecedor = JSON.parse(userJson);
-    this.spinner.show();
     this.CarregarCotacaoes();
+    this.load()
+  }
 
+
+  load() {
+    console.log(sessionStorage);
+    //Session storage salva os dados como string
+    (sessionStorage.refresh == 'true' || !sessionStorage.refresh) && location.reload();
+    sessionStorage.refresh = false;
   }
 
   public AlteraVisibilidadeImg(): void{
@@ -73,6 +80,7 @@ export class ListagemCotacaoComponent implements OnInit {
     this.cotacaoService.getCotacaoByFornecedor(this.fornecedor.id).subscribe(
       (CotacaoResponse: Cotacao[]) => {
         this.cotacao = CotacaoResponse
+        this.spinner.hide()
         console.log(this.cotacao);
       },
       () => {
