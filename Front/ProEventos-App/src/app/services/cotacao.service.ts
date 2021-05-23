@@ -27,9 +27,6 @@ export class CotacaoService {
     return this.http.get<Fornecedor[]>(`${this.baseURL}/FornecedorMaiorRanking/${famProdId}`);
   }
 
-  getTotalitem(itemCotacao: number): Observable<any>{
-    return this.http.get<any>(`${this.baseURL}/RetornarQuantidadeporItem/${itemCotacao}`);
-  }
   getTotal(itemCotacao: number): Observable<any>{
     return this.http.get<any>(`${this.baseURL}/RetornarQuantidade/${itemCotacao}`);
   }

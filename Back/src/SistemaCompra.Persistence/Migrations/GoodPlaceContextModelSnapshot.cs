@@ -35,8 +35,8 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<int>("FornecedorGanhadorId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Frete")
-                        .HasColumnType("double");
+                    b.Property<string>("Frete")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int>("FrmPagamento")
                         .HasColumnType("int");
@@ -54,6 +54,9 @@ namespace SistemaCompra.Persistence.Migrations
                         .HasColumnType("double");
 
                     b.Property<int>("fornecedorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("prazoDias")
                         .HasColumnType("int");
 
                     b.Property<int>("status")

@@ -24,6 +24,7 @@ import { preco } from 'src/app/models/preco';
 
 
 
+
 @Component({
   selector: 'app-detalhe-cotacao',
   templateUrl: './detalhe-cotacao.component.html',
@@ -33,16 +34,17 @@ export class DetalheCotacaoComponent implements OnInit {
 
 
   produtoId: number;
-  frete: number;
+  frete: string;
 dataEntrega: Date;
   produtos: Produto[] = [];
   ProdSelecionado: Produto;
   qtdeProd: number;
+  iscolumn: boolean;
   isvalid: boolean = false;
   cotacaoid: number;
   DataEmissaoFormatada: string;
   itemCotacaoid: number;
-  valor: number;
+  valor: string;
   precoUnit={} as preco;
 
 
@@ -62,16 +64,19 @@ dataEntrega: Date;
   produto: Produto[]=[];
   dataHoje = new Date();
   total: number =0;
+  dateMaior: Boolean= false;
   valores:any[]=[];
   aparecer: boolean = false;
   totalItem: number;
   itemCotacaoEnvia: ItemCotacao[]=[]
+  now = new Date;
 
   solProdIdExluidos: number[] = [];
   itensCotacoes: ItemCotacao[] = [];
   solicitacaoProdutosOriginal: SolicitacaoProduto[] = [];
 
   isCadastro: boolean;
+  isExpirada: boolean;
 
   private gridFilter = '';
   produtosFiltrados: Produto[] = [];
@@ -123,7 +128,7 @@ dataEntrega: Date;
       prazoOfertas: [this.cotacao?.prazoOfertas],
       dataEntrega:[this.cotacao?.dataEntrega,Validators.required],
       frete: [this.cotacao?.frete,Validators.required],
-      total: [this.cotacao?.total]
+      total: [this.cotacao?.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })]
     });
   }
 
@@ -143,6 +148,7 @@ public CarregarCotacaoes(): void{
   this.cotacaoService.getCotacaoById(this.cotacaoid).subscribe(
     (CotacaoResponse: Cotacao) => {
       this.cotacao = CotacaoResponse;
+      this.form.patchValue({total: this.cotacao.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
       this.cotacao.itensCotacao.forEach(itemcotacao => {
         this.Carregarprodutos();
         this.itensCotacoes.push(itemcotacao);
@@ -180,6 +186,14 @@ public Carregarprodutos(): void{
 
 }
 
+public get ShowAlert(): boolean{
+  if (this.cotacao.prazoDias < 0 ) {
+    this.isExpirada= true;
+    return false; }
+    this.isExpirada= false;
+  return true;
+}
+
 //#endregion
 //#region "Salvar"
 
@@ -194,9 +208,6 @@ public Carregarprodutos(): void{
     return {'is-invalid': control?.errors && control?.touched};
   }
 
-
-
-
   public OpenModalCancel(template: TemplateRef<any>): void{
     this.modalRefCancel = this.modalService.show(template, {class: 'modal-sm'});
   }
@@ -210,8 +221,6 @@ public Carregarprodutos(): void{
     const enviaOf = new EnviarOferta();
     enviaOf.frete= this.frete;
     enviaOf.dataEntrega= this.dataEntrega;
-    enviaOf.status= 3;
-    enviaOf.fornecedorId= this.cotacao.fornecedorId;
 
     this.itensCotacoes.forEach(item=>{
       this.precoUnit.itemcotacao= item.id;
@@ -243,9 +252,12 @@ public Carregarprodutos(): void{
   }
 
 
-  public IncluirPrecoItem(valor: number){
+  public IncluirPrecoItem(valor: string){
     debugger
     let item : any;
+    let valorRecebido: number;
+  valorRecebido = parseFloat(valor.replace(",", "."));
+  debugger
     let itemValor= this.itemCotacaoEnvia.find(x=>x.id == this.itemCotacaoid);
     if( itemValor != undefined){
         this.cotacao.total-= itemValor.totalItem;
@@ -254,17 +266,26 @@ public Carregarprodutos(): void{
 
     item= this.itensCotacoes.find(x=>x.id == this.itemCotacaoid);
     this.qtdeProd= item.qtdeProduto;
-    item.precoUnit= this.valor;
-    item.totalItem= valor * this.qtdeProd;
+    item.precoUnit=  valorRecebido;
+    item.totalItem=  valorRecebido * this.qtdeProd;
+    console.log(valorRecebido)
     this.itemCotacaoEnvia.push(item);
     console.log(this.itemCotacaoEnvia)
     let principal= this.itensCotacoes.find(x=>x.id == this.itemCotacaoid);
-
     this.cotacao.total += item.totalItem;
+    this.form.patchValue({total: this.cotacao.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
+
     console.log(this.cotacao.total);
+    this.valor='';
     this.CloseModalQtde();
   }
 
+  onKey(frete: string) { // without type info
+    var freteFormatado = parseFloat(frete);
+    this.cotacao.total += freteFormatado ;
+    this.form.patchValue({total: this.cotacao.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
+    debugger
+  }
 
 
 
@@ -287,6 +308,8 @@ public Carregarprodutos(): void{
   onMudouEvento(evento: any): void{
     console.log(evento);
   }
+
+
 
   GerarRelatrio(): void{
 

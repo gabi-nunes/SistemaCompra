@@ -70,7 +70,7 @@ observacao: new FormControl(this.pedido?.observacao),
 nome: new FormControl(this.fornecedor?.nome),
 frete:new FormControl(this.pedido?.cotacao?.frete),
 formaPagamento: new FormControl(this.pedido?.cotacao?.frmPagamento),
-total: new FormControl(this.pedido?.cotacao?.total),
+total: new FormControl(this.pedido?.cotacao?.total) ,
 cnpj: new FormControl(this.fornecedor?.cnpj),
 endereco: new FormControl(this.fornecedor?.endereco),
 bairro: new FormControl(this.fornecedor?.bairro),
@@ -143,11 +143,11 @@ public CarregarFornecedor(): void{
     this.spinner.hide();
     }
     );
-    
+
     }
 
 
-      
+
 
 // public setItensPedidos(itemPid: number): ItemPedido{
 // const famProds = this.itensPedidos.filter(

@@ -1,6 +1,6 @@
+
+
 export class EnviarOferta {
-  frete: number;
-  status: number;
+  frete: string ;
   dataEntrega: Date;
-  fornecedorId: number;
 }

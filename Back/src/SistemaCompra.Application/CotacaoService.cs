@@ -81,12 +81,13 @@ namespace SistemaCompra.Application
             var itemCot = await _CotacaoPresist.GetAllItemCotacaoByIdCotAsync(idCot);
             if (cotacao == null) return null;
 
-            cotacao.Frete = model.Frete;
+            var frete = Convert.ToDouble(model.Frete);
             var data = model.DataEntrega.ToString("dd/MM/yyyy");
             cotacao.DataEntrega = data;
-            cotacao.status = model.status;
+            cotacao.status = 3;
             cotacao.Total = await CalcQuantAsync(cotacao.Id);
-            cotacao.Total += cotacao.Frete;
+            cotacao.Total += frete;
+            cotacao.Frete =  "R$" + model.Frete;
 
             FGeralPersist.Update<Cotacao>(cotacao);
 
@@ -203,12 +204,15 @@ namespace SistemaCompra.Application
 
                 Cotacao = new Cotacao();
                 Cotacao.Id = model.Id;
+                var prazo = model.PrazoOfertas.ToString("dd/MM/yyyy");
+                Cotacao.PrazoOfertas = prazo;
+                var dataHoje= DateTime.Today;
+                var DataTirar = model.PrazoOfertas.Subtract(dataHoje);
+                Cotacao.prazoDias = Convert.ToInt32(DataTirar.TotalDays);
                 var dataEmissao = model.DataEmissaoCotacao.ToString("dd/MM/yyyy");
                 Cotacao.DataEmissaoCotacao = dataEmissao;
                 Cotacao.SolicitacaoId = SolicitacaoId;
                 Cotacao.status = model.status;
-                var prazo = model.PrazoOfertas.ToString("dd/MM/yyyy");
-                Cotacao.PrazoOfertas = prazo;
                 Cotacao.fornecedorId = model.fornecedorId;
                 Cotacao.CotadorId = model.CotadorId;
                 Cotacao.FrmPagamento = model.FrmPagamento;
@@ -429,69 +433,55 @@ namespace SistemaCompra.Application
         {
 
             FornecedorIdealDto model = new FornecedorIdealDto();
-          
+
 
             var cotacoes = await _CotacaoPresist.GetCotByCotacaoMenorPreco(idsol);
             if (cotacoes == null) return null;
 
-            bool isFirstPrice = true;
-            bool isFirstDate = true;
+            bool isFirst = true;
             double menorPreco = 0;
             DateTime? menorData = null;
             int idPrice = 0;
             int idDate = 0;
 
 
-            foreach (Cotacao item in cotacoes)
+            foreach (Cotacao cotacao in cotacoes)
             {
-                if (isFirstPrice)
+                if (isFirst)
                 {
-                    menorPreco = item.Total;
-                    isFirstPrice = false;
-                    idPrice = item.Id;
+                    menorPreco = cotacao.Total;
+                    idPrice = cotacao.Id;
+                    menorData = DateTime.Parse(cotacao.DataEntrega);
+                    idDate = cotacao.Id;
+                    isFirst = false;
                 }
 
-                if (item.Total < menorPreco)
+                if (cotacao.Total < menorPreco)
                 {
-                    menorPreco = item.Total;
-                    idPrice = item.Id;
+                    menorPreco = cotacao.Total;
+                    idPrice = cotacao.Id;
                 }
 
-            }
-
-            foreach (Cotacao item in cotacoes)
-            {
-                if (isFirstDate)
+                if (DateTime.Parse(cotacao.DataEntrega) < menorData)
                 {
-                    menorData = DateTime.Parse(item.DataEntrega);
-                    isFirstDate = false;
-                    idDate = item.Id;
+                    menorData = DateTime.Parse(cotacao.DataEntrega); 
+                    idDate = cotacao.Id;
                 }
-
-                if (DateTime.Parse(item.DataEntrega) < menorData)
-                {
-                    menorData = DateTime.Parse( item.DataEntrega);
-                    idDate = item.Id;
-                }
-
             }
             if (idDate == idPrice)
             {
-                var CotacaoRetorno = await _CotacaoPresist.GetAllCotacaoByIdAsync(idPrice);
+                Cotacao CotacaoRetorno = cotacoes.Where((c) => c.Id == idDate).FirstOrDefault();
                 model.FornecedorIdeal = CotacaoRetorno.fornecedorId;
-            
-                    return model;
-               
             }
             else
             {
-                var CotacaoMelhorData = await _CotacaoPresist.GetAllCotacaoByIdAsync(idDate);
+                var CotacaoMelhorData = cotacoes.Where((c) => c.Id == idDate).FirstOrDefault();
                 model.FornecedorMenorData = CotacaoMelhorData.fornecedorId;
-                var CotacaoMelhroPrice = await _CotacaoPresist.GetAllCotacaoByIdAsync(idPrice);
+                var CotacaoMelhroPrice = cotacoes.Where((c) => c.Id == idPrice).FirstOrDefault();
                 model.FornecedorMenorPreco = CotacaoMelhroPrice.fornecedorId;
-                return model;
             }
 
+            return model;
         }
 
         public async Task<Cotacao> CotacaoVencedora(int idCot)

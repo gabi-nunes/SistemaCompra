@@ -71,7 +71,7 @@
           <input type="text" class="form-control" readonly
           formControlName="bairro" placeholder="Nome do fornecedor">
         </div>
-        
+
       </div>
       <div class="form-row">
         <div class="form-group col-md-3">
@@ -122,10 +122,10 @@
               {{item.qtdeProduto}}
             </td>
             <td class="text-center no-print" style="width: 20%">
-              R${{item.precoUnit}}
+              {{item.precoUnit| formatCurrency}}
             </td>
             <td class="text-center no-print" style="width: 10%">
-              R${{item.totalItem}}
+              {{item.totalItem | formatCurrency}}
             </td>
           </tr>
         </tbody>
@@ -140,7 +140,7 @@
         <div class="form-group col-md-2 ml-4">
           <label>Total</label>
           <input type="text" class="form-control" readonly
-          formControlName="total" placeholder="Nome do fornecedor">
+          formControlName="total" >
         </div>
         </div>
 
