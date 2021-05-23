@@ -11,6 +11,8 @@ import { CotacaoService } from 'src/app/services/cotacao.service';
 import { FamiliaProdutoService } from 'src/app/services/familiaProduto.service';
 
 
+
+
 @Component({
   selector: 'app-listagem-cotacao',
   templateUrl: './listagem-cotacao.component.html',
@@ -31,6 +33,7 @@ export class ListagemCotacaoComponent implements OnInit {
   public cotacao: Cotacao[] = [];
   public fornecedor: Fornecedor;
   public cotacaoId = 0;
+  iscolumn: boolean;
   public cotacaoFiltrados: Cotacao[] = [];
   public imgWidth = 150;
   public imgMargin = 2;
@@ -39,6 +42,7 @@ export class ListagemCotacaoComponent implements OnInit {
   public familiaProdutos: FamiliaProduto[] = [];
   private familiaIdFiltro: number;
   private gridFilter = '';
+  private prazoDiasBoll: boolean = false;
 
 
   public get GridFilter(): string{
@@ -72,14 +76,16 @@ export class ListagemCotacaoComponent implements OnInit {
     sessionStorage.refresh = false;
   }
 
-  public AlteraVisibilidadeImg(): void{
-    this.imgIsVisible = !this.imgIsVisible;
-  }
+
   public CarregarCotacaoes(): void{
     // tslint:disable-next-line: deprecation
     this.cotacaoService.getCotacaoByFornecedor(this.fornecedor.id).subscribe(
       (CotacaoResponse: Cotacao[]) => {
         this.cotacao = CotacaoResponse
+        this.cotacao.forEach(item=>{
+
+          item.prazodiaBool = this.ShowAlert(item.prazoDias);
+        })
         this.spinner.hide()
         console.log(this.cotacao);
       },
@@ -115,6 +121,15 @@ export class ListagemCotacaoComponent implements OnInit {
     }
     return resultColor;
   }
+
+  public ShowAlert(prazo : number): boolean{
+    if (prazo < 3 ) {
+      this.iscolumn= true;
+      return true; }
+      this.iscolumn= false;
+      return false;
+  }
+
   GetTooltipByStatus(status: number): string{
     let resultTooltip: any;
     switch (status) {
@@ -134,6 +149,26 @@ export class ListagemCotacaoComponent implements OnInit {
     return resultTooltip;
   }
 
+  GetTooltipAltert(prazo: number): string{
+    let resultTooltip: any;
+      if(prazo == 3){
+        resultTooltip= 'Faltam 3 dias para encerrar a cotação'
+      }
+      if(prazo == 2){
+        resultTooltip= 'Faltam 2 dias para encerrar a cotação'
+      }
+      if(prazo == 1){
+        resultTooltip= 'Faltam 1 dias para encerrar a cotação'
+      }
+      if(prazo == 0){
+        resultTooltip= 'Sua cotação encerra hoje'
+      }
+      if(prazo < 0){
+        resultTooltip= 'Cotação Expirada'
+      }
+
+    return resultTooltip;
+  }
   confirm(): void {
     this.modalRef.hide();
     this.spinner.show();

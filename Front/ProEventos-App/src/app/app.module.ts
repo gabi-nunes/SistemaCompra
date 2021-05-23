@@ -69,6 +69,7 @@ import { DetalheCotacaoComponent } from './components/area-fornecedor/detalhe-co
 import { ListagemCotacaoComponent } from './components/area-fornecedor/listagem-cotacao/listagem-cotacao.component';
 import { ListagemPedidoComponent } from './components/area-fornecedor/listagem-pedido/listagem-pedido.component';
 import { AlterarSenhaComponent } from './components/area-fornecedor/alterar-senha/alterar-senha.component';
+import { FormatCurrencyPipe } from './helpers/RealValue.pipe';
 defineLocale('pt-br', ptBrLocale);
 
 
@@ -110,6 +111,7 @@ defineLocale('pt-br', ptBrLocale);
     ListagemPedidoComponent ,
     DetalheCotacaoComponent,
     AlterarSenhaComponent ,
+    FormatCurrencyPipe,
    ],
   imports: [
     CommonModule,

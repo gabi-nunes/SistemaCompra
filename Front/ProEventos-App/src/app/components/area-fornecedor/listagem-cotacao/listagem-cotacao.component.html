@@ -1,10 +1,11 @@
-<app-titulo [titulo]="'Lista de Cotação'" [subtitulo]="'Cotações enviadar para você'" [icone]="'fas fa-user-circle'"></app-titulo>
+<app-titulo [titulo]="'Cotações Recebidas'" [subtitulo]="'Cotações enviadas para você'" [icone]="'fas fa-user-circle'"></app-titulo>
 <div class="card p-3 shadow-sm rounded">
 
   <table class="table table-striped table-hover">
     <thead class="bg-logo">
       <tr>
-        <th class="text-center">Código</th>
+        <th class="text-right" style="width: 7%;"    *ngIf="iscolumn"></th>
+        <th class="text-center"  style="width: 5%;">Código</th>
         <th class="text-center">Data Emissão</th>
         <th class="text-center">Status</th>
         <th class="text-center">Prazo de Oferta</th>
@@ -13,7 +14,12 @@
     </thead>
     <tbody *ngIf="cotacao && cotacao.length">
       <tr *ngFor="let cotacoes of cotacao" (dblclick)=" DetalharCotacao(cotacoes.id)">
-        <td class="d-none d-md-table-cell text-center">{{cotacoes.id}}</td>
+        <td class="d-none d-md-table-cell text-right pl-2" style="width: 7%;"  *ngIf="iscolumn">
+          <i class="fas fa-exclamation-triangle text-warning fa-lg" *ngIf="cotacoes.prazodiaBool" [tooltip]="GetTooltipAltert(cotacoes.prazoDias)"></i>
+       </td>
+        <td class="d-none d-md-table-cell text-center"  style="width: 8%;">
+           {{cotacoes.id}}
+        </td>
         <td class="text-center">{{cotacoes.dataEmissaoCotacao}}</td>
         <td class="text-center">
           <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(cotacoes.status)}" [tooltip]="GetTooltipByStatus(cotacoes.status)"></i>

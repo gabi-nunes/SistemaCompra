@@ -11,15 +11,17 @@ export class Cotacao {
   solicitacao: Solicitacao;
   frete: number;
   dataEntrega: Date;
+  prazoDias: number;
   status: number;
   frmPagamento: number;
-  prazoOfertas: Date;
+  prazoOfertas: any;
   parcelas: number;
   fornecedorGanhadorId: number;
   total: number;
   pedidoId: number;
   statusCotacao: number;
   pedido: Pedido[];
+  prazodiaBool: boolean;
   fornecedorId: number;
   fornecedor: Fornecedor;
   itensCotacao: ItemCotacao[];

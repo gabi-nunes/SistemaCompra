@@ -9,8 +9,7 @@ namespace SistemaCompra.Application.DTO.Request
 {
     public class EnviarOfertaDto
     {
-        public double Frete { get; set; }
-        public int status { get; set; }
+        public string Frete { get; set; }
         public DateTime DataEntrega { get; set; }
         public int fornecedorId { get; set; }
 
