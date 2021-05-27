@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { user } from 'src/app/models/user';
@@ -9,14 +10,25 @@ import { user } from 'src/app/models/user';
 })
 export class NavComponent implements OnInit {
   isCollapsed = true;
-  user: user;
-  constructor(private router: Router) { }
+  usuario: any;
+  isUser: boolean = false;
+  isFornecedor: boolean= false;
+  constructor(private router: Router, private userService: UserService) { }
 
 
   ngOnInit(): void {
     const userJson = localStorage.getItem('currentUser') || '{}';
-    this.user = JSON.parse(userJson);
+    this.usuario= JSON.parse(userJson);
+    this.isUserByEmail();
+  }
 
+  isUserByEmail(){
+    this.userService.getIsUserByEmail(this.usuario.email).subscribe(
+      (result: any) => {
+        this.isUser= result;
+        this.isFornecedor= !result;
+      }
+    );
   }
 
   showMenu(): boolean{

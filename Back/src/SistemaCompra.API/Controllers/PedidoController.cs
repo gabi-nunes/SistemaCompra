@@ -34,7 +34,7 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("Id/{CotacaoId}")]
+        [HttpGet("Id/{PedidoId}")]
         public async Task<IActionResult> GetbyId(int PedidoId)
         {
             try
@@ -50,7 +50,7 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpGet("DataAdmissao/{DataEmissao}")]
-        public async Task<IActionResult> GetdataEmissao(DateTime date)
+        public async Task<IActionResult> GetdataEmissao(string date)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace SistemaCompra.API.Controllers
             }
         }
         [HttpGet("DataAdmissao/{DataAdmissao}")]
-        public async Task<IActionResult> GetdataAdimissao(DateTime date)
+        public async Task<IActionResult> GetdataAdimissao(string date)
         {
             try
             {
@@ -153,6 +153,21 @@ namespace SistemaCompra.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar pedido. Erro: {ex.Message}");
             }
         }
+        [HttpGet("Cotacao/{cotacaoid}")]
+        public async Task<IActionResult> GetCot(int cotacaoid)
+        {
+            try
+            {
+                var Cotacao = await PedidoService.GetCotacaoByIdAsync(cotacaoid);
+                if (Cotacao == null) return NotFound("Nenhum pedido encontrado!");
+                return Ok(Cotacao);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar pedido. Erro: {ex.Message}");
+            }
+        }
+
         [HttpGet("Rejeitados")]
         public async Task<IActionResult> GetRejeitado()
         {
@@ -248,6 +263,24 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
+
+        [HttpPut("ValorMaximo/{valor}")]
+        public async Task<IActionResult> PutValor(double valor)
+        {
+            try
+            {
+                var pedido = await PedidoService.valorMaximo(valor);
+
+                if (pedido == null) return BadRequest("Erro ao alterar status. Tente Novamente!");
+                return Ok(pedido);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar efetuar a alteração de status. Erro: {ex.Message}");
+            }
+        }
+
+
         [HttpGet("UltimoId")]
         public async Task<IActionResult> GetidLast()
         {
@@ -257,6 +290,24 @@ namespace SistemaCompra.API.Controllers
                 if (id == null) return NoContent();
 
                 return Ok(id);
+
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar a última Solicitação . Erro: {ex.Message}");
+            }
+        }
+
+        [HttpGet("PedidoPorFornecedorId/{fornecedorId}")]
+        public async Task<IActionResult> Getid(int fornecedorId)
+        {
+            try
+            {
+                var pedido = await PedidoService.GetPedidoByfornecedorId(fornecedorId);
+                if (pedido == null) return NoContent();
+
+                return Ok(pedido);
 
             }
             catch (Exception ex)

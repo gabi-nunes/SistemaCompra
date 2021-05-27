@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="bg-supermarket">
   <div class="d-flex align-items-center vh-100">
     <div class="mx-auto text-center shadow-sm bg-white rounded px-5 my-auto">
@@ -22,6 +23,22 @@
             <p class="mt-4 mb-2 text-muted">Esqueceu a senha?</p>
             <a class="btn btn-lg btn-link text-logo btn-block" routerLink="/user/recuperar">Recuperar a senha</a>
           </form>
+=======
+<div class="d-flex align-items-center vh-100">
+	<div class="mx-auto text-center shadow-sm bg-white rounded p-5 my-5">
+    <div class="form-group">
+      <form class="form-signin">
+        <form [formGroup]="loginForm">
+          <i class="fa fa-users mb-2"></i>
+          <h1 class="h3 mb-3 font-weight-normal">Entrar com</h1>
+          <label for="username" class="sr-only">Usuário</label>
+          <input type="email" formControlName="email" id="email" class="form-control" placeholder="Usuário" name="email"  [(ngModel)]="email" required>
+          <label for="password" class="sr-only">Password</label>
+          <input type="password" id="password" formControlName="senha" class="form-control" placeholder="Senha" name="password" required>
+          <button class="btn btn-lg bg-logo btn-block" type="submit" (click)="salvarlogin()">Entrar</button>
+          <p class="mt-4 mb-2 text-muted">Esqueceu a senha?</p>
+          <a class="btn btn-lg btn-link text-logo btn-block" routerLink="/user/recuperar">Recuperar a senha</a>
+>>>>>>> master
         </form>
         <img src="">
       </div>

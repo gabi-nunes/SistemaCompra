@@ -139,7 +139,7 @@ export class CotacoesDetalheComponent implements OnInit {
     const df = new DateFormatter();
     this.form = this.fb.group({
       id: [this.solicitacaoId],
-      user: [this.user?.name],
+      user: [this.user?.nome],
       DesFamProd: [this.familiaProduto?.descricao],
       dataSolicitacao: [this.solicitacao.dataSolicitacao ?? this.dataHoje],
       dataNecessidade: [this.solicitacao?.dataNecessidade],
@@ -305,7 +305,7 @@ public CarregarUser(userId: number = 0, isCotador = false): void{
   this.userService.getUserById(userId).subscribe({
     next: (userResponse: user) => {
       this.user = userResponse;
-      this.form.value.user = this.user.name;
+      this.form.value.user = this.user.nome;
       this.validation();
     },
     error: () => {

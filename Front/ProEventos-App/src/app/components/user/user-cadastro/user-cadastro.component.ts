@@ -27,13 +27,13 @@ export class UserCadastroComponent implements OnInit {
 
   ngOnInit(): void {
     this.validation();
-  
+
   }
 
 
   public validation(): void {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
      email: ['', Validators.required],
       setor: ['', Validators.required],
       senha: ['', [Validators.required, Validators.max(120000)]],

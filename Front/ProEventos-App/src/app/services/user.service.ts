@@ -30,6 +30,12 @@ export class UserService {
   public AtualizaUser(id: number ,user:user) : Observable<user>{
     return this.http.put<user>(`${this.baseURL}/Atualiza/${id}`,user);
   }
+  getIsUserByEmail(email: string): Observable<any>{
+    return this.http.get<user>(`${this.baseURL}/isUser/${email}`);
+  }
+  getEmailUser(email: string): Observable<any>{
+    return this.http.get<user>(`${this.baseURL}/Email/${email}`);
+  }
 
   public login(login: Login): Observable<user>{
     return this.http.post<user>(`${this.baseURL}/Login/`, login)

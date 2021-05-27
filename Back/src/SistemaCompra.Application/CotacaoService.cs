@@ -42,7 +42,12 @@ namespace SistemaCompra.Application
                     itemCot.IdSolicitacaoProduto = prod.Id;
                     itemCot.IdProduto = prod.Produto_Id;
                     itemCot.QtdeProduto = prod.QtdeProduto;
+<<<<<<< HEAD
                     itemCot.cotacaoId = CotacaoId;
+=======
+                    itemCot.cotacaoId = Cotacao.Id;
+                    itemCot.TotalItem= 0.0;
+>>>>>>> master
                     itemCot.PrecoUnit = 0.0;
                     FGeralPersist.Add<ItemCotacao>(itemCot);
                     salvar = await FGeralPersist.SaveChangesAsync();
@@ -67,10 +72,20 @@ namespace SistemaCompra.Application
             var itensCots = await _CotacaoPresist.GetAllItemCotacaoByIdCotAsync(idCot);
             if (cotacao == null) return null;
 
+<<<<<<< HEAD
             cotacao.Frete = model.Frete;
             cotacao.DataEntrega = model.DataEntrega;
             cotacao.status = 2;
             cotacao.Total = CalcTotalAsync(itensCots) + cotacao.Frete;
+=======
+            var frete = Convert.ToDouble(model.Frete);
+            var data = model.DataEntrega.ToString("dd/MM/yyyy");
+            cotacao.DataEntrega = data;
+            cotacao.status = 3;
+            cotacao.Total = await CalcQuantAsync(cotacao.Id);
+            cotacao.Total += frete;
+            cotacao.Frete =  "R$" + model.Frete;
+>>>>>>> master
 
             FGeralPersist.Update<Cotacao>(cotacao);
 
@@ -140,12 +155,13 @@ namespace SistemaCompra.Application
         }
 
 
-        public async Task<ItemCotacao> EnviarPrecooAsync(int id, double value)
+        public async Task<ItemCotacao> EnviarPrecooAsync(int id, Enviapreco model)
         {
             var Itemcotacao = await _CotacaoPresist.GetAllItemCotacaoByIdAsync(id);
             if (Itemcotacao == null) return null;
 
-            Itemcotacao.PrecoUnit = value;
+            Itemcotacao.PrecoUnit = model.preco;
+            Itemcotacao.TotalItem = model.total;
 
             FGeralPersist.Update<ItemCotacao>(Itemcotacao);
 
@@ -179,10 +195,15 @@ namespace SistemaCompra.Application
 
                 Cotacao = new Cotacao();
                 Cotacao.Id = model.Id;
-                Cotacao.DataEmissaoCotacao = model.DataEmissaoCotacao;
+                var prazo = model.PrazoOfertas.ToString("dd/MM/yyyy");
+                Cotacao.PrazoOfertas = prazo;
+                var dataHoje= DateTime.Today;
+                var DataTirar = model.PrazoOfertas.Subtract(dataHoje);
+                Cotacao.prazoDias = Convert.ToInt32(DataTirar.TotalDays);
+                var dataEmissao = model.DataEmissaoCotacao.ToString("dd/MM/yyyy");
+                Cotacao.DataEmissaoCotacao = dataEmissao;
                 Cotacao.SolicitacaoId = SolicitacaoId;
                 Cotacao.status = model.status;
-                Cotacao.PrazoOfertas = model.PrazoOfertas;
                 Cotacao.fornecedorId = model.fornecedorId;
                 Cotacao.CotadorId = model.CotadorId;
                 Cotacao.FrmPagamento = model.FrmPagamento;
@@ -193,8 +214,14 @@ namespace SistemaCompra.Application
 
                 if (await FGeralPersist.SaveChangesAsync())
                 {
+<<<<<<< HEAD
                     await AddCotacaoProduto(Cotacao.Id, SolicitacaoId);
                     return await _CotacaoPresist.GetCotacaoByIdAsync(Cotacao.Id);
+=======
+                    var SolicitacaoRetorno = await _CotacaoPresist.GetAllCotacaoByIdAsync(Cotacao.Id);
+
+                    return SolicitacaoRetorno;
+>>>>>>> master
                 }
                 return null;
             }
@@ -240,10 +267,11 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<Cotacao[]> GetAllCotacaobyDataAsync(DateTime DataCriacao)
+        public async Task<Cotacao[]> GetAllCotacaobyDataAsync(string DataCriacao)
         {
             try
             {
+                
                 var cotacaos = await _CotacaoPresist.GetCotacaoByDataCotacaoAsync(DataCriacao);
                 if (cotacaos == null) return null;
                 return cotacaos;
@@ -361,8 +389,10 @@ namespace SistemaCompra.Application
             {
                 var cotacao = await _CotacaoPresist.GetAllCotacaoByIdsemProdAsync(CotacaoId);
                 if (cotacao == null) return null;
-                cotacao.DataEmissaoCotacao = model.DataEmissaoCotacao;
-                cotacao.PrazoOfertas = model.PrazoOfertas;
+                var dataE = model.DataEmissaoCotacao.ToString("dd/MM/yyyy");
+                cotacao.DataEmissaoCotacao = dataE;
+                var dataP = model.PrazoOfertas.ToString("dd/MM/yyyy");
+                cotacao.PrazoOfertas = dataP;
 
                 if (cotacao.status != 1)
                 {
@@ -384,7 +414,7 @@ namespace SistemaCompra.Application
         {
 
             FornecedorIdealDto model = new FornecedorIdealDto();
-          
+
 
             var cotacoes = await _CotacaoPresist.GetCotByCotacaoMenorPreco(idsol);
             if (cotacoes == null) return null;
@@ -399,6 +429,7 @@ namespace SistemaCompra.Application
             foreach (Cotacao cotacao in cotacoes)
             {
                 if (isFirst)
+<<<<<<< HEAD
                 {
                     menorPreco = cotacao.Total;
                     idPrice = cotacao.Id;
@@ -418,6 +449,27 @@ namespace SistemaCompra.Application
                     menorData = cotacao.DataEntrega;
                     idDate = cotacao.Id;
                 }
+=======
+                {
+                    menorPreco = cotacao.Total;
+                    idPrice = cotacao.Id;
+                    menorData = DateTime.Parse(cotacao.DataEntrega);
+                    idDate = cotacao.Id;
+                    isFirst = false;
+                }
+
+                if (cotacao.Total < menorPreco)
+                {
+                    menorPreco = cotacao.Total;
+                    idPrice = cotacao.Id;
+                }
+
+                if (DateTime.Parse(cotacao.DataEntrega) < menorData)
+                {
+                    menorData = DateTime.Parse(cotacao.DataEntrega); 
+                    idDate = cotacao.Id;
+                }
+>>>>>>> master
             }
             if (idDate == idPrice)
             {
@@ -529,6 +581,11 @@ namespace SistemaCompra.Application
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public Task<Cotacao[]> GetCotacaoPorFornecedorIDAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

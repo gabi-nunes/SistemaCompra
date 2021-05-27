@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -11,7 +12,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,12 +51,25 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SolicitacaoService } from './services/solicitacao.service';
 import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
 import { SolicitacaoListaComponent } from './components/solicitacoes/solicitacao-lista/solicitacao-lista.component';
+// import { ProdutoComponent } from './components/produtos/produto/produto.component';
+import { ProdutoListaComponent } from './components/produtos/produto-lista/produto-lista.component';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { PedidoListaComponent } from './components/pedidos/pedido-lista/pedido-lista.component';
+import { PedidoDetalheComponent } from './components/pedidos/pedido-detalhe/pedido-detalhe.component';
+import { PedidoService } from './services/pedido.service';
+
 import { SolicitacoesDetalheComponent } from './components/solicitacoes/solicitacoes-detalhe/solicitacoes-detalhe.component';
 import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
 import { AprovarSolicitacaoComponent } from './shared/aprovar-solicitacao/aprovar-solicitacao.component';
 import { CotacoesComponent } from './components/cotacoes/cotacoes.component';
 import { CotacoesDetalheComponent } from './components/cotacoes/cotacoes-detalhe/cotacoes-detalhe.component';
 import { CotacoesListaComponent } from './components/cotacoes/cotacoes-lista/cotacoes-lista.component';
+import { AreaFornecedorComponent } from './components/area-fornecedor/area-fornecedor.component';
+import { DetalheCotacaoComponent } from './components/area-fornecedor/detalhe-cotacao/detalhe-cotacao.component';
+import { ListagemCotacaoComponent } from './components/area-fornecedor/listagem-cotacao/listagem-cotacao.component';
+import { ListagemPedidoComponent } from './components/area-fornecedor/listagem-pedido/listagem-pedido.component';
+import { AlterarSenhaComponent } from './components/area-fornecedor/alterar-senha/alterar-senha.component';
+import { FormatCurrencyPipe } from './helpers/RealValue.pipe';
 defineLocale('pt-br', ptBrLocale);
 
 
@@ -87,13 +101,24 @@ defineLocale('pt-br', ptBrLocale);
     AprovarSolicitacaoComponent,
     CotacoesComponent,
     CotacoesDetalheComponent,
-    CotacoesListaComponent
+    CotacoesListaComponent,
+    ProdutoListaComponent,
+    PedidosComponent,
+    PedidoListaComponent,
+    PedidoDetalheComponent,
+    AreaFornecedorComponent,
+    ListagemCotacaoComponent,
+    ListagemPedidoComponent ,
+    DetalheCotacaoComponent,
+    AlterarSenhaComponent ,
+    FormatCurrencyPipe,
    ],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,

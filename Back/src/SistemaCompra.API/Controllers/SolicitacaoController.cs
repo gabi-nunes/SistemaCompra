@@ -52,7 +52,7 @@ namespace SistemaCompra.API.Controllers
 
         
         [HttpGet("Data/{dataCriacao}")]
-        public async Task<IActionResult> GetBynome(DateTime dataCriacao)
+        public async Task<IActionResult> GetBynome(string dataCriacao)
         {
             try
             {

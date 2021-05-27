@@ -7,7 +7,7 @@ namespace SistemaCompra.Domain
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string nome { get; set; }
         public string email { get; set; }
         public string Setor { get; set; }
         public string Senha { get; set; }

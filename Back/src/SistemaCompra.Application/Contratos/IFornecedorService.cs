@@ -13,7 +13,7 @@ namespace SistemaCompra.Application.Contratos
         Task<Fornecedor> AddFornecedor(FornecedorDto model);
         Task<Fornecedor> UpdateFornecedor(int FornecedorId, Fornecedor model);
         Task<bool> DeleteFornecedor(int FornecedorId);
-
+        Task<Fornecedor> GetbyemailAsync(string email);
         Task<Fornecedor[]> GetAllFornecedorAsync();
 
         Task<Fornecedor> GetAllFornecedorbyemailAsync(string email);

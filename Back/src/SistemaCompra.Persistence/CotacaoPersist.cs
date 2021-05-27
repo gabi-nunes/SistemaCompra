@@ -83,7 +83,8 @@ namespace SistemaCompra.Persistence
 
         public async Task<Cotacao> GetCotacaoByIdAsync(int id)
         {
-            IQueryable<Cotacao> query = Context.Cotacoes;
+            IQueryable<Cotacao> query = Context.Cotacoes
+             .Include(e => e.ItensCotacao);
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
                          .Where(e => e.Id == id);
@@ -123,7 +124,7 @@ namespace SistemaCompra.Persistence
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
-        public async Task<Cotacao[]> GetCotacaoByDataCotacaoAsync(DateTime Data)
+        public async Task<Cotacao[]> GetCotacaoByDataCotacaoAsync(string Data)
         {
             IQueryable<Cotacao> query = Context.Cotacoes
                 .Include(e => e.ItensCotacao);
@@ -187,6 +188,17 @@ namespace SistemaCompra.Persistence
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
                          .Where(e => e.SolicitacaoId == id);
+
+            return await query.OrderBy(e => e.Id).ToArrayAsync();
+        }
+
+        public async Task<Cotacao[]> GetAllCotacaoByIdFornecedorAsync(int Fornecedorid)
+        {
+            IQueryable<Cotacao> query = Context.Cotacoes
+               .Include(e => e.ItensCotacao);
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.fornecedorId== Fornecedorid);
 
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }

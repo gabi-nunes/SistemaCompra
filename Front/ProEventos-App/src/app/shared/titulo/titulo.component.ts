@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-titulo',
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./titulo.component.scss']
 })
 export class TituloComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private actRouter: ActivatedRoute) { }
   @Input() titulo = 'Dashboard';
   @Input() subtitulo = '';
   @Input() icone = '';

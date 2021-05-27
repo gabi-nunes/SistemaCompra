@@ -19,14 +19,14 @@
         </h4>
       </div>
       <hr class="mt-1">
-      <div *ngIf="solicitacao.statusAprovacao === 1 || solicitacao.statusAprovacao === 0">
+      <div *ngIf="solicitacao.statusAprovacao === 1 || solicitacao.statusAprovacao === 0" class="no-print">
         <label *ngIf="solicitacao.statusAprovacao === 0" class="text-success">
           Essa Solicitação já foi Aprovada portanto não pode mais ser alterada <br>
-          Comentários de {{aprovador?.name}}(Aprovador):
+          Comentários de {{aprovador?.nome}}(Aprovador):
         </label>
         <label *ngIf="solicitacao.statusAprovacao === 1" class="text-danger">
           Essa Solicitação foi Reprovada. <br> Leia os comentários de quem a reprovou, preencha e envie para a avaliação novamente. <br>
-          Comentários de {{aprovador?.name}}(Avaliador):
+          Comentários de {{aprovador?.nome}}(Avaliador):
         </label>
         <textarea class="form-control my-1 is-valid" readonly formControlName="observacaoRejeicao" placeholder="Observações:" style="height: 100px" [ngClass]="cssStatusValidation()"></textarea>
       </div>
@@ -126,9 +126,14 @@
             <td class="text-center" style="width: 10%">
               {{item.qtdeProduto}}
             </td>
+<<<<<<< HEAD
             <td *ngIf="CanChange" class="text-center" style="width: 30%">
                 <i class="fas fa-times fa-2x mr-2" tooltip="Excluir Item" (click)="OpenModal(template, item.id)" style="color: #d9534f; cursor: pointer;"></i>
                 <i class="fas fa-edit text-info" tooltip="Editar Quantidade" (click)="OpenQtdeModal(Quantidade, item.produto.id)" style="cursor: pointer; font-size: 30px;"></i>
+=======
+            <td class="text-center no-print" style="width: 30%">
+                <i class="fas fa-times fa-2x" (click)="OpenModal(template, item.id)" style="color: #d9534f; cursor: pointer;"></i>
+>>>>>>> master
             </td>
           </tr>
         </tbody>
@@ -145,7 +150,7 @@
 
     </div>
 
-    <div class="card-footer">
+    <div class="card-footer no-print">
       <div class="d-flex">
         <button class="btn btn-outline-secondary mr-auto border" (click)="OpenModalCancel(CancelarTemplate)">
           Cancelar Alteração
@@ -171,6 +176,21 @@
             <i class="fas fa-save fa-lg my-1"></i>
             <p class="ml-1 my-0">Salvar</p>
           </div>
+<<<<<<< HEAD
+=======
+        </button>
+        <button class="btn btn-outline-secondary mr-auto border no-print" (click)="CancelarForm()">
+          Cancelar Alteração
+        </button>
+        <button  class="btn btn-outline-primary ml-2 no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Gerar Relatório
+>>>>>>> master
+        </button>
+        <button class="btn btn-success  ml-2 no-print" [disabled]="!form.valid" (click)="SalvarSolicitacao()">
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Salvar Solicitação
+
         </button>
       </div>
     </div>
@@ -282,6 +302,7 @@
        Você perderá todos os dados não salvos</p>
     <button type="button" class="btn btn-default" (click)="CancelarForm()">Sim</button>
     <button type="button" class="btn btn-primary" (click)="declineCancel()">Não</button>
+
   </div>
 </ng-template>
 

@@ -1,0 +1,41 @@
+<app-titulo [titulo]="'Pedidos Recebidos'" [subtitulo]="'Pedido enviados para você'" [icone]="'fas fa-user-circle'"></app-titulo>
+<div class="card p-3 shadow-sm rounded">
+
+  <table class="table table-striped table-hover">
+    <thead class="bg-logo">
+      <tr>
+        <th class="text-center">Código</th>
+        <th class="text-center">Data Emissão</th>
+        <th class="text-center">Status</th>
+        <th class="text-center">Opção</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="pedido && pedido.length">
+      <tr *ngFor="let pedidos of pedido" (dblclick)="DetalharPedido(pedidos.id)">
+        <td class="d-none d-md-table-cell text-center">{{pedidos.id}}</td>
+        <td class="text-center">{{pedidos.dataEmissao}}</td>
+        <td class="text-center">
+          <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(pedidos.statusAprov)}" [tooltip]="GetTooltipByStatus(pedidos.statusAprov)"></i>
+        </td>
+        <td class="text-center">
+          <i tooltip="Excluir" class="far fa-trash-alt mx-3" (click)="openModal(template, pedidos.id)" style="color: #d9534f; cursor: pointer; font-size: x-large;"></i>
+        </td>
+      </tbody>
+
+    <tfoot *ngIf="!pedido|| pedido.length == 0">
+      <tr>
+        <td colspan="8" class="text-center">
+          <h4 >Não há Pedido para Você</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Deseja realmente excluir esse Item?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+  </div>
+</ng-template>
+

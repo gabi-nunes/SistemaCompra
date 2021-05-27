@@ -16,6 +16,7 @@ export class Fornecedor {
   inscricaoEstadual: number;
   email: string;
   telefone: string;
+  senha: string;
   celular: string;
   pontuacaoRanking: number;
   familiaProdutoId: number;

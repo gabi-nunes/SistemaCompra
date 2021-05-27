@@ -110,7 +110,7 @@ namespace SistemaCompra.Persistence
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
-        public async Task<Pedido[]> GetPedidoByDataAdimicapPedidoAsync(DateTime DataAdicao)
+        public async Task<Pedido[]> GetPedidoByDataAdimicapPedidoAsync(string DataAdicao)
         {
             IQueryable<Pedido> query = Context.Pedido
                 .Include(e => e.itensPedidos);
@@ -121,7 +121,7 @@ namespace SistemaCompra.Persistence
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }
 
-        public  async Task<Pedido[]> GetPedidoByDataEmissaoPedidoAsync(DateTime DataEmissao)
+        public  async Task<Pedido[]> GetPedidoByDataEmissaoPedidoAsync(string DataEmissao)
         {
             IQueryable<Pedido> query = Context.Pedido
                 .Include(e => e.itensPedidos);
@@ -135,7 +135,8 @@ namespace SistemaCompra.Persistence
         public  async Task<Pedido> GetPedidoByIdAsync(int id)
         {
             IQueryable<Pedido> query = Context.Pedido
-                 .Include(e => e.itensPedidos);
+                 .Include(e => e.itensPedidos)
+                 .Include(e=> e.cotacao);
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
                          .Where(e => e.Id== id);
@@ -153,6 +154,7 @@ namespace SistemaCompra.Persistence
 
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
+
 
         public async  Task<Pedido> GetPedidoByIdsemProdAsync(int id)
         {
@@ -181,6 +183,18 @@ namespace SistemaCompra.Persistence
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
                          .Where(e => e.StatusAprov == 1);
+
+            return await query.OrderBy(e => e.Id).ToArrayAsync();
+        }
+
+        public async Task<Pedido[]> GetPedidoByfornecedorId(int fornecedorId)
+        {
+            IQueryable<Pedido> query = Context.Pedido;
+
+          
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.cotacao.fornecedorId == fornecedorId);
 
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }

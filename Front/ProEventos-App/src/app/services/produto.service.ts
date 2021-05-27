@@ -8,19 +8,18 @@ import { Produto } from '../models/Produto';
 })
 export class ProdutoService {
 
-  constructor(private http: HttpClient) {}
+constructor(private http: HttpClient) { }
   public baseURL = 'https://localhost:5001/Produto';
 
   getProdutos(): Observable<Produto[]>{
     return this.http.get<Produto[]>(this.baseURL);
   }
-
-  getProdutoById(ProdutoId: number): Observable<Produto>{
-    return this.http.get<Produto>(`${this.baseURL}/${ProdutoId}`);
+getProdutoById(id: number): Observable<Produto>{
+  return this.http.get<Produto>(`${this.baseURL}/${id}`);
   }
+  getProdutosByFamiliaProdId(familiaId: number): Observable<Produto[]>{
+    return this.http.get<Produto[]>(`${this.baseURL}/FamiProduto/{${familiaId}`);
+    }
 
-  getProdutosByFamiliaProdId(FamProdId: number): Observable<Produto[]>{
-    return this.http.get<Produto[]>(`${this.baseURL}/FamiProduto/${FamProdId}`);
-  }
 
 }

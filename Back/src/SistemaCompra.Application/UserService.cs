@@ -103,7 +103,20 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<user> GetAllUserbyemailAsync(string email)
+        public async Task<bool> GetIsUserAsync(string email)
+        {
+            try
+            {
+                var usuarios = await _userPresist.GetUserByEmailAsync(email);
+                if (usuarios == null) return false;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<user> GetUserByEmailAsync(string email)
         {
             try
             {

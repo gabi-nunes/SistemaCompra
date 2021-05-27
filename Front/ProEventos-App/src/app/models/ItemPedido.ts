@@ -1,14 +1,13 @@
 import { ItemCotacao } from './ItemCotacao';
 import { Pedido } from './Pedido';
 
-export class ItemPedido {
-   Id: number;
-   IdPedido: number;
-   IdProduto: number;
-   QtdeProduto: number;
-   PrecoUnit: number;
+export interface ItemPedido {
+   id: number;
+   idPedido: number;
+   idProduto: number;
+   qtdeProduto: number;
+   precoUnit: number;
+   totalItem: number
    itemCotacaoId: number;
-   itemCotacao: ItemCotacao;
-   PedidoId: number;
-   Pedido: Pedido;
+
 }

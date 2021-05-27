@@ -64,7 +64,7 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("CotacaoPorFornecedor/{CotacaoId}")]
+        [HttpGet("CotacaoPorFornecedor/{FornecedorId}")]
         public async Task<IActionResult> GeFornecedortbyCotacaoId(int FornecedorId)
         {
             try
@@ -94,7 +94,7 @@ namespace SistemaCompra.API.Controllers
             }
         }
         [HttpGet("CotacaoPorPrazo/{date}")]
-        public async Task<IActionResult> GetcotacaobyId(DateTime date)
+        public async Task<IActionResult> GetcotacaobyId(string date)
         {
             try
             {
@@ -170,11 +170,12 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPut("EnviaPrecoPorItem/{ItemCotacaoId}")]
-        public async Task<IActionResult> PutItem(int ItemCotacaoId, double value)
+        public async Task<IActionResult> PutItem(Enviapreco model)
         {
             try
             {
-                var cotacao = await CotacaoService.EnviarPrecooAsync(ItemCotacaoId, value);
+            
+                var cotacao = await CotacaoService.EnviarPrecooAsync(model.itemcotacao, model);
                 if (cotacao == null) return BadRequest("Erro ao tentar Adicionar a cotacao.");
                 return Ok(cotacao);
             }
@@ -185,6 +186,7 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
+<<<<<<< HEAD
         // [HttpGet("RetornarQuantidade/{ItemCotacaoId}")]
         // public async Task<IActionResult> GetQuantidade(int ItemCotacaoId)
         // {
@@ -199,6 +201,22 @@ namespace SistemaCompra.API.Controllers
         //         return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
         //     }
         // }
+=======
+        [HttpGet("RetornarQuantidade/{CotacaoId}")]
+        public async Task<IActionResult> GetQuantidade(int CotacaoId)
+        {
+            try
+            {
+                var Cotacao = await CotacaoService.CalcQuantAsync(CotacaoId);
+                if (Cotacao == null) return NotFound("Nenhum cotacao encontrado!");
+                return Ok(Cotacao);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
+            }
+        }
+>>>>>>> master
 
         [HttpGet("RetornarQuantidadeporItem/{ItemCotacaoId}")]
         public async Task<IActionResult> GetQuantidadeporItem(int ItemCotacaoId)
@@ -232,8 +250,15 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
+<<<<<<< HEAD
         [HttpGet("CotacaoGanhadore/{IdCot}")]
         public async Task<IActionResult> GetFornecedorVencedor(int IdCot)
+=======
+
+
+        [HttpPut("CotacaoGanhador/{IdCot}")]
+        public async Task<IActionResult> PutFornecedorVencedor(int IdCot)
+>>>>>>> master
         {
             try
             {
@@ -288,9 +313,8 @@ namespace SistemaCompra.API.Controllers
                 var cotacao = await CotacaoService.DeleteCotacao(id);
                 if (cotacao == null) return NoContent();
 
-                return await CotacaoService.DeleteCotacao(id) ?
-                       Ok(new { messagem = "Deletado" }) :
-                       throw new Exception("Ocorreu um problem não específico ao tentar deletar cotacao.");
+                return Ok(new { messagem = "Deletado" });
+                       
             }
             catch (Exception ex)
             {
