@@ -35,17 +35,19 @@
   <table class="table table-striped table-hover">
     <thead class="bg-logo">
       <tr>
-        <th class="d-none d-md-table-cell text-center ">Código</th>
+        <th class="d-none d-md-table-cell text-center ">Posição</th>
         <th class="text-center">Nome</th>
         <th class="text-center">Família de Produto</th>
+        <th class="text-center">Pontuação</th>
         <th class="text-center">Opções</th>
       </tr>
     </thead>
     <tbody *ngIf="fornecedores && fornecedores.length">
       <tr *ngFor="let fornecedor of fornecedoresFiltrados" (dblclick)="DetalharFornecedor(fornecedor.id)">
-        <td class="d-none d-md-table-cell text-center">{{fornecedor.id}}</td>
+        <td class="d-none d-md-table-cell text-center">{{fornecedor.posicao}}°</td>
         <td class="text-center">{{fornecedor.nome}}</td>
-        <td class="text-center">{{fornecedor.familiaProduto.descricao}}</td>
+        <td class="text-center">{{getFamiliaDesc(fornecedor.familiaProdutoId)}}</td>
+        <td class="text-center">{{fornecedor.pontuacaoRanking}}</td>
         <td class="text-center">
             <i class="fas fa-times fa-2x" (click)="openModal(template, fornecedor.id)" style="color: red; cursor: pointer;"></i>
         </td>

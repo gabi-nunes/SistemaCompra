@@ -21,7 +21,7 @@ namespace SistemaCompra.Persistence
         {
             IQueryable<Fornecedor> query = Context.Fornecedores;
 
-            return await query.OrderBy(e => e.Id).ToArrayAsync();
+            return await query.OrderBy(e => e.PontuacaoRanking).ToArrayAsync();
         }
 
         public async Task<Fornecedor> GetAllFornecedorByIdAsync(int id)

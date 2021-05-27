@@ -37,6 +37,11 @@ export class FornecedorListaComponent implements OnInit {
   private familiaIdFiltro: number;
   private gridFilter = '';
 
+  public ngOnInit(): void {
+    this.spinner.show();
+    this.CarregarFamiliaProdutos();
+    this.CarregarFornecedores();
+  }
 
   public get GridFilter(): string{
     return this.gridFilter;
@@ -82,11 +87,10 @@ export class FornecedorListaComponent implements OnInit {
     );
   }
 
-  public ngOnInit(): void {
-    this.spinner.show();
-    this.CarregarFamiliaProdutos();
-    this.CarregarFornecedores();
-  }
+  public  getFamiliaDesc(FamiliaId: number): any {
+    const familiaProd = this.familiaProdutos.find(x=> x.id == FamiliaId);
+    return familiaProd?.descricao;
+}
 
   public AlteraVisibilidadeImg(): void{
     this.imgIsVisible = !this.imgIsVisible;
