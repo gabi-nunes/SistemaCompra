@@ -127,7 +127,11 @@ namespace SistemaCompra.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CotadorId = table.Column<int>(type: "int", nullable: false),
+<<<<<<< HEAD:Back/src/SistemaCompra.Persistence/Migrations/20210509192555_Initial.cs
+                    DataEmissaoCotacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+=======
                     DataEmissaoCotacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+>>>>>>> master:Back/src/SistemaCompra.Persistence/Migrations/20210523000601_Segundoinit.cs
                     SolicitacaoId = table.Column<int>(type: "int", nullable: false),
                     prazoDias = table.Column<int>(type: "int", nullable: false),
                     Frete = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),

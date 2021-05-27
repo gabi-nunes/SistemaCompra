@@ -145,7 +145,7 @@ export class FornecedorListaComponent implements OnInit {
   }
 
   DetalharFornecedor(id: number): void{
-    this.router.navigate([`fornecedor/detalhe/${id}`]);
+    this.router.navigate([`fornecedores/detalhe/${id}`]);
   }
 
 }

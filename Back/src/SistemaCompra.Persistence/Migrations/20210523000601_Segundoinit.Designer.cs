@@ -9,8 +9,13 @@ using SistemaCompra.Persistence;
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(GoodPlaceContext))]
+<<<<<<< HEAD:Back/src/SistemaCompra.Persistence/Migrations/20210509192555_Initial.Designer.cs
+    [Migration("20210509192555_Initial")]
+    partial class Initial
+=======
     [Migration("20210523000601_Segundoinit")]
     partial class Segundoinit
+>>>>>>> master:Back/src/SistemaCompra.Persistence/Migrations/20210523000601_Segundoinit.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +33,13 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<int>("CotadorId")
                         .HasColumnType("int");
 
+<<<<<<< HEAD:Back/src/SistemaCompra.Persistence/Migrations/20210509192555_Initial.Designer.cs
+                    b.Property<DateTime>("DataEmissaoCotacao")
+                        .HasColumnType("datetime(6)");
+=======
                     b.Property<string>("DataEmissaoCotacao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+>>>>>>> master:Back/src/SistemaCompra.Persistence/Migrations/20210523000601_Segundoinit.Designer.cs
 
                     b.Property<string>("DataEntrega")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

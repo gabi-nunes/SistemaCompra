@@ -33,7 +33,12 @@
     <tbody *ngIf="cotacoes && cotacoes.length && opcao===0 || opcao===null">
       <tr *ngFor="let cotacao of cotacoes" (dblclick)=" DetalharCotacao(cotacao.id)">
         <td class="d-none d-md-table-cell text-center">{{cotacao.id}}</td>
+<<<<<<< HEAD
+        <td class="text-center">{{cotacao.status}}</td>
+        <td class="text-center">{{cotacao.prazoCotacao| DateTimeFormatter}}</td>
+=======
         <td class="d-none d-md-table-cell text-center">Cotação</td>
+>>>>>>> master
         <td class="text-center">
           <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(cotacao.statusCotacao)}" [tooltip]="GetTooltipByStatus(cotacao.statusCotacao)"></i>
         </td>

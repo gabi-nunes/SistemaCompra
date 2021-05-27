@@ -10,9 +10,13 @@ namespace SistemaCompra.Persistence.Contratos
     public interface ICotacaoPersist
     {
         Task<Cotacao[]> GetAllCotacaoAsync();
+<<<<<<< HEAD
+        Task<Cotacao> GetCotacaoByIdAsync(int id);
+=======
 
         Task<Cotacao> GetAllCotacaoByIdAsync(int id);
         Task<Cotacao[]> GetAllCotacaoByIdFornecedorAsync(int Fornecedorid);
+>>>>>>> master
         Task<Solicitacao> GetAllSolicitacaoByIdAsync(int id);
         Task<ItemCotacao[]> GetAllItemCotacaoByIdCotAsync(int id);
         Task<Cotacao> GetIdLast();

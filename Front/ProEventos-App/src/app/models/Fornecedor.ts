@@ -2,6 +2,7 @@ import { FamiliaProduto } from './FamiliaProduto';
 
 export class Fornecedor {
   id: number;
+  posicao: number;
   cnpj: string;
   nome: string;
   cidade: string;

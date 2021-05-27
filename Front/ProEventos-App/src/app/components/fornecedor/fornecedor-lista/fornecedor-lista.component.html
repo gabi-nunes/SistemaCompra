@@ -19,7 +19,7 @@
       <select class="form-control" [(ngModel)]="FamiliaIdFiltro">
         <option value="">Todas</option>
         <option *ngFor="let famProd of familiaProdutos" value="{{famProd.id}}">
-          {{famProd.descricao}}
+          {{famProd?.descricao}}
         </option>
       </select>
     </div>
@@ -45,9 +45,9 @@
       <tr *ngFor="let fornecedor of fornecedoresFiltrados" (dblclick)="DetalharFornecedor(fornecedor.id)">
         <td class="d-none d-md-table-cell text-center">{{fornecedor.id}}</td>
         <td class="text-center">{{fornecedor.nome}}</td>
-        <td class="text-center">{{fornecedor.familiaProduto.descricao}}</td>
+        <td class="text-center">{{fornecedor.familiaProduto?.descricao}}</td>
         <td class="text-center">
-            <i class="fas fa-times fa-2x" (click)="openModal(template, fornecedor.id)" style="color: red; cursor: pointer;"></i>
+            <i class="fas fa-times fa-2x" (click)="openModal(template, fornecedor.id)" style="color: #d9534f; cursor: pointer;"></i>
         </td>
       </tr>
     </tbody>

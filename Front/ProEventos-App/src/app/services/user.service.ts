@@ -21,6 +21,7 @@ export class UserService {
   }
 
   public baseURL = 'https://localhost:5001/User';
+  // public baseURL = 'https://localhost:44358/User';
 
   // tslint:disable-next-line: typedef
   public RegisterUser(user:user) : Observable<user>{
