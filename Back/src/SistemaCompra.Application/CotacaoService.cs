@@ -27,19 +27,14 @@ namespace SistemaCompra.Application
             FGeralPersist = geral;
         }
 
-        public async Task<Cotacao> AddCotacaoProduto(int CotacaoId)
+        public async Task<Cotacao> AddCotacaoProduto(int CotacaoId, int SolicitacaoId)
         {
             try
             {
                 bool salvar = false;
-                var Cotacao = await _CotacaoPresist.GetAllCotacaoByIdAsync(CotacaoId);
-                if (Cotacao == null) return null;
-
                 sps = new List<ItemCotacaoDto>();
 
-
-                var solicitacaoProdutos = await _CotacaoPresist.GetAllSolicitacaoProdutoByIdAsync(Cotacao.SolicitacaoId);
-
+                var solicitacaoProdutos = await _CotacaoPresist.GetAllSolicitacaoProdutoByIdAsync(SolicitacaoId);
 
                 foreach (SolicitacaoProduto prod in solicitacaoProdutos)
                 {
@@ -47,23 +42,15 @@ namespace SistemaCompra.Application
                     itemCot.IdSolicitacaoProduto = prod.Id;
                     itemCot.IdProduto = prod.Produto_Id;
                     itemCot.QtdeProduto = prod.QtdeProduto;
-                    itemCot.cotacaoId = Cotacao.Id;
+                    itemCot.cotacaoId = CotacaoId;
                     itemCot.PrecoUnit = 0.0;
                     FGeralPersist.Add<ItemCotacao>(itemCot);
-                    if (await FGeralPersist.SaveChangesAsync())
-                    {
-                        salvar = true;
-                    }
-                    else
-                    {
-                        salvar = false;
-                    }
-
+                    salvar = await FGeralPersist.SaveChangesAsync();
                 }
 
-                if (salvar == true)
+                if (salvar)
                 {
-                    return await _CotacaoPresist.GetAllCotacaoByIdAsync(CotacaoId);
+                    return await _CotacaoPresist.GetCotacaoByIdAsync(CotacaoId);
                 }
                 return null;
             }
@@ -74,17 +61,16 @@ namespace SistemaCompra.Application
             }
         }
 
-        public async Task<Cotacao> EnviarOfetarAsync(int idCot, EnviarOfertaDto model)
+        public async Task<Cotacao> EnviarOfertaAsync(int idCot, EnviarOfertaDto model)
         {
-            var cotacao = await _CotacaoPresist.GetAllCotacaoByIdAsync(idCot);
-            var itemCot = await _CotacaoPresist.GetAllItemCotacaoByIdCotAsync(idCot);
+            var cotacao = await _CotacaoPresist.GetCotacaoByIdAsync(idCot);
+            var itensCots = await _CotacaoPresist.GetAllItemCotacaoByIdCotAsync(idCot);
             if (cotacao == null) return null;
 
             cotacao.Frete = model.Frete;
             cotacao.DataEntrega = model.DataEntrega;
-            cotacao.status = model.status;
-            cotacao.Total = await CalcQuantAsync(cotacao.Id);
-            cotacao.Total += cotacao.Frete;
+            cotacao.status = 2;
+            cotacao.Total = CalcTotalAsync(itensCots) + cotacao.Frete;
 
             FGeralPersist.Update<Cotacao>(cotacao);
 
@@ -92,7 +78,7 @@ namespace SistemaCompra.Application
             
             if (await FGeralPersist.SaveChangesAsync())
             {
-                return await _CotacaoPresist.GetAllCotacaoByIdAsync(idCot);
+                return await _CotacaoPresist.GetCotacaoByIdAsync(idCot);
             }
             return null;
 
@@ -125,7 +111,7 @@ namespace SistemaCompra.Application
                 }
             }
 
-            var cotacaoVencedora = await _CotacaoPresist.GetAllCotacaoByIdAsync(id);
+            var cotacaoVencedora = await _CotacaoPresist.GetCotacaoByIdAsync(id);
             cotacaoVencedora.FornecedorGanhadorId = cotacaoVencedora.fornecedorId;
 
             FGeralPersist.Update<Cotacao>(cotacaoVencedora);
@@ -134,7 +120,7 @@ namespace SistemaCompra.Application
          
             if (await FGeralPersist.SaveChangesAsync())
             {
-                return await _CotacaoPresist.GetAllCotacaoByIdAsync(idsol);
+                return await _CotacaoPresist.GetCotacaoByIdAsync(idsol);
             }
             return null;
 
@@ -142,21 +128,15 @@ namespace SistemaCompra.Application
         }
 
 
-        public async Task<double> CalcQuantAsync(int id)
+        public double CalcTotalAsync(ItemCotacao[] itensCots)
         {
-            var Itemcotacao = await _CotacaoPresist.GetAllItemCotacaoByIdCotAsync(id);
-            if (Itemcotacao == null) return 0;
-
             double Total = 0;
-            foreach (ItemCotacao item in Itemcotacao)
+            foreach (ItemCotacao item in itensCots)
             {
                 Total += item.QtdeProduto * item.PrecoUnit;
             }
-            
-
 
             return Total;
-
         }
 
 
@@ -191,9 +171,8 @@ namespace SistemaCompra.Application
 
 
         }
-        public async Task<Cotacao> CreatCotacao(int SolicitacaoId, CotacaoDto model)
+        public async Task<Cotacao> CreateCotacao(int SolicitacaoId, CotacaoDto model)
         {
-
             try
             {
                 var solicitacao = await _CotacaoPresist.GetAllSolicitacaoByIdAsync(SolicitacaoId);
@@ -214,9 +193,8 @@ namespace SistemaCompra.Application
 
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    var SolicitacaoRetorno = await _CotacaoPresist.GetAllCotacaoByIdAsync(model.Id);
-
-                    return SolicitacaoRetorno;
+                    await AddCotacaoProduto(Cotacao.Id, SolicitacaoId);
+                    return await _CotacaoPresist.GetCotacaoByIdAsync(Cotacao.Id);
                 }
                 return null;
             }
@@ -230,7 +208,7 @@ namespace SistemaCompra.Application
         {
             try
             {
-                var cotacao = await _CotacaoPresist.GetAllCotacaoByIdAsync(CotacaoId);
+                var cotacao = await _CotacaoPresist.GetCotacaoByIdAsync(CotacaoId);
                 if (cotacao == null) throw new Exception("Cotacao para delete não encontrado.");
 
                 if (cotacao.status != 1)
@@ -308,7 +286,7 @@ namespace SistemaCompra.Application
         {
             try
             {
-                var cotacaos = await _CotacaoPresist.GetAllCotacaoByIdAsync(CotacaoId);
+                var cotacaos = await _CotacaoPresist.GetCotacaoByIdAsync(CotacaoId);
                 if (cotacaos == null) return null;
                 return cotacaos;
             }
@@ -391,7 +369,7 @@ namespace SistemaCompra.Application
                     FGeralPersist.Update<Cotacao>(cotacao);
                     if (await FGeralPersist.SaveChangesAsync())
                     {
-                        return await _CotacaoPresist.GetAllCotacaoByIdAsync(model.Id);
+                        return await _CotacaoPresist.GetCotacaoByIdAsync(model.Id);
                     }
                 }
                 return null;
@@ -411,78 +389,64 @@ namespace SistemaCompra.Application
             var cotacoes = await _CotacaoPresist.GetCotByCotacaoMenorPreco(idsol);
             if (cotacoes == null) return null;
 
-            bool isFirstPrice = true;
-            bool isFirstDate = true;
+            bool isFirst = true;
             double menorPreco = 0;
             DateTime? menorData = null;
             int idPrice = 0;
             int idDate = 0;
 
 
-            foreach (Cotacao item in cotacoes)
+            foreach (Cotacao cotacao in cotacoes)
             {
-                if (isFirstPrice)
+                if (isFirst)
                 {
-                    menorPreco = item.Total;
-                    isFirstPrice = false;
-                    idPrice = item.Id;
+                    menorPreco = cotacao.Total;
+                    idPrice = cotacao.Id;
+                    menorData = cotacao.DataEntrega;
+                    idDate = cotacao.Id;
+                    isFirst = false;
                 }
 
-                if (item.Total < menorPreco)
+                if (cotacao.Total < menorPreco)
                 {
-                    menorPreco = item.Total;
-                    idPrice = item.Id;
+                    menorPreco = cotacao.Total;
+                    idPrice = cotacao.Id;
                 }
 
-            }
-
-            foreach (Cotacao item in cotacoes)
-            {
-                if (isFirstDate)
+                if (cotacao.DataEntrega < menorData)
                 {
-                    menorData = item.DataEntrega;
-                    isFirstDate = false;
-                    idDate = item.Id;
+                    menorData = cotacao.DataEntrega;
+                    idDate = cotacao.Id;
                 }
-
-                if (item.DataEntrega < menorData)
-                {
-                    menorData = item.DataEntrega;
-                    idDate = item.Id;
-                }
-
             }
             if (idDate == idPrice)
             {
-                var CotacaoRetorno = await _CotacaoPresist.GetAllCotacaoByIdAsync(idPrice);
+                Cotacao CotacaoRetorno = cotacoes.Where((c) => c.Id == idDate).FirstOrDefault();
                 model.FornecedorIdeal = CotacaoRetorno.fornecedorId;
-            
-                    return model;
-               
             }
             else
             {
-                var CotacaoMelhorData = await _CotacaoPresist.GetAllCotacaoByIdAsync(idDate);
+                var CotacaoMelhorData = cotacoes.Where((c) => c.Id == idDate).FirstOrDefault();
                 model.FornecedorMenorData = CotacaoMelhorData.fornecedorId;
-                var CotacaoMelhroPrice = await _CotacaoPresist.GetAllCotacaoByIdAsync(idPrice);
+                var CotacaoMelhroPrice = cotacoes.Where((c) => c.Id == idPrice).FirstOrDefault();
                 model.FornecedorMenorPreco = CotacaoMelhroPrice.fornecedorId;
-                return model;
             }
 
+            return model;
         }
 
         public async Task<Cotacao> CotacaoVencedora(int idCot)
         {
             try
             {
-                var CotacaoIdeal = await _CotacaoPresist.GetAllCotacaoByIdAsync(idCot);
+                var CotacaoIdeal = await _CotacaoPresist.GetCotacaoByIdAsync(idCot);
                 CotacaoIdeal.FornecedorGanhadorId = CotacaoIdeal.fornecedorId;
-                CotacaoIdeal.status = 1;
+                CotacaoIdeal.status = 3;
 
                 FGeralPersist.Update<Cotacao>(CotacaoIdeal);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    return await _CotacaoPresist.GetAllCotacaoByIdAsync(idCot);
+                    return await _CotacaoPresist.GetCotacaoByIdAsync(idCot);
                 }
                 return null;
             }

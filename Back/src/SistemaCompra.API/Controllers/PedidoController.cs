@@ -188,13 +188,13 @@ namespace SistemaCompra.API.Controllers
             try
             {
                 var pedido = await PedidoService.CreatePedido(model);
-                if (pedido == null) return BadRequest("Erro ao tentar Adicionar a cotacao.");
+                if (pedido == null) return BadRequest("Erro ao tentar Adicionar o Pedido.");
                 return Ok(pedido);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.InnerException.Message);
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar adicionar Cotacao. Erro: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar adicionar Pedido. Erro: {ex.Message}");
             }
         }
 

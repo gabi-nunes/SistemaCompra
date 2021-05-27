@@ -39,8 +39,8 @@ const routes: Routes = [
     ]
   },
 
-  {path: 'fornecedor', redirectTo: 'fornecedor/lista'},
-  {path: 'fornecedor', component: FornecedorComponent,
+  {path: 'fornecedores', redirectTo: 'fornecedores/lista'},
+  {path: 'fornecedores', component: FornecedorComponent,
     children: [
       {path: 'detalhe', component: FornecedorDetalheComponent},
       {path: 'detalhe/:id', component: FornecedorDetalheComponent},
@@ -77,7 +77,7 @@ const routes: Routes = [
   {path: 'palestrantes', component: PalestrantesComponent},
   {path: 'contatos', component: ContatosComponent},
   {path: 'dashboard', component: DashboardComponent},
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: '/user/login', pathMatch: 'full'},
   {path: '**', redirectTo: '/user/login', pathMatch: 'full'}
 ];
 

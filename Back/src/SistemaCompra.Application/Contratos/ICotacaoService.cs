@@ -11,10 +11,10 @@ namespace SistemaCompra.Application.Contratos
 {
     public interface ICotacaoService
     {
-        Task<Cotacao> CreatCotacao(int SolicitacaoId, CotacaoDto model);
-        Task<Cotacao> AddCotacaoProduto(int CotacaoId);
+        Task<Cotacao> CreateCotacao(int SolicitacaoId, CotacaoDto model);
+        Task<Cotacao> AddCotacaoProduto(int CotacaoId, int SolicitacaoId);
         Task<Cotacao> UpdateCotacao(int CotacaoId, CotacaoDto model);
-        Task<double> CalcQuantAsync(int id);
+        double CalcTotalAsync(ItemCotacao[] itensCots);
         Task<bool> EnviarEmail(int id);
         Task<bool> DeleteCotacao(int CotacaoId);
 
@@ -36,7 +36,7 @@ namespace SistemaCompra.Application.Contratos
         Task<ItemCotacao[]> GetAllCotacaobyItemAsync(int CotacaoId);
         Task<Cotacao[]> GetAllCotacaobySolicitacaoAsync(int SolicitacaoId);
 
-        Task<Cotacao> EnviarOfetarAsync(int idCot, EnviarOfertaDto model);
+        Task<Cotacao> EnviarOfertaAsync(int idCot, EnviarOfertaDto model);
 
         Task<ItemCotacao> EnviarPrecooAsync(int id, double value);
     }

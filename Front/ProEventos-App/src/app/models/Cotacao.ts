@@ -12,14 +12,15 @@ export interface Cotacao {
   frete: number;
   status: number;
   frmPagamento: number;
-  prazoOferta: Date;
+  prazoOfertas: Date;
   parcelas: number;
   fornecedorGanhadorId: number;
   total: number;
   pedidoId: number;
-  statusCotacao: number;
   pedido: Pedido[];
   fornecedorId: number;
   fornecedor: Fornecedor;
-  itensCotacaos: ItemCotacao[];
+  itensCotacao: ItemCotacao[];
+  isCollapsed: boolean;
+  dataEntrega: Date;
 }

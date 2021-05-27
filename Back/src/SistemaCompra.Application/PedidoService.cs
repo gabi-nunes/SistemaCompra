@@ -107,15 +107,15 @@ namespace SistemaCompra.Application
 
             try
             {
-                var pedidoPrd = await _pedidoPresist.GetCotacaooByIdAsync(model.cotacaoId);
+                var cotacao = await _pedidoPresist.GetCotacaooByIdAsync(model.cotacaoId);
+                cotacao.status = 3;
+                FGeralPersist.Update<Cotacao>(cotacao);
+                await FGeralPersist.SaveChangesAsync();
 
                 Pedido pedido = new Pedido();
-
-
                 pedido.DataEmissao = model.DataEmissao;
                 pedido.Observacao = model.Observacao;
                 pedido.cotacaoId = model.cotacaoId;
-
                 FGeralPersist.Add<Pedido>(pedido);
 
                 if (await FGeralPersist.SaveChangesAsync())

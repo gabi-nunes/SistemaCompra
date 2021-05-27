@@ -17,10 +17,12 @@ export class TituloComponent implements OnInit {
   }
 
   Listar(): void{
+    debugger;
     this.router.navigate([`/${this.titulo.toLocaleLowerCase()}/lista`]);
   }
+  // normalize('NFD').replace('/[\u0300-\u036f]/g', '')
 
   ShowMenu(): boolean{
-    return this.router.url !== '/user/login';
+    return this.router.url !== '/user/login' && this.router.url !== '/user/recuperar';
   }
 }

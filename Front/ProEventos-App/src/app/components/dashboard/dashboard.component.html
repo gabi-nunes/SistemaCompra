@@ -36,7 +36,7 @@
     <tbody *ngIf="cotacoes && cotacoes.length && opcao===0 || opcao===null">
       <tr *ngFor="let cotacao of cotacoes" (dblclick)="DetalharEvento(cotacao.id)">
         <td class="d-none d-md-table-cell text-center">{{cotacao.id}}</td>
-        <td class="text-center">{{cotacao.statusCotacao}}</td>
+        <td class="text-center">{{cotacao.status}}</td>
         <td class="text-center">{{cotacao.prazoCotacao| DateTimeFormatter}}</td>
         <td class="text-center">
             <i class="fas fa-times fa-2x" (click)="openModal(template)" style="color: red; cursor: pointer;"></i>
