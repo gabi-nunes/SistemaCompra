@@ -120,7 +120,7 @@ public Carregarprodutos(): void{
     },
     () => {
       this.spinner.hide(),
-      this.toastr.error('Erro ao carregar os Cotacoes', 'Erro');
+      this.toastr.error('Erro ao carregar os Cotações', 'Erro');
     },
     () => this.spinner.hide()
   );
