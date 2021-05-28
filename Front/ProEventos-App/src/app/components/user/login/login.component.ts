@@ -59,46 +59,47 @@ export class LoginComponent implements OnInit {
         (result: any) => {
           this.isUser= result;
 
-      if(this.isUser==true){
-        debugger;
-      this.usuario = {... this.loginForm.value}
-      this.userService.login(this.usuario).subscribe(
-        (result: any) => {
-          this.perfil = result;
+          debugger;
+          if(this.isUser === true){
+            debugger;
+            this.usuario = {... this.loginForm.value}
+            this.userService.login(this.usuario).subscribe(
+              (result: any) => {
+                this.perfil = result;
 
-          this.userperfil.emit(this.perfil);
-          this.toastr.success('Login aceito', 'OK');
-          this.router.navigate(['/dashboard']);
+                this.userperfil.emit(this.perfil);
+                this.toastr.success('Login aceito', 'OK');
+                this.router.navigate(['/dashboard']);
 
-          this.spinner.hide();
-        },
-        (error: any) => {
-          console.error(error);
-          this.toastr.error('Erro ao tentar entrar, verifique seu email e sua senha!', 'Erro');
-        },
-        () => this.spinner.hide()
-      );
-      }
-      else{
-        debugger;
-        this.Fornecedor = {... this.loginForm.value}
-        this.forncedorService.login(this.Fornecedor).subscribe(
-          (result: any) => {
-            this.perfil = result;
+                this.spinner.hide();
+              },
+              (error: any) => {
+                console.error(error);
+                this.toastr.error('Erro ao tentar entrar, verifique seu email e sua senha!', 'Erro');
+              },
+              () => this.spinner.hide()
+            );
+          }
+          else{
+            debugger;
+            this.Fornecedor = {... this.loginForm.value}
+            this.forncedorService.login(this.Fornecedor).subscribe(
+              (result: any) => {
+                this.perfil = result;
 
-            this.userperfil.emit(this.perfil);
-            this.toastr.success('Login aceito', 'OK');
-            this.router.navigate(['/areaFornecedor']);
+                this.userperfil.emit(this.perfil);
+                this.toastr.success('Login aceito', 'OK');
+                this.router.navigate(['/areaFornecedor']);
 
-            this.spinner.hide();
-          },
-          (error: any) => {
-            console.error(error);
-            this.toastr.error('Erro ao tentar entrar, verifique seu email e sua senha!', 'Erro');
-          },
-          () => this.spinner.hide()
-        );
-      }
+                this.spinner.hide();
+              },
+              (error: any) => {
+                console.error(error);
+                this.toastr.error('Erro ao tentar entrar, verifique seu email e sua senha!', 'Erro');
+              },
+              () => this.spinner.hide()
+            );
+          }
     },
         (error: any) => {
           console.error(error);
@@ -107,15 +108,5 @@ export class LoginComponent implements OnInit {
         () => this.spinner.hide()
       );
       }
-
     }
   }
-
-
-
-
-
-
-
-
-

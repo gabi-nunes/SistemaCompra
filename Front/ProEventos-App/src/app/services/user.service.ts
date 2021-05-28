@@ -24,10 +24,10 @@ export class UserService {
   // public baseURL = 'https://localhost:44358/User';
 
   // tslint:disable-next-line: typedef
-  public RegisterUser(user:user) : Observable<user>{
+  public RegisterUser(user: user): Observable<user>{
     return this.http.post<user>(`${this.baseURL}/Registrar`,user);
   }
-  public AtualizaUser(id: number ,user:user) : Observable<user>{
+  public AtualizaUser(id: number ,user: user): Observable<user>{
     return this.http.put<user>(`${this.baseURL}/Atualiza/${id}`,user);
   }
   getIsUserByEmail(email: string): Observable<any>{

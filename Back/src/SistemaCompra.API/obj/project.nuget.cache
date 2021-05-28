@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Wv7/J/ZFIUq+95OG/Dre9RTDsBs83+9kxaYPf/gltMxW07y5kaCW3lRsowS5ow2U50CK6fHUl1CbaGvQP7VRIg==",
+  "dgSpecHash": "0M7Qy/IPb4xfJf8OFip3ywGkiuitZZUWy/vkH6M465s6vc2BkznMGxqYdW6CtRIBymDOlLrxVt2/Ff1GEVslfg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\Back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj",
+  "projectFilePath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cliente\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\cliente\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",

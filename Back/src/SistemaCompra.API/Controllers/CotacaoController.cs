@@ -186,7 +186,6 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-<<<<<<< HEAD
         // [HttpGet("RetornarQuantidade/{ItemCotacaoId}")]
         // public async Task<IActionResult> GetQuantidade(int ItemCotacaoId)
         // {
@@ -201,22 +200,6 @@ namespace SistemaCompra.API.Controllers
         //         return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
         //     }
         // }
-=======
-        [HttpGet("RetornarQuantidade/{CotacaoId}")]
-        public async Task<IActionResult> GetQuantidade(int CotacaoId)
-        {
-            try
-            {
-                var Cotacao = await CotacaoService.CalcQuantAsync(CotacaoId);
-                if (Cotacao == null) return NotFound("Nenhum cotacao encontrado!");
-                return Ok(Cotacao);
-            }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar cotacao. Erro: {ex.Message}");
-            }
-        }
->>>>>>> master
 
         [HttpGet("RetornarQuantidadeporItem/{ItemCotacaoId}")]
         public async Task<IActionResult> GetQuantidadeporItem(int ItemCotacaoId)
@@ -250,15 +233,8 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-<<<<<<< HEAD
         [HttpGet("CotacaoGanhadore/{IdCot}")]
         public async Task<IActionResult> GetFornecedorVencedor(int IdCot)
-=======
-
-
-        [HttpPut("CotacaoGanhador/{IdCot}")]
-        public async Task<IActionResult> PutFornecedorVencedor(int IdCot)
->>>>>>> master
         {
             try
             {

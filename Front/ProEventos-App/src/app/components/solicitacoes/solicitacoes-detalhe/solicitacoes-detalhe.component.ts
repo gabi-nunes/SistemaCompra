@@ -443,20 +443,11 @@ public CarregarAprovador(userId: number): void{
     this.modalRefQtde.hide();
   }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
   onMudouEvento(evento: any): void{
     console.log(evento);
   }
   GerarRelatrio(): void{
     window.print();
-<<<<<<< HEAD
-=======
-
-
->>>>>>> master
   }
 //#endregion
 }

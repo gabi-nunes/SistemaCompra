@@ -145,7 +145,7 @@ export class CotacoesDetalheComponent implements OnInit {
       dataNecessidade: [this.solicitacao?.dataNecessidade],
       observacaoRejeicao: [this.solicitacao?.observacaoRejeicao],
       prazoCotacao: ['', Validators.required],
-      cotador: [this.cotador?.name],
+      cotador: [this.cotador?.nome],
       frmPagamento: [{value: '', disabled: this.IsCotacaoEncerrada}],
       cotacoes: this.fb.array([])
     });

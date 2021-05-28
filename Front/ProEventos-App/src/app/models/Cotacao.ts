@@ -14,11 +14,7 @@ export class Cotacao {
   prazoDias: number;
   status: number;
   frmPagamento: number;
-<<<<<<< HEAD
   prazoOfertas: Date;
-=======
-  prazoOfertas: any;
->>>>>>> master
   parcelas: number;
   fornecedorGanhadorId: number;
   total: number;
@@ -28,20 +24,5 @@ export class Cotacao {
   fornecedorId: number;
   fornecedor: Fornecedor;
   itensCotacao: ItemCotacao[];
-<<<<<<< HEAD
   isCollapsed: boolean;
-  dataEntrega: Date;
-=======
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> master
 }

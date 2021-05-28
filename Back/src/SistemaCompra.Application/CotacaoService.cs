@@ -42,12 +42,8 @@ namespace SistemaCompra.Application
                     itemCot.IdSolicitacaoProduto = prod.Id;
                     itemCot.IdProduto = prod.Produto_Id;
                     itemCot.QtdeProduto = prod.QtdeProduto;
-<<<<<<< HEAD
-                    itemCot.cotacaoId = CotacaoId;
-=======
                     itemCot.cotacaoId = Cotacao.Id;
                     itemCot.TotalItem= 0.0;
->>>>>>> master
                     itemCot.PrecoUnit = 0.0;
                     FGeralPersist.Add<ItemCotacao>(itemCot);
                     salvar = await FGeralPersist.SaveChangesAsync();
@@ -72,20 +68,13 @@ namespace SistemaCompra.Application
             var itensCots = await _CotacaoPresist.GetAllItemCotacaoByIdCotAsync(idCot);
             if (cotacao == null) return null;
 
-<<<<<<< HEAD
-            cotacao.Frete = model.Frete;
-            cotacao.DataEntrega = model.DataEntrega;
-            cotacao.status = 2;
-            cotacao.Total = CalcTotalAsync(itensCots) + cotacao.Frete;
-=======
             var frete = Convert.ToDouble(model.Frete);
             var data = model.DataEntrega.ToString("dd/MM/yyyy");
             cotacao.DataEntrega = data;
             cotacao.status = 3;
-            cotacao.Total = await CalcQuantAsync(cotacao.Id);
+            cotacao.Total = CalcTotalAsync(itensCots);
             cotacao.Total += frete;
             cotacao.Frete =  "R$" + model.Frete;
->>>>>>> master
 
             FGeralPersist.Update<Cotacao>(cotacao);
 
@@ -214,14 +203,8 @@ namespace SistemaCompra.Application
 
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-<<<<<<< HEAD
                     await AddCotacaoProduto(Cotacao.Id, SolicitacaoId);
                     return await _CotacaoPresist.GetCotacaoByIdAsync(Cotacao.Id);
-=======
-                    var SolicitacaoRetorno = await _CotacaoPresist.GetAllCotacaoByIdAsync(Cotacao.Id);
-
-                    return SolicitacaoRetorno;
->>>>>>> master
                 }
                 return null;
             }
@@ -429,27 +412,6 @@ namespace SistemaCompra.Application
             foreach (Cotacao cotacao in cotacoes)
             {
                 if (isFirst)
-<<<<<<< HEAD
-                {
-                    menorPreco = cotacao.Total;
-                    idPrice = cotacao.Id;
-                    menorData = cotacao.DataEntrega;
-                    idDate = cotacao.Id;
-                    isFirst = false;
-                }
-
-                if (cotacao.Total < menorPreco)
-                {
-                    menorPreco = cotacao.Total;
-                    idPrice = cotacao.Id;
-                }
-
-                if (cotacao.DataEntrega < menorData)
-                {
-                    menorData = cotacao.DataEntrega;
-                    idDate = cotacao.Id;
-                }
-=======
                 {
                     menorPreco = cotacao.Total;
                     idPrice = cotacao.Id;
@@ -469,7 +431,6 @@ namespace SistemaCompra.Application
                     menorData = DateTime.Parse(cotacao.DataEntrega); 
                     idDate = cotacao.Id;
                 }
->>>>>>> master
             }
             if (idDate == idPrice)
             {

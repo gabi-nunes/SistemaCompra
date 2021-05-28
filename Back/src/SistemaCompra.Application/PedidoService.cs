@@ -115,11 +115,6 @@ namespace SistemaCompra.Application
                 await FGeralPersist.SaveChangesAsync();
 
                 Pedido pedido = new Pedido();
-<<<<<<< HEAD
-                pedido.DataEmissao = model.DataEmissao;
-                pedido.Observacao = model.Observacao;
-                pedido.cotacaoId = model.cotacaoId;
-=======
 
                 var data = model.DataEmissao.ToString("dd/MM/yyyy");
                 pedido.DataEmissao = data;
@@ -127,7 +122,6 @@ namespace SistemaCompra.Application
                 pedido.cotacaoId = model.cotacaoId;
                 pedido.StatusAprov=2;
 
->>>>>>> master
                 FGeralPersist.Add<Pedido>(pedido);
 
                 if (await FGeralPersist.SaveChangesAsync())

@@ -9,29 +9,18 @@
     <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" >
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-<<<<<<< HEAD
-          <a class="nav-link ml-0 " aria-current="page" routerLink="solicitações/lista">Solicitações</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-sm" routerLink="/cotacoes/lista">Cotações</a>
-=======
           <a class="nav-link ml-0 " aria-current="page" routerLink="solicitações/lista"  *ngIf="!isFornecedor">Solicitação</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="areaFornecedor/listaCotacao" *ngIf="isFornecedor && !isUser">Cotacao</a>
           <a class="nav-link" routerLink="cotacao/lista" *ngIf="!isFornecedor &&  isUser">Cotação</a>
->>>>>>> master
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="areaFornecedor/listaPedido" *ngIf="isFornecedor && !isUser">Pedidos</a>
           <a class="nav-link" routerLink="pedidos/lista" *ngIf="!isFornecedor &&  isUser">Pedidos</a>
         </li>
         <li class="nav-item">
-<<<<<<< HEAD
           <a class="nav-link" routerLink="fornecedores/lista">Fornecedores</a>
-=======
-          <a class="nav-link" routerLink="fornecedor/lista"  *ngIf="!isFornecedor" >Fornecedores</a>
->>>>>>> master
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="produtos"  *ngIf="!isFornecedor">Produtos</a>
