@@ -11,10 +11,12 @@ import { Pedido } from '../models/Pedido';
 })
 export class PedidoService {
 
-  constructor(private http: HttpClient) {
-  }
-  public baseURL = 'https://localhost:5001/Pedido';
+public baseURL = 'https://localhost:5001/Pedido';
 
+constructor(private http: HttpClient) { }
+  postRegistrarPedido(pedidoDto: any): Observable<any>{
+    return this.http.post<any>(`${this.baseURL}/Registrar`, pedidoDto);
+  }
   getPedidos(): Observable<Pedido[]>{
     return this.http.get<Pedido[]>(this.baseURL);
   }

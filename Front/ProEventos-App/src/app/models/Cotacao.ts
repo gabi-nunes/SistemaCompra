@@ -14,26 +14,15 @@ export class Cotacao {
   prazoDias: number;
   status: number;
   frmPagamento: number;
-  prazoOfertas: any;
+  prazoOfertas: Date;
   parcelas: number;
   fornecedorGanhadorId: number;
   total: number;
   pedidoId: number;
-  statusCotacao: number;
   pedido: Pedido[];
   prazodiaBool: boolean;
   fornecedorId: number;
   fornecedor: Fornecedor;
   itensCotacao: ItemCotacao[];
-
-
-
-
-
-
-
-
-
-
-
+  isCollapsed: boolean;
 }

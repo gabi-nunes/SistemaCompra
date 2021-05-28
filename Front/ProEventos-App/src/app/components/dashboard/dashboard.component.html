@@ -35,7 +35,7 @@
         <td class="d-none d-md-table-cell text-center">{{cotacao.id}}</td>
         <td class="d-none d-md-table-cell text-center">Cotação</td>
         <td class="text-center">
-          <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(cotacao.statusCotacao)}" [tooltip]="GetTooltipByStatus(cotacao.statusCotacao)"></i>
+          <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(cotacao.status)}" [tooltip]="GetTooltipByStatus(cotacao.status)"></i>
         </td>
         <td class="text-center">{{cotacao.dataEmissaoCotacao}}</td>
       </tr>

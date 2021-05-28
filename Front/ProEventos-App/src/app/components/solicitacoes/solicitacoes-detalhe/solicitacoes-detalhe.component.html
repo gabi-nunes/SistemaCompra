@@ -45,14 +45,14 @@
         </div>
 
         <div class="form-group col-md-2">
-          <label>Data de Necessidade</label>
+          <label>Prazo Necessidade</label>
           <input
         class="form-control"
         bsDatepicker [ngClass]="cssValidation(f.dataNecessidade )"
-        formControlName="dataNecessidade"
+        formControlName="dataNecessidade" [readonly] = "!CanChange" [minDate]="dataHoje"
         [bsConfig]="bsConfig">
           <div *ngIf="f.dataNecessidade.errors?.required" class="invalid-feedback">
-            O campo Data de Necessidade é obrigatório
+            O campo Prazo Necessidade é obrigatório
           </div>
         </div>
 
@@ -91,7 +91,7 @@
           Itens
         </h2>
         <div>
-          <button class="d-flex btn btn-outline-primary no-print" [disabled]="!familiaId" (click)="OpenProdutosModal(SelecaoProduto)">
+          <button *ngIf="CanChange" class="d-flex btn btn-outline-primary no-print" [disabled]="!familiaId" (click)="OpenProdutosModal(SelecaoProduto)">
             <i class="fas fa-plus-circle my-1"></i>
             <b class="ml-1 d-none d-md-block">
               Adicionar
@@ -109,7 +109,7 @@
             <th class="text-center">Descrição</th>
             <th class="text-center d-none d-md-table-cell">Unid. Medida</th>
             <th class="text-center">Quantidade</th>
-            <th class="text-center no-print">Opções</th>
+            <th *ngIf="CanChange" class="text-center no-print">Ações</th>
           </tr>
         </thead>
         <tbody *ngIf="solicitacaoProdutos && solicitacaoProdutos.length">
@@ -126,8 +126,9 @@
             <td class="text-center" style="width: 10%">
               {{item.qtdeProduto}}
             </td>
-            <td class="text-center no-print" style="width: 30%">
-                <i class="fas fa-times fa-2x" (click)="OpenModal(template, item.id)" style="color: #d9534f; cursor: pointer;"></i>
+            <td *ngIf="CanChange" class="text-center" style="width: 30%">
+                <i class="fas fa-times fa-2x mr-2" tooltip="Excluir Item" (click)="OpenModal(template, item.id)" style="color: #d9534f; cursor: pointer;"></i>
+                <i class="fas fa-edit text-info" tooltip="Editar Quantidade" (click)="OpenQtdeModal(Quantidade, item.produto.id)" style="cursor: pointer; font-size: 30px;"></i>
             </td>
           </tr>
         </tbody>
@@ -149,24 +150,27 @@
         <button class="btn btn-outline-secondary mr-auto border" (click)="OpenModalCancel(CancelarTemplate)">
           Cancelar Alteração
         </button>
-        <button class="btn btn-primary mr-2" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarSolicitacao)">
+
+        <button  class="btn btn-info mr-2 no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           <div class="d-flex">
-            <i class="fas fa-search fa-lg my-1"></i>
-            <p class="ml-1 my-0">Aprovar</p>
+            <i class="fas fa-file-pdf fa-lg my-1"></i>
+            <p class="ml-1 my-0">Gerar Relatório</p>
           </div>
         </button>
-        <button class="btn btn-success" [disabled]="!form.valid" (click)="SalvarSolicitacao()">
+
+        <button *ngIf="solicitacao.statusAprovacao == 2" class="btn btn-primary mr-2" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarSolicitacao)">
+          <div class="d-flex">
+            <i class="fas fa-search fa-lg my-1"></i>
+            <p class="ml-1 my-0">Avaliar</p>
+          </div>
+        </button>
+
+        <button *ngIf="CanChange" class="btn btn-success" [disabled]="!form.valid" (click)="SalvarSolicitacao()">
           <div class="d-flex">
             <i class="fas fa-save fa-lg my-1"></i>
             <p class="ml-1 my-0">Salvar</p>
           </div>
-        </button>
-        <button class="btn btn-outline-secondary mr-auto border no-print" (click)="CancelarForm()">
-          Cancelar Alteração
-        </button>
-        <button  class="btn btn-outline-primary ml-2 no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >
-          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
-          Gerar Relatório
         </button>
         <button class="btn btn-success  ml-2 no-print" [disabled]="!form.valid" (click)="SalvarSolicitacao()">
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
@@ -220,7 +224,7 @@
                 <th class="d-none d-md-table-cell text-center">Código</th>
                 <th class="text-center">Descrição</th>
                 <th class="text-center d-none d-md-table-cell">Unid. Medida</th>
-                <th class="text-center">Opções</th>
+                <th class="text-center">Ações</th>
               </tr>
             </thead>
             <tbody *ngIf="produtos && produtos.length">

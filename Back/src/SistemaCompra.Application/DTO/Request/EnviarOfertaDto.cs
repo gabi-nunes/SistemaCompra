@@ -11,9 +11,6 @@ namespace SistemaCompra.Application.DTO.Request
     {
         public string Frete { get; set; }
         public DateTime DataEntrega { get; set; }
-        public int fornecedorId { get; set; }
-
-
 
     }
 }

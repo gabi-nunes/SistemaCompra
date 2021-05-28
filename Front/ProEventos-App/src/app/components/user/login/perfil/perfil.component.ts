@@ -103,7 +103,7 @@ export class PerfilComponent implements OnInit {
 }
 Salvarsenha(){
 
-    this.alterarS= false;
+    this.alterarS = false;
 
     this.login= {id: this.user.id,email: this.user.email, senha: this.form.value.senhaPas}
     debugger;

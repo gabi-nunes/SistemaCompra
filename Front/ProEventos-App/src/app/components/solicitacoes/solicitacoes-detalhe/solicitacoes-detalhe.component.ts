@@ -61,6 +61,9 @@ export class SolicitacoesDetalheComponent implements OnInit {
 
   isCadastro: boolean;
 
+  public get CanChange(): boolean{
+    return !(this.solicitacao.statusAprovacao === 0) && !(this.solicitacao.statusAprovacao === 2);
+  }
   private gridFilter = '';
   produtosFiltrados: Produto[] = [];
 
@@ -174,6 +177,7 @@ public CarregarSolicitacao(): void{
   this.spinner.show();
   this.solicitacaoId = this.actRouter.snapshot.paramMap.get('id');
 
+
   if (this.solicitacaoId === null){
     this.isCadastro = true;
     this.PegarUltimoId();
@@ -190,6 +194,7 @@ public CarregarSolicitacao(): void{
       this.solicitacaoProdutos = [];
       this.form.patchValue(s);
       this.CarregarUser(s.user_id);
+      if (!this.CanChange) { this.form.get('familiaProdutoId')?.disable(); }
       s.solicitacaoProdutos.forEach(item => {
         this.solicitacaoProdutos.push(item);
         this.solicitacaoProdutosOriginal.push(item);
@@ -404,12 +409,18 @@ public CarregarAprovador(userId: number): void{
   public IncluirItemSolic(): void{
     this.modalRefQtde.hide();
     this.modalRefProd.hide();
-
-    const solItem = new SolicitacaoProduto();
-    solItem.produto = this.ProdSelecionado;
-    solItem.produtoid = this.produtoId;
-    solItem.qtdeProduto = this.qtdeProd;
-    this.solicitacaoProdutos.push(solItem);
+    debugger;
+    let sla = this.solicitacaoProdutos.find(sp => sp.produto.id === this.produtoId);
+    if(sla !== undefined){
+      sla.qtdeProduto = this.qtdeProd;
+    }
+    else{
+      const solItem = new SolicitacaoProduto();
+      solItem.produto = this.ProdSelecionado;
+      solItem.produtoid = this.produtoId;
+      solItem.qtdeProduto = this.qtdeProd;
+      this.solicitacaoProdutos.push(solItem);
+    }
     this.qtdeProd = 0;
   }
 
@@ -423,6 +434,7 @@ public CarregarAprovador(userId: number): void{
 
   OpenQtdeModal(template: TemplateRef<any>, prodId: number): void{
     const prodEscolhido = this.produtos.filter((p: Produto) => p.id === prodId);
+
     this.ProdSelecionado = prodEscolhido[0];
     this.produtoId = prodId;
     this.modalRefQtde = this.modalService.show(template, {class: 'modal-sm modal-dialog-centered'});
@@ -431,14 +443,11 @@ public CarregarAprovador(userId: number): void{
     this.modalRefQtde.hide();
   }
 
-
   onMudouEvento(evento: any): void{
     console.log(evento);
   }
   GerarRelatrio(): void{
     window.print();
-
-
   }
 //#endregion
 }

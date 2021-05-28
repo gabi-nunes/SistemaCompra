@@ -12,6 +12,7 @@ export class SolicitacaoService {
 
   constructor(private http: HttpClient) {}
   public baseURL = 'https://localhost:5001/Solicitacao';
+  // public baseURL = 'https://localhost:44358/Solicitacao';
 
   getSolicitacoes(): Observable<Solicitacao[]>{
     return this.http.get<Solicitacao[]>(this.baseURL);
