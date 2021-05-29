@@ -13,10 +13,10 @@
 
 
   <div>
-    <a class="d-flex btn btn-outline-primary" routerLink="/solicitacao/detalhe">
+    <Button class="d-flex btn btn-outline-primary" (click)="novasoli()">
       <i class="fas fa-plus-circle my-1"></i>
       <b class="ml-1 d-none d-md-block">Nova Solicitação</b>
-    </a>
+    </Button>
   </div>
 </div>
 
@@ -30,17 +30,17 @@
         <th class="text-center">Data</th>
       </tr>
     </thead>
-    <tbody *ngIf="cotacoes && cotacoes.length && opcao===0 || opcao===null">
-      <tr *ngFor="let cotacao of cotacoes" (dblclick)=" DetalharCotacao(cotacao.id)">
-        <td class="d-none d-md-table-cell text-center">{{cotacao.id}}</td>
-        <td class="d-none d-md-table-cell text-center">Cotação</td>
-        <td class="text-center">
-          <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(cotacao.status)}" [tooltip]="GetTooltipByStatus(cotacao.status)"></i>
+    <tbody *ngIf="Solicitacaocotacoes && Solicitacaocotacoes.length && opcao===1 || opcao===0">
+      <tr *ngFor="let cot of Solicitacaocotacoes"  (dblclick)="DetalharCotacao(cot.id)">
+        <td class="d-none d-md-table-cell text-center" *ngIf="GetStatus(cot.id) <= 0">{{cot.id}}</td>
+        <td class="text-center" *ngIf="GetStatus(cot.id) <= 0">Cotação</td>
+        <td class="text-center" *ngIf="GetStatus(cot.id) <= 0">
+          <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatusCotacao(cot.id).color}" [tooltip]="GetColorByStatusCotacao(cot.id).tooltip"></i>
         </td>
-        <td class="text-center">{{cotacao.dataEmissaoCotacao}}</td>
+        <td class="text-center" *ngIf="GetStatus(cot.id) <= 0">{{cot.dataSolicitacao}}</td>
       </tr>
     </tbody>
-    <tfoot *ngIf="!cotacoes || cotacoes.length == 0 && opcao===1">
+    <tfoot *ngIf="!Solicitacaocotacoes || Solicitacaocotacoes.length == 0 && opcao===1">
       <tr>
         <td colspan="8" class="text-center">
           <h4 >Não há cotações cadastradas</h4>
@@ -83,7 +83,7 @@
         </td>
       </tr>
     </tfoot>
-    <tfoot *ngIf="!pedidos && !solicitacoes && !cotacoes &&  opcao===0">
+    <tfoot *ngIf="!pedidos && !solicitacoes && !Solicitacaocotacoes &&  opcao===0">
       <tr>
         <td colspan="8" class="text-center">
           <h4 >Não há nada cadastrado</h4>

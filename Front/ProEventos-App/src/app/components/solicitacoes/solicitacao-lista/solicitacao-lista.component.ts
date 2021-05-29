@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Solicitacao } from 'src/app/models/Solicitacao';
+import { user } from 'src/app/models/user';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 
 @Component({
@@ -30,6 +31,8 @@ export class SolicitacaoListaComponent implements OnInit {
   public imgMargin = 2;
   public imgIsVisible = false;
   solicitacaoId = 0;
+  user: user;
+  podeAprovar: boolean= false;
  /* private gridFilter = 0;
 
   public get GridFilter(): number{
@@ -49,7 +52,18 @@ export class SolicitacaoListaComponent implements OnInit {
 
   public ngOnInit(): void {
     this.spinner.show();
+    const userJson = localStorage.getItem('currentUser') || '{}';
+    this.user = JSON.parse(userJson);
+    this.isAprovar();
     this.GetSolicitacoes();
+
+  }
+
+  isAprovar(){
+    debugger
+    if(this.user?.cargo == "Comprador" || this.user?.cargo =="gerente" || this.user?.cargo =="comprador" || this.user.cargo =="Gerente"){
+      this.podeAprovar= true;
+    }
   }
 
   public AlteraVisibilidadeImg(): void{

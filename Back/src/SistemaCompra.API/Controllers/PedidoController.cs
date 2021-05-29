@@ -248,7 +248,7 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPut("AlterarStatus/{id}")]
-        public async Task<IActionResult> Putalterarstatus(int id, [FromBody] AprovarPedidoDTO model)
+        public async Task<IActionResult> Putalterarstatus(int id, [FromBody]AprovarPedidoDTO model)
         {
             try
             {
@@ -264,7 +264,7 @@ namespace SistemaCompra.API.Controllers
         }
 
 
-        [HttpPut("ValorMaximo/{valor}")]
+        [HttpGet("ValorMaximo/{valor}")]
         public async Task<IActionResult> PutValor(double valor)
         {
             try

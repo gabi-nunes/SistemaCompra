@@ -24,8 +24,8 @@
     <tbody *ngIf="solicitacoes && solicitacoes.length">
       <tr *ngFor="let solicitacao of solicitacoes" (dblclick)="DetalharCotacoes(solicitacao.id)">
         <td class="d-none d-md-table-cell text-center">{{solicitacao.id}}</td>
-        <td class="text-center">{{solicitacao.dataNecessidade | DateTimeFormatter}}</td>
-        <td class="text-center">{{solicitacao.dataSolicitacao | DateTimeFormatter}}</td>
+        <td class="text-center">{{solicitacao.dataNecessidade }}</td>
+        <td class="text-center">{{solicitacao.dataSolicitacao}}</td>
         <td class="text-center">
           <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(solicitacao.id).color}" [tooltip]="GetColorByStatus(solicitacao.id).tooltip"></i>
         </td>

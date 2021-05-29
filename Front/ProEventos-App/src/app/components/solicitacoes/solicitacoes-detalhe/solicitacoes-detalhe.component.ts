@@ -44,6 +44,7 @@ export class SolicitacoesDetalheComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   solicitacao = {} as Solicitacao;
   solicitacaoId = {} as any;
+  podeAprovar: boolean = false;
 
   modalRefQtde = {} as BsModalRef;
   modalRefProd = {} as BsModalRef;
@@ -95,6 +96,7 @@ export class SolicitacoesDetalheComponent implements OnInit {
 
   ngOnInit(): void{
     this.CarregarSolicitacao();
+    this.isAprovador();
     this.CarregarFamiliaProdutos();
     this.validation();
   }
@@ -217,6 +219,7 @@ public CarregarProdutos(): void{
     next: (produtosResponse: Produto[]) => {
       this.produtos = produtosResponse;
       this.produtosFiltrados = produtosResponse;
+      debugger
     },
     error: () => {
       this.spinner.hide(),
@@ -224,6 +227,7 @@ public CarregarProdutos(): void{
     },
     complete: () => this.spinner.hide()
   });
+  debugger;
 }
 
 public CarregarUser(userId: number = 0): void{
@@ -387,6 +391,12 @@ public CarregarAprovador(userId: number): void{
 
   CloseModalAprovacao(): void{
     this.modalRefAprovacao.hide();
+  }
+
+  isAprovador(){
+    if(this.user.cargo == "Comprador" || this.user.cargo =="gerente" || this.user.cargo =="comprador" || this.user.cargo =="Gerente"){
+      this.podeAprovar= true;
+    }
   }
 
   decline(): void {this.modalRef.hide(); }

@@ -3,20 +3,13 @@
 
     <div class="row pr-3">
       <div class="input-group mb-2">
-        <div class ="col-8">
+        <div class ="col-10">
           </div>
         <div class="col-2">
-        <select class="form-control">
-         <option value=""></option>
-         <option value="0">Antes de</option>
-         <option value="1">Depois de</option>
-         <option value="2">Em</option>
-        </select>
-        </div>
-        <input type="text"
-        class="col-2 form-control" bsDatepicker
-        placeholder="Filtrar pela data"
-         [(ngModel)]="GridFilter">
+          <Button class="d-flex btn btn-outline-primary" (click)="openModalValor(ValorMaximo)">
+            <i class="fas fa-plus-circle my-1"></i>
+            <b class="ml-1 d-none d-md-block">Valor Maximo</b>
+          </Button>
       </div>
     </div>
 
@@ -59,3 +52,22 @@
 </ng-template>
 
 
+
+<ng-template #ValorMaximo>
+  <div class="modal-header">
+    <h5 class="modal-title">Valor Máximo para aprovação</h5>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-group  ">
+      <label>Defina o valor máximo para o comprador fazer a aprovação</label>
+      <input type="text"  class="form-control" pattern="[0-9.,]+$" ng-model="" placeholder="R$ 0,00"
+      [(ngModel)]="valor"  >
+    </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success"  (click)="incluirValor()">Salvar</button>
+  </div>
+</div>
+</ng-template>

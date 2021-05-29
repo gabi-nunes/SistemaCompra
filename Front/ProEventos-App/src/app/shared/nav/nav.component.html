@@ -13,20 +13,20 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="areaFornecedor/listaCotacao" *ngIf="isFornecedor && !isUser">Cotacao</a>
-          <a class="nav-link" routerLink="cotacao/lista" *ngIf="!isFornecedor &&  isUser">Cotação</a>
+          <a class="nav-link" routerLink="cotacoes/lista" *ngIf="!isFornecedor &&  isUser && !isUsuario">Cotação</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="areaFornecedor/listaPedido" *ngIf="isFornecedor && !isUser">Pedidos</a>
-          <a class="nav-link" routerLink="pedidos/lista" *ngIf="!isFornecedor &&  isUser">Pedidos</a>
+          <a class="nav-link" routerLink="pedidos/lista" *ngIf="!isFornecedor &&  isUser  && !isUsuario">Pedidos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="fornecedores/lista">Fornecedores</a>
+          <a class="nav-link" routerLink="fornecedores/lista" *ngIf="!isFornecedor && !isUsuario">Fornecedores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="produtos"  *ngIf="!isFornecedor">Produtos</a>
+          <a class="nav-link" routerLink="produtos"  *ngIf="!isFornecedor && !isUsuario">Produtos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="user/lista"  *ngIf="!isFornecedor">Usuários</a>
+          <a class="nav-link" routerLink="user/lista"  *ngIf="!isFornecedor && !isUsuario">Usuários</a>
         </li>
       </ul>
       <ul class="navbar-nav">
@@ -44,7 +44,7 @@
           <div *ngIf="isFornecedor && !isUser">
             <a routerLink="areaFornecedor/alterarSenha/{{usuario.id}}" class="dropdown-item pl-3">
               <i class="fas fa-user-circle mr-1"></i>
-              Alterar senha
+              Perfil
             </a>
           </div>
             <div role="separator" class="divider"></div>

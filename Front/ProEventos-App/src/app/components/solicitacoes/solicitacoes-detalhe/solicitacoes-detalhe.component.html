@@ -159,7 +159,7 @@
           </div>
         </button>
 
-        <button *ngIf="solicitacao.statusAprovacao == 2" class="btn btn-primary mr-2" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarSolicitacao)">
+        <button *ngIf="solicitacao.statusAprovacao == 2 && podeAprovar" class="btn btn-primary mr-2" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarSolicitacao)">
           <div class="d-flex">
             <i class="fas fa-search fa-lg my-1"></i>
             <p class="ml-1 my-0">Avaliar</p>

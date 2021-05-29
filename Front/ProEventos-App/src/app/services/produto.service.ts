@@ -18,7 +18,8 @@ getProdutoById(id: number): Observable<Produto>{
   return this.http.get<Produto>(`${this.baseURL}/${id}`);
   }
   getProdutosByFamiliaProdId(familiaId: number): Observable<Produto[]>{
-    return this.http.get<Produto[]>(`${this.baseURL}/FamiProduto/{${familiaId}`);
+    debugger
+    return this.http.get<Produto[]>(`${this.baseURL}/FamiProduto/${familiaId}`);
     }
 
 

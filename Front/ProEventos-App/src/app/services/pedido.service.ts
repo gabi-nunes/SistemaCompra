@@ -47,4 +47,8 @@ constructor(private http: HttpClient) { }
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
+ passarValorMaximo(valor: number): Observable<any>{
+    return this.http.get(`${this.baseURL}/ValorMaximo/${valor}`);
+  }
+
 }

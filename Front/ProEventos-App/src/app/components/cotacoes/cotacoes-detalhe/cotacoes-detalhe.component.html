@@ -48,6 +48,7 @@
           <input class="form-control" bsDatepicker
           [ngClass]="cssValidation(f.prazoCotacao)"
           formControlName="prazoCotacao"
+          [minDate]="dataHoje"
           [bsConfig]="bsConfig" [readonly]="IsCotacaoEncerrada">
           <div *ngIf="f.prazoCotacao.errors?.required" class="invalid-feedback">
             O campo Prazo de Cotação é obrigatório
@@ -132,7 +133,7 @@
               <div class="h4 text-center my-3">{{fornecedor.nome}}</div>
               <div class="h7 text-center text-bold pb-1"><b>Ranking: </b>{{fornecedor.posicao}}°</div>
               <div class="h7 text-center text-bold pb-1"><b>E-mail: </b>{{fornecedor.email}}</div>
-              <div class="h7 text-center text-bold pb-1"><b>Telefone: </b>{{fornecedor.telefone}}</div>
+              <div class="h7 text-center text-bold pb-1"><b>Telefone:</b>{{fornecedor.telefone}}</div>
               <div class="d-flex justify-content-end mt-4">
                 <button class="btn btn-outline-info" (click)="OpenModalFornecedores(SelecaoFornecedor, fornecedor.id)">
                   <div class="d-flex">

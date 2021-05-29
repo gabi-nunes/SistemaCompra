@@ -30,6 +30,7 @@ export class PedidoListaComponent implements OnInit {
   public imgMargin = 2;
   public imgIsVisible = false;
   private gridFilter = '';
+  valor: string;
 
   public get GridFilter(): string{
     return this.gridFilter;
@@ -70,10 +71,38 @@ export class PedidoListaComponent implements OnInit {
     );
   }
 
+  incluirValor(){
+    let valorReal;
+    this.valor.replace(",",".");
+    valorReal= parseFloat(this.valor);
+    debugger
+    this.pedidoService.passarValorMaximo(valorReal).subscribe(
+      (result: any) => {
+          console.log(result);
+          this.toastr.success('Valor salvo com sucesso', 'Sucesso');
+          this.spinner.hide();
+          this.CarregarPedidos();
+      },
+      (error: any) => {
+        console.error(error);
+        this.toastr.error('Erro ao salvar o valor', 'Erro');
+        this.spinner.hide();
+      },
+      () => {}
+    );
+
+  }
+
+
   openModal(template: TemplateRef<any>, pedidoId: number): void{
     this.pedidoId = pedidoId;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
+
+  openModalValor(template: TemplateRef<any>): void{
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
 
   confirm(): void {
     this.modalRef.hide();
