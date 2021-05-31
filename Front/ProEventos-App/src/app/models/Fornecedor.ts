@@ -18,7 +18,6 @@ export class Fornecedor {
   telefone: string;
   senha: string;
   celular: string;
-  posicao: number;
   pontuacaoRanking: number;
   familiaProdutoId: number;
   familiaProduto: FamiliaProduto;
