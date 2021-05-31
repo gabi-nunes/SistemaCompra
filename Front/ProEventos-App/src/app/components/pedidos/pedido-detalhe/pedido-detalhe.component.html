@@ -8,9 +8,28 @@
 </div>
 
 
+
 <div class="card shadow-sm rounded">
   <form [formGroup]="form">
     <div class="p-3">
+      <div class="d-flex">
+        <h2 class="roboto text-muted mr-auto mb-0 pb-0">
+          Pedido n°{{pedido.id | number:'3.0'}}
+        </h2>
+      </div>
+      <hr class="mt-1">
+      <div *ngIf="pedido.statusAprov === 1 || pedido.statusAprov === 0" class="no-print">
+        <label *ngIf="pedido.statusAprov === 0" class="text-success">
+          Essa Solicitação já foi Aprovada portanto não pode mais ser alterada <br>
+          Comentários de {{aprovador?.nome}}(Aprovador):
+        </label>
+        <label *ngIf="pedido.statusAprov === 1" class="text-danger">
+          Essa Solicitação foi Reprovada. <br> Leia os comentários de quem a reprovou, preencha e envie para a avaliação novamente. <br>
+          Comentários de {{aprovador?.nome}}(Avaliador):
+        </label>
+        <textarea class="form-control my-1 is-valid" readonly formControlName="observacaoRejeicao" placeholder="Observações:" style="height: 100px" [ngClass]="cssStatusValidation()"></textarea>
+      </div>
+
       <div class="form-row">
         <div class="form-group col-md-2">
           <label>Codigo Pedido</label>
@@ -32,57 +51,70 @@
               <input type="text" readonly class="form-control"
               formControlName="dataEmissao" placeholder="00/00/0000">
             </div>
-            <div class="form-group col-md-4">
-              <label>CNPJ</label>
+            <div class="form-group col-md-2">
+              <label>Forma de Pagamento</label>
               <input type="text" class="form-control" readonly
-              formControlName="cnpj" placeholder="Nome do fornecedor">
+              formControlName="formaPagamento" placeholder="Nome do fornecedor">
             </div>
         </div>
-        <div class="form-row">
+
+        <div class="d-flex mt-4 no-print">
+          <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
+            Fornecedor
+          </h2>
+        </div>
+        <hr class="mt-1">
+
+
+      <div class="form-row">
         <div class="form-group col-md-6">
           <label>Nome do fornecedor</label>
           <input type="text" class="form-control" readonly
           formControlName="nome" placeholder="Nome do fornecedor">
         </div>
-        <div class="form-group col-md-2">
-          <label>Forma de Pagamento</label>
+        <div class="form-group col-md-4">
+          <label>CNPJ</label>
           <input type="text" class="form-control" readonly
-          formControlName="formaPagamento" placeholder="Nome do fornecedor">
+          formControlName="cnpj" placeholder="Nome do fornecedor">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label>CEP</label>
+          <input type="text" class="form-control" readonly
+          formControlName="cep" placeholder="Nome do fornecedor">
         </div>
         <div class="form-group col-md-2">
           <label>Número</label>
           <input type="text" class="form-control" readonly
           formControlName="numero" placeholder="Nome do fornecedor">
         </div>
-        <div class="form-group col-md-2">
-          <label>CEP</label>
-          <input type="text" class="form-control" readonly
-          formControlName="cep" placeholder="Nome do fornecedor">
-        </div>
-      </div>
-      <div class="form-row">
         <div class="form-group col-md-6">
           <label>Endereço</label>
           <input type="text" class="form-control" readonly
           formControlName="endereco" placeholder="Nome do fornecedor">
         </div>
+      </div>
+
+      <div class="form-row">
         <div class="form-group col-md-6">
           <label>Bairro</label>
           <input type="text" class="form-control" readonly
           formControlName="bairro" placeholder="Nome do fornecedor">
         </div>
-
-      </div>
-      <div class="form-row">
         <div class="form-group col-md-3">
           <label>Estado</label>
           <input type="text" class="form-control" readonly
           formControlName="estado" placeholder="Nome do fornecedor">
         </div>
+      </div>
+
+      <div class="form-row">
         <div class="form-group col-md-3">
-          <label>CEP</label>
+          <label>Telefone</label>
           <input type="text" class="form-control" readonly
-          formControlName="cep" placeholder="Nome do fornecedor">
+          formControlName="telefone" placeholder="Nome do fornecedor">
         </div>
         <div class="form-group col-md-2">
           <label>Inscrição Municipal</label>
@@ -90,7 +122,7 @@
           formControlName="inscricaoMunicipal" placeholder="Nome do fornecedor">
         </div>
         <div class="form-group col-md-2">
-          <label>Inscrição Estatudal</label>
+          <label>Inscrição Estadual</label>
           <input type="text" class="form-control" readonly
           formControlName="inscricaoEstadual" placeholder="Nome do fornecedor">
         </div>
@@ -100,6 +132,15 @@
           formControlName="frete" placeholder="Nome do fornecedor">
         </div>
       </div>
+
+      <div class="d-flex mt-4 no-print">
+        <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
+          Itens
+        </h2>
+      </div>
+
+      <hr class="mt-1">
+
       <table class="table table-striped table-hover">
         <thead class="bg-logo">
           <tr>
@@ -142,12 +183,18 @@
           <input type="text" class="form-control" readonly
           formControlName="total" >
         </div>
-        </div>
+      </div>
 
     <div class="card-footer">
       <div class="d-flex">
         <button class="btn btn-outline-secondary mr-auto border no-print" (click)="OpenModal(template)">
           Cancelar Alteração
+        </button>
+        <button class="btn btn-primary mr-2" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarPedido)">
+          <div class="d-flex">
+            <i class="fas fa-search fa-lg my-1"></i>
+            <p class="ml-1 my-0">Aprovar</p>
+          </div>
         </button>
         <button  class="btn btn-outline-primary ml-2 no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
@@ -156,6 +203,10 @@
       </div>
     </div>
 
+
+<ng-template #AprovarPedido>
+  <app-aprovar-pedido [modal]="modalRefAprovacao" [pedido]="pedido" (carregaEventos)="onMudouEvento($event)"></app-aprovar-pedido>
+</ng-template>
 
   <ng-template #template>
     <div class="modal-body text-center">

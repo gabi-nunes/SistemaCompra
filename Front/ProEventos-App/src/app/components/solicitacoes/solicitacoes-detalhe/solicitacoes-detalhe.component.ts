@@ -449,6 +449,7 @@ public CarregarAprovador(userId: number): void{
     this.produtoId = prodId;
     this.modalRefQtde = this.modalService.show(template, {class: 'modal-sm modal-dialog-centered'});
   }
+
   CloseModalQtde(): void{
     this.modalRefQtde.hide();
   }

@@ -1,7 +1,7 @@
 import { EnviarOferta } from './../../../models/EnviarOferta';
 import { ItemCotacao } from './../../../models/ItemCotacao';
 import { Cotacao } from 'src/app/models/Cotacao';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsLocaleService, DateFormatter } from 'ngx-bootstrap/datepicker';
@@ -28,14 +28,15 @@ import { preco } from 'src/app/models/preco';
 @Component({
   selector: 'app-detalhe-cotacao',
   templateUrl: './detalhe-cotacao.component.html',
-  styleUrls: ['./detalhe-cotacao.component.scss']
+  styleUrls: ['./detalhe-cotacao.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DetalheCotacaoComponent implements OnInit {
 
 
   produtoId: number;
   frete: string;
-dataEntrega: Date;
+  dataEntrega: Date;
   produtos: Produto[] = [];
   ProdSelecionado: Produto;
   qtdeProd: number;
@@ -46,6 +47,7 @@ dataEntrega: Date;
   itemCotacaoid: number;
   valor: string;
   precoUnit={} as preco;
+  freteValor= 0;
 
 
   item: any;
@@ -127,7 +129,7 @@ dataEntrega: Date;
       prazoOfertas: [this.cotacao?.prazoOfertas],
       dataEntrega:[this.cotacao?.dataEntrega,Validators.required],
       frete: [this.cotacao?.frete,Validators.required],
-      total: [this.cotacao?.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })]
+      total: [this.cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })]
     });
   }
 
@@ -147,7 +149,7 @@ public CarregarCotacaoes(): void{
   this.cotacaoService.getCotacaoById(this.cotacaoid).subscribe(
     (CotacaoResponse: Cotacao) => {
       this.cotacao = CotacaoResponse;
-      this.form.patchValue({total: this.cotacao.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
+      this.form.patchValue({total: this.cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
       this.cotacao.itensCotacao.forEach(itemcotacao => {
         this.Carregarprodutos();
         this.itensCotacoes.push(itemcotacao);
@@ -212,42 +214,51 @@ public get ShowAlert(): boolean{
   }
 
   public CancelarForm(): void{
-    this.modalRefCancel.hide()
-    this.router.navigate([`/solicitações/lista`]);
+    this.router.navigate([`/areaFornecedor/listaCotacao`]);
   }
 
-  public EnviarOfertaFornecedor(): void{
-    const enviaOf = new EnviarOferta();
-    enviaOf.frete= this.frete;
-    enviaOf.dataEntrega= this.dataEntrega;
+  public EnviarOfertaFornecedor(){
 
-    this.itensCotacoes.forEach(item=>{
-      this.precoUnit.itemcotacao= item.id;
-      this.precoUnit.preco	=item.precoUnit;
-      this.precoUnit.total= item.totalItem;
-      debugger
-      this.cotacaoService.EnviarPreçoItem(this.precoUnit).subscribe(
+    const isValid = !this.itensCotacoes.some(ic => ic.precoUnit === 0);
+
+    if(isValid){
+      const enviaOf = new EnviarOferta();
+
+      enviaOf.frete= this.frete;
+      enviaOf.dataEntrega= this.dataEntrega;
+
+      this.itensCotacoes.forEach(item=>{
+        this.precoUnit.itemcotacao= item.id;
+        this.precoUnit.preco= item.precoUnit;
+        this.precoUnit.total= item.totalItem;
+        debugger
+
+        this.cotacaoService.EnviarPreçoItem(this.precoUnit).subscribe(
+          (result: any) => {
+          },
+          (error: any) => {
+            console.error(error);
+            this.toastr.error('Falha ao tentar adicionar', 'Erro');
+            this.spinner.hide();
+          },
+          () => {
+            this.spinner.hide()
+          },
+        );
+      });
+
+      this.cotacaoService.enviar(this.cotacaoid, enviaOf).subscribe(
         (result: any) => {
+          this.toastr.success('Enviado com sucesso', 'Sucesso!');
+          this.router.navigate(['/areaFornecedor/listaCotacao']);
         },
-        (error: any) => {
-          console.error(error);
-          this.toastr.error('Falha ao tentar adicionar', 'Erro');
-          this.spinner.hide();
-        },
-        () => {
-          this.spinner.hide()
-        },
+        () => {},
+        () => {}
       );
-    });
-
-    this.cotacaoService.enviar(this.cotacaoid, enviaOf).subscribe(
-      (result: any) => {
-        this.toastr.success('Enviado com sucesso', 'Sucesso!');
-      },
-      () => {}
-    );
-    this.router.navigate([`/areaFornecedor/listaCotacao`]);
-
+    }
+    else{
+      this.toastr.error('Adicione os Preços unitarios!', 'Erro');
+    }
   }
 
 
@@ -272,7 +283,7 @@ public get ShowAlert(): boolean{
     console.log(this.itemCotacaoEnvia)
     let principal= this.itensCotacoes.find(x=>x.id == this.itemCotacaoid);
     this.cotacao.total += item.totalItem;
-    this.form.patchValue({total: this.cotacao.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
+    this.form.patchValue({total: this.cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
 
     console.log(this.cotacao.total);
     this.valor='';
@@ -280,17 +291,18 @@ public get ShowAlert(): boolean{
   }
 
   onKey(frete: string) { // without type info
+    this.cotacao.total -= this.freteValor;
     var freteFormatado = parseFloat(frete);
-    this.cotacao.total += freteFormatado ;
-    this.form.patchValue({total: this.cotacao.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
-    debugger
+    this.cotacao.total += freteFormatado;
+    this.form.patchValue({total: this.cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
+    this.freteValor = freteFormatado;
   }
 
 
 
   public OpenProdutosModal(itemcotacaoid:number, template: TemplateRef<any>): void{
     this.itemCotacaoid= itemcotacaoid;
-    this.modalRefProd = this.modalService.show(template, {class: 'modal-lg modal-dialog-centered'});
+    this.modalRefProd = this.modalService.show(template, {class: 'modal-sm modal-dialog-centered'});
   }
 
 

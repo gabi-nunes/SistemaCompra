@@ -70,6 +70,7 @@ import { ListagemCotacaoComponent } from './components/area-fornecedor/listagem-
 import { ListagemPedidoComponent } from './components/area-fornecedor/listagem-pedido/listagem-pedido.component';
 import { AlterarSenhaComponent } from './components/area-fornecedor/alterar-senha/alterar-senha.component';
 import { FormatCurrencyPipe } from './helpers/RealValue.pipe';
+import { AprovarPedidoComponent } from './shared/aprovar-pedido/aprovar-pedido.component';
 defineLocale('pt-br', ptBrLocale);
 
 
@@ -112,6 +113,7 @@ defineLocale('pt-br', ptBrLocale);
     DetalheCotacaoComponent,
     AlterarSenhaComponent ,
     FormatCurrencyPipe,
+    AprovarPedidoComponent,
    ],
   imports: [
     CommonModule,
@@ -134,7 +136,7 @@ defineLocale('pt-br', ptBrLocale);
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [EventoService, UserService, SolicitacaoService, FornecedorService],
+  providers: [EventoService, UserService, SolicitacaoService, FornecedorService, PedidoService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

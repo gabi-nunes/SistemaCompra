@@ -1038,30 +1038,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gabie\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Rafael\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
+      "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
+      "projectName": "SistemaCompra.Application",
+      "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
+      "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
+      "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\obj\\",
+=======
       "projectUniqueName": "C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
       "projectName": "SistemaCompra.Application",
       "projectPath": "C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
       "packagesPath": "C:\\Users\\gabie\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\obj\\",
+>>>>>>> master
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\gabie\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
