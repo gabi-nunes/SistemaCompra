@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SistemaCompra.Application;
 using SistemaCompra.Application.Contratos;
+using SistemaCompra.Application.DTO.Request;
 using SistemaCompra.Domain;
 using SistemaCompra.Persistence;
 
@@ -69,7 +70,7 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPost("Registrar")]
-        public async Task<IActionResult> Post([FromBody] user model)
+        public async Task<IActionResult> Post([FromBody] UserDto model)
         {
             try
             {

@@ -43,7 +43,7 @@
     <tfoot *ngIf="!Solicitacaocotacoes || Solicitacaocotacoes.length == 0 && opcao===1">
       <tr>
         <td colspan="8" class="text-center">
-          <h4 >Não há cotações cadastradas</h4>
+          <h4 >Não há cotações pendentes</h4>
         </td>
       </tr>
     </tfoot>
@@ -61,7 +61,7 @@
     <tfoot *ngIf="!solicitacoes || solicitacoes.length == 0 && opcao===2">
       <tr>
         <td colspan="8" class="text-center">
-          <h4 >Não há Solicitações cadastrados</h4>
+          <h4 >Não há Solicitações pendentes</h4>
         </td>
       </tr>
     </tfoot>
@@ -79,14 +79,14 @@
     <tfoot *ngIf="!pedidos || pedidos.length == 0 && opcao===3">
       <tr>
         <td colspan="8" class="text-center">
-          <h4 >Não há pedidos cadastrados</h4>
+          <h4 >Não há pedidos pendentes</h4>
         </td>
       </tr>
     </tfoot>
     <tfoot *ngIf="!pedidos && !solicitacoes && !Solicitacaocotacoes &&  opcao===0">
       <tr>
         <td colspan="8" class="text-center">
-          <h4 >Não há nada cadastrado</h4>
+          <h4 >Não há nada pendente</h4>
         </td>
       </tr>
     </tfoot>

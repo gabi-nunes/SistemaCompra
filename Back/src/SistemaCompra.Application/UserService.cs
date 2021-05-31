@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using SistemaCompra.Application.Contratos;
+using SistemaCompra.Application.DTO.Request;
 using SistemaCompra.Domain;
 using SistemaCompra.Persistence.Contratos;
 
@@ -19,11 +20,21 @@ namespace SistemaCompra.Application
             FGeralPersist = geral;
 
         }
-          public async Task<user> AddUser(user model)
+          public async Task<user> AddUser(UserDto model)
     {
         try
         {
-            FGeralPersist.Add<user>(model);
+                user usuario = new user();
+                usuario.nome = model.nome;
+                usuario.Id = model.Id;
+                usuario.Setor = model.Setor;
+                usuario.Cargo = model.Cargo;
+                usuario.email = model.email;
+                usuario.Senha = "Senha@123";
+
+
+
+            FGeralPersist.Add<user>(usuario);
 
             if (await FGeralPersist.SaveChangesAsync())
             {
