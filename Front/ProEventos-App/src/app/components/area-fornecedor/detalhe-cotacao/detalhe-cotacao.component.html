@@ -1,4 +1,4 @@
-<app-titulo [titulo]="'Cotação'" [subtitulo]="'Cotação para enviar preço'" [icone]="'fas fa-user-circle'"></app-titulo>
+<app-titulo [titulo]="'Cotação'" [subtitulo]="'Cotação para enviar preço'" [icone]="'fas fa-search-dollar'"></app-titulo>
 <div class="card shadow-sm rounded">
   <form [formGroup]="form">
     <div class="p-3">
@@ -32,7 +32,7 @@
         <div class="form-group col-md-1">
           <label>Frete</label>
           <input type="text" class="form-control"
-          formControlName="frete" pattern="[0-9.,]+$" ng-model="" placeholder="R$ 0,00"  [(ngModel)]="frete"
+          formControlName="frete" pattern="[0-9.,]+$" placeholder="R$ 0,00"  [(ngModel)]="frete"
           [readonly]= isExpirada
           (change)="onKey(frete)">
         </div>
@@ -40,8 +40,7 @@
       <div class="form-group col-md-3">
         <label>Data Entrega</label>
         <input type="text" class="form-control"
-        formControlName="id"
-        bsDatepicker [ngClass]="cssValidation(f.dataNecessidade )"
+        bsDatepicker [ngClass]="cssValidation(f.dataEntrega)"
         formControlName="dataEntrega"
         [(ngModel)]="dataEntrega"
         [bsConfig]="bsConfig"
@@ -101,12 +100,12 @@
       </table>
     </div>
 
-   <div class="row justify-content-end">
+   <div class="row justify-content-end m-3">
     <div class="col-2">
       <label>Total Cotação</label>
       <br>
       <input type="text" class="form-control"
-      formControlName="total" pattern="[0-9.,]+$" readonly>
+      formControlName="total" readonly>
     </div>
 </div>
 
@@ -130,18 +129,17 @@
           <h5 class="modal-title">Adicione o Preço Unitario</h5>
         </div>
 
-        <div class="modal-body">
-          <div class="form-group col-md-5 ">
-            <label>Informe o preço Unitario do item escolhido</label>
-            <input type="text"  class="form-control" pattern="[0-9.,]+$" ng-model="" placeholder="R$ 0,00"
+        <div class="modal-body pb-0">
+          <label>Informe o preço Unitario do item escolhido</label>
+          <div class="form-group col-m-5 ">
+            <input type="text"  class="form-control" pattern="[0-9.,]+$" placeholder="R$ 0,00"
             [(ngModel)]="valor"  >
           </div>
+        </div>
 
-
-        <div class="modal-footer">
+        <div class="modal-footer p-1">
           <button type="button" class="btn btn-success"  (click)="IncluirPrecoItem(valor)">Enviar</button>
         </div>
-      </div>
 </ng-template>
 
 

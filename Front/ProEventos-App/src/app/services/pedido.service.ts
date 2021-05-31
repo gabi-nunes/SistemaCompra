@@ -5,6 +5,7 @@ import { Cotacao } from '../models/Cotacao';
 import { Fornecedor } from '../models/Fornecedor';
 import { ItemPedido } from '../models/ItemPedido';
 import { Pedido } from '../models/Pedido';
+import { PedidoDTO } from '../models/PedidoDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,12 @@ export class PedidoService {
 
   getCotacaoById(id: number): Observable<Cotacao>{
     return this.http.get<Cotacao>(`${this.baseURL}/Cotacao/${id}`);
-
   }
+
+  putAlteraStatusPedido(id: number, pedidoDto: any): Observable<PedidoDTO>{
+    return this.http.put<any>(`${this.baseURL}/AlterarStatus/${id}`, pedidoDto);
+  }
+
   getFornecedorById(id: number): Observable<Fornecedor>{
     return this.http.get<Fornecedor>(`${this.baseURL}/Fornecedor/${id}`);
   }

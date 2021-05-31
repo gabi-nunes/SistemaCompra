@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h5 class="modal-title">Avaliar Pedido</h5>
+</div>
+
+<div class="modal-body">
+
+  <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">
+    Pedido n°{{pedido.id | number:'3.0'}}
+  </h2>
+  <hr class="mt-1">
+
+  <label>Comentários:</label>
+  <textarea class="form-control" placeholder="Escreva aqui o a razão de ter aprovado ou reprovado a pedido" style="height: 100px" [(ngModel)]="observacaoRejeicao"></textarea>
+
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-outline-secondary mr-auto border" (click)="CloseModal()">
+    Cancelar
+  </button>
+  <button type="button" class="btn btn-danger" (click)="ReprovarPedido()">
+    <div class="d-flex">
+      <i class="fas fa-times fa-lg my-1"></i>
+      <p class="ml-1 my-0">Reprovar</p>
+    </div>
+  </button>
+  <button type="button" class="btn btn-success" (click)="AprovarPedido()">
+    <div class="d-flex">
+      <i class="fas fas fa-check fa-lg my-1"></i>
+      <p class="ml-1 my-0">Aprovar</p>
+    </div>
+  </button>
+</div>

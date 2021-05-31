@@ -14,12 +14,12 @@ constructor(private http: HttpClient) { }
   getProdutos(): Observable<Produto[]>{
     return this.http.get<Produto[]>(this.baseURL);
   }
-getProdutoById(id: number): Observable<Produto>{
-  return this.http.get<Produto>(`${this.baseURL}/${id}`);
+  getProdutoById(id: number): Observable<Produto>{
+    return this.http.get<Produto>(`${this.baseURL}/${id}`);
   }
   getProdutosByFamiliaProdId(familiaId: number): Observable<Produto[]>{
-    return this.http.get<Produto[]>(`${this.baseURL}/FamiProduto/{${familiaId}`);
-    }
+    return this.http.get<Produto[]>(`${this.baseURL}/FamiProduto/${familiaId}`);
+  }
 
 
 }

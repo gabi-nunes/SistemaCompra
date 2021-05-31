@@ -8,6 +8,7 @@ export interface Pedido {
  aprovador: string;
  dataAprovacao: string;
  observacao: string;
+ observacaoRejeicao: string;
  cotacaoId: number;
  cotacao: Cotacao;
  itensPedidos: ItemPedido[];

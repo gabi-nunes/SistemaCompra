@@ -36,17 +36,20 @@ export class PedidoDetalheComponent implements OnInit {
     ) {}
 
 public user: user;
+aprovador: user;
 cotacao: Cotacao;
 public UserFiltrados: user[] = [];
 public userId = 0;
 form: FormGroup = new FormGroup({});
 pedido = {} as Pedido;
 pedidoId = 0;
-modalRef = {} as BsModalRef;
 itensPedidos: ItemPedido[] = [];
 itemPedId: number;
 fornecedor: Fornecedor;
 produto: Produto[]=[];
+
+modalRef = {} as BsModalRef;
+modalRefAprovacao = {} as BsModalRef;
 
 ngOnInit(): void{
 this.validation();
@@ -66,26 +69,27 @@ id: new FormControl(this.pedido?.id),
 id2: new FormControl(this.pedido?.id),
 cotacaoId: new FormControl(this.pedido?.cotacaoId),
 dataEmissao: new FormControl(this.pedido?.dataEmissao),
-observacao: new FormControl(this.pedido?.observacao),
+observacao: new FormControl(this.pedido?.cotacao?.solicitacao?.observacao),
+observacaoRejeicao: new FormControl(this.pedido?.observacaoRejeicao),
 nome: new FormControl(this.fornecedor?.nome),
-frete:new FormControl(this.pedido?.cotacao?.frete),
+frete: new FormControl(this.pedido?.cotacao?.frete),
 formaPagamento: new FormControl(this.pedido?.cotacao?.frmPagamento),
-total: new FormControl(this.pedido?.cotacao?.total) ,
+total: new FormControl(this.pedido?.cotacao?.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })),
 cnpj: new FormControl(this.fornecedor?.cnpj),
 endereco: new FormControl(this.fornecedor?.endereco),
 bairro: new FormControl(this.fornecedor?.bairro),
-numero:new FormControl(this.fornecedor?.numero),
-estado:new FormControl(this.fornecedor?.estado),
+numero: new FormControl(this.fornecedor?.numero),
+telefone: new FormControl(this.fornecedor?.numero),
+estado: new FormControl(this.fornecedor?.estado),
 cep: new FormControl(this.fornecedor?.cep),
 inscricaoEstadual: new FormControl(this.fornecedor?.inscricaoEstadual),
 inscricaoMunicipal: new FormControl(this.fornecedor?.inscricaoMunicipal),
 dataEntrega: new FormControl(this.pedido?.cotacao?.dataEntrega),
-
 });
 }
 
 public CarregarPedidos(): void{
-debugger
+
 this.pedidoService.getPedidoById(this.pedidoId).subscribe(
 (pedidoresponse: Pedido) => {
 this.pedido = pedidoresponse;
@@ -128,7 +132,6 @@ public Carregarprodutos(): void{
 
 }
 public CarregarFornecedor(): void{
-    debugger
     this.pedidoService.getFornecedorById(this.pedido.cotacao.fornecedorId).subscribe(
     (fornecedorresponse: any) => {
     this.fornecedor = fornecedorresponse;
@@ -169,6 +172,33 @@ this.modalRef.hide();
 
 public CancelarForm(): void{
 }
+
+OpenModalAprovacao(template: TemplateRef<any>): void{
+  this.modalRefAprovacao = this.modalService.show(template, {class: 'modal-md modal-dialog-centered'});
+}
+
+CloseModalAprovacao(): void{
+  this.modalRefAprovacao.hide();
+}
+
+onMudouEvento(evento: any): void{
+  console.log(evento);
+}
+
+cssStatusValidation(): any{
+  if (this.pedido.statusAprov === 1) {return {'is-invalid': true}; }
+  return {'is-valid': true};
+}
+
+// AprovStatusModal(): void{
+//   this.pedido.statusAprov = 2;
+//   this.router.navigate([`/pedido/lista`]);;
+// }
+
+// DesaprovStatusModal(): void{
+//   this.pedido.statusAprov = 1;
+//   this.router.navigate([`/pedido/lista`]);
+// }
 
 GerarRelatrio(): void{
 
