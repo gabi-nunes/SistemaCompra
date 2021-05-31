@@ -55,7 +55,11 @@ export class AprovarSolicitacaoComponent implements OnInit {
         this.modal.hide();
         this.toastr.success('Solicitação Aprovada com Sucesso', 'Aprovada');
         debugger;
-        this.router.navigate([`/cotacoes/detalhe/${this.solicitacao.id}`]);
+        if (this.router.url.includes('lista')){
+          window.location.reload();
+        }else{
+          this.router.navigate([`/cotacoes/detalhe/${this.solicitacao.id}`]);
+        }
       },
       (error: any) => {
         this.spinner.hide();
@@ -78,7 +82,11 @@ export class AprovarSolicitacaoComponent implements OnInit {
         this.modal.hide();
         this.toastr.success('Solicitação Reprovada com Sucesso', 'Reprovada');
         this.carregaEventos.emit({RecarregaSolicitacoes: true});
-        this.router.navigate([`/solicitações/lista`]);
+        if (this.router.url.includes('lista')){
+          window.location.reload();
+        }else{
+          this.router.navigate([`/solicitações/lista`]);
+        }
       },
       (error: any) => {
         this.spinner.hide();

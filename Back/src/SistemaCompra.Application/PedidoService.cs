@@ -86,10 +86,8 @@ namespace SistemaCompra.Application
                 pedido.StatusAprov = model.StatusAprov;
                 pedido.ObservacaoRejeicao = model.ObservacaoRejeicao;
 
-                if(pedido.StatusAprov == 0)
-                {
                     await GerarRankingAsync(pedido.cotacaoId);
-                }
+               
 
                 FGeralPersist.Update<Pedido>(pedido);
                 if (await FGeralPersist.SaveChangesAsync())
@@ -109,7 +107,10 @@ namespace SistemaCompra.Application
 
             try
             {
-                var pedidoPrd = await _pedidoPresist.GetCotacaooByIdAsync(model.cotacaoId);
+                var cotacao = await _pedidoPresist.GetCotacaooByIdAsync(model.cotacaoId);
+                cotacao.status = 3;
+                FGeralPersist.Update<Cotacao>(cotacao);
+                await FGeralPersist.SaveChangesAsync();
 
                 Pedido pedido = new Pedido();
 

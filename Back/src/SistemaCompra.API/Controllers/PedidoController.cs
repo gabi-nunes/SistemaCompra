@@ -203,13 +203,13 @@ namespace SistemaCompra.API.Controllers
             try
             {
                 var pedido = await PedidoService.CreatePedido(model);
-                if (pedido == null) return BadRequest("Erro ao tentar Adicionar a cotacao.");
+                if (pedido == null) return BadRequest("Erro ao tentar Adicionar o Pedido.");
                 return Ok(pedido);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.InnerException.Message);
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar adicionar Cotacao. Erro: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar adicionar Pedido. Erro: {ex.Message}");
             }
         }
 
@@ -248,7 +248,7 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPut("AlterarStatus/{id}")]
-        public async Task<IActionResult> Putalterarstatus(int id, [FromBody] AprovarPedidoDTO model)
+        public async Task<IActionResult> Putalterarstatus(int id, [FromBody]AprovarPedidoDTO model)
         {
             try
             {
@@ -264,7 +264,7 @@ namespace SistemaCompra.API.Controllers
         }
 
 
-        [HttpPut("ValorMaximo/{valor}")]
+        [HttpGet("ValorMaximo/{valor}")]
         public async Task<IActionResult> PutValor(double valor)
         {
             try

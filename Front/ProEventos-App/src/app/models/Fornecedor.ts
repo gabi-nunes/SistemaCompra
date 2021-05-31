@@ -2,6 +2,7 @@ import { FamiliaProduto } from './FamiliaProduto';
 
 export class Fornecedor {
   id: number;
+  posicao: number;
   cnpj: string;
   nome: string;
   cidade: string;
@@ -17,6 +18,7 @@ export class Fornecedor {
   telefone: string;
   senha: string;
   celular: string;
+  posicao: number;
   pontuacaoRanking: number;
   familiaProdutoId: number;
   familiaProduto: FamiliaProduto;

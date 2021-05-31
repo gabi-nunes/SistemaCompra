@@ -11,6 +11,9 @@ import { user } from 'src/app/models/user';
 export class NavComponent implements OnInit {
   isCollapsed = true;
   usuario: any;
+  isComprador: boolean = false;
+  isGerente:boolean = false;
+  isUsuario: boolean = false;
   isUser: boolean = false;
   isFornecedor: boolean= false;
   constructor(private router: Router, private userService: UserService) { }
@@ -20,6 +23,7 @@ export class NavComponent implements OnInit {
     const userJson = localStorage.getItem('currentUser') || '{}';
     this.usuario= JSON.parse(userJson);
     this.isUserByEmail();
+    this.Validar();
   }
 
   isUserByEmail(){
@@ -31,11 +35,24 @@ export class NavComponent implements OnInit {
     );
   }
 
-  showMenu(): boolean{
-    return this.router.url !== '/user/login';
+
+  Validar(){
+    if(this.usuario.cargo === "Usuario" || this.usuario.cargo === "usuario" ){
+      this.isUsuario= true;
+    }
+
+    if(this.usuario.cargo === "Comprador" || this.usuario.cargo === "comprador"){
+      this.isComprador= true;
+    }
+    if(this.usuario.cargo === "Gerente" || this.usuario.cargo === "gerente"){
+      this.isGerente= true;
+    }
+
   }
 
-  showmeun2(): boolean{
-    return this.router.url !== '/user/recuperar';
+
+
+  showMenu(): boolean{
+    return (this.router.url !== '/user/login') && (this.router.url !== '/user/recuperar');
   }
 }

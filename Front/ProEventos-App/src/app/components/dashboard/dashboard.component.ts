@@ -9,6 +9,7 @@ import { Cotacao } from 'src/app/models/Cotacao';
 import { Pedido } from 'src/app/models/Pedido';
 import { Solicitacao } from 'src/app/models/Solicitacao';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { user } from 'src/app/models/user';
 // import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
@@ -30,8 +31,9 @@ export class DashboardComponent implements OnInit {
       private cotacaoService: CotacaoService,
     ) {}
 
-    public cotacoes: Cotacao[] = [];
+    public Solicitacaocotacoes: Solicitacao[] = [];
     public pedidos: Pedido[] = [];
+    cotacoes: Cotacao[];
     public solicitacoes: Solicitacao[] = [];
     opcao?: number;
     listagem: any[]=[];
@@ -39,12 +41,36 @@ export class DashboardComponent implements OnInit {
     public imgWidth = 150;
     public imgMargin = 2;
     public imgIsVisible = false;
+    user:user;
 
     public ngOnInit(): void {
       this.CarregarPedidos();
       this.GetSolicitacoes();
+      this.GetCotacoes();
+      this.GetSolicitacoesAprovadas();
       this.opcao =0;
+      const userJson = localStorage.getItem('currentUser') || '{}';
+      this.user = JSON.parse(userJson);
       this.load();
+    }
+
+
+    FilterCotacoesById(solId: number): Cotacao[]{
+      debugger;
+      const cotacoesSolicitacao = this.cotacoes?.filter(c => c.solicitacaoId == solId);
+      return cotacoesSolicitacao;
+    }
+
+
+
+    public GetStatus(solId: number): number{
+      debugger;
+      const cots = this.FilterCotacoesById(solId);
+      if (!cots?.length){return -1; }
+      if (cots.some(c => c.status === 3)) { return 3; }
+      else if (cots.every(c => c.status === 2)) { return 2; }
+      else if (cots.some(c => c.status === 1)) { return 1; }
+      return 0;
     }
 
     load() {
@@ -87,6 +113,33 @@ export class DashboardComponent implements OnInit {
     return resultTooltip;
   }
 
+  GetColorByStatusCotacao(solId: number): any{
+    debugger;
+    const status = this.GetStatus(solId);
+    let statusObj = {color: '', tooltip: ''};
+    switch (status) {
+      case 1:
+        statusObj.color = '#5bc0de';
+        statusObj.tooltip = 'Aguardando Ofertas';
+        break;
+      case 2:
+        statusObj.color = '#5cb85c';
+        statusObj.tooltip = 'Ofertas Recebidas';
+        break;
+      case 3:
+        statusObj.color = '#d9534f';
+        statusObj.tooltip = 'Cotação Encerrada';
+        break;
+      default:
+        statusObj.color = '#f0ad4e';
+        statusObj.tooltip  = 'Pendente';
+        break;
+    }
+    return statusObj;
+  }
+
+
+
     public AlteraVisibilidadeImg(): void{
       this.imgIsVisible = !this.imgIsVisible;
     }
@@ -106,21 +159,41 @@ export class DashboardComponent implements OnInit {
         () => this.spinner.hide()
       );
     }
-    public CarregarCotacaoes(): void{
+
+
+  public GetCotacoes(): void{
+    // tslint:disable-next-line: deprecation
+    this.cotacaoService.getCotacoes().subscribe({
+      next: (CotacaoResponse: Cotacao[]) => {
+        this.cotacoes = CotacaoResponse;
+        // this.CotacaoFiltradas = CotacaoResponse;
+      },
+      error: () => {
+        this.spinner.hide(),
+        this.toastr.error('Erro ao carregar as Solicitações', 'Erro');
+      },
+      complete: () => this.spinner.hide()
+    });
+  }
+
+    public GetSolicitacoesAprovadas(): void{
       // tslint:disable-next-line: deprecation
-      this.cotacaoService.getCotacaoPedente().subscribe(
-        (CotacaoResponse: Cotacao[]) => {
-          this.cotacoes = CotacaoResponse
-
+      this.solicitacaoService.getSolicitacoes().subscribe({
+        next: (solicitacoesResponse: any[]) => {
+          this.Solicitacaocotacoes = solicitacoesResponse;
+          debugger
+          this.Solicitacaocotacoes = this.Solicitacaocotacoes?.filter(s => s.statusAprovacao === 0);
         },
-        () => {
+        error: () => {
           this.spinner.hide(),
-          this.toastr.error('Erro ao carregar os Cotacoes', 'Erro');
+          this.toastr.error('Erro ao carregar as Solicitações', 'Erro');
         },
-        () => this.spinner.hide()
-      );
-
+        complete: () => this.spinner.hide()
+      });
     }
+
+
+
     public GetSolicitacoes(): void{
       // tslint:disable-next-line: deprecation
       this.solicitacaoService.getPendentes().subscribe({
@@ -154,10 +227,21 @@ export class DashboardComponent implements OnInit {
       this.router.navigate([`solicitações/detalhe/${id}`]);
     }
     DetalharPedido(id: number): void{
+      if(this.user.cargo!="Usuario"){
       this.router.navigate([`pedidos/detalhe/${id}`]);
+      }
+      else{
+
+      }
     }
     DetalharCotacao(id: number): void{
-      this.router.navigate([`solicitações/detalhe/${id}`]);
+      if(this.user.cargo!=="Usuario"){
+          this.router.navigate([`cotacoes/detalhe/${id}`]);
+      }
+      else{}
+    }
+    novasoli(): void{
+      this.router.navigate([`solicitações/detalhe/`]);
     }
 
 }

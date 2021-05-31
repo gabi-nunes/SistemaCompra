@@ -123,7 +123,6 @@ export class DetalheCotacaoComponent implements OnInit {
   }
 
   public validation(): void{
-    const df = new DateFormatter();
     this.form = this.fb.group({
       id: [this.cotacao?.id],
       dataEmissaoCotacao: [this.cotacao?.dataEmissaoCotacao],
