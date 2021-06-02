@@ -11,7 +11,10 @@ export class TituloComponent implements OnInit {
   @Input() titulo = 'Dashboard';
   @Input() subtitulo = '';
   @Input() icone = '';
-  @Input() mostraBtnListar = false;
+
+  public get mostraBtnListar(): boolean{
+    return !this.router.url.endsWith('lista') && !this.router.url.endsWith('dashboard');
+  }
 
   ngOnInit(): void {
   }

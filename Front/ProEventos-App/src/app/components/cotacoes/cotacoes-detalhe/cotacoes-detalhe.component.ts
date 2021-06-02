@@ -90,7 +90,7 @@ export class CotacoesDetalheComponent implements OnInit {
   }
 
   public get IsCotacaoEncerrada(): boolean{
-    return this.cotacoes.some(c => c.status == 3);
+    return this.cotacoes.every(c => c.status == 3);
   }
 
   public get ShowCotacaoes(): boolean{
@@ -241,7 +241,7 @@ public CarregarSolicitacao(): void{
   this.solicitacaoService.getSolicitacaoById(+this.solicitacaoId).subscribe(
     (s: Solicitacao) => {
       this.solicitacao = {...s},
-      this.familiaId = s.solicitacaoProdutos[0].produto.familiaProdutoId;
+      this.familiaId = s.solicitacaoProdutos[0]?.produto?.familiaProdutoId;
       this.solicitacaoProdutos = [];
       this.form.patchValue(s);
       this.CarregarUser(s.user_id);
@@ -274,6 +274,7 @@ public CarregarCotacoesBySolicitacao(): void{
   this.spinner.show();
   this.cotacaoService.getCotacoesBySolicitacao(+this.solicitacaoId).subscribe(
     (cotacoes: Cotacao[]) => {
+      debugger;
       this.cotacoes = cotacoes;
       this.form.patchValue({prazoCotacao: cotacoes[0]?.prazoOfertas,
                             frmPagamento: cotacoes[0]?.frmPagamento});

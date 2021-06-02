@@ -227,7 +227,7 @@ export class DashboardComponent implements OnInit {
       this.router.navigate([`solicitações/detalhe/${id}`]);
     }
     DetalharPedido(id: number): void{
-      if(this.user.cargo!="Usuario"){
+      if(this.user.cargo!="0"){
       this.router.navigate([`pedidos/detalhe/${id}`]);
       }
       else{
@@ -235,7 +235,7 @@ export class DashboardComponent implements OnInit {
       }
     }
     DetalharCotacao(id: number): void{
-      if(this.user.cargo!=="Usuario"){
+      if(this.user.cargo!=="0"){
           this.router.navigate([`cotacoes/detalhe/${id}`]);
       }
       else{}

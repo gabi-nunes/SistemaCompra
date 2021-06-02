@@ -21,6 +21,7 @@ import { FamiliaProdutoService } from 'src/app/services/familiaProduto.service';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { UserService } from 'src/app/services/user.service';
+import { parseDate } from 'ngx-bootstrap/chronos';
 
 
 
@@ -63,7 +64,7 @@ export class SolicitacoesDetalheComponent implements OnInit {
   isCadastro: boolean;
 
   public get CanChange(): boolean{
-    return !(this.solicitacao.statusAprovacao === 0) && !(this.solicitacao.statusAprovacao === 2);
+    return !(this.solicitacao.statusAprovacao === 0);
   }
   private gridFilter = '';
   produtosFiltrados: Produto[] = [];
@@ -115,7 +116,7 @@ export class SolicitacoesDetalheComponent implements OnInit {
     this.form = this.fb.group({
       id: [this.solicitacaoId, Validators.required],
       user: [this.user?.nome, Validators.required],
-      familiaProdutoId: [this.solicitacaoProdutos[0]?.produto.familiaProdutoId, Validators.required],
+      familiaProdutoId: [this.solicitacaoProdutos[0]?.produto?.familiaProdutoId, Validators.required],
       dataSolicitacao: [this.solicitacao.dataSolicitacao ?? this.dataHoje, Validators.required],
       dataNecessidade: [this.solicitacao?.dataNecessidade, Validators.required],
       dataAprovacao: [this.solicitacao?.dataAprovacao],
@@ -179,7 +180,6 @@ public CarregarSolicitacao(): void{
   this.spinner.show();
   this.solicitacaoId = this.actRouter.snapshot.paramMap.get('id');
 
-
   if (this.solicitacaoId === null){
     this.isCadastro = true;
     this.PegarUltimoId();
@@ -191,8 +191,9 @@ public CarregarSolicitacao(): void{
 
   this.solicitacaoService.getSolicitacaoById(+this.solicitacaoId).subscribe(
     (s: Solicitacao) => {
+      debugger;
       this.solicitacao = {...s},
-      this.familiaId = s.solicitacaoProdutos[0].produto.familiaProdutoId;
+      this.familiaId = s.solicitacaoProdutos[0]?.produto?.familiaProdutoId;
       this.solicitacaoProdutos = [];
       this.form.patchValue(s);
       this.CarregarUser(s.user_id);
@@ -281,17 +282,20 @@ public CarregarAprovador(userId: number): void{
       if (this.isCadastro){
         this.solicitacao = {...this.form.value};
         debugger;
-        solicitacaoDto.dataNecessidade = this.solicitacao.dataNecessidade;
+        solicitacaoDto.dataNecessidade = new Date(this.solicitacao.dataNecessidade);
         solicitacaoDto.dataSolicitacao = this.solicitacao.dataSolicitacao;
         solicitacaoDto.observacao = this.solicitacao.observacao;
         solicitacaoDto.statusAprovacao = 2;
         solicitacaoDto.observacao = '';
         this.solicitacaoService.postSolicitacao(this.user.id, solicitacaoDto).subscribe(
+
           () => {
+            debugger
             this.toastr.success('Solicitação salva com Sucesso', 'Solicitação Salva');
             this.SalvarSolicitacaoProd();
           },
           (error: any) => {
+            debugger;
             console.log(error);
             this.toastr.error('Erro ao tentar salvar Solicitação', 'Erro');
             this.spinner.hide();
@@ -301,6 +305,8 @@ public CarregarAprovador(userId: number): void{
           }
         );
       }else{
+
+        debugger;
         this.solicitacao = {id: this.solicitacao.id, ...this.form.value};
         solicitacaoDto.id = this.solicitacao.id;
         solicitacaoDto.dataNecessidade = this.solicitacao.dataNecessidade;
@@ -309,10 +315,12 @@ public CarregarAprovador(userId: number): void{
         solicitacaoDto.statusAprovacao = 2;
         this.solicitacaoService.putSolicitacao(this.solicitacao.id, solicitacaoDto).subscribe(
           () => {
+            debugger;
             this.toastr.success('Solicitação Atualizada com Sucesso', 'Solicitação Atualizada');
             this.SalvarSolicitacaoProd();
           },
           (error: any) => {
+            debugger;
             console.log(error);
             this.toastr.error('Erro ao tentar Atualizar Solicitação', 'Erro');
             this.spinner.hide();
@@ -328,15 +336,16 @@ public CarregarAprovador(userId: number): void{
   SalvarSolicitacaoProd(): void {
     let solicitacaoProdDto = {} as SolicitacaoProdutoDTO;
     solicitacaoProdDto = new SolicitacaoProdutoDTO();
-    const solProdIdsOriginais: number[] = this.solicitacaoProdutosOriginal.map((s) => s.produto.id);
+    const solProdIdsOriginais: number[] = this.solicitacaoProdutosOriginal.map((s) => s.produto?.id);
 
     this.solicitacaoProdutos.forEach(solProd => {
-      if (solProdIdsOriginais.includes(solProd.produto.id)){
+      if (solProdIdsOriginais.includes(solProd.produto?.id)){
         solicitacaoProdDto.qtdeProduto = solProd.qtdeProduto;
-        solicitacaoProdDto.produtoId = solProd.produto.id;
+        solicitacaoProdDto.produtoId = solProd.produto?.id;
         this.solicitacaoService.putSolicitacaoProd(solProd.id, solicitacaoProdDto).subscribe(
           () => {},
           (error: any) => {
+            debugger;
             console.log(error);
             this.toastr.error('Erro ao tentar salvar Item de Solicitação', 'Erro');
             this.spinner.hide();
@@ -347,10 +356,11 @@ public CarregarAprovador(userId: number): void{
         );
       }else{
         solicitacaoProdDto.qtdeProduto = solProd.qtdeProduto;
-        solicitacaoProdDto.produtoId = solProd.produto.id;
+        solicitacaoProdDto.produtoId = solProd.produto?.id;
         this.solicitacaoService.postSolicitacaoProd(this.solicitacaoId, solicitacaoProdDto).subscribe(
           () => {},
           (error: any) => {
+            debugger;
             console.log(error);
             this.toastr.error('Erro ao tentar salvar Item de Solicitação', 'Erro');
             this.spinner.hide();
@@ -363,6 +373,7 @@ public CarregarAprovador(userId: number): void{
     });
     this.router.navigate([`/solicitações/lista`]);
   }
+
   private DeletarItens(): void{
     this.solProdIdExluidos.forEach(itemExcluido => {
       this.solicitacaoService.deleteSolicitacaoProduto(itemExcluido).subscribe(
@@ -380,7 +391,7 @@ public CarregarAprovador(userId: number): void{
   }
 //#endregion
 //#region "Modal"
-  public OpenModal(template: TemplateRef<any>, solProdId: number): void{
+  public OpenModal(template: TemplateRef<any>, solProdId: number = 0): void{
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
     this.solProdIdExluidos.push(solProdId);
   }
@@ -394,15 +405,14 @@ public CarregarAprovador(userId: number): void{
   }
 
   isAprovador(){
-    if(this.user.cargo == "Comprador" || this.user.cargo =="gerente" || this.user.cargo =="comprador" || this.user.cargo =="Gerente"){
-      this.podeAprovar= true;
-    }
+    this.podeAprovar = this.user?.cargo !== '0';
   }
 
   decline(): void {this.modalRef.hide(); }
   declineCancel(): void {this.modalRefCancel.hide(); }
 
   confirm(): void {
+    debugger;
     this.solicitacaoProdutos = this.solicitacaoProdutos.filter(s => !this.solProdIdExluidos.includes(s.id));
     this.modalRef.hide();
   }
@@ -418,9 +428,9 @@ public CarregarAprovador(userId: number): void{
 
   public IncluirItemSolic(): void{
     this.modalRefQtde.hide();
-    this.modalRefProd.hide();
+    //this.modalRefProd.hide();
     debugger;
-    let sla = this.solicitacaoProdutos.find(sp => sp.produto.id === this.produtoId);
+    let sla = this.solicitacaoProdutos.find(sp => sp.produto?.id === this.produtoId);
     if(sla !== undefined){
       sla.qtdeProduto = this.qtdeProd;
     }
@@ -442,7 +452,7 @@ public CarregarAprovador(userId: number): void{
     this.modalRefProd.hide();
   }
 
-  OpenQtdeModal(template: TemplateRef<any>, prodId: number): void{
+  OpenQtdeModal(template: TemplateRef<any>, prodId: number = 0): void{
     const prodEscolhido = this.produtos.filter((p: Produto) => p.id === prodId);
 
     this.ProdSelecionado = prodEscolhido[0];

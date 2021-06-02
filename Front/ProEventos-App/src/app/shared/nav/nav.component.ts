@@ -37,20 +37,10 @@ export class NavComponent implements OnInit {
 
 
   Validar(){
-    if(this.usuario.cargo === "Usuario" || this.usuario.cargo === "usuario" ){
-      this.isUsuario= true;
-    }
-
-    if(this.usuario.cargo === "Comprador" || this.usuario.cargo === "comprador"){
-      this.isComprador= true;
-    }
-    if(this.usuario.cargo === "Gerente" || this.usuario.cargo === "gerente"){
-      this.isGerente= true;
-    }
-
+    this.isUsuario = this.usuario.cargo === '0';
+    this.isComprador = this.usuario.cargo === '1';
+    this.isGerente = this.usuario.cargo === '2';
   }
-
-
 
   showMenu(): boolean{
     return (this.router.url !== '/user/login') && (this.router.url !== '/user/recuperar');

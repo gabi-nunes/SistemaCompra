@@ -49,7 +49,7 @@
           <input
         class="form-control"
         bsDatepicker [ngClass]="cssValidation(f.dataNecessidade )"
-        formControlName="dataNecessidade" [readonly] = "!CanChange" [minDate]="dataHoje"
+        formControlName="dataNecessidade" [isDisabled]="!CanChange" [readonly] = "!CanChange" [minDate]="dataHoje"
         [bsConfig]="bsConfig">
           <div *ngIf="f.dataNecessidade.errors?.required" class="invalid-feedback">
             O campo Prazo Necessidade é obrigatório
@@ -115,20 +115,20 @@
         <tbody *ngIf="solicitacaoProdutos && solicitacaoProdutos.length">
           <tr *ngFor="let item of solicitacaoProdutos">
             <td class="d-none d-md-table-cell text-center" style="width: 10%">
-              {{item.produto.id}}
+              {{item.produto?.id}}
             </td>
             <td class="text-center" style="width: 50%">
-              {{item.produto.descricao}}
+              {{item.produto?.descricao}}
             </td>
             <td class="d-none d-md-table-cell text-center" style="width: 20%">
-              {{item.produto.unidMedida}}
+              {{item.produto?.unidMedida}}
             </td>
             <td class="text-center" style="width: 10%">
               {{item.qtdeProduto}}
             </td>
-            <td *ngIf="CanChange" class="text-center" style="width: 30%">
-                <i class="fas fa-times fa-2x mr-2" tooltip="Excluir Item" (click)="OpenModal(template, item.id)" style="color: #d9534f; cursor: pointer;"></i>
-                <i class="fas fa-edit text-info" tooltip="Editar Quantidade" (click)="OpenQtdeModal(Quantidade, item.produto.id)" style="cursor: pointer; font-size: 30px;"></i>
+            <td *ngIf="CanChange" class="text-center no-print" style="width: 30%">
+                <i class="fas fa-times fa-2x mr-2 " tooltip="Excluir Item" (click)="OpenModal(template, item.id)" style="color: #d9534f; cursor: pointer;"></i>
+                <i class="fas fa-edit text-info " tooltip="Editar Quantidade" (click)="OpenQtdeModal(Quantidade, item.produto?.id)" style="cursor: pointer; font-size: 30px;"></i>
             </td>
           </tr>
         </tbody>
@@ -141,7 +141,7 @@
         </tfoot>
       </table>
 
-      <textarea class="form-control mt-5" formControlName="observacao" placeholder="Observações:" style="height: 100px"></textarea>
+      <textarea class="form-control mt-5" formControlName="observacao" placeholder="Observações:" [readonly] = "!CanChange" style="height: 100px"></textarea>
 
     </div>
 
@@ -151,7 +151,7 @@
           Cancelar Alteração
         </button>
 
-        <button  class="btn btn-info mr-2 no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >
+        <button  class="btn btn-info no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           <div class="d-flex">
             <i class="fas fa-file-pdf fa-lg my-1"></i>
@@ -159,24 +159,20 @@
           </div>
         </button>
 
-        <button *ngIf="solicitacao.statusAprovacao == 2 && podeAprovar" class="btn btn-primary mr-2" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarSolicitacao)">
+        <button *ngIf="solicitacao.statusAprovacao == 2 && podeAprovar" class="btn btn-primary ml-2" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarSolicitacao)">
           <div class="d-flex">
             <i class="fas fa-search fa-lg my-1"></i>
             <p class="ml-1 my-0">Avaliar</p>
           </div>
         </button>
 
-        <button *ngIf="CanChange" class="btn btn-success" [disabled]="!form.valid" (click)="SalvarSolicitacao()">
+        <button *ngIf="CanChange" class="btn btn-success ml-2" [disabled]="!form.valid || !solicitacaoProdutos.length" (click)="SalvarSolicitacao()">
           <div class="d-flex">
             <i class="fas fa-save fa-lg my-1"></i>
             <p class="ml-1 my-0">Salvar</p>
           </div>
         </button>
-        <button class="btn btn-success  ml-2 no-print" [disabled]="!form.valid" (click)="SalvarSolicitacao()">
-          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
-          Salvar Solicitação
 
-        </button>
       </div>
     </div>
   </form>
@@ -230,13 +226,13 @@
             <tbody *ngIf="produtos && produtos.length">
               <tr *ngFor="let produto of produtosFiltrados">
                 <td class="d-none d-md-table-cell text-center" style="width: 10%">
-                  {{produto.id}}
+                  {{produto?.id}}
                 </td>
                 <td class="text-center" style="width: 50%">
-                  {{produto.descricao}}
+                  {{produto?.descricao}}
                 </td>
                 <td class="d-none d-md-table-cell text-center" style="width: 20%">
-                  {{produto.unidMedida}}
+                  {{produto?.unidMedida}}
                 </td>
                 <td class="text-center" style="width: 20%">
                     <i class="fas fa-plus fa-2x text-primary" (click)="OpenQtdeModal(Quantidade, produto.id)" style="cursor: pointer;"></i>
@@ -266,7 +262,7 @@
   <div class="modal-body text-center">
     <p>
       Escolha a quantidade para <br>
-      {{ProdSelecionado.descricao}} em {{ProdSelecionado.unidMedida}}:
+      {{ProdSelecionado?.descricao}} em {{ProdSelecionado?.unidMedida}}:
     </p>
     <input [(ngModel)]="qtdeProd" type="number" class="form-control d-flex fit">
   </div>

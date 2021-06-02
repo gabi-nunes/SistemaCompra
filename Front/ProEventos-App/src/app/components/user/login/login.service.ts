@@ -29,10 +29,6 @@ export class loginService {
       loginService.pegandoUser.emit(usuario);
     }
 
-  getUser(){
-
-  }
-
 
 
 }
