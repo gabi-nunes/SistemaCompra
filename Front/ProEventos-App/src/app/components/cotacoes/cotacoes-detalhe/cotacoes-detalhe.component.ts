@@ -154,12 +154,12 @@ export class CotacoesDetalheComponent implements OnInit {
   // AdicionarCotacaoForm()
 
   criarCotacao(cotacao: Cotacao): FormGroup{
-    let fornName = this.fornecedoresEscolhidos?.find(f => f.id === cotacao.fornecedorId)?.nome;
+    let fornName = this.fornecedoresEscolhidos?.find(f => f.id === cotacao?.fornecedorId)?.nome;
     return this.fb.group({
-      fornecedor: [fornName ?? cotacao.fornecedorId],
-      total: [this.getTotalCotacao(cotacao)],
-      dataEntrega: [cotacao.dataEntrega],
-      frete: [cotacao.frete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })]
+      fornecedor: [fornName ?? cotacao?.fornecedorId],
+      total: [cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })],
+      dataEntrega: [cotacao?.dataEntrega],
+      frete: [cotacao?.frete?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })]
     });
   }
 
@@ -183,7 +183,7 @@ export class CotacoesDetalheComponent implements OnInit {
   }
 
   private getFornIdeais(): void{
-    if (this.cotacoes.length){
+    if (this.cotacoes.length && this.cotacoes.every(c => c.status==2)  ){
       this.cotacaoService.getFornecedoresIdeais(this.solicitacaoId).subscribe(
         (response: any) => {
           this.fornIdeaisObj = response;

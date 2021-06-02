@@ -228,10 +228,10 @@ public get ShowAlert(): boolean{
       enviaOf.dataEntrega= this.dataEntrega;
 
       this.itensCotacoes.forEach(item=>{
+        debugger
         this.precoUnit.itemcotacao= item.id;
         this.precoUnit.preco= item.precoUnit;
         this.precoUnit.total= item.totalItem;
-        debugger
 
         this.cotacaoService.EnviarPreçoItem(this.precoUnit).subscribe(
           (result: any) => {

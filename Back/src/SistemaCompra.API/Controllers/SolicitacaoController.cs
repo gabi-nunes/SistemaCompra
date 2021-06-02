@@ -102,8 +102,7 @@ namespace SistemaCompra.API.Controllers
             try
             {
                 var solicitacao = await SolicitacaoService.AddSolicitacaoProduto(solicitacaoId, model);
-                if (solicitacao == null) return BadRequest("Erro ao tentar Adicionar o Solicitacao produto.");
-                return Ok(solicitacao);
+                return Ok();
             }
             catch (Exception ex)
             {

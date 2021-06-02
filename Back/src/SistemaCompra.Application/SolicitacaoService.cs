@@ -32,9 +32,9 @@ namespace SistemaCompra.Application
 
                 solicitacao = new Solicitacao();
                 solicitacao.Observacao = model.Observacao;
-                var dataN = model.DataNecessidade.ToString("dd/MM/yyyy");
+                var dataN = model.DataNecessidade;
                 solicitacao.DataNecessidade = dataN;
-                var data = model.DataSolicitacao.ToString("dd/MM/yyyy");
+                var data = model.DataSolicitacao;
                 solicitacao.DataSolicitacao = data;
                 solicitacao.user_id = user.Id;
                 solicitacao.StatusAprovacao = model.StatusAprovacao;
@@ -82,7 +82,7 @@ namespace SistemaCompra.Application
                     SolicitacaoProduto sp = new SolicitacaoProduto();
                     sp.Solicitacao_Id = solicitacao.Id;
                     sp.Produto_Id = produto.Id;
-                    sp.Id = model.id;
+
                     sp.QtdeProduto = model.QtdeProduto;
                     FGeralPersist.Add<SolicitacaoProduto>(sp);
               
@@ -91,7 +91,7 @@ namespace SistemaCompra.Application
                 //  FGeralPersist.Update<SolicitacaoProduto>(sps);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    return await _SolicitacaoPresist.GetAllSolicitacaoProdByIdAsync(solicitacaId);
+                    return await _SolicitacaoPresist.GetAllSolicitacaoProdutoByIdAsync(sp.Id);
                 }
                 return null;
             }
@@ -209,9 +209,9 @@ namespace SistemaCompra.Application
                 var LESolicitacao = await _SolicitacaoPresist.GetAllSolicitacaoByIdsemProdAsync(SolicitacaoId);
                 if (LESolicitacao == null) return null;
                 //atenção aqui
-                var dataN = model.DataNecessidade.ToString("dd/MM/yyyy");
+                var dataN = model.DataNecessidade;
                 LESolicitacao.DataNecessidade = dataN;
-                var dataS = model.DataSolicitacao.ToString("dd/MM/yyyy");
+                var dataS = model.DataSolicitacao;
                 LESolicitacao.DataSolicitacao = dataS;
                 LESolicitacao.Observacao = model.Observacao;
                 LESolicitacao.StatusAprovacao = model.StatusAprovacao;

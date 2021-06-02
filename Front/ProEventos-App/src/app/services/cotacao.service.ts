@@ -26,7 +26,7 @@ export class CotacaoService {
   }
 
   getCotacaoById(cotacaoId: number): Observable<Cotacao>{
-    return this.http.get<Cotacao>(`${this.baseURL}/id/${cotacaoId}`);
+    return this.http.get<Cotacao>(`${this.baseURL}/Id/${cotacaoId}`);
   }
 
   getFornecedoresRankingByFamProdId(famProdId: number): Observable<Fornecedor[]>{

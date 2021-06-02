@@ -71,7 +71,7 @@ namespace SistemaCompra.Application
             var frete = Convert.ToDouble(model.Frete);
             var data = model.DataEntrega.ToString("dd/MM/yyyy");
             cotacao.DataEntrega = data;
-            cotacao.status = 3;
+            cotacao.status = 2;
             cotacao.Total = CalcTotalAsync(itensCots);
             cotacao.Total += frete;
             cotacao.Frete =  "R$" + model.Frete;

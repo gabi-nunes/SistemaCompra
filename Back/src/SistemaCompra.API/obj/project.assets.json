@@ -2404,7 +2404,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cliente\\.nuget\\packages\\": {},
+    "C:\\Users\\gabie\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -2420,7 +2420,7 @@
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\cliente\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gabie\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
+using SistemaCompra.Application.DTO.Request;
 using SistemaCompra.Domain;
 
 namespace SistemaCompra.Application.Contratos
 {
     public interface IuserService
     {
-        Task<user> AddUser(user model);
+        Task<user> AddUser(UserDto model);
        Task<user> UpdateUser(int userId, user model);
         Task<bool> DeleteUser(int userId);
 
