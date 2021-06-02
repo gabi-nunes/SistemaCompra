@@ -84,7 +84,7 @@
             <td class="d-none d-md-table-cell text-center" style="width: 20%">
               {{item.qtdeProduto}}
             </td>
-            <td class="text-center" style="width: 12%" *ngIf="cotacao.status!=3">
+            <td class="text-center" style="width: 12%" *ngIf="cotacao.status!=2">
               <button class="d-flex btn btn-success ml-4" (click)="OpenProdutosModal(item.id,itemCotacao)">
                 <i class="fas fa-dollar-sign"></i>
                 </button>

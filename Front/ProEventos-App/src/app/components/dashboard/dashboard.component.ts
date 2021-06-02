@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
     cotacoes: Cotacao[];
     public solicitacoes: Solicitacao[] = [];
     opcao?: number;
+    isvalid: boolean = false;
     listagem: any[]=[];
 
     public imgWidth = 150;
@@ -114,7 +115,7 @@ export class DashboardComponent implements OnInit {
   }
 
   GetColorByStatusCotacao(solId: number): any{
-    debugger;
+
     const status = this.GetStatus(solId);
     let statusObj = {color: '', tooltip: ''};
     switch (status) {
@@ -135,6 +136,7 @@ export class DashboardComponent implements OnInit {
         statusObj.tooltip  = 'Pendente';
         break;
     }
+
     return statusObj;
   }
 
@@ -166,6 +168,12 @@ export class DashboardComponent implements OnInit {
     this.cotacaoService.getCotacoes().subscribe({
       next: (CotacaoResponse: Cotacao[]) => {
         this.cotacoes = CotacaoResponse;
+        this.cotacoes.forEach(item => {
+          if(item.status > 0){
+             this.isvalid= true;
+          }
+        })
+        console.log(this.isvalid)
         // this.CotacaoFiltradas = CotacaoResponse;
       },
       error: () => {
@@ -181,7 +189,6 @@ export class DashboardComponent implements OnInit {
       this.solicitacaoService.getSolicitacoes().subscribe({
         next: (solicitacoesResponse: any[]) => {
           this.Solicitacaocotacoes = solicitacoesResponse;
-          debugger
           this.Solicitacaocotacoes = this.Solicitacaocotacoes?.filter(s => s.statusAprovacao === 0);
         },
         error: () => {

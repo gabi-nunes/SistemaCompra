@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ftAztwj1jOJQQ8K8T/PJS5r3Og8CT3XWqc087FmWSxwlx/aIS8+kt1R5r7B7RO+XEa5do9O041R4k+XkRm+a8A==",
+  "dgSpecHash": "38TNP1donDGkyinfeHCo0fSNxJh4obYQB0d/zN0/NJplgTx83uWQMs/88Uk4fSMmqgaXiCRhsDRNcM+OSAbfXQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
+  "projectFilePath": "C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gabie\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\gabie\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
