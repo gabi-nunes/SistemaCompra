@@ -3,6 +3,7 @@
 
   <div class="d-flex">
     <div class="flex-grow-1 pr-2">
+      <div class="mb-2">Filtrar por descrição do produto: </div>
       <div class="input-group mb-2">
         <input type="text"
         class="form-control"
@@ -19,7 +20,9 @@
     <div class="mr-5 ml-5">
     </div>
 
+
     <div class="mr-2">
+      <div>Filtrar por Familia do Produto: </div>
       <select class="form-control" [(ngModel)]="FamiliaIdFiltro">
         <option value="">Todas</option>
         <option *ngFor="let famProd of familiaProdutos" value="{{famProd.id}}">
