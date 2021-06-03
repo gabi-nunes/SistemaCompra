@@ -228,13 +228,16 @@ public get ShowAlert(): boolean{
       enviaOf.dataEntrega= this.dataEntrega;
 
       this.itensCotacoes.forEach(item=>{
-        debugger
+
         this.precoUnit.itemcotacao= item.id;
         this.precoUnit.preco= item.precoUnit;
         this.precoUnit.total= item.totalItem;
 
+        console.log("DENTRO DO FOR " + this.precoUnit)
+
         this.cotacaoService.EnviarPreçoItem(this.precoUnit).subscribe(
           (result: any) => {
+          console.log("DENTRO DO SERVICE" + result)
           },
           (error: any) => {
             console.error(error);

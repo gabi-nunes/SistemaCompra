@@ -16,6 +16,7 @@ import { PedidoService } from 'src/app/services/pedido.service';
 export class PedidoListaComponent implements OnInit {
 
   modalRef = {} as BsModalRef;
+  modalRefAprovacao = {} as BsModalRef;
   constructor(
     private pedidoService: PedidoService,
     private modalService: BsModalService,
@@ -29,6 +30,7 @@ export class PedidoListaComponent implements OnInit {
   public pedidosFiltrados: Pedido[] = [];
   public imgWidth = 150;
   public imgMargin = 2;
+  pedido : Pedido;
   public imgIsVisible = false;
   private gridFilter = '';
   valor: string;
@@ -65,6 +67,12 @@ export class PedidoListaComponent implements OnInit {
     if(this.user?.cargo == "Comprador" || this.user?.cargo =="gerente" || this.user?.cargo =="comprador" || this.user.cargo =="Gerente"){
       this.podeAprovar= true;
     }
+  }
+
+
+  openModalAprovacao(template: TemplateRef<any>, pedido: Pedido): void{
+    this.pedido = pedido;
+    this.modalRefAprovacao = this.modalService.show(template, {class: 'modal-md modal-dialog-centered'});
   }
 
   public AlteraVisibilidadeImg(): void{

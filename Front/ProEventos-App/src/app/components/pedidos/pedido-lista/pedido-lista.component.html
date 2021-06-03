@@ -29,8 +29,9 @@
         <td class="text-center">{{pedido.dataEmissao}}</td>
         <td class="text-center"><i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(pedido.statusAprov)}" [tooltip]="GetTooltipByStatus(pedido.statusAprov)"></i></td>
         <td class="text-center">
-            <i class="fas fa-times fa-2x" (click)="openModal(template, pedido.id)" style="color: red; cursor: pointer;"></i>
-        </td>
+          <i *ngIf="pedido.statusAprov === 2 && podeAprovar" class="fas fa-search " tooltip="Avaliar" (click)="openModalAprovacao(AprovarPedido, pedido)" style="color: #5bc0de; cursor: pointer; font-size: x-large;"></i>
+          <i class="fas fa-times fa-2x" (click)="openModal(template, pedido.id)" style="color: red; cursor: pointer;"></i>
+          </td>
       </tr>
     </tbody>
     <tfoot *ngIf="!pedidos || pedidos.length == 0">
@@ -70,4 +71,8 @@
     <button type="button" class="btn btn-success"  (click)="incluirValor()">Salvar</button>
   </div>
 </div>
+</ng-template>
+
+<ng-template #AprovarPedido>
+  <app-aprovar-Pedido [modal]="modalRefAprovacao" [pedido]="pedido"></app-aprovar-Pedido>
 </ng-template>

@@ -47,6 +47,7 @@ itensPedidos: ItemPedido[] = [];
 itemPedId: number;
 fornecedor: Fornecedor;
 produto: Produto[]=[];
+podeAprovar : boolean = false;
 
 modalRef = {} as BsModalRef;
 modalRefAprovacao = {} as BsModalRef;
@@ -56,6 +57,7 @@ this.validation();
 this.actRouter.params.subscribe(params => this.pedidoId = params['id']);
 const userJson = localStorage.getItem('currentUser') || '{}';
 this.user = JSON.parse(userJson);
+this.isAprovador();
 this.CarregarPedidos();
 this.Carregarprodutos();
 // this.CarregarFamiliaProdutos();
@@ -150,6 +152,11 @@ public CarregarFornecedor(): void{
     }
 
 
+    isAprovador(){
+      if(this.user.cargo == "Comprador" || this.user.cargo =="gerente" || this.user.cargo =="comprador" || this.user.cargo =="Gerente"){
+        this.podeAprovar= true;
+      }
+    }
 
 
 // public setItensPedidos(itemPid: number): ItemPedido{
