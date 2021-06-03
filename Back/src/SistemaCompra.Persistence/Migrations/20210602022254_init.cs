@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemaCompra.Persistence.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -130,7 +130,7 @@ namespace SistemaCompra.Persistence.Migrations
                     DataEmissaoCotacao = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     SolicitacaoId = table.Column<int>(type: "int", nullable: false),
                     prazoDias = table.Column<int>(type: "int", nullable: false),
-                    Frete = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Frete = table.Column<double>(type: "double", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false),
                     FrmPagamento = table.Column<int>(type: "int", nullable: false),
                     DataEntrega = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),

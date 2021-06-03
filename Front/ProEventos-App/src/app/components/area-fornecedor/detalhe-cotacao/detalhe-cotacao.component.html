@@ -68,7 +68,7 @@
             <th class="d-none d-md-table-cell text-center">Código</th>
             <th class="text-center">Descrição</th>
             <th class="text-center">Quantidade</th>
-            <th class="text-center no-print" *ngIf="cotacao.status!=3">Enviar Preço</th>
+            <th class="text-center no-print" *ngIf="cotacao.status!=2">Enviar Preço</th>
             <th class="text-center no-print">Preço Unitario</th>
             <th class="text-center no-print">Total</th>
           </tr>
@@ -115,7 +115,7 @@
         <button class="btn btn-outline-secondary mr-auto border no-print" (click)="CancelarForm()">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success no-print" *ngIf="cotacao.status!=3" [disabled]="!form.valid"  (click)="EnviarOfertaFornecedor()" >
+        <button class="btn btn-success no-print" *ngIf="cotacao.status!=2" [disabled]="!form.valid"  (click)="EnviarOfertaFornecedor()" >
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           Enviar
         </button>

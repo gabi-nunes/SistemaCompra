@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Pedido } from 'src/app/models/Pedido';
+import { user } from 'src/app/models/user';
 import { PedidoService } from 'src/app/services/pedido.service';
 
 
@@ -31,6 +32,9 @@ export class PedidoListaComponent implements OnInit {
   public imgIsVisible = false;
   private gridFilter = '';
   valor: string;
+  user: user;
+
+  podeAprovar : boolean = false;
 
   public get GridFilter(): string{
     return this.gridFilter;
@@ -50,7 +54,17 @@ export class PedidoListaComponent implements OnInit {
 
   public ngOnInit(): void {
     this.spinner.show();
+    const userJson = localStorage.getItem('currentUser') || '{}';
+    this.user = JSON.parse(userJson);
+    this.isAprovar();
     this.CarregarPedidos();
+  }
+
+  isAprovar(){
+    debugger
+    if(this.user?.cargo == "Comprador" || this.user?.cargo =="gerente" || this.user?.cargo =="comprador" || this.user.cargo =="Gerente"){
+      this.podeAprovar= true;
+    }
   }
 
   public AlteraVisibilidadeImg(): void{
