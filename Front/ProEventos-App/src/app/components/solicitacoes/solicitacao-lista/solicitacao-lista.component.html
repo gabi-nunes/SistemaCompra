@@ -1,14 +1,7 @@
 <div class="card p-3 shadow-sm rounded">
 
-  <div class="d-flex">
-    <div class="flex-fill pr-3">
-      <div class="input-group mb-2">
-        <div class="input-group-prepend">
-        </div>
-      </div>
-    </div>
-
-    <div>
+  <div class="d-flex justify-content-end">
+    <div class="mb-2">
       <a class="d-flex btn btn-outline-primary" routerLink="/solicitações/detalhe">
         <i class="fas fa-plus-circle my-1"></i>
         <b class="ml-1 d-none d-md-block">Nova Solicitação</b>
@@ -29,8 +22,8 @@
     <tbody *ngIf="solicitacoes && solicitacoes.length">
       <tr *ngFor="let solicitacao of solicitacoesFiltradas" (dblclick)= "DetalharSolicitacao(solicitacao.id)">
         <td class="d-none d-md-table-cell text-center">{{solicitacao.id}}</td>
-        <td class="text-center">{{solicitacao.dataNecessidade }}</td>
-        <td class="text-center">{{solicitacao.dataSolicitacao }}</td>
+        <td class="text-center">{{solicitacao.dataNecessidade}}</td>
+        <td class="text-center">{{solicitacao.dataSolicitacao}}</td>
         <td class="text-center">
           <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(solicitacao.statusAprovacao)}" [tooltip]="GetTooltipByStatus(solicitacao.statusAprovacao)"></i>
         </td>
@@ -44,7 +37,7 @@
     <tfoot *ngIf="!solicitacoes || solicitacoes.length == 0">
       <tr>
         <td colspan="8" class="text-center">
-          <h4 >Não há solicitacoes cadastradas</h4>
+          <h4>Não há solicitações cadastradas</h4>
         </td>
       </tr>
     </tfoot>
