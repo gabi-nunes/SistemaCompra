@@ -12,4 +12,5 @@ export interface Pedido {
  cotacaoId: number;
  cotacao: Cotacao;
  itensPedidos: ItemPedido[];
+ valorMaximo : number;
 }

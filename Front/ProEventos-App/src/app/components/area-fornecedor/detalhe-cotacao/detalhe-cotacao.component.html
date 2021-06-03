@@ -32,7 +32,7 @@
         <div class="form-group col-md-1">
           <label>Frete</label>
           <input type="text" class="form-control"
-          formControlName="frete" pattern="[0-9.,]+$" placeholder="R$ 0,00"  [(ngModel)]="frete"
+          formControlName="frete" placeholder="R$ 0,00"  [(ngModel)]="frete"
           [readonly]= isExpirada
           (change)="onKey(frete)">
         </div>
