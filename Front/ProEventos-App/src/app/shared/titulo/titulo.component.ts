@@ -11,16 +11,19 @@ export class TituloComponent implements OnInit {
   @Input() titulo = 'Dashboard';
   @Input() subtitulo = '';
   @Input() icone = '';
-  @Input() mostraBtnListar = false;
+
+  public get mostraBtnListar(): boolean{
+    return !this.router.url.includes('lista') && !this.router.url.includes('dashboard');
+  }
 
   ngOnInit(): void {
   }
 
   Listar(): void{
     debugger;
-    this.router.navigate([`/${this.titulo.toLocaleLowerCase()}/lista`]);
+    this.router.url.includes('lista')
+    this.router.navigate([`/${this.titulo.toLocaleLowerCase().replace('cotações', 'cotacoes')}/lista`]);
   }
-  // normalize('NFD').replace('/[\u0300-\u036f]/g', '')
 
   ShowMenu(): boolean{
     return this.router.url !== '/user/login' && this.router.url !== '/user/recuperar';

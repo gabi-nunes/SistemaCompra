@@ -233,22 +233,6 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("CotacaoGanhadore/{IdCot}")]
-        public async Task<IActionResult> GetFornecedorVencedor(int IdCot)
-        {
-            try
-            {
-                var cotacao = await CotacaoService.CotacaoVencedora(IdCot);
-                if (cotacao == null) return BadRequest("Erro ao tentar Definir Fornecedor Ganhador.");
-                return Ok(cotacao);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.InnerException.Message);
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar Definir Fornecedor Ganhador. Erro: {ex.Message}");
-            }
-        }
-
         [HttpGet("FornecedorIdeal/{SolicitacaoId}")]
         public async Task<IActionResult> GetFornecedorIdeal(int SolicitacaoId)
         {

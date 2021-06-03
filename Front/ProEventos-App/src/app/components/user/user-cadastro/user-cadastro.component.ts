@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { CompileTemplateMetadata } from '@angular/compiler';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 ;
 
 @Component({
@@ -19,26 +20,26 @@ export class UserCadastroComponent implements OnInit {
   form: FormGroup;
   order=0;
   estadoSalvar = 'post';
-  senha: boolean = true;
   alterarS: boolean = true;
 
-  constructor(private service: UserService,  private route: ActivatedRoute, private router: Router,private fb: FormBuilder,  private toastr: ToastrService,private spinner: NgxSpinnerService) { }
+  constructor(private service: UserService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private fb: FormBuilder,
+              private toastr: ToastrService,
+              private spinner: NgxSpinnerService) { }
 
 
   ngOnInit(): void {
     this.validation();
-
   }
-
 
   public validation(): void {
     this.form = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
      email: ['', Validators.required],
       setor: ['', Validators.required],
-      senha: ['', [Validators.required, Validators.max(120000)]],
       cargo: ['', Validators.required],
-
     });
   }
 
@@ -50,32 +51,26 @@ export class UserCadastroComponent implements OnInit {
     return {'is-invalid': campoForm.errors && campoForm.touched};
   }
 
-public salvarUser(): void {
-  debugger
-  if(this.form.valid){
+  public salvarUser(): void {
+    debugger
+    if(this.form.valid){
 
-    if(this.estadoSalvar ==='post'){
+      if(this.estadoSalvar ==='post'){
+        this.usuario = {... this.form.value};
 
-      this.usuario = {... this.form.value}
-
-  this.service.RegisterUser(this.usuario).subscribe(
-
-    () => this.toastr.success('Evento salvo com sucesso!', 'sucesso'),
-
-    () => this.spinner.hide()
-
-
-  );
-   this.spinner.hide()
-   //colocar um treco de carregar
-    this.router.navigate(['/user/lista']);
-}
-
-}
-}
-
-
-
+        this.service.RegisterUser(this.usuario).subscribe(
+          () => this.toastr.success('Usuário salvo com sucesso!', 'Sucesso'),
+          () => this.spinner.hide(),
+          () => {}
+        );
+        this.spinner.hide()
+        //colocar um treco de carregar
+        this.router.navigate(['/user/lista']);
+      }
+    }else{
+      this.toastr.error('Preencha todos os Campos', 'ERRO');
+    }
+  }
 }
 
 

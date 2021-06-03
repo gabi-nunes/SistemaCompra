@@ -7,9 +7,9 @@ export interface Solicitacao {
   user: user;
   observacao: string;
   observacaoRejeicao: string;
-  dataNecessidade: Date;
-  dataAprovacao: Date;
-  dataSolicitacao: Date;
+  dataNecessidade: any;
+  dataAprovacao: any;
+  dataSolicitacao: any;
   statusAprovacao: number;
   idAprovador: number;
   solicitacaoProdutos: SolicitacaoProduto[];

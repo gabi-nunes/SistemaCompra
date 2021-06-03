@@ -1,7 +1,7 @@
 export class SolicitacaoDTO {
     id: number;
-    dataNecessidade: Date;
-    dataSolicitacao: Date;
+    dataNecessidade: string;
+    dataSolicitacao: string;
     statusAprovacao: number;
     observacao: string;
     observacaoRejeicao: string;

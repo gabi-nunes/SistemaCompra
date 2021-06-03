@@ -109,6 +109,7 @@ namespace SistemaCompra.Application
             {
                 var cotacao = await _pedidoPresist.GetCotacaooByIdAsync(model.cotacaoId);
                 cotacao.status = 3;
+                cotacao.FornecedorGanhadorId = cotacao.fornecedorId;
                 FGeralPersist.Update<Cotacao>(cotacao);
                 await FGeralPersist.SaveChangesAsync();
 
