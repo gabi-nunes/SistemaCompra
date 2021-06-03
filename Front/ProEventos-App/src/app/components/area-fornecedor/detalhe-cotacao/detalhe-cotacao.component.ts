@@ -227,41 +227,18 @@ public get ShowAlert(): boolean{
       enviaOf.frete= parseFloat(this.frete);
       enviaOf.dataEntrega= this.dataEntrega;
 
-      this.itensCotacoes.forEach(item=>{
-
-        this.precoUnit.itemcotacao= item.id;
-        this.precoUnit.preco= item.precoUnit;
-        this.precoUnit.total= item.totalItem;
-
-        console.log("DENTRO DO FOR " + this.precoUnit)
-
-        this.cotacaoService.EnviarPreçoItem(this.precoUnit).subscribe(
-          (result: any) => {
-          console.log("DENTRO DO SERVICE" + result)
-          },
-          (error: any) => {
-            console.error(error);
-            this.toastr.error('Falha ao tentar adicionar', 'Erro');
-            this.spinner.hide();
-          },
-          () => {
-            this.spinner.hide()
-          },
-        );
-      });
-
       this.cotacaoService.enviar(this.cotacaoid, enviaOf).subscribe(
         (result: any) => {
           this.toastr.success('Enviado com sucesso', 'Sucesso!');
-          this.router.navigate(['/areaFornecedor/listaCotacao']);
+
         },
         () => {},
-        () => {}
-      );
+        () => {}  );
     }
     else{
       this.toastr.error('Adicione os Preços unitarios!', 'Erro');
     }
+    
   }
 
 
@@ -283,10 +260,26 @@ public get ShowAlert(): boolean{
     item.totalItem=  valorRecebido * this.qtdeProd;
     console.log(valorRecebido)
     this.itemCotacaoEnvia.push(item);
-    console.log(this.itemCotacaoEnvia)
     let principal= this.itensCotacoes.find(x=>x.id == this.itemCotacaoid);
     this.cotacao.total += item.totalItem;
     this.form.patchValue({total: this.cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
+
+    this.precoUnit.preco= item.precoUnit;
+        this.precoUnit.total= item.totalItem;
+
+    this.cotacaoService.EnviarPreçoItem(item.id, this.precoUnit).subscribe(
+        (result: any) => {
+        console.log("DENTRO DO SERVICE" + this.precoUnit)
+        },
+        (error: any) => {
+          console.error(error);
+          this.toastr.error('Falha ao tentar adicionar', 'Erro');
+          this.spinner.hide();
+        },
+        () => {
+          this.spinner.hide()
+        },
+      );
 
     console.log(this.cotacao.total);
     this.valor='';
@@ -322,8 +315,6 @@ public get ShowAlert(): boolean{
   onMudouEvento(evento: any): void{
     console.log(evento);
   }
-
-
 
   GerarRelatrio(): void{
 
