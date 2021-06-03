@@ -30,6 +30,7 @@ export class ListagemCotacaoComponent implements OnInit {
     private familiaProdService: FamiliaProdutoService,
   ) {}
 
+  // public hasReloaded = false;
   public cotacao: Cotacao[] = [];
   public fornecedor: Fornecedor;
   public cotacaoId = 0;
@@ -62,20 +63,18 @@ export class ListagemCotacaoComponent implements OnInit {
 
 
   public ngOnInit(): void {
+    //this.reload();
     const userJson = localStorage.getItem('currentUser') || '{}';
     this.fornecedor = JSON.parse(userJson);
     this.CarregarCotacaoes();
-    this.load()
   }
 
-
-  load() {
-    console.log(sessionStorage);
-    //Session storage salva os dados como string
-    (sessionStorage.refresh == 'true' || !sessionStorage.refresh) && location.reload();
-    sessionStorage.refresh = false;
-  }
-
+  // reload():void{
+  //   if (!this.hasReloaded){
+  //     window.location.reload();
+  //     this.hasReloaded = true;
+  //   }
+  // }
 
   public CarregarCotacaoes(): void{
     // tslint:disable-next-line: deprecation

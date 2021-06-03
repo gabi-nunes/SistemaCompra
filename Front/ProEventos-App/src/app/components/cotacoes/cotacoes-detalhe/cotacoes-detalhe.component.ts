@@ -90,6 +90,7 @@ export class CotacoesDetalheComponent implements OnInit {
   }
 
   public get IsCotacaoEncerrada(): boolean{
+    if (!this.cotacoes.length) {return false; }
     return this.cotacoes.every(c => c.status == 3);
   }
 

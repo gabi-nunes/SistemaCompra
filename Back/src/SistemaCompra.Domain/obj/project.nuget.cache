@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "h0yHKHtURsGXhdPcKZgmNY9NjjRem+yfOKni1fZOquv9hXc/p/CnIN8/Lcbqv1uQIEDVYW8peFFSkmLVgsXYZQ==",
+  "dgSpecHash": "NBD1vJpuPZUTrfxfs1CCmu2OOZkRYavw2bp31PEttz9E3bBFdy1DmyStVGua8siny8/mq5VDy1zcDJZiemLU1A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+  "projectFilePath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\cliente\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.10.0\\microsoft.identitymodel.jsonwebtokens.6.10.0.nupkg.sha512",

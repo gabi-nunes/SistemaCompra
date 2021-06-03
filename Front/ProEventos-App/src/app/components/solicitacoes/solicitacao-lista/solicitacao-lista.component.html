@@ -22,8 +22,8 @@
     <tbody *ngIf="solicitacoes && solicitacoes.length">
       <tr *ngFor="let solicitacao of solicitacoesFiltradas" (dblclick)= "DetalharSolicitacao(solicitacao.id)">
         <td class="d-none d-md-table-cell text-center">{{solicitacao.id}}</td>
-        <td class="text-center">{{solicitacao.dataNecessidade }}</td>
-        <td class="text-center">{{solicitacao.dataSolicitacao }}</td>
+        <td class="text-center">{{solicitacao.dataNecessidade}}</td>
+        <td class="text-center">{{solicitacao.dataSolicitacao}}</td>
         <td class="text-center">
           <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(solicitacao.statusAprovacao)}" [tooltip]="GetTooltipByStatus(solicitacao.statusAprovacao)"></i>
         </td>

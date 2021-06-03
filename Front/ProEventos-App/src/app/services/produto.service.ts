@@ -9,8 +9,8 @@ import { Produto } from '../models/Produto';
 export class ProdutoService {
 
 constructor(private http: HttpClient) { }
-  // public baseURL = 'https://localhost:5001/Produto';
-  public baseURL = 'https://localhost:44358/Produto';
+  public baseURL = 'https://localhost:5001/Produto';
+  //public baseURL = 'https://localhost:44358/Produto';
 
   getProdutos(): Observable<Produto[]>{
     return this.http.get<Produto[]>(this.baseURL);

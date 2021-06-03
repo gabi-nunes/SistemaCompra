@@ -282,13 +282,17 @@ public CarregarAprovador(userId: number): void{
       if (this.isCadastro){
         this.solicitacao = {...this.form.value};
         debugger;
-        solicitacaoDto.dataNecessidade = new Date(this.solicitacao.dataNecessidade);
-        solicitacaoDto.dataSolicitacao = this.solicitacao.dataSolicitacao;
+        const dataNeces = ((this.form.value.dataNecessidade.getDate())) + "/" + ((this.form.value.dataNecessidade.getMonth() + 1)) + "/"
+                        + this.form.value.dataNecessidade.getFullYear();
+        const dataSolic = ((this.form.value.dataSolicitacao.getDate())) + "/" + ((this.form.value.dataSolicitacao.getMonth() + 1)) + "/"
+                        + this.form.value.dataSolicitacao.getFullYear();
+
+        solicitacaoDto.dataNecessidade = dataNeces;
+        solicitacaoDto.dataSolicitacao = dataSolic;
         solicitacaoDto.observacao = this.solicitacao.observacao;
         solicitacaoDto.statusAprovacao = 2;
         solicitacaoDto.observacao = '';
         this.solicitacaoService.postSolicitacao(this.user.id, solicitacaoDto).subscribe(
-
           () => {
             debugger
             this.toastr.success('Solicitação salva com Sucesso', 'Solicitação Salva');
@@ -309,8 +313,8 @@ public CarregarAprovador(userId: number): void{
         debugger;
         this.solicitacao = {id: this.solicitacao.id, ...this.form.value};
         solicitacaoDto.id = this.solicitacao.id;
-        solicitacaoDto.dataNecessidade = this.solicitacao.dataNecessidade;
-        solicitacaoDto.dataSolicitacao = this.solicitacao.dataSolicitacao;
+        solicitacaoDto.dataNecessidade = this.form.value.dataNecessidade;
+        solicitacaoDto.dataSolicitacao = this.form.value.dataSolicitacao;
         solicitacaoDto.observacao = this.solicitacao.observacao;
         solicitacaoDto.statusAprovacao = 2;
         this.solicitacaoService.putSolicitacao(this.solicitacao.id, solicitacaoDto).subscribe(

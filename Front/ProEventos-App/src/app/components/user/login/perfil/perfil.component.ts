@@ -1,5 +1,3 @@
-import { loginService } from './../login.service';
-
 import { Component, Input, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -30,10 +28,9 @@ export class PerfilComponent implements OnInit {
 
 
   constructor(  private userService: UserService,
-    private modalService: BsModalService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    private router: Router, private log : loginService,
+    private router: Router,
     private fb: FormBuilder,
     private route: ActivatedRoute) { }
 

@@ -1,6 +1,5 @@
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 import { Fornecedor } from 'src/app/models/Fornecedor';
-import { loginService } from './login.service';
 import { Login } from './../../../models/login';
 import { UserService } from 'src/app/services/user.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';

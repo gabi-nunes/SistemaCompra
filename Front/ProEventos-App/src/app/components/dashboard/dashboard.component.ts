@@ -52,7 +52,6 @@ export class DashboardComponent implements OnInit {
       this.opcao =0;
       const userJson = localStorage.getItem('currentUser') || '{}';
       this.user = JSON.parse(userJson);
-      this.load();
     }
 
 
@@ -72,13 +71,6 @@ export class DashboardComponent implements OnInit {
       else if (cots.every(c => c.status === 2)) { return 2; }
       else if (cots.some(c => c.status === 1)) { return 1; }
       return 0;
-    }
-
-    load() {
-      console.log('sessionStorage', sessionStorage);
-      (sessionStorage.refresh == 'true' || !sessionStorage.refresh)
-          && location.reload();
-      sessionStorage.refresh = false;
     }
 
     GetColorByStatus(status: number): any{

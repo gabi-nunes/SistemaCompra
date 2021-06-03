@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ynKE6YQzIPBp3i31NyK9SfQn/2wNXbaOURBnTNHE6+5e4xG86YprKbultsPRoDlNMu/zV8ALBBPagAbuUSbpRQ==",
+  "dgSpecHash": "/+OFf/WhERI7VZPH1aH2JJIzS0QtFMMDp0VIRvuv2SPW9Eq7yqDqwR/D9EXQHiZjeClVVuFpXuBytFCsxbaKZg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
+  "projectFilePath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\cliente\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.4\\microsoft.entityframeworkcore.5.0.4.nupkg.sha512",

@@ -448,27 +448,6 @@ namespace SistemaCompra.Application
             return model;
         }
 
-        public async Task<Cotacao> CotacaoVencedora(int idCot)
-        {
-            try
-            {
-                var CotacaoIdeal = await _CotacaoPresist.GetCotacaoByIdAsync(idCot);
-                CotacaoIdeal.FornecedorGanhadorId = CotacaoIdeal.fornecedorId;
-                CotacaoIdeal.status = 3;
-
-                FGeralPersist.Update<Cotacao>(CotacaoIdeal);
-                if (await FGeralPersist.SaveChangesAsync())
-                {
-                    return await _CotacaoPresist.GetCotacaoByIdAsync(idCot);
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
         public async Task<Fornecedor[]> FornecedorMaioresRankingAsync(int id)
         {
             var fornecedorMaiorRanking = await _CotacaoPresist.GetFornecedorGanhadorAsync(id);

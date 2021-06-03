@@ -30,7 +30,6 @@ namespace SistemaCompra.Application.Contratos
         Task<FornecedorIdealDto> fornecedorIdeal(int idsol);
         Task<double> CalcQuantporItemAsync(int id);
         Task<Fornecedor[]> FornecedorMaioresRankingAsync(int id);
-        Task<Cotacao> CotacaoVencedora(int idCot);
         Task<Cotacao[]> GetCotacaoPendenteAsync();
         Task<Cotacao[]> GetCotacaoEncerradaAsync();
         Task<Cotacao[]> GetCotacaoPorFornecedorIDAsync();

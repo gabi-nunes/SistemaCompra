@@ -2,12 +2,11 @@
 <div class="card p-3 shadow-sm rounded">
 
   <div class="d-flex">
-    <div class="flex-grow-1 pr-2">
-      <div class="mb-2">Filtrar por descrição do produto: </div>
+    <div class="flex-grow-1 mt-0">
+      <div>Filtrar por descrição do produto: </div>
       <div class="input-group mb-2">
         <input type="text"
         class="form-control"
-        placeholder="Filtrar por descrição de produto"
         [(ngModel)]="GridFilter">
         <div class="input-group-append">
           <div class="input-group-text bg-logo">
@@ -17,11 +16,9 @@
       </div>
     </div>
 
-    <div class="mr-5 ml-5">
-    </div>
+    <div class="mr-5 ml-5"></div>
 
-
-    <div class="mr-2">
+    <div>
       <div>Filtrar por Familia do Produto: </div>
       <select class="form-control" [(ngModel)]="FamiliaIdFiltro">
         <option value="">Todas</option>
