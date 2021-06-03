@@ -73,6 +73,8 @@ export class DetalheCotacaoComponent implements OnInit {
   itemCotacaoEnvia: ItemCotacao[]=[]
   now = new Date;
 
+  isDetalhe: boolean = false;
+
   solProdIdExluidos: number[] = [];
   itensCotacoes: ItemCotacao[] = [];
   solicitacaoProdutosOriginal: SolicitacaoProduto[] = [];
@@ -108,6 +110,7 @@ export class DetalheCotacaoComponent implements OnInit {
   ) { this.localeService.use('pt-br');}
 
   ngOnInit(): void{
+    this.isDetalhe = false;
     this.actRouter.params.subscribe(params => this.cotacaoid = params['id']);
     this.CarregarCotacaoes();
     this.validation();
@@ -128,7 +131,7 @@ export class DetalheCotacaoComponent implements OnInit {
       dataEmissaoCotacao: [this.cotacao?.dataEmissaoCotacao],
       prazoOfertas: [this.cotacao?.prazoOfertas],
       dataEntrega:[this.cotacao?.dataEntrega,Validators.required],
-      frete: [this.cotacao?.frete,Validators.required],
+      frete: [this.cotacao?.frete?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),Validators.required],
       total: [this.cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })]
     });
   }
@@ -154,8 +157,6 @@ public CarregarCotacaoes(): void{
         this.Carregarprodutos();
         this.itensCotacoes.push(itemcotacao);
       });
-      debugger
-      console.log(this.itensCotacoes);
       this.validation();
     },
     () => {
@@ -171,6 +172,7 @@ public getDescricaoproduto(idProduto: number): string{
   var descProduto= produtoSelecionado?.descricao ?? '';
   return descProduto;
 }
+
 public Carregarprodutos(): void{
   // tslint:disable-next-line: deprecation
   this.produtoService.getProdutos().subscribe(
@@ -183,8 +185,6 @@ public Carregarprodutos(): void{
     },
     () => this.spinner.hide()
   );
-
-
 }
 
 public get ShowAlert(): boolean{
@@ -224,17 +224,20 @@ public get ShowAlert(): boolean{
     if(isValid){
       const enviaOf = new EnviarOferta();
 
-      enviaOf.frete= this.frete;
+      enviaOf.frete= parseFloat(this.frete);
       enviaOf.dataEntrega= this.dataEntrega;
 
       this.itensCotacoes.forEach(item=>{
-        debugger
+
         this.precoUnit.itemcotacao= item.id;
         this.precoUnit.preco= item.precoUnit;
         this.precoUnit.total= item.totalItem;
 
+        console.log("DENTRO DO FOR " + this.precoUnit)
+
         this.cotacaoService.EnviarPreçoItem(this.precoUnit).subscribe(
           (result: any) => {
+          console.log("DENTRO DO SERVICE" + result)
           },
           (error: any) => {
             console.error(error);

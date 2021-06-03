@@ -9,8 +9,8 @@ using SistemaCompra.Persistence;
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(GoodPlaceContext))]
-    [Migration("20210528003025_Initial")]
-    partial class Initial
+    [Migration("20210602022254_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,8 +37,8 @@ namespace SistemaCompra.Persistence.Migrations
                     b.Property<int>("FornecedorGanhadorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Frete")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<double>("Frete")
+                        .HasColumnType("double");
 
                     b.Property<int>("FrmPagamento")
                         .HasColumnType("int");

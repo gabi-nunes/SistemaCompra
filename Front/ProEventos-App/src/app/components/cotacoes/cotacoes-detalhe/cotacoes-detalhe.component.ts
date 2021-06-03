@@ -353,7 +353,7 @@ public CarregarFamiliaProduto(): void{
     );
   }
 
- public NavigateToFornecedor(): void{this.router.navigate([`/fornecedor/detalhe`]); }
+ public NavigateToFornecedor(): void{this.router.navigate([`/fornecedores/detalhe`]); }
 
 public CarregarFornecedoresRanking(): void{
 

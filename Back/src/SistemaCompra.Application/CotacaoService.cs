@@ -68,13 +68,13 @@ namespace SistemaCompra.Application
             var itensCots = await _CotacaoPresist.GetAllItemCotacaoByIdCotAsync(idCot);
             if (cotacao == null) return null;
 
-            var frete = Convert.ToDouble(model.Frete);
             var data = model.DataEntrega.ToString("dd/MM/yyyy");
             cotacao.DataEntrega = data;
             cotacao.status = 2;
+            cotacao.Frete = model.Frete;
             cotacao.Total = CalcTotalAsync(itensCots);
-            cotacao.Total += frete;
-            cotacao.Frete =  "R$" + model.Frete;
+            cotacao.Total += model.Frete;
+            
 
             FGeralPersist.Update<Cotacao>(cotacao);
 

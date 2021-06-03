@@ -1,6 +1,6 @@
 
 
 export class EnviarOferta {
-  frete: string ;
+  frete: number ;
   dataEntrega: Date;
 }

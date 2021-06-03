@@ -190,7 +190,7 @@
         <button class="btn btn-outline-secondary mr-auto border no-print" (click)="OpenModal(template)">
           Cancelar Alteração
         </button>
-        <button class="btn btn-primary mr-2" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarPedido)">
+        <button class="btn btn-primary mr-2 no-print" *ngIf="pedido.statusAprov == 2 && podeAprovar" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarPedido)">
           <div class="d-flex">
             <i class="fas fa-search fa-lg my-1"></i>
             <p class="ml-1 my-0">Aprovar</p>

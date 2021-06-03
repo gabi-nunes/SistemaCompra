@@ -12,7 +12,7 @@ namespace SistemaCompra.Domain
         public int SolicitacaoId { get; set; }
         public int prazoDias  { get; set; }
         public Solicitacao Solicitacao { get; set; }
-        public string Frete { get; set; }
+        public double Frete { get; set; }
         public int status { get; set; }
         public int FrmPagamento { get; set; }
         public string DataEntrega { get; set; }

@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Pedido } from 'src/app/models/Pedido';
+import { user } from 'src/app/models/user';
 import { PedidoService } from 'src/app/services/pedido.service';
 
 
@@ -15,6 +16,7 @@ import { PedidoService } from 'src/app/services/pedido.service';
 export class PedidoListaComponent implements OnInit {
 
   modalRef = {} as BsModalRef;
+  modalRefAprovacao = {} as BsModalRef;
   constructor(
     private pedidoService: PedidoService,
     private modalService: BsModalService,
@@ -28,9 +30,13 @@ export class PedidoListaComponent implements OnInit {
   public pedidosFiltrados: Pedido[] = [];
   public imgWidth = 150;
   public imgMargin = 2;
+  pedido : Pedido;
   public imgIsVisible = false;
   private gridFilter = '';
   valor: string;
+  user: user;
+
+  podeAprovar : boolean = false;
 
   public get GridFilter(): string{
     return this.gridFilter;
@@ -50,7 +56,23 @@ export class PedidoListaComponent implements OnInit {
 
   public ngOnInit(): void {
     this.spinner.show();
+    const userJson = localStorage.getItem('currentUser') || '{}';
+    this.user = JSON.parse(userJson);
+    this.isAprovar();
     this.CarregarPedidos();
+  }
+
+  isAprovar(){
+    debugger
+    if(this.user?.cargo == "Comprador" || this.user?.cargo =="gerente" || this.user?.cargo =="comprador" || this.user.cargo =="Gerente"){
+      this.podeAprovar= true;
+    }
+  }
+
+
+  openModalAprovacao(template: TemplateRef<any>, pedido: Pedido): void{
+    this.pedido = pedido;
+    this.modalRefAprovacao = this.modalService.show(template, {class: 'modal-md modal-dialog-centered'});
   }
 
   public AlteraVisibilidadeImg(): void{
