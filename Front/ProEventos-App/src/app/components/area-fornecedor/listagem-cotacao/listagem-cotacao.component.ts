@@ -63,11 +63,21 @@ export class ListagemCotacaoComponent implements OnInit {
 
 
   public ngOnInit(): void {
-    //this.reload();
+    this.reload();
     const userJson = localStorage.getItem('currentUser') || '{}';
     this.fornecedor = JSON.parse(userJson);
     this.CarregarCotacaoes();
   }
+
+  reload() {
+    if (this.cotacaoService.reload) {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['areaFornecedor/listaCotacao']);
+        this.cotacaoService.reload = false;
+      });
+    }
+  }
+
 
   // reload():void{
   //   if (!this.hasReloaded){
