@@ -35,7 +35,7 @@ export class PedidoListaComponent implements OnInit {
   private gridFilter = '';
   valor: string;
   user: user;
-
+  podeAprovarComprador: boolean = false;
   podeAprovar : boolean = false;
 
   public get GridFilter(): string{
@@ -64,7 +64,7 @@ export class PedidoListaComponent implements OnInit {
 
   isAprovar(){
     debugger
-    if(this.user?.cargo == "Comprador" || this.user?.cargo =="gerente" || this.user?.cargo =="comprador" || this.user.cargo =="Gerente"){
+    if( this.user?.cargo =="gerente" ||  this.user.cargo =="Gerente" || ( this.user?.cargo == "comprador" || this.user?.cargo == "comprador" && this.pedido.valorMaximo < this.pedido.cotacao.total)){
       this.podeAprovar= true;
     }
   }

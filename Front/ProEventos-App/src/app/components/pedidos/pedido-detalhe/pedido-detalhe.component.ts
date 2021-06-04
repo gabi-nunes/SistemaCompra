@@ -153,7 +153,7 @@ public CarregarFornecedor(): void{
 
 
     isAprovador(){
-      if(this.user.cargo == "Comprador" || this.user.cargo =="gerente" || this.user.cargo =="comprador" || this.user.cargo =="Gerente"){
+      if( this.user?.cargo =="gerente" ||  this.user.cargo =="Gerente" || ( this.user?.cargo == "comprador" || this.user?.cargo == "comprador" && this.pedido.valorMaximo < this.pedido.cotacao.total)){
         this.podeAprovar= true;
       }
     }
