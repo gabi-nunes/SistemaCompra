@@ -48,14 +48,13 @@ public AprovarPedido(): void{
   this.spinner.show();
   this.objPedidoAprov.statusAprov = 0;
   this.objPedidoAprov.observacaoRejeicao = this.observacaoRejeicao;
-  debugger;
   this.router.navigate([`/pedidos/lista`]);
   this.pedidoService.putAlteraStatusPedido(+this.pedido.id, this.objPedidoAprov).subscribe(
   () => {
   this.spinner.hide();
   this.modal.hide();
   this.toastr.success('Pedido Aprovado com Sucesso', 'Aprovado');
-  debugger;
+  window.location.reload();
 
   },
   (error: any) => {

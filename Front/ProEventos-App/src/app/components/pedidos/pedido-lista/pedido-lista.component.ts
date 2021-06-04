@@ -185,5 +185,8 @@ export class PedidoListaComponent implements OnInit {
     this.router.navigate([`pedidos/detalhe/${id}`]);
   }
 
+  onMudouEvento(evento: any): void{
+    console.log(evento);
+  }
 
 }
