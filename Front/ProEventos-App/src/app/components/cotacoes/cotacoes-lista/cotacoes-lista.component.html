@@ -15,8 +15,8 @@
     <thead class="bg-logo">
       <tr>
         <th class="d-none d-md-table-cell text-center">Código</th>
-        <th class="text-center">Data Necessaria</th>
-        <th class="text-center">Data</th>
+        <th class="text-center">Data Solicitação</th>
+        <th class="text-center">Prazo Cotação</th>
         <th class="text-center">Status</th>
         <th class="text-center" style="width: 12%">Opções</th>
       </tr>
@@ -24,8 +24,8 @@
     <tbody *ngIf="solicitacoes && solicitacoes.length">
       <tr *ngFor="let solicitacao of solicitacoes" (dblclick)="DetalharCotacoes(solicitacao.id)">
         <td class="d-none d-md-table-cell text-center">{{solicitacao.id}}</td>
-        <td class="text-center">{{solicitacao.dataNecessidade }}</td>
         <td class="text-center">{{solicitacao.dataSolicitacao}}</td>
+        <td class="text-center">{{getPrazoCotacao(solicitacao.id)}}</td>
         <td class="text-center">
           <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(solicitacao.id).color}" [tooltip]="GetColorByStatus(solicitacao.id).tooltip"></i>
         </td>

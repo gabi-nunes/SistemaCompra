@@ -1,15 +1,17 @@
 <div class="card p-3 shadow-sm rounded">
 
   <div class="d-flex">
-    <div class="flex-fill pr-3">
+    <div class="flex-grow-1 pr-2">
       <div class="input-group mb-2">
-        <div class="input-group-prepend">
-          <div class="input-group-text">Filtro:</div>
-        </div>
         <input type="text"
         class="form-control"
-        placeholder="Filtrar por Nome"
+        placeholder="Filtrar por Nome de Usuário"
         [(ngModel)]="GridFilter">
+        <div class="input-group-append">
+          <div class="input-group-text bg-logo">
+            <i class="fas fa-filter"></i>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -29,7 +31,7 @@
         <th class="text-center">Email</th>
         <th class="text-center">Setor</th>
         <th class="d-none d-md-table-cell text-center">Cargo</th>
-        <th class="text-center">Opções</th>
+        <th class="text-center">Ações</th>
       </tr>
     </thead>
     <tbody *ngIf="user && user.length">
@@ -40,7 +42,7 @@
         <td class="text-center">{{us.setor}}</td>
         <td class="d-none d-md-table-cell text-center">{{us.cargo}}</td>
         <td class="text-center">
-            <i class="fas fa-times fa-2x" (click)="openModal($event, template, us.id)" style="color: #d9534f; cursor: pointer;"></i>
+            <i class="far fa-trash-alt fa-2x" (click)="openModal($event, template, us.id)" style="color: #d9534f; cursor: pointer; font-size: x-large;"></i>
         </td>
       </tr>
     </tbody>
