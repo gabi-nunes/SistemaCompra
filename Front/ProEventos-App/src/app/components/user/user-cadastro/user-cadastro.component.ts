@@ -19,6 +19,7 @@ export class UserCadastroComponent implements OnInit {
   usuario = {} as user;
   form: FormGroup;
   order=0;
+  userId: number;
   estadoSalvar = 'post';
   alterarS: boolean = true;
 
@@ -32,12 +33,14 @@ export class UserCadastroComponent implements OnInit {
 
   ngOnInit(): void {
     this.validation();
+    this.PegarUltimoId();
   }
 
   public validation(): void {
     this.form = this.fb.group({
+      id:[this.userId],
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-     email: ['', Validators.required],
+      email: ['', Validators.required],
       setor: ['', Validators.required],
       cargo: ['', Validators.required],
     });
@@ -49,6 +52,23 @@ export class UserCadastroComponent implements OnInit {
 
   public cssValidator(campoForm: FormControl): any {
     return {'is-invalid': campoForm.errors && campoForm.touched};
+  }
+
+  private PegarUltimoId(): void{
+    this.service.getLastId().subscribe(
+      (li: number) => {
+        this.userId = li + 1;
+        this.validation();
+      },
+      (error: any) => {
+        this.spinner.hide();
+        this.toastr.error('Erro ao tentar carregar a Última Usuario', 'Erro');
+        console.error(error);
+      },
+      () => {
+        this.spinner.hide();
+      }
+      );
   }
 
   public salvarUser(): void {

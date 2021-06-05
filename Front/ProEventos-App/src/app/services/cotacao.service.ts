@@ -17,6 +17,9 @@ export class CotacaoService {
   public baseURL = 'https://localhost:5001/Cotacao';
   // public baseURL = 'https://localhost:44358/Cotacao';
 
+    reload = true;
+
+  
   getCotacoes(): Observable<Cotacao[]>{
     return this.http.get<Cotacao[]>(this.baseURL);
   }

@@ -70,6 +70,10 @@ export class UserService {
   getUserByEmail(email: string): Observable<user>{
     return this.http.get<user>(`${this.baseURL}/email/${email}`);
   }
+
+  getLastId(): Observable<any>{
+    return this.http.get<number>(`${this.baseURL}/UltimoId`);
+  }
 }
 
 

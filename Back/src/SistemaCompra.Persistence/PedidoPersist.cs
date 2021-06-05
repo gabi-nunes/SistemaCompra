@@ -191,10 +191,8 @@ namespace SistemaCompra.Persistence
         {
             IQueryable<Pedido> query = Context.Pedido;
 
-          
-
             query = query.AsNoTracking().OrderBy(e => e.Id)
-                         .Where(e => e.cotacao.fornecedorId == fornecedorId);
+                         .Where(e => e.cotacao.fornecedorId == fornecedorId  && e.StatusAprov==0);
 
             return await query.OrderBy(e => e.Id).ToArrayAsync();
         }

@@ -260,5 +260,22 @@ namespace SistemaCompra.Application
             }
         }
 
+        public async Task<int> TheLastID()
+        {
+            try
+            {
+                int idLast;
+                var user= await _userPresist.GetIdLast();
+                if (user == null) return 0;
+
+                idLast = user.Id;
+                return idLast;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
