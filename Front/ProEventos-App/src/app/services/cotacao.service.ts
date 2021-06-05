@@ -45,8 +45,8 @@ export class CotacaoService {
     return this.http.get<any>(`${this.baseURL}/FornecedorIdeal/${solicitId}`);
   }
 
-  EnviarPreçoItem(precoUnit: preco): Observable<any>{
-    return this.http.put<any>(`${this.baseURL}/EnviaPrecoPorItem/${precoUnit.itemcotacao}`, precoUnit);
+  EnviarPreçoItem(id: number, precoUnit: preco): Observable<any>{
+    return this.http.put<any>(`${this.baseURL}/EnviaPrecoPorItem/${id}`, precoUnit);
   }
 
   totalPorItem(famProdId: number): Observable<Fornecedor[]>{

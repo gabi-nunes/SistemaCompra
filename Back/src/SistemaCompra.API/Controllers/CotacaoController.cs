@@ -170,12 +170,12 @@ namespace SistemaCompra.API.Controllers
         }
 
         [HttpPut("EnviaPrecoPorItem/{ItemCotacaoId}")]
-        public async Task<IActionResult> PutItem(Enviapreco model)
+        public async Task<IActionResult> PutItem(int ItemCotacaoId, Enviapreco model)
         {
             try
             {
             
-                var cotacao = await CotacaoService.EnviarPrecooAsync(model.itemcotacao, model);
+                var cotacao = await CotacaoService.EnviarPrecooAsync(ItemCotacaoId, model);
                 if (cotacao == null) return BadRequest("Erro ao tentar Adicionar a cotacao.");
                 return Ok(cotacao);
             }
@@ -218,7 +218,7 @@ namespace SistemaCompra.API.Controllers
 
 
         [HttpPut("EnviarOferta/{CotacaoId}")]
-        public async Task<IActionResult> PutEnviarOferta(int CotacaoId,[FromBody] EnviarOfertaDto model)
+        public async Task<IActionResult> PutEnviarOferta(int CotacaoId,[FromBody]EnviarOfertaDto model)
         {
             try
             { 

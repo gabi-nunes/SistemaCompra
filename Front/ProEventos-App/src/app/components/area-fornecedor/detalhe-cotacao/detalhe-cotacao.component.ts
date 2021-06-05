@@ -84,6 +84,7 @@ export class DetalheCotacaoComponent implements OnInit {
 
   private gridFilter = '';
   produtosFiltrados: Produto[] = [];
+  solicitacao: Solicitacao;
 
   public get GridFilter(): string{
     return this.gridFilter;
@@ -96,6 +97,16 @@ export class DetalheCotacaoComponent implements OnInit {
   get f(): any{
     return this.form.controls;
   }
+
+  public get IsCotacaoEncerrada(): boolean{
+    if (!this.cotacao) {return false; }
+    return this.cotacao.status === 3;
+  }
+  public get IsOfertaEnviada(): boolean{
+    if (!this.cotacao) {return false; }
+    return this.cotacao.status === 2;
+  }
+
 //#endregion
 //#region "Constructor"
   constructor(private spinner: NgxSpinnerService,
@@ -107,12 +118,13 @@ export class DetalheCotacaoComponent implements OnInit {
               private localeService: BsLocaleService,
               private produtoService: ProdutoService,
               private cotacaoService: CotacaoService,
+              private solicitacaoService: SolicitacaoService,
   ) { this.localeService.use('pt-br');}
 
   ngOnInit(): void{
     this.isDetalhe = false;
     this.actRouter.params.subscribe(params => this.cotacaoid = params['id']);
-    this.CarregarCotacaoes();
+    this.CarregarCotacao();
     this.validation();
   }
 //#endregion
@@ -130,9 +142,12 @@ export class DetalheCotacaoComponent implements OnInit {
       id: [this.cotacao?.id],
       dataEmissaoCotacao: [this.cotacao?.dataEmissaoCotacao],
       prazoOfertas: [this.cotacao?.prazoOfertas],
+      dataNecessidade: [this.solicitacao?.dataNecessidade],
       dataEntrega:[this.cotacao?.dataEntrega,Validators.required],
-      frete: [this.cotacao?.frete?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),Validators.required],
+      frete: [this.cotacao?.frete <= 0 ? null : this.cotacao?.frete?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+              Validators.required],
       total: [this.cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })]
+
     });
   }
 
@@ -146,7 +161,7 @@ export class DetalheCotacaoComponent implements OnInit {
 //#endregion
 //#region "Carregar"
 
-public CarregarCotacaoes(): void{
+public CarregarCotacao(): void{
 
   // tslint:disable-next-line: deprecation
   this.cotacaoService.getCotacaoById(this.cotacaoid).subscribe(
@@ -157,7 +172,7 @@ public CarregarCotacaoes(): void{
         this.Carregarprodutos();
         this.itensCotacoes.push(itemcotacao);
       });
-      this.validation();
+      this.CarregarSolicitacao(this.cotacao.solicitacaoId);
     },
     () => {
       this.spinner.hide(),
@@ -167,8 +182,21 @@ public CarregarCotacaoes(): void{
   );
 
 }
+  CarregarSolicitacao(solId: number): void{
+    this.solicitacaoService.getSolicitacaoById(solId).subscribe(
+      (SolicitacaoResponse: Solicitacao) => {
+        this.solicitacao = SolicitacaoResponse;
+        this.validation();
+      },
+      () => {
+        this.spinner.hide(),
+        this.toastr.error('Erro ao carregar os Cotacoes', 'Erro');
+      },
+      () => this.spinner.hide()
+    );
+  }
 public getDescricaoproduto(idProduto: number): string{
-  let produtoSelecionado = this.produto.find(x=> x.id== idProduto);
+  let produtoSelecionado = this.produto.find(x=> x.id == idProduto);
   var descProduto= produtoSelecionado?.descricao ?? '';
   return descProduto;
 }
@@ -189,7 +217,7 @@ public Carregarprodutos(): void{
 
 public get ShowAlert(): boolean{
   if (this.cotacao.prazoDias < 0 ) {
-    this.isExpirada= true;
+    this.isExpirada = true;
     return false; }
     this.isExpirada= false;
   return true;
@@ -227,50 +255,25 @@ public get ShowAlert(): boolean{
       enviaOf.frete= parseFloat(this.frete);
       enviaOf.dataEntrega= this.dataEntrega;
 
-      this.itensCotacoes.forEach(item=>{
-
-        this.precoUnit.itemcotacao= item.id;
-        this.precoUnit.preco= item.precoUnit;
-        this.precoUnit.total= item.totalItem;
-
-        console.log("DENTRO DO FOR " + this.precoUnit)
-
-        this.cotacaoService.EnviarPreçoItem(this.precoUnit).subscribe(
-          (result: any) => {
-          console.log("DENTRO DO SERVICE" + result)
-          },
-          (error: any) => {
-            console.error(error);
-            this.toastr.error('Falha ao tentar adicionar', 'Erro');
-            this.spinner.hide();
-          },
-          () => {
-            this.spinner.hide()
-          },
-        );
-      });
-
       this.cotacaoService.enviar(this.cotacaoid, enviaOf).subscribe(
         (result: any) => {
           this.toastr.success('Enviado com sucesso', 'Sucesso!');
-          this.router.navigate(['/areaFornecedor/listaCotacao']);
+
         },
         () => {},
-        () => {}
-      );
+        () => {}  );
     }
     else{
       this.toastr.error('Adicione os Preços unitarios!', 'Erro');
     }
+
   }
 
 
   public IncluirPrecoItem(valor: string){
-    debugger
     let item : any;
     let valorRecebido: number;
-  valorRecebido = parseFloat(valor.replace(",", "."));
-  debugger
+    valorRecebido = parseFloat(valor.replace(",", "."));
     let itemValor= this.itemCotacaoEnvia.find(x=>x.id == this.itemCotacaoid);
     if( itemValor != undefined){
         this.cotacao.total-= itemValor.totalItem;
@@ -283,10 +286,26 @@ public get ShowAlert(): boolean{
     item.totalItem=  valorRecebido * this.qtdeProd;
     console.log(valorRecebido)
     this.itemCotacaoEnvia.push(item);
-    console.log(this.itemCotacaoEnvia)
     let principal= this.itensCotacoes.find(x=>x.id == this.itemCotacaoid);
     this.cotacao.total += item.totalItem;
     this.form.patchValue({total: this.cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
+
+    this.precoUnit.preco= item.precoUnit;
+        this.precoUnit.total= item.totalItem;
+
+    this.cotacaoService.EnviarPreçoItem(item.id, this.precoUnit).subscribe(
+        (result: any) => {
+        console.log("DENTRO DO SERVICE" + this.precoUnit)
+        },
+        (error: any) => {
+          console.error(error);
+          this.toastr.error('Falha ao tentar adicionar', 'Erro');
+          this.spinner.hide();
+        },
+        () => {
+          this.spinner.hide()
+        },
+      );
 
     console.log(this.cotacao.total);
     this.valor='';
@@ -301,8 +320,6 @@ public get ShowAlert(): boolean{
     this.freteValor = freteFormatado;
   }
 
-
-
   public OpenProdutosModal(itemcotacaoid:number, template: TemplateRef<any>): void{
     this.itemCotacaoid= itemcotacaoid;
     this.modalRefProd = this.modalService.show(template, {class: 'modal-sm modal-dialog-centered'});
@@ -316,19 +333,6 @@ public get ShowAlert(): boolean{
   }
   CloseModalQtde(): void{
     this.modalRefProd.hide();
-  }
-
-
-  onMudouEvento(evento: any): void{
-    console.log(evento);
-  }
-
-
-
-  GerarRelatrio(): void{
-
-    window.print();
-
   }
 //#endregion
 }

@@ -8,7 +8,6 @@ namespace SistemaCompra.Application.DTO.Request
 {
     public class Enviapreco
     {
-        public int itemcotacao { get; set; }
         public double preco { get; set; }
         public  double total{ get; set; }
     }
