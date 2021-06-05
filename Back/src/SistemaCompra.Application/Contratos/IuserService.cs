@@ -25,5 +25,7 @@ namespace SistemaCompra.Application.Contratos
         bool EnviarEmail(string email);
 
         Task<user> AlterarSenha(int id, string senha);
+
+        Task<int> TheLastID();
     }
 }

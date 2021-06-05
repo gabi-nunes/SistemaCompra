@@ -9,8 +9,8 @@ using SistemaCompra.Persistence;
 namespace SistemaCompra.Persistence.Migrations
 {
     [DbContext(typeof(GoodPlaceContext))]
-    [Migration("20210604000449_Initial")]
-    partial class Initial
+    [Migration("20210605000927_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
