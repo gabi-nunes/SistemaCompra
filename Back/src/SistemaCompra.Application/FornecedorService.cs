@@ -58,9 +58,10 @@ namespace SistemaCompra.Application
                 fornecedor.Celular = model.Celular;
                 fornecedor.PontuacaoRanking = model.PontuacaoRanking;
                 fornecedor.FamiliaProdutoId = model.FamiliaProdutoId;
-                fornecedor.Senha = model.Senha;
+                fornecedor.Senha = "for@123";
 
                 FGeralPersist.Add<Fornecedor>(fornecedor);
+                EnviarEmail(fornecedor.Email);
 
                 if (await FGeralPersist.SaveChangesAsync())
                 {

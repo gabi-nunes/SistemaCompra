@@ -395,7 +395,8 @@ public CarregarAprovador(userId: number): void{
   }
 //#endregion
 //#region "Modal"
-  public OpenModal(template: TemplateRef<any>, solProdId: number = 0): void{
+  public OpenModal(template: TemplateRef<any>, solProdId: number=0): void{
+    console.log(solProdId)
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
     this.solProdIdExluidos.push(solProdId);
   }
