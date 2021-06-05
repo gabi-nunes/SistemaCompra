@@ -132,6 +132,13 @@ export class SolicitacaoListaComponent implements OnInit {
       case 2:
         resultColor = '#f0ad4e';
         break;
+     case 3:
+          resultColor = '#5cb85c';
+          break;
+      case 4:
+            resultColor = '#5cb85c';
+            break;
+
     }
     return resultColor;
   }
@@ -146,8 +153,14 @@ export class SolicitacaoListaComponent implements OnInit {
         resultTooltip = 'Reprovado';
         break;
       case 2:
-        resultTooltip = 'Pendente';
+        resultTooltip = 'Aprovado';
         break;
+      case 3:
+          resultTooltip = 'Aprovado';
+          break;
+      case 4:
+            resultTooltip = 'Aprovado';
+            break;
     }
     return resultTooltip;
   }
