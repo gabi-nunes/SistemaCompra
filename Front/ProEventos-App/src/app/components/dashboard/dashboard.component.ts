@@ -115,6 +115,8 @@ export class DashboardComponent implements OnInit {
     return resultTooltip;
   }
 
+  
+
   GetColorByStatusCotacao(solId: number): any{
 
     const status = this.GetStatus(solId);
