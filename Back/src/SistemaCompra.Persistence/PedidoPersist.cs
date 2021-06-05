@@ -46,7 +46,15 @@ namespace SistemaCompra.Persistence
 
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
-     
+        public async Task<Solicitacao> GetSolicitacaoByIdAsync(int id)
+        {
+            IQueryable<Solicitacao> query = Context.Solicitacoes;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+                         .Where(e => e.Id == id);
+
+            return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
+        }
 
         public async Task<Fornecedor> GetFornecedorByIdAsync(int Fornecedorid)
         {
