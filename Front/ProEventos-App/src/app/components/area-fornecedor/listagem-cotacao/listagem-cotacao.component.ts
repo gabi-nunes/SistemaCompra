@@ -116,7 +116,7 @@ export class ListagemCotacaoComponent implements OnInit {
     let resultColor: any;
     switch (status) {
       case 0:
-        resultColor = '#f0ad4e';
+        resultColor = '#5cb85c';
         break;
       case 1:
         resultColor = '#5cb85c';
@@ -149,7 +149,7 @@ export class ListagemCotacaoComponent implements OnInit {
         resultTooltip = 'Aguardando Ofertas';
         break;
       case 2:
-        resultTooltip = 'Ofertas Recebidas';
+        resultTooltip = 'Ofertas Enviadas';
         break;
         case 3:
           resultTooltip = 'Cotação Encerrada';
