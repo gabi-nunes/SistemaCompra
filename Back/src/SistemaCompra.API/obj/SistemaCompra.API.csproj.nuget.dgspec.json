@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SistemaCompra\\back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj": {}
+    "D:\\SistemaCompra\\back\\src\\SistemaCompra.Api\\SistemaCompra.API.csproj": {}
   },
   "projects": {
-    "D:\\SistemaCompra\\back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj": {
+    "D:\\SistemaCompra\\back\\src\\SistemaCompra.Api\\SistemaCompra.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj",
+        "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Api\\SistemaCompra.API.csproj",
         "projectName": "SistemaCompra.API",
-        "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj",
+        "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Api\\SistemaCompra.API.csproj",
         "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
-        "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.API\\obj\\",
+        "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
