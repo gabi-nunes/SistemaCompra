@@ -45,6 +45,7 @@ export class DashboardComponent implements OnInit {
     user:user;
 
     public ngOnInit(): void {
+      this.reload();
       this.CarregarPedidos();
       this.GetSolicitacoes();
       this.GetCotacoes();
@@ -54,6 +55,14 @@ export class DashboardComponent implements OnInit {
       this.user = JSON.parse(userJson);
     }
 
+    reload() {
+      if (this.solicitacaoService.reload) {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['dashboard']);
+          this.solicitacaoService.reload = false;
+        });
+      }
+    }
 
     FilterCotacoesById(solId: number): Cotacao[]{
       debugger;
@@ -105,6 +114,8 @@ export class DashboardComponent implements OnInit {
     }
     return resultTooltip;
   }
+
+  
 
   GetColorByStatusCotacao(solId: number): any{
 

@@ -52,6 +52,14 @@ namespace SistemaCompra.Persistence
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
 
+        public async Task<user> GetIdLast()
+        {
+            IQueryable<user> query = Context.Users;
+
+
+            return await query.OrderByDescending(e => e.Id).FirstOrDefaultAsync();
+        }
+
         public async Task<user> GetLogin(string email, string senha)
        {
             IQueryable<user> query = Context.Users;

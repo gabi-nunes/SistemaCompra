@@ -121,8 +121,10 @@ export class DetalheCotacaoComponent implements OnInit {
               private solicitacaoService: SolicitacaoService,
   ) { this.localeService.use('pt-br');}
 
+
   ngOnInit(): void{
     this.isDetalhe = false;
+    this.validation();
     this.actRouter.params.subscribe(params => this.cotacaoid = params['id']);
     this.CarregarCotacao();
     this.validation();
@@ -266,7 +268,6 @@ public get ShowAlert(): boolean{
     else{
       this.toastr.error('Adicione os Preços unitarios!', 'Erro');
     }
-
   }
 
 
@@ -313,6 +314,11 @@ public get ShowAlert(): boolean{
   }
 
   onKey(frete: string) { // without type info
+
+    if(frete === ''){
+      frete ='0';
+    }
+
     this.cotacao.total -= this.freteValor;
     var freteFormatado = parseFloat(frete);
     this.cotacao.total += freteFormatado;

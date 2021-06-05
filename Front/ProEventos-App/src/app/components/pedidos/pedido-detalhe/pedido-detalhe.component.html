@@ -193,7 +193,7 @@
         <button class="btn btn-primary mr-2 no-print" *ngIf="pedido.statusAprov == 2 && podeAprovar" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarPedido)">
           <div class="d-flex">
             <i class="fas fa-search fa-lg my-1"></i>
-            <p class="ml-1 my-0">Aprovar</p>
+            <p class="ml-1 my-0">Avaliar</p>
           </div>
         </button>
         <button  class="btn btn-outline-primary ml-2 no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >

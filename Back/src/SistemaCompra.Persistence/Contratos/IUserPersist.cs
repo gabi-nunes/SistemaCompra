@@ -12,6 +12,8 @@ namespace SistemaCompra.Persistence.Contratos
 
         Task<user> GetUserByEmailAsync(string Email);
         Task<user> recuperarSenha(string email);
-        
+        Task<user> GetIdLast();
+
+
     }
 }

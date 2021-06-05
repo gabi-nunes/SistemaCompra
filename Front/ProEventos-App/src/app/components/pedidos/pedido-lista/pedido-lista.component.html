@@ -14,7 +14,7 @@
         <th class="text-center">Código</th>
         <th class="text-center">Data</th>
         <th class="text-center">Status</th>
-        <th class="text-center">Ações</th>
+        <th class="text-center" style="width: 12%" >Ações</th>
       </tr>
     </thead>
     <tbody *ngIf="pedidos && pedidos.length">
@@ -22,9 +22,9 @@
         <td class="d-none d-md-table-cell text-center">{{pedido.id}}</td>
         <td class="text-center">{{pedido.dataEmissao}}</td>
         <td class="text-center"><i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(pedido.statusAprov)}" [tooltip]="GetTooltipByStatus(pedido.statusAprov)"></i></td>
-        <td class="text-center">
+        <td class="text-center" style="white-space: nowrap;">
           <i *ngIf="pedido.statusAprov === 2 && podeAprovar" class="fas fa-search " tooltip="Avaliar" (click)="openModalAprovacao(AprovarPedido, pedido)" style="color: #5bc0de; cursor: pointer; font-size: x-large;"></i>
-          <i class="fas fa-times fa-2x" (click)="openModal(template, pedido.id)" style="color: red; cursor: pointer;"></i>
+          <i *ngIf="pedido.statusAprov !== 0" tooltip="Excluir" class="far fa-trash-alt mx-3" (click)="openModal(template, pedido.id )" style="color: #d9534f; cursor: pointer; font-size: x-large;"></i>
           </td>
       </tr>
     </tbody>
@@ -67,5 +67,5 @@
 </ng-template>
 
 <ng-template #AprovarPedido>
-  <app-aprovar-Pedido [modal]="modalRefAprovacao" [pedido]="pedido"></app-aprovar-Pedido>
+  <app-aprovar-pedido [modal]="modalRefAprovacao" [pedido]="pedido" (carregaEventos)="onMudouEvento($event)"></app-aprovar-pedido>
 </ng-template>
