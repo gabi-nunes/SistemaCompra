@@ -91,13 +91,8 @@ namespace SistemaCompra.Application
                 FGeralPersist.Update<Pedido>(pedido);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
-                    if (pedido.StatusAprov == 0)
-                    {
-                        var solicitacao = await _pedidoPresist.GetSolicitacaoByIdAsync(pedido.cotacao.SolicitacaoId);
-                        solicitacao.StatusAprovacao = 4;
-                        FGeralPersist.Update<Solicitacao>(solicitacao);
                         await FGeralPersist.SaveChangesAsync();
-                    }
+                    
                     return await _pedidoPresist.GetPedidoByIdAsync(id);
                 }
                 return null;
@@ -122,6 +117,7 @@ namespace SistemaCompra.Application
                 var solicitacao = await _pedidoPresist.GetSolicitacaoByIdAsync(cotacao.SolicitacaoId);
                 solicitacao.StatusAprovacao = 4;
                 FGeralPersist.Update<Solicitacao>(solicitacao);
+
                 await FGeralPersist.SaveChangesAsync();
 
 
