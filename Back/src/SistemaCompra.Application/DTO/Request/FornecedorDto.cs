@@ -25,6 +25,5 @@ namespace SistemaCompra.Application.DTO.Request
         public string Celular { get; set; }
         public int PontuacaoRanking { get; set; }
         public int FamiliaProdutoId { get; set; }
-        public string Senha { get; set; }
     }
 }

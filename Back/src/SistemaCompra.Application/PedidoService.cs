@@ -76,7 +76,6 @@ namespace SistemaCompra.Application
         {
             try
             {
-
                 var pedido = await _pedidoPresist.GetPedidoByIdAsync(id);
                 if (pedido == null) return null;
 
@@ -86,12 +85,14 @@ namespace SistemaCompra.Application
                 pedido.StatusAprov = model.StatusAprov;
                 pedido.ObservacaoRejeicao = model.ObservacaoRejeicao;
 
-                    await GerarRankingAsync(pedido.cotacaoId);
+                   await GerarRankingAsync(pedido.cotacaoId);
                
 
                 FGeralPersist.Update<Pedido>(pedido);
                 if (await FGeralPersist.SaveChangesAsync())
                 {
+                        await FGeralPersist.SaveChangesAsync();
+                    
                     return await _pedidoPresist.GetPedidoByIdAsync(id);
                 }
                 return null;
@@ -112,6 +113,13 @@ namespace SistemaCompra.Application
                 cotacao.FornecedorGanhadorId = cotacao.fornecedorId;
                 FGeralPersist.Update<Cotacao>(cotacao);
                 await FGeralPersist.SaveChangesAsync();
+
+                var solicitacao = await _pedidoPresist.GetSolicitacaoByIdAsync(cotacao.SolicitacaoId);
+                solicitacao.StatusAprovacao = 4;
+                FGeralPersist.Update<Solicitacao>(solicitacao);
+
+                await FGeralPersist.SaveChangesAsync();
+
 
                 Pedido pedido = new Pedido();
 

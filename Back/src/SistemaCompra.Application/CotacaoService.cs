@@ -204,6 +204,11 @@ namespace SistemaCompra.Application
                 if (await FGeralPersist.SaveChangesAsync())
                 {
                     await AddCotacaoProduto(Cotacao.Id, SolicitacaoId);
+                   
+                    solicitacao.StatusAprovacao = 3;
+
+                    FGeralPersist.Update<Solicitacao>(solicitacao);
+                    await FGeralPersist.SaveChangesAsync();
                     return await _CotacaoPresist.GetCotacaoByIdAsync(Cotacao.Id);
                 }
                 return null;

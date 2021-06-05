@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
     ) {}
 
     public Solicitacaocotacoes: Solicitacao[] = [];
+    public SolicitacaoRastreabilidade: Solicitacao[] = [];
     public pedidos: Pedido[] = [];
     cotacoes: Cotacao[];
     public solicitacoes: Solicitacao[] = [];
@@ -46,6 +47,7 @@ export class DashboardComponent implements OnInit {
 
     public ngOnInit(): void {
       this.reload();
+      this.GetSolicitacoesRatereabilidade();
       this.CarregarPedidos();
       this.GetSolicitacoes();
       this.GetCotacoes();
@@ -114,6 +116,8 @@ export class DashboardComponent implements OnInit {
     }
     return resultTooltip;
   }
+
+
 
   GetColorByStatusCotacao(solId: number): any{
 
@@ -191,6 +195,20 @@ export class DashboardComponent implements OnInit {
         next: (solicitacoesResponse: any[]) => {
           this.Solicitacaocotacoes = solicitacoesResponse;
           this.Solicitacaocotacoes = this.Solicitacaocotacoes?.filter(s => s.statusAprovacao === 0);
+        },
+        error: () => {
+          this.spinner.hide(),
+          this.toastr.error('Erro ao carregar as Solicitações', 'Erro');
+        },
+        complete: () => this.spinner.hide()
+      });
+    }
+
+    public GetSolicitacoesRatereabilidade(): void{
+      // tslint:disable-next-line: deprecation
+      this.solicitacaoService.getSolicitacoes().subscribe({
+        next: (solicitacoesResponse: any[]) => {
+          this.SolicitacaoRastreabilidade= solicitacoesResponse;
         },
         error: () => {
           this.spinner.hide(),
