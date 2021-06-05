@@ -15,6 +15,7 @@ namespace SistemaCompra.Persistence.Contratos
         Task<ItemPedido[]> GetAllItemPedidoByIdPedidosync(int id);
         Task<Pedido> GetIdLast();
         Task<Pedido[]> GetPedidoByRejeitasAsync();
+        Task<Solicitacao> GetSolicitacaoByIdAsync(int id);
         Task<Pedido[]> GetPedidoByPendenteAsync();
         Task<Pedido[]> GetPedidoByAprovacaoAsync();
         Task<Pedido[]> GetPedidoByfornecedorId(int fornecedorId);
