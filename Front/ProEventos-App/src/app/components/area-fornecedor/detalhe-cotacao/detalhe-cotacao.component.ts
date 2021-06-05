@@ -109,8 +109,10 @@ export class DetalheCotacaoComponent implements OnInit {
               private cotacaoService: CotacaoService,
   ) { this.localeService.use('pt-br');}
 
+  
   ngOnInit(): void{
     this.isDetalhe = false;
+    this.validation();
     this.actRouter.params.subscribe(params => this.cotacaoid = params['id']);
     this.CarregarCotacaoes();
     this.validation();
@@ -287,6 +289,11 @@ public get ShowAlert(): boolean{
   }
 
   onKey(frete: string) { // without type info
+
+    if(frete === ''){
+      frete ='0';
+    }
+
     this.cotacao.total -= this.freteValor;
     var freteFormatado = parseFloat(frete);
     this.cotacao.total += freteFormatado;
