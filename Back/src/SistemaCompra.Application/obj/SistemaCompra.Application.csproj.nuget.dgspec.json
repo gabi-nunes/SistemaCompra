@@ -1,36 +1,42 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj": {}
+    "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj": {}
   },
   "projects": {
-    "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj": {
+    "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
+        "projectUniqueName": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
         "projectName": "SistemaCompra.Application",
-        "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
-        "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
-        "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\obj\\",
+        "projectPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
+        "packagesPath": "C:\\Users\\gabie\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\gabie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
-                "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
+              "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
+                "projectPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
               },
-              "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
-                "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj"
+              "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
+                "projectPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj"
               }
             }
           }
@@ -69,22 +75,28 @@
         }
       }
     },
-    "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
+    "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+        "projectUniqueName": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
         "projectName": "SistemaCompra.Domain",
-        "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
-        "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
-        "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\obj\\",
+        "projectPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+        "packagesPath": "C:\\Users\\gabie\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\gabie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -127,30 +139,36 @@
         }
       }
     },
-    "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
+    "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
+        "projectUniqueName": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
         "projectName": "SistemaCompra.Persistence",
-        "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
-        "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
-        "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\obj\\",
+        "projectPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
+        "packagesPath": "C:\\Users\\gabie\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\gabie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
-                "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
+              "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
+                "projectPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
               }
             }
           }

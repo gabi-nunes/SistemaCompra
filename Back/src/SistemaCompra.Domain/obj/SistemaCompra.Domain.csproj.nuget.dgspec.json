@@ -1,6 +1,19 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
+    "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+        "projectName": "SistemaCompra.Domain",
+        "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+        "packagesPath": "C:\\Users\\cliente\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\obj\\",
+=======
     "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {}
   },
   "projects": {
@@ -12,9 +25,15 @@
         "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
         "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
         "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\obj\\",
+>>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         "projectStyle": "PackageReference",
         "configFilePaths": [
+<<<<<<< HEAD
+          "C:\\Users\\cliente\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
           "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         ],
         "originalTargetFrameworks": [
           "net5.0"

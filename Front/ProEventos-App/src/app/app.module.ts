@@ -20,16 +20,9 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 
-import { ContatosComponent } from './components/contatos/contatos.component';
-
 import { DateTimeFormatterPipe } from './helpers/DateTimeFormatter.pipe';
 
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
-
-import { EventoService } from './services/evento.service';
-import { EventosComponent } from './components/eventos/eventos.component';
-import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
-import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 
 import { UserService } from 'src/app/services/user.service';
 import { LoginComponent } from './components/user/login/login.component';
@@ -71,20 +64,17 @@ import { ListagemPedidoComponent } from './components/area-fornecedor/listagem-p
 import { AlterarSenhaComponent } from './components/area-fornecedor/alterar-senha/alterar-senha.component';
 import { FormatCurrencyPipe } from './helpers/RealValue.pipe';
 import { AprovarPedidoComponent } from './shared/aprovar-pedido/aprovar-pedido.component';
+import { CotacaoService } from './services/cotacao.service';
 defineLocale('pt-br', ptBrLocale);
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    EventosComponent,
-    EventoDetalheComponent,
-    EventoListaComponent,
     PalestrantesComponent,
     NavComponent,
     DateTimeFormatterPipe,
     TituloComponent,
-    ContatosComponent,
     DashboardComponent,
     UserComponent,
     LoginComponent,
@@ -136,7 +126,7 @@ defineLocale('pt-br', ptBrLocale);
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [EventoService, UserService, SolicitacaoService, FornecedorService, PedidoService],
+  providers: [UserService, SolicitacaoService, FornecedorService, PedidoService, CotacaoService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

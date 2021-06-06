@@ -2,7 +2,7 @@
   "version": 2,
   "dgSpecHash": "oa8rGLZ1jzELDhGZn9lyI74EsON+gR8T1fSumLop5OWoxUr3gASv4um7UUhOjnR6wZgZ5/4oKxuycb6HDNxmpQ==",
   "success": true,
-  "projectFilePath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+  "projectFilePath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rafael\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Rafael\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.10.0\\microsoft.identitymodel.jsonwebtokens.6.10.0.nupkg.sha512",

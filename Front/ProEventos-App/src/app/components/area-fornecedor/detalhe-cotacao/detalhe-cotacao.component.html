@@ -2,6 +2,16 @@
 <div class="card shadow-sm rounded">
   <form [formGroup]="form">
     <div class="p-3">
+      <div *ngIf="IsCotacaoEncerrada" class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Cotação Encerrada!</h4>
+        Um fornecedor já foi escolhido para essa compra portanto alterações não podem ser feitas.
+      </div>
+
+      <div *ngIf="IsOfertaEnviada" class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Oferta Enviada!</h4>
+        Você já enviou uma oferta para essa cotação portanto ela não pode ser alterada.
+      </div>
+
       <div class="d-flex">
         <h2 class="roboto text-muted mr-auto mb-0 pb-0">
           Cotação n°{{this.cotacao?.id}}
@@ -16,7 +26,7 @@
           formControlName="id">
         </div>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-2">
           <label>Data Emissão</label>
           <input type="text" class="form-control"
           readonly formControlName="dataEmissaoCotacao" >
@@ -29,25 +39,33 @@
         formControlName="prazoOfertas">
         </div>
 
-        <div class="form-group col-md-1">
+        <div class="form-group col-md-2">
+          <label>Prazo Necessário</label>
+          <input type="text" class="form-control"
+          [ngClass]="cssValidation(f.dataEntrega)"
+          formControlName="dataNecessidade" readonly>
+        </div>
+
+        <div class="form-group col-md-2">
           <label>Frete</label>
           <input type="text" class="form-control"
           formControlName="frete" placeholder="R$ 0,00"  [(ngModel)]="frete"
-          [readonly]= isExpirada
+          [readonly]= "isExpirada || IsCotacaoEncerrada || IsOfertaEnviada"
           (change)="onKey(frete)">
         </div>
 
-      <div class="form-group col-md-2">
-        <label>Data Entrega</label>
-        <input type="text" class="form-control"
-        bsDatepicker [ngClass]="cssValidation(f.dataEntrega)"
-        formControlName="dataEntrega"
-        [(ngModel)]="dataEntrega"
-        [bsConfig]="bsConfig"
-        [minDate]="now"
-        [readonly]= isExpirada
-        >
-      </div>
+
+        <div class="form-group col-md-2">
+          <label>Data Entrega</label>
+          <input type="text" class="form-control"
+          bsDatepicker [ngClass]="cssValidation(f.dataEntrega)"
+          formControlName="dataEntrega"
+          [(ngModel)]="dataEntrega"
+          [bsConfig]="bsConfig"
+          [minDate]="now" [isDisabled]="isExpirada || IsCotacaoEncerrada || IsOfertaEnviada"
+          [readonly]= "isExpirada || IsCotacaoEncerrada || IsOfertaEnviada"
+          >
+        </div>
     </div>
       <div class="d-flex mt-4 no-print">
         <h2 class="roboto text-muted mr-auto mb-0 pb-0 ">

@@ -1,4 +1,4 @@
-<app-titulo [titulo]="'Dashboard'" [subtitulo]="'Menu Principal'" [icone]="'fas fas fa-chart-bar'"></app-titulo>
+<app-titulo [titulo]="'Home'" [subtitulo]="'Menu Principal'" [icone]="'fas fa-home'"></app-titulo>
 <div class="card p-3 shadow-sm rounded">
 
   <div class="d-flex mb-2">
@@ -22,7 +22,7 @@
 </div>
 
 
-  <table class="table table-hover">
+  <table class="table table-hover"  *ngIf="opcao!=4">
     <thead class="bg-logo">
     <tr>
         <th class="d-none d-md-table-cell text-center">Código</th>
@@ -41,7 +41,7 @@
         <td class="text-center" *ngIf="GetStatus(cot.id) <= 0">{{cot.dataSolicitacao}}</td>
       </tr>
     </tbody>
-    <tfoot *ngIf="isvalid &&  opcao===1">
+    <tfoot *ngIf="!isvalid &&  opcao===1">
       <tr>
         <td colspan="8" class="text-center">
           <h4 >Não há cotações pendentes</h4>
@@ -67,8 +67,8 @@
       </tr>
     </tfoot>
 
-    <tbody *ngIf="pedidos && pedidos.length && opcao===3 || opcao===0">
-      <tr *ngFor="let pedido of pedidos" (dblclick)="DetalharPedido(pedido.id)">
+    <tbody *ngIf="pedidosPendentes && pedidosPendentes.length && opcao===3 || opcao===0">
+      <tr *ngFor="let pedido of pedidosPendentes" (dblclick)="DetalharPedido(pedido.id)">
         <td class="d-none d-md-table-cell text-center">{{pedido.id}}</td>
         <td class="text-center">Pedido</td>
         <td class="text-center">
@@ -85,14 +85,14 @@
       </tr>
     </tfoot>
   </table>
-  <div *ngIf="pedidos.length == 0 && solicitacoes.length == 0 && isvalid && opcao===0">
+  <div *ngIf="pedidos.length == 0 && solicitacoes.length == 0 && !isvalid && opcao===0">
       <div colspan="8" class="text-center">
         <h4 >Não há nada pendente</h4>
       </div>
   </div>
-</div>
 
-<table class="table table-hover">
+
+<table class="table table-hover" *ngIf="opcao===4">
   <thead class="bg-logo">
   <tr>
       <th class="d-none d-md-table-cell text-center">Código da Solicitação</th>
@@ -101,17 +101,19 @@
       <th class="text-center">Status</th>
     </tr>
   </thead>
-  <tbody *ngIf="Solicitacaocotacoes && Solicitacaocotacoes.length && opcao===4">
-    <tr *ngFor="let cot of Solicitacaocotacoes"  (dblclick)="DetalharCotacao(cot.id)">
-      <td class="d-none d-md-table-cell text-center" *ngIf="GetStatus(cot.id) <= 0">{{cot.id}}</td>
-      <td class="text-center" *ngIf="GetStatus(cot.id) <= 0">Cotação</td>
-      <td class="text-center" *ngIf="GetStatus(cot.id) <= 0">
-        <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatusCotacao(cot.id).color}" [tooltip]="GetColorByStatusCotacao(cot.id).tooltip"></i>
+  <tbody *ngIf="SolicitacaoRastreabilidade && SolicitacaoRastreabilidade.length && opcao===4">
+    <tr *ngFor="let solicitacoes of SolicitacaoRastreabilidade"  (dblclick)="DetalhaRastreabilidade(solicitacoes.id, solicitacoes.statusAprovacao)">
+      <td class="d-none d-md-table-cell text-center" style="width: 20%;" >{{solicitacoes.id}}</td>
+      <td class="text-center" >{{solicitacoes.dataSolicitacao}}</td>
+      <td class="text-center">
+       {{ GetEstagio(solicitacoes.statusAprovacao)}}
       </td>
-      <td class="text-center" *ngIf="GetStatus(cot.id) <= 0">{{cot.dataSolicitacao}}</td>
+      <td class="text-center">
+        <i class="fas fa-square fa-2x" [ngStyle]="{'color':  GetStatusRastreabilidade(solicitacoes.id, solicitacoes.statusAprovacao).color}" [tooltip]="GetStatusRastreabilidade(solicitacoes.id, solicitacoes.statusAprovacao).tooltip"></i>
+      </td>
     </tr>
   </tbody>
-  <tfoot *ngIf="isvalid &&  opcao===1">
+  <tfoot *ngIf="">
     <tr>
       <td colspan="8" class="text-center">
         <h4 >Não há cotações pendentes</h4>
@@ -119,6 +121,7 @@
     </tr>
   </tfoot>
 </table>
+</div>
 
 <ng-template #template>
   <div class="modal-body text-center">

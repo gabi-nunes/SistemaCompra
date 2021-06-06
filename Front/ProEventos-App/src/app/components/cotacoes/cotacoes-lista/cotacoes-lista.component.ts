@@ -82,7 +82,7 @@ export class CotacoesListaComponent implements OnInit {
     this.solicitacaoService.getSolicitacoes().subscribe({
       next: (solicitacoesResponse: Solicitacao[]) => {
         this.solicitacoes = solicitacoesResponse;
-        this.solicitacoes = this.solicitacoes.filter(s => s.statusAprovacao == 0);
+        this.solicitacoes = this.solicitacoes.filter(s => s.statusAprovacao == 0 || s.statusAprovacao == 3 || s.statusAprovacao == 4);
         // this.solicitacoesFiltradas = solicitacoesResponse;
       },
       error: () => {
@@ -161,7 +161,13 @@ export class CotacoesListaComponent implements OnInit {
     if (cots.some(c => c.status === 3)) { return 3; }
     else if (cots.every(c => c.status === 2)) { return 2; }
     else if (cots.some(c => c.status === 1)) { return 1; }
+    else if (cots.some(c => c.status === 3)) { return 3; }
+    else if (cots.some(c => c.status === 4)) { return 3; }
     return 0;
+  }
+
+  getPrazoCotacao(solID: number): string | undefined{
+    return this.cotacoes?.find(c => c.id === solID)?.prazoOfertas.toString() ?? "__/__/____";
   }
 
   onMudouEvento(evento: any): void{

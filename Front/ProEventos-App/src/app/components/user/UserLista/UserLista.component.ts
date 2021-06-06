@@ -20,7 +20,7 @@ export class UserListaComponent implements OnInit {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private router: Router
-  ) {} 
+  ) {}
 
   public user: user[] = [];
   public UserFiltrados: user[] = [];
@@ -39,7 +39,7 @@ export class UserListaComponent implements OnInit {
   public Filtrar(filter: string): user[]{
     filter = filter.toLocaleLowerCase();
     return this.user.filter(
-      (user: any) => user.name.toLocaleLowerCase().indexOf(filter) !== -1
+      (user: any) => user?.nome?.toLocaleLowerCase().indexOf(filter) !== -1
       );
   }
 
