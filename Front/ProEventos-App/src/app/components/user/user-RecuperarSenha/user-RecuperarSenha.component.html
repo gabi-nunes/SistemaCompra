@@ -1,22 +1,21 @@
-<app-titulo [titulo]="'Usuários'" [subtitulo]="''" [icone]="'fas fa-user-circle'"></app-titulo>
-
-<div class="d-flex align-items-center vh-100">
-
-	<div class="mx-auto text-center shadow-sm bg-white rounded p-5 my-5">
+<div class="bg-supermarket">
+  <div class="d-flex align-items-center vh-100">
+    <div class="mx-auto text-center shadow-sm bg-white rounded p-5 my-5">
 
 
-      <div class="form-group">
-        <form class="form-signin">
-          <form [formGroup]="recuperarFrom">
-            <i class="fa fa-users mb-2"></i>
-            <h1 class="h3 mb-3 font-weight-normal">Recuperar Senha</h1>
-            <label for="username" class="sr-only">Usuário</label>
-            <input type="email" formControlName="email" id="username" class="form-control" placeholder="Usuário" name="username"  [(ngModel)]="email" required>
-            <br>
-            <button class="btn btn-lg bg-logo btn-block" type="submit" (click)="RecuperarSenha()" >Enviar</button>
-            <a class="btn btn-lg btn-link text-logo btn-block" routerLink="/user/login">Voltar ao Login</a>
+        <div class="form-group">
+          <form class="form-signin">
+            <form [formGroup]="recuperarFrom">
+              <i class="fa fa-users mb-2"></i>
+              <h1 class="h3 mb-3 font-weight-normal">Recuperar Senha</h1>
+              <label for="username" class="sr-only">Usuário</label>
+              <input type="email" formControlName="email" id="username" class="form-control" placeholder="Usuário" name="username"  [(ngModel)]="email" required>
+              <br>
+              <button class="btn btn-lg bg-logo btn-block" type="submit" (click)="RecuperarSenha()" >Enviar</button>
+              <a class="btn btn-lg btn-link text-logo btn-block" routerLink="/user/login">Voltar ao Login</a>
+            </form>
           </form>
-        </form>
-      </div>
+        </div>
+    </div>
   </div>
 </div>

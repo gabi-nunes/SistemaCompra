@@ -137,7 +137,7 @@ export class SolicitacaoListaComponent implements OnInit {
         resultTooltip = 'Reprovado';
         break;
       case 2:
-        resultTooltip = 'Aprovado';
+        resultTooltip = 'Pendente';
         break;
       case 3:
           resultTooltip = 'Aprovado';
