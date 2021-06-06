@@ -213,25 +213,6 @@ namespace SistemaCompra.API.Controllers
             }
         }
 
-        [HttpGet("UltimoId")]
-        public async Task<IActionResult> GetidLast()
-        {
-            try
-            {
-                int id = await UserService.TheLastID();
-                if (id == null) return NoContent();
-
-                return Ok(id);
-
-            }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar recuperar a última Usuario . Erro: {ex.Message}");
-            }
-        }
-
-
     }
 
 

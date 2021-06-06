@@ -45,7 +45,7 @@ export class ListagemPedidoComponent implements OnInit {
     let resultColor: any;
     switch (status) {
       case 0:
-        resultColor = '#f0ad4e';
+        resultColor = '#5cb85c';
         break;
       case 1:
         resultColor = '#5cb85c';
