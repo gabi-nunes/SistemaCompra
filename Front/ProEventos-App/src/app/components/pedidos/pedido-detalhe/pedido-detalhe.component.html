@@ -18,12 +18,12 @@
         </h2>
       </div>
       <hr class="mt-1">
-      <div *ngIf="pedido.statusAprov === 1 || pedido.statusAprov === 0" class="no-print">
+      <div *ngIf="(pedido.statusAprov === 1 || pedido.statusAprov === 0) && podeAprovar" class="no-print">
         <label *ngIf="pedido.statusAprov === 0" class="text-success">
           Essa Solicitação já foi Aprovada portanto não pode mais ser alterada <br>
           Comentários de {{aprovador?.nome}}(Aprovador):
         </label>
-        <label *ngIf="pedido.statusAprov === 1" class="text-danger">
+        <label *ngIf="pedido.statusAprov === 1 && podeAprovar" class="text-danger">
           Essa Solicitação foi Reprovada. <br> Leia os comentários de quem a reprovou, preencha e envie para a avaliação novamente. <br>
           Comentários de {{aprovador?.nome}}(Avaliador):
         </label>

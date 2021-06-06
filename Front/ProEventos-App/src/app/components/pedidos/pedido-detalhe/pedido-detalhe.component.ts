@@ -188,6 +188,8 @@ CloseModalAprovacao(): void{
   this.modalRefAprovacao.hide();
 }
 
+
+
 onMudouEvento(evento: any): void{
   console.log(evento);
 }
