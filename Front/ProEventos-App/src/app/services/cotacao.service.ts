@@ -19,7 +19,7 @@ export class CotacaoService {
 
     reload = true;
 
-  
+
   getCotacoes(): Observable<Cotacao[]>{
     return this.http.get<Cotacao[]>(this.baseURL);
   }
@@ -48,7 +48,7 @@ export class CotacaoService {
     return this.http.get<any>(`${this.baseURL}/FornecedorIdeal/${solicitId}`);
   }
 
-  EnviarPreçoItem(id: number, precoUnit: preco): Observable<Cotacao>{
+  EnviarPreçoItem(id: number, precoUnit: preco): Observable<any>{
     return this.http.put<any>(`${this.baseURL}/EnviaPrecoPorItem/${id}`, precoUnit);
   }
 

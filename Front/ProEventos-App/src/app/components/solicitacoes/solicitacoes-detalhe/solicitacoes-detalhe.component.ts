@@ -418,7 +418,7 @@ public CarregarAprovador(userId: number): void{
 
   confirm(): void {
     debugger;
-    this.solicitacaoProdutos = this.solicitacaoProdutos.filter(s => !this.solProdIdExluidos.includes(s.id));
+    this.solicitacaoProdutos = this.solicitacaoProdutos.filter(s => !this.solProdIdExluidos.includes(s.produto?.id));
     this.modalRef.hide();
   }
 

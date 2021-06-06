@@ -166,6 +166,10 @@ export class CotacoesListaComponent implements OnInit {
     return 0;
   }
 
+  getPrazoCotacao(solID: number): string | undefined{
+    return this.cotacoes?.find(c => c.id === solID)?.prazoOfertas.toString() ?? "__/__/____";
+  }
+
   onMudouEvento(evento: any): void{
     console.log(evento);
   }

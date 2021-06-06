@@ -48,13 +48,12 @@
           <input class="form-control" bsDatepicker
           [ngClass]="cssValidation(f.prazoCotacao)"
           formControlName="prazoCotacao"
-          [minDate]="dataHoje"
-          [bsConfig]="bsConfig" [readonly]="IsCotacaoEncerrada">
+          [minDate]="dataHoje" [isDisabled]="CantChange"
+          [bsConfig]="bsConfig" [readonly]="CantChange">
           <div *ngIf="f.prazoCotacao.errors?.required" class="invalid-feedback">
             O campo Prazo de Cotação é obrigatório
           </div>
         </div>
-
       </div>
       <div class="form-row">
         <div class="form-group col-md-2">
