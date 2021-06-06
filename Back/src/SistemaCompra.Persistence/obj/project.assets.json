@@ -1114,7 +1114,6 @@
   },
   "packageFolders": {
     "C:\\Users\\Rafael\\.nuget\\packages\\": {}
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
   },
   "project": {
     "version": "1.0.0",
@@ -1125,18 +1124,13 @@
       "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
       "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

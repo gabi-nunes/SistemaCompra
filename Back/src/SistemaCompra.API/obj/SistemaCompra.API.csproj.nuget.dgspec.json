@@ -1,19 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj",
-        "projectName": "SistemaCompra.API",
-        "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj",
-        "packagesPath": "C:\\Users\\cliente\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.API\\obj\\",
-=======
     "D:\\SistemaCompra\\back\\src\\SistemaCompra.Api\\SistemaCompra.API.csproj": {}
   },
   "projects": {
@@ -25,15 +12,9 @@
         "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Api\\SistemaCompra.API.csproj",
         "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
         "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Api\\obj\\",
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         "projectStyle": "PackageReference",
         "configFilePaths": [
-<<<<<<< HEAD
-          "C:\\Users\\cliente\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
           "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -45,16 +26,6 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-<<<<<<< HEAD
-              "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj": {
-                "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj"
-              },
-              "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
-                "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
-              },
-              "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
-                "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj"
-=======
               "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj": {
                 "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj"
               },
@@ -63,7 +34,6 @@
               },
               "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
                 "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj"
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
               }
             }
           }
@@ -145,16 +115,6 @@
         }
       }
     },
-<<<<<<< HEAD
-    "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
-        "projectName": "SistemaCompra.Application",
-        "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
-        "packagesPath": "C:\\Users\\cliente\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Application\\obj\\",
-=======
     "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -163,15 +123,9 @@
         "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
         "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
         "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\obj\\",
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         "projectStyle": "PackageReference",
         "configFilePaths": [
-<<<<<<< HEAD
-          "C:\\Users\\cliente\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
           "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -183,19 +137,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-<<<<<<< HEAD
-              "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
-                "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
-              },
-              "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
-                "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj"
-=======
               "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
                 "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
               },
               "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
                 "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj"
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
               }
             }
           }
@@ -234,16 +180,6 @@
         }
       }
     },
-<<<<<<< HEAD
-    "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
-        "projectName": "SistemaCompra.Domain",
-        "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
-        "packagesPath": "C:\\Users\\cliente\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\obj\\",
-=======
     "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -252,15 +188,9 @@
         "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
         "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
         "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\obj\\",
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         "projectStyle": "PackageReference",
         "configFilePaths": [
-<<<<<<< HEAD
-          "C:\\Users\\cliente\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
           "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -308,16 +238,6 @@
         }
       }
     },
-<<<<<<< HEAD
-    "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
-        "projectName": "SistemaCompra.Persistence",
-        "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
-        "packagesPath": "C:\\Users\\cliente\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\obj\\",
-=======
     "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -326,15 +246,9 @@
         "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
         "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
         "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\obj\\",
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         "projectStyle": "PackageReference",
         "configFilePaths": [
-<<<<<<< HEAD
-          "C:\\Users\\cliente\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
           "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -346,13 +260,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-<<<<<<< HEAD
-              "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
-                "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
-=======
               "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
                 "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
->>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
               }
             }
           }
