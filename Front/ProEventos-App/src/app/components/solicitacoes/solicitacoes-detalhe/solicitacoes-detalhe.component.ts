@@ -66,6 +66,11 @@ export class SolicitacoesDetalheComponent implements OnInit {
   public get CanChange(): boolean{
     return !(this.solicitacao.statusAprovacao === 0);
   }
+  public get dataSolicitacao(): string{
+    const data = this.solicitacao?.dataSolicitacao ?? this.dataHoje;
+    if(typeof data === 'string'){return data}
+    return this.FormatDate(data);
+  }
   private gridFilter = '';
   produtosFiltrados: Produto[] = [];
 
@@ -76,6 +81,15 @@ export class SolicitacoesDetalheComponent implements OnInit {
     this.gridFilter = value;
     this.produtosFiltrados = this.gridFilter ? this.Filtrar(this.gridFilter) : this.produtos;
   }
+
+  public FormatDate(data: Date): string{
+        var dia  = data.getDate().toString();
+        var diaF = (dia.length == 1) ? '0'+dia : dia;
+        var mes  = (data.getMonth()+1).toString(); //+1 pois no getMonth Janeiro começa com zero.
+        var mesF = (mes.length == 1) ? '0'+mes : mes;
+        var anoF = data.getFullYear();
+    return diaF+"/"+mesF+"/"+anoF;
+}
 
   get f(): any{
     return this.form.controls;
@@ -282,10 +296,13 @@ public CarregarAprovador(userId: number): void{
       if (this.isCadastro){
         this.solicitacao = {...this.form.value};
         debugger;
-        const dataNeces = ((this.form.value.dataNecessidade.getDate())) + "/" + ((this.form.value.dataNecessidade.getMonth() + 1)) + "/"
-                        + this.form.value.dataNecessidade.getFullYear();
-        const dataSolic = ((this.form.value.dataSolicitacao.getDate())) + "/" + ((this.form.value.dataSolicitacao.getMonth() + 1)) + "/"
-                        + this.form.value.dataSolicitacao.getFullYear();
+        const dataNeces = this.FormatDate(this.form.value.dataNecessidade);
+        const dataSolic = this.FormatDate(this.form.value.dataSolicitacao);
+
+        // const dataNeces = ((this.form.value.dataNecessidade.getDate())) + "/" + ((this.form.value.dataNecessidade.getMonth() + 1)) + "/"
+        //                 + this.form.value.dataNecessidade.getFullYear();
+        // const dataSolic = ((this.form.value.dataSolicitacao.getDate())) + "/" + ((this.form.value.dataSolicitacao.getMonth() + 1)) + "/"
+        //                 + this.form.value.dataSolicitacao.getFullYear();
 
         solicitacaoDto.dataNecessidade = dataNeces;
         solicitacaoDto.dataSolicitacao = dataSolic;
