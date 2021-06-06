@@ -27,29 +27,38 @@
             <div class="form-group col-12">
               <h3 class="border-bottom">Alterações do Perfil</h3>
             </div>
-            <div class="form-group col-sm-5">
+            <div class="form-group col-sm-6">
               <label>Nome</label>
-              <input type="text" formControlName="nome" class="form-control"/>
+              <input [ngClass]="{'is-invalid': f.nome?.errors && f.nome?.touched}" type="text" formControlName="nome" class="form-control"/>
             </div>
-            <div class="form-group col-sm-5">
-              <label>Cargo</label>
-              <input type="text"  formControlName="cargo" class="form-control" />
+
+            <div class="form-group col-sm-6">
+              <label for="">Cargo:</label>
+              <select [ngClass]="{'is-invalid': f.cargo?.errors && f.cargo?.touched}" class="form-control"
+              formControlName="cargo">
+                <option value=""></option>
+                <option value="Solicitante">Solicitante</option>
+                <option value="Comprador">Comprador</option>
+                <option value="Gerente">Gerente</option>
+              </select>
             </div>
+
           </div>
           <div class="form-row">
-            <div class="form-group col-sm-5">
+            <div class="form-group col-sm-6">
               <label>E-mail</label>
-              <input type="text"  formControlName="email" class="form-control" />
+              <input [ngClass]="{'is-invalid': f.email?.errors && f.email?.touched}" type="text"  formControlName="email" class="form-control" />
             </div>
-            <div class="form-group col-sm-5">
+            <div class="form-group col-sm-6">
               <label>Setor</label>
-              <input type="text"  formControlName="setor" class="form-control" />
+              <input [ngClass]="{'is-invalid': f.setor?.errors && f.setor?.touched}" type="text"  formControlName="setor" class="form-control" />
             </div>
           </div>
           <div class="row">
-            <div class="d-flex col-10">
+            <div class="d-flex col-12">
               <button class="btn btn-success ml-auto" *ngIf="alterarS" (click)="alterarsenha()">
                 <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+                <i class="fas fa-key fa-lg my-1"></i>
                 Alterar senha
               </button>
             </div>
@@ -59,24 +68,26 @@
             <p>Caso mude de senha, preencha os campos abaixo:</p>
             <div class="form-row">
               <div class="form-group col-sm">
-                  <label>Senha</label>
-        <input [ngClass]="{'is-invalid': f.senhaPas?.errors && f.senhaPas?.touched}" formControlName="senhaPas" type="password" class="form-control" />
+                <label>Senha</label>
+                <input [ngClass]="{'is-invalid': f.senhaPas?.errors && f.senhaPas?.touched}" formControlName="senhaPas" type="password" class="form-control" />
                   <div class="invalid-feedback" *ngIf="f.senhaPas.errors?.required">
-          O Campo senha é obrigatório
-        </div>
+                    O Campo senha é obrigatório
+                  </div>
               </div>
               <div class="form-group col-sm">
-                  <label>Confirmar Senha</label>
-        <input [ngClass]="{'is-invalid': f.confirmarSenha?.errors && f.confirmarSenha?.touched}" formControlName="confirmarSenha" type="password" class="form-control" />
-                  <div class="invalid-feedback" *ngIf="f.confirmarSenha.errors?.required">
-          O Campo confimar Senha é obrigatório
-        </div>
-                  <div class="invalid-feedback" *ngIf="f.confirmarSenha.errors?.mustMatch">
-          As senhas precisam ser iguais
-        </div>
-      </div>
-    </div>
-  </div>
+                <label>
+                  Confirmar Senha
+                </label>
+                <input [ngClass]="{'is-invalid': f.confirmarSenha?.errors && f.confirmarSenha?.touched}" formControlName="confirmarSenha" type="password" class="form-control" />
+                <div class="invalid-feedback" *ngIf="f.confirmarSenha.errors?.required">
+                  O Campo confimar Senha é obrigatório
+                </div>
+                <div class="invalid-feedback" *ngIf="f.confirmarSenha.errors?.mustMatch">
+                  As senhas precisam ser iguais
+                </div>
+              </div>
+            </div>
+          </div>
 </div>
 </div>
       <div class="card-footer">
@@ -84,14 +95,11 @@
           <button class="btn btn-outline-secondary mr-auto border" (click)="Cancelar()">
             Cancelar Alteração
           </button>
-            <div class="d-flex">
-            <button class="btn btn-success ml-5" (click)="atualiza()" *ngIf="alterarS">
+          <div class="d-flex">
+            <button class="btn btn-success ml-5" (click)="AtualizaUser()" [disabled]="!form.valid">
               <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+              <i class="fas fa-save fa-lg my-1"></i>
               Salvar Alteração
-            </button>
-            <button class="btn btn-success ml-5" (click)="Salvarsenha()" *ngIf="!alterarS">
-              <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
-              Salvar Senha
             </button>
           </div>
         </div>

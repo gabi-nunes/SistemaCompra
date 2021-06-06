@@ -30,7 +30,7 @@
         <!-- [ngClass]="{cssClass: expression}">{{GetColorByStatus(solicitacao.statusAprovacao)}}</td> -->
         <td class="text-center" style="white-space: nowrap;">
           <i *ngIf="solicitacao.statusAprovacao === 2 && podeAprovar" class="fas fa-search " tooltip="Avaliar" (click)="openModalAprovacao(AprovarSolicitacao, solicitacao)" style="color: #5bc0de; cursor: pointer; font-size: x-large;"></i>
-          <i *ngIf="solicitacao.statusAprovacao !== 0" tooltip="Excluir" class="far fa-trash-alt mx-3" (click)="openModal(template, solicitacao.id )" style="color: #d9534f; cursor: pointer; font-size: x-large;"></i>
+          <i *ngIf="solicitacao.statusAprovacao !== 0 && solicitacao.statusAprovacao !== 3 && solicitacao.statusAprovacao !== 4" tooltip="Excluir" class="far fa-trash-alt mx-3" (click)="openModal(template, solicitacao.id )" style="color: #d9534f; cursor: pointer; font-size: x-large;"></i>
         </td>
       </tr>
     </tbody>

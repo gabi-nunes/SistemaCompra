@@ -7,9 +7,8 @@
         <th class="text-right" style="width: 7%;"    *ngIf="iscolumn"></th>
         <th class="text-center"  style="width: 5%;">Código</th>
         <th class="text-center">Data Emissão</th>
-        <th class="text-center">Status</th>
         <th class="text-center">Prazo de Oferta</th>
-        <th class="text-center">Opção</th>
+        <th class="text-center">Status</th>
       </tr>
     </thead>
     <tbody *ngIf="cotacao && cotacao.length">
@@ -21,13 +20,11 @@
            {{cotacoes.id}}
         </td>
         <td class="text-center">{{cotacoes.dataEmissaoCotacao}}</td>
+        <td class="text-center">{{cotacoes.prazoOfertas}}</td>
         <td class="text-center">
           <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatus(cotacoes.status)}" [tooltip]="GetTooltipByStatus(cotacoes.status)"></i>
         </td>
-        <td class="text-center">{{cotacoes.prazoOfertas}}</td>
-        <td class="text-center">
-        <i tooltip="Excluir" class="far fa-trash-alt mx-3" (click)="openModal(template, cotacoes.id)" style="color: #d9534f; cursor: pointer; font-size: x-large;"></i>
-      </td>
+
       </tbody>
 
     <tfoot *ngIf="!cotacao|| cotacao.length == 0">

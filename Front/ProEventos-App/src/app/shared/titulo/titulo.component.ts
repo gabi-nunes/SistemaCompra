@@ -13,15 +13,17 @@ export class TituloComponent implements OnInit {
   @Input() icone = '';
 
   public get mostraBtnListar(): boolean{
-    return !this.router.url.includes('lista') && !this.router.url.includes('dashboard') && !this.router.url.includes('produtos') && !this.router.url.includes('user');
+    return !this.router.url.includes('lista') && !this.router.url.includes('dashboard') && !this.router.url.includes('user') && !this.router.url.includes('produtos') && !this.router.url.includes('alterarSenha');
   }
 
   ngOnInit(): void {
   }
 
   Listar(): void{
-    debugger;
-    this.router.url.includes('lista')
+    if(this.router.url.includes('areaFornecedor')){
+      this.router.navigate([`/areaFornecedor/listaCotacao`]);
+      return;
+    }
     this.router.navigate([`/${this.titulo.toLocaleLowerCase().replace('cotações', 'cotacoes')}/lista`]);
   }
 
