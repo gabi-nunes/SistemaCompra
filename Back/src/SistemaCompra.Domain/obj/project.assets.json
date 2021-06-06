@@ -291,39 +291,23 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\cliente\\.nuget\\packages\\": {},
-=======
-    "C:\\Users\\gabie\\.nuget\\packages\\": {},
->>>>>>> c1358d5be2304b84b1f59147a07b1446e2f2c888
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
       "projectName": "SistemaCompra.Domain",
       "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
       "packagesPath": "C:\\Users\\cliente\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
-      "projectName": "SistemaCompra.Domain",
-      "projectPath": "C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
-      "packagesPath": "C:\\Users\\gabie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\obj\\",
->>>>>>> c1358d5be2304b84b1f59147a07b1446e2f2c888
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
         "C:\\Users\\cliente\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "C:\\Users\\gabie\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> c1358d5be2304b84b1f59147a07b1446e2f2c888
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -378,7 +362,7 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Problema ao ler o arquivo de cache C:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "Problema ao ler o arquivo de cache C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }

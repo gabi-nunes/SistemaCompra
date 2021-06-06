@@ -1,6 +1,5 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "NBD1vJpuPZUTrfxfs1CCmu2OOZkRYavw2bp31PEttz9E3bBFdy1DmyStVGua8siny8/mq5VDy1zcDJZiemLU1A==",
   "success": true,
   "projectFilePath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
@@ -11,18 +10,13 @@
     "C:\\Users\\cliente\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.10.0\\microsoft.identitymodel.tokens.6.10.0.nupkg.sha512",
     "C:\\Users\\cliente\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.10.0\\system.identitymodel.tokens.jwt.6.10.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
-=======
-  "dgSpecHash": "oa8rGLZ1jzELDhGZn9lyI74EsON+gR8T1fSumLop5OWoxUr3gASv4um7UUhOjnR6wZgZ5/4oKxuycb6HDNxmpQ==",
-  "success": true,
-  "projectFilePath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Rafael\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
-    "C:\\Users\\Rafael\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.10.0\\microsoft.identitymodel.jsonwebtokens.6.10.0.nupkg.sha512",
-    "C:\\Users\\Rafael\\.nuget\\packages\\microsoft.identitymodel.logging\\6.10.0\\microsoft.identitymodel.logging.6.10.0.nupkg.sha512",
-    "C:\\Users\\Rafael\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.10.0\\microsoft.identitymodel.tokens.6.10.0.nupkg.sha512",
-    "C:\\Users\\Rafael\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.10.0\\system.identitymodel.tokens.jwt.6.10.0.nupkg.sha512",
-    "C:\\Users\\Rafael\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
->>>>>>> c1358d5be2304b84b1f59147a07b1446e2f2c888
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema ao ler o arquivo de cache C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
