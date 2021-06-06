@@ -1,13 +1,14 @@
-<app-titulo [titulo]="'Dashboard'" [subtitulo]="'Menu Principal'" [icone]="'fas fas fa-chart-bar'"></app-titulo>
+<app-titulo [titulo]="'Home'" [subtitulo]="'Menu Principal'" [icone]="'fas fa-home'"></app-titulo>
 <div class="card p-3 shadow-sm rounded">
 
   <div class="d-flex mb-2">
     <div class="flex-fill pr-3">
       <select [(ngModel)]="opcao" class="form-control">
-        <option [ngValue]="0">Todos</option>
-        <option [ngValue]="1">Cotações</option>
-        <option [ngValue]="2">Solicitações</option>
-        <option [ngValue]="3">Pedidos</option>
+        <option [ngValue]="0">Pendentes</option>
+        <option [ngValue]="1">Cotações Pendentes</option>
+        <option [ngValue]="2">Solicitações Pendentes</option>
+        <option [ngValue]="3">Pedidos Pendestes </option>
+        <option [ngValue]="4">Rastreabilidade da Solicitação </option>
       </select>
     </div>
 
@@ -90,6 +91,34 @@
       </div>
   </div>
 </div>
+
+<table class="table table-hover">
+  <thead class="bg-logo">
+  <tr>
+      <th class="d-none d-md-table-cell text-center">Código da Solicitação</th>
+      <th class="text-center">Data</th>
+      <th class="text-center">Estágio</th>
+      <th class="text-center">Status</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="Solicitacaocotacoes && Solicitacaocotacoes.length && opcao===4">
+    <tr *ngFor="let cot of Solicitacaocotacoes"  (dblclick)="DetalharCotacao(cot.id)">
+      <td class="d-none d-md-table-cell text-center" *ngIf="GetStatus(cot.id) <= 0">{{cot.id}}</td>
+      <td class="text-center" *ngIf="GetStatus(cot.id) <= 0">Cotação</td>
+      <td class="text-center" *ngIf="GetStatus(cot.id) <= 0">
+        <i class="fas fa-square fa-2x" [ngStyle]="{'color': GetColorByStatusCotacao(cot.id).color}" [tooltip]="GetColorByStatusCotacao(cot.id).tooltip"></i>
+      </td>
+      <td class="text-center" *ngIf="GetStatus(cot.id) <= 0">{{cot.dataSolicitacao}}</td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="isvalid &&  opcao===1">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4 >Não há cotações pendentes</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
 
 <ng-template #template>
   <div class="modal-body text-center">

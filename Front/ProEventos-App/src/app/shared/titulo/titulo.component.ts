@@ -13,7 +13,11 @@ export class TituloComponent implements OnInit {
   @Input() icone = '';
 
   public get mostraBtnListar(): boolean{
-    return !this.router.url.includes('lista') && !this.router.url.includes('dashboard');
+<<<<<<< HEAD
+    return !this.router.url.includes('lista') && !this.router.url.includes('dashboard') && !this.router.url.includes('produtos');
+=======
+    return !this.router.url.includes('lista') && !this.router.url.includes('dashboard') && !this.router.url.includes('user');
+>>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
   }
 
   ngOnInit(): void {

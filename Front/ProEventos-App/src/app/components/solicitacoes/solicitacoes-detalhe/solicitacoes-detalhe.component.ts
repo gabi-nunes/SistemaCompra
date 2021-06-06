@@ -395,7 +395,8 @@ public CarregarAprovador(userId: number): void{
   }
 //#endregion
 //#region "Modal"
-  public OpenModal(template: TemplateRef<any>, solProdId: number = 0): void{
+  public OpenModal(template: TemplateRef<any>, solProdId: number=0): void{
+    console.log(solProdId)
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
     this.solProdIdExluidos.push(solProdId);
   }
@@ -417,7 +418,7 @@ public CarregarAprovador(userId: number): void{
 
   confirm(): void {
     debugger;
-    this.solicitacaoProdutos = this.solicitacaoProdutos.filter(s => !this.solProdIdExluidos.includes(s.id));
+    this.solicitacaoProdutos = this.solicitacaoProdutos.filter(s => !this.solProdIdExluidos.includes(s.produto?.id));
     this.modalRef.hide();
   }
 

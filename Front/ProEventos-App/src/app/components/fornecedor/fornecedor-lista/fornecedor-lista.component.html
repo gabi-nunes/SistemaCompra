@@ -25,7 +25,7 @@
     </div>
 
     <div>
-      <a class="d-flex btn btn-outline-primary" routerLink="/fornecedor/detalhe">
+      <a class="d-flex btn btn-outline-primary" routerLink="/fornecedores/detalhe">
         <i class="fas fa-plus-circle my-1"></i>
         <b class="ml-1 d-none d-md-block">Novo</b>
       </a>
@@ -49,7 +49,7 @@
         <td class="text-center">{{getFamiliaDesc(fornecedor.familiaProdutoId)}}</td>
         <td class="text-center">{{fornecedor.pontuacaoRanking}}</td>
         <td class="text-center">
-            <i class="fas fa-times fa-2x" (click)="openModal(template, fornecedor.id)" style="color: #d9534f; cursor: pointer;"></i>
+            <i class="far fa-trash-alt mx-3" (click)="openModal(template, fornecedor.id)" style="color: #d9534f; cursor: pointer; font-size: x-large;"></i>
         </td>
       </tr>
     </tbody>

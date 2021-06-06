@@ -117,7 +117,7 @@ constructor(private spinner: NgxSpinnerService,
         this.fornecedorService.postFornecedor(this.fornecedor).subscribe(
           () => {
             this.toastr.success('Fornecedor salvo com Sucesso', 'Fornecedor Salvo');
-            this.router.navigate([`/fornecedor/lista`]);
+            this.router.navigate([`/fornecedores/lista`]);
           },
           (error: any) => {
             console.log(error);

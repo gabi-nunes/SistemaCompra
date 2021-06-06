@@ -91,12 +91,17 @@ export class CotacoesDetalheComponent implements OnInit {
 
   public get IsCotacaoEncerrada(): boolean{
     if (!this.cotacoes.length) {return false; }
-    return this.cotacoes.every(c => c.status == 3);
+    return this.cotacoes.some(c => c.status == 3);
   }
 
   public get ShowCotacaoes(): boolean{
     if (!this.cotacoes.length) {return false; }
     return this.cotacoes.some(c => c.status == 2);
+  }
+
+  public get CantChange(): boolean{
+    if (!this.cotacoes.length) {return false; }
+    return this.cotacoes.some(c => c.status > 0);
   }
 
   get f(): any{
@@ -199,6 +204,7 @@ export class CotacoesDetalheComponent implements OnInit {
   }
 
   public IsFornIdeal(fornId: number = 0): boolean{
+    if (this.IsFornEscolhido(fornId)){return false;}
     if (fornId == 0) {return false; }
     if (this.cotacoes.some(c => c.status == 1)) {return false; }
     let isIdeal = false;
@@ -210,6 +216,10 @@ export class CotacoesDetalheComponent implements OnInit {
       }
     });
     return isIdeal;
+  }
+
+  public IsFornEscolhido(fornId: number): boolean{
+    return this.cotacoes.some(c => c.fornecedorId === fornId);
   }
 
   public GetTypeIdeal(fornId: number = 0): number{
@@ -279,7 +289,8 @@ public CarregarCotacoesBySolicitacao(): void{
       this.cotacoes = cotacoes;
       this.form.patchValue({prazoCotacao: cotacoes[0]?.prazoOfertas,
                             frmPagamento: cotacoes[0]?.frmPagamento});
-      if (this.IsCotacaoEncerrada) { this.form.get('frmPagamento')?.disable(); }
+
+      if (this.CantChange) { this.form.get('frmPagamento')?.disable(); }
       cotacoes.forEach(c => {
         this.cotacoesFormArray.push(this.criarCotacao(c));
       });

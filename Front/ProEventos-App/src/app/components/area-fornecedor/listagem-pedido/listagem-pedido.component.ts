@@ -64,7 +64,7 @@ export class ListagemPedidoComponent implements OnInit {
     let resultTooltip: any;
     switch (status) {
       case 0:
-        resultTooltip = 'Pendente';
+        resultTooltip = 'Aprovado';
         break;
       case 1:
         resultTooltip = 'Aguardando Ofertas';
@@ -84,7 +84,6 @@ export class ListagemPedidoComponent implements OnInit {
     this.pedidoService.getPedidoByIdFornecedor(this.fornecedor.id).subscribe(
       (pedidoResponse: Pedido[]) => {
         this.pedido = pedidoResponse
-        console.log(this.pedido);
       },
       () => {
         this.spinner.hide(),

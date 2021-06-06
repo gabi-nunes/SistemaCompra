@@ -10,7 +10,7 @@
 
 
 <div class="card shadow-sm rounded">
-  <form [formGroup]="form">
+  <div [formGroup]="form">
     <div class="p-3">
       <div class="d-flex">
         <h2 class="roboto text-muted mr-auto mb-0 pb-0">
@@ -193,10 +193,11 @@
         <button class="btn btn-primary mr-2 no-print" *ngIf="pedido.statusAprov == 2 && podeAprovar" [disabled]="!form.valid" (click)="OpenModalAprovacao(AprovarPedido)">
           <div class="d-flex">
             <i class="fas fa-search fa-lg my-1"></i>
-            <p class="ml-1 my-0">Aprovar</p>
+            <p class="ml-1 my-0">Avaliar</p>
           </div>
         </button>
-        <button  class="btn btn-outline-primary ml-2 no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >
+        <button  class="btn btn-primary ml-2 no-print" [disabled]="!form.valid" (click)="GerarRelatrio()" >
+          <i class="fas fa-file-pdf fa-lg my-1"></i>
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           Gerar Relatório
         </button>
@@ -215,6 +216,7 @@
       <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
     </div>
   </ng-template>
+
 
 
 
