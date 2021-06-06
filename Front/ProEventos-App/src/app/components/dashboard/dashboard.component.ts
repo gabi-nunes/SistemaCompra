@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
     public Solicitacaocotacoes: Solicitacao[] = [];
     public SolicitacaoRastreabilidade: Solicitacao[] = [];
     public pedidos: Pedido[] = [];
+    pedidosPendentes : Pedido[] = [];
     cotacoes: Cotacao[];
     public solicitacoes: Solicitacao[] = [];
     opcao?: number;
@@ -67,7 +68,7 @@ export class DashboardComponent implements OnInit {
     }
 
     FilterCotacoesById(solId: number): Cotacao[]{
-      debugger;
+
       const cotacoesSolicitacao = this.cotacoes?.filter(c => c.solicitacaoId == solId);
       return cotacoesSolicitacao;
     }
@@ -75,7 +76,6 @@ export class DashboardComponent implements OnInit {
 
 
     public GetStatus(solId: number): number{
-      debugger;
       const cots = this.FilterCotacoesById(solId);
       if (!cots?.length){return -1; }
       if (cots.some(c => c.status === 3)) { return 3; }
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
       return 0;
     }
 
-    GetColorByStatus(status: number): any{
+    GetColorByStatus(status?: number): any{
       let resultColor: any;
       switch (status) {
         case 0:
@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit {
     }
 
 
-  GetTooltipByStatus(status: number): string{
+  GetTooltipByStatus(status?: number): string{
     let resultTooltip: any;
     switch (status) {
       case 0:
@@ -145,6 +145,31 @@ export class DashboardComponent implements OnInit {
     return statusObj;
   }
 
+  GetStatusRastreabilidade(solid: number, statusAprov: number){
+
+    let statusObj = {color: '', tooltip: ''};
+
+    if(statusAprov <= 2){
+      statusObj.color= this.GetColorByStatus(statusAprov);
+      statusObj.tooltip= this.GetTooltipByStatus(statusAprov);
+      return statusObj;
+    }
+    if(statusAprov == 3){
+       return statusObj = this.GetColorByStatusCotacao(solid);
+    }
+    if(statusAprov == 4){
+      const cotacoesSol = this.cotacoes?.filter(c => c.solicitacaoId == solid);
+      const cotacaoId = cotacoesSol.find(c => c.fornecedorGanhadorId > 0)?.id;
+      const pedidoStatus = this.pedidos?.find(p => p.cotacaoId == cotacaoId)?.statusAprov;
+
+      statusObj.color= this.GetColorByStatus(pedidoStatus);
+      statusObj.tooltip= this.GetTooltipByStatus(pedidoStatus);
+
+      return statusObj;
+    }
+    return statusObj;
+  }
+
 
 
     public AlteraVisibilidadeImg(): void{
@@ -153,9 +178,10 @@ export class DashboardComponent implements OnInit {
 
     public CarregarPedidos(): void{
       // tslint:disable-next-line: deprecation
-      this.pedidoService.getPendetes().subscribe(
+      this.pedidoService.getPedidos().subscribe(
         (pedidosResponse: Pedido[]) => {
           this.pedidos = pedidosResponse;
+          this.pedidosPendentes = this.pedidos.filter(p => p.statusAprov == 2);
           this.spinner.hide()
         },
           // this.pedidosFiltrados = pedidosResponse;
@@ -209,6 +235,8 @@ export class DashboardComponent implements OnInit {
       this.solicitacaoService.getSolicitacoes().subscribe({
         next: (solicitacoesResponse: any[]) => {
           this.SolicitacaoRastreabilidade= solicitacoesResponse;
+          debugger
+          console.log(this.SolicitacaoRastreabilidade)
         },
         error: () => {
           this.spinner.hide(),
@@ -233,6 +261,29 @@ export class DashboardComponent implements OnInit {
         },
         complete: () => this.spinner.hide()
       });
+    }
+
+    GetEstagio(status: number) : string{
+      let texto = "oi";
+      switch(status){
+      case 0:
+        texto = "Em Solicitação"
+        break;
+      case 1:
+        texto = "Em Solicitação"
+        break;
+      case 2:
+        texto = "Em Solicitação"
+        break;
+      case 3:
+        texto = "Em Cotação"
+        break;
+        case 4:
+        texto = "Em Pedido";
+        break;
+      }
+
+      return texto;
     }
 
 
@@ -266,6 +317,22 @@ export class DashboardComponent implements OnInit {
       }
       else{}
     }
+
+    DetalhaRastreabilidade(id: number, statusSoli : number): void{
+        if(statusSoli <= 2){
+          this.router.navigate([`solicitações/detalhe/${id}`]);
+        }
+        if(statusSoli == 3){
+          this.router.navigate([`cotacoes/detalhe/${id}`]);
+        }
+        if(statusSoli == 4){
+          const cotacoesSol = this.cotacoes.filter(c => c.solicitacaoId == id);
+          const cotacaoId = cotacoesSol.find(c => c.fornecedorGanhadorId > 0)?.id;
+          const pedidoId = this.pedidos.find(p => p.cotacaoId == cotacaoId)?.id;
+          this.router.navigate([`pedidos/detalhe/${pedidoId}`]);
+        }
+    }
+
     novasoli(): void{
       this.router.navigate([`solicitações/detalhe/`]);
     }
