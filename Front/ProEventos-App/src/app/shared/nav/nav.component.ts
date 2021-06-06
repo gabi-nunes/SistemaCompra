@@ -21,7 +21,7 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     const userJson = localStorage.getItem('currentUser') || '{}';
-    this.usuario= JSON.parse(userJson);
+    this.usuario = JSON.parse(userJson);
     this.isUserByEmail();
     this.Validar();
   }
@@ -44,5 +44,11 @@ export class NavComponent implements OnInit {
 
   showMenu(): boolean{
     return (this.router.url !== '/user/login') && (this.router.url !== '/user/recuperar');
+  }
+
+  public showHome(): void{
+    if(this.isUser){
+      this.router.navigate([`/dashboard`]);
+    }
   }
 }

@@ -19,6 +19,7 @@ export class PerfilComponent implements OnInit {
   public UserFiltrados: user[] = [];
   public userId = 0;
   form: FormGroup;
+  formSenha: FormGroup;
   public isvalid: boolean= false;
   senha: string;
   alterarS: boolean = true;
@@ -47,12 +48,12 @@ export class PerfilComponent implements OnInit {
     };
     this.form = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-     email: ['', Validators.required],
+      email: ['', Validators.required],
       setor: ['', Validators.required],
-      senhaPas: ['', Validators.required],
-      confirmarSenha: ['', Validators.required],
       cargo: ['', Validators.required],
-    },formOptions);
+      senhaPas: [this.alterarS ? this.user?.senha : '', Validators.required],
+      confirmarSenha: [this.alterarS ? this.user?.senha : '', Validators.required],
+    }, formOptions);
   }
 
   get f(): any{
@@ -69,6 +70,7 @@ export class PerfilComponent implements OnInit {
           this.user= {...usuario};
           debugger
           this.form.patchValue(this.user);
+          this.form.get('cargo')?.disable();
         },
 
         (error: any) => {
@@ -81,45 +83,48 @@ export class PerfilComponent implements OnInit {
     }
   }
 
-  public atualiza(){
+  public AtualizaUser(){
 
       this.user = {id: this.user.id , ...this.form.value}
       debugger
       this.userService.AtualizaUser(this.user.id,this.user).subscribe(
-
-        () => this.toastr.success('Evento salvo com sucesso!', 'sucesso'),
-
+        () => {
+          this.toastr.success('Usuário salvo com sucesso!', 'Sucesso');
+          if (!this.alterarS){
+            this.Salvarsenha();
+          }else{  this.router.navigate(['/user/lista']);}
+        },
+        () => {
+          this.toastr.error('Erro ao salvar Usuário!', 'Erro'),
+          this.spinner.hide();
+        },
         () => this.spinner.hide()
-
-
       );
-       this.spinner.hide()
 
-        this.router.navigate(['/user/lista']);
 
 }
-Salvarsenha(){
-
+  Salvarsenha(): void{
     this.alterarS = false;
-
-    this.login= {id: this.user.id,email: this.user.email, senha: this.form.value.senhaPas}
-    debugger;
-
-  this.userService.AlterarSenha(this.login).subscribe(
-
-    () => this.toastr.success('Senha alterada com sucesso!', 'sucesso'),
-
-    () => this.spinner.hide()
-  );
-  debugger
-  this.router.navigate(['/user/lista']);
-}
+    this.login = {id: this.user.id,email: this.user.email, senha: this.form.value.senhaPas};
+    this.userService.AlterarSenha(this.login).subscribe(
+      () => {
+        this.toastr.success('Senha alterada com sucesso!', 'Sucesso');
+        this.router.navigate(['/user/lista']);
+      },
+      () => {
+        this.toastr.error('Erro ao alterar a senha!', 'Erro');
+        this.spinner.hide();
+      },
+      () => this.spinner.hide()
+    );
+  }
 alterarsenha(){
   this.alterarS= false;
+  this.form.patchValue({senhaPas: '', confirmarSenha: ''});
 }
 
 Cancelar(){
-  this.alterarS= true;
+  this.router.navigate(['/user/lista']);
 }
 
 

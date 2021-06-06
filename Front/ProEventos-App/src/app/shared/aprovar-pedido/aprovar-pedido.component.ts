@@ -69,27 +69,27 @@ public AprovarPedido(): void{
   );
 }
 public ReprovarPedido(): void{
-this.spinner.show();
-this.objPedidoAprov.statusAprov = 1;
-this.objPedidoAprov.observacaoRejeicao = this.observacaoRejeicao;
-debugger;
-this.pedidoService.putAlteraStatusPedido(+this.pedido.id, this.objPedidoAprov).subscribe(
-() => {
-this.spinner.hide();
-this.modal.hide();
-this.toastr.success('Pedido reprovado com Sucesso', 'Reprovado');
-this.carregaEventos.emit({RecarregaPedido: true});
-this.router.navigate([`/pedidos/lista`]);
-},
-(error: any) => {
-this.spinner.hide();
-this.toastr.error('Erro ao tentar Reprovar a Pedido', 'Erro');
-console.error(error);
-},
-() => {
-this.spinner.hide();
-}
-);
+  this.spinner.show();
+  this.objPedidoAprov.statusAprov = 1;
+  this.objPedidoAprov.observacaoRejeicao = this.observacaoRejeicao;
+  this.pedidoService.putAlteraStatusPedido(+this.pedido.id, this.objPedidoAprov).subscribe(
+    () => {
+      this.spinner.hide();
+      this.modal.hide();
+      this.toastr.success('Pedido reprovado com Sucesso', 'Reprovado');
+      this.carregaEventos.emit({RecarregaPedido: true});
+      this.router.navigate([`/pedidos/lista`]);
+      window.location.reload();
+    },
+    (error: any) => {
+      this.spinner.hide();
+      this.toastr.error('Erro ao tentar Reprovar a Pedido', 'Erro');
+      console.error(error);
+    },
+    () => {
+      this.spinner.hide();
+    }
+  );
 }
 
 }

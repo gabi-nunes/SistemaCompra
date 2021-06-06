@@ -33,22 +33,6 @@ export class SolicitacaoListaComponent implements OnInit {
   solicitacaoId = 0;
   user: user;
   podeAprovar: boolean= false;
- /* private gridFilter = 0;
-
-  public get GridFilter(): number{
-    return this.gridFilter;
-  }
-  public set GridFilter(value: number){
-    this.gridFilter = value;
-    this.solicitacoesFiltradas = this.gridFilter ? this.Filtrar(this.gridFilter) : this.solicitacoes;
-  }
-
-  public Filtrar(filter: number): Solicitacao[]{
-    filter = filter;
-    return this.solicitacoes.filter(
-      (solicitacao: any) => solicitacao.id.indexOf(filter) !== -1
-      );
-  } */
 
   public ngOnInit(): void {
     this.spinner.show();

@@ -20,8 +20,10 @@ export class TituloComponent implements OnInit {
   }
 
   Listar(): void{
-    debugger;
-    this.router.url.includes('lista')
+    if(this.router.url.includes('areaFornecedor')){
+      this.router.navigate([`/areaFornecedor/listaCotacao`]);
+      return;
+    }
     this.router.navigate([`/${this.titulo.toLocaleLowerCase().replace('cotações', 'cotacoes')}/lista`]);
   }
 

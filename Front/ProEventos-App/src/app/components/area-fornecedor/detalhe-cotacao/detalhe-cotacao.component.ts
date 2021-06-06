@@ -145,9 +145,8 @@ export class DetalheCotacaoComponent implements OnInit {
       dataEmissaoCotacao: [this.cotacao?.dataEmissaoCotacao],
       prazoOfertas: [this.cotacao?.prazoOfertas],
       dataNecessidade: [this.solicitacao?.dataNecessidade],
-      dataEntrega:[this.cotacao?.dataEntrega,Validators.required],
-      frete: [this.cotacao?.frete <= 0 ? null : this.cotacao?.frete?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-              Validators.required],
+      dataEntrega:[this.cotacao?.dataEntrega, Validators.required],
+      frete: [this.cotacao?.frete <= 0 ? null : this.cotacao?.frete?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }), Validators.required],
       total: [this.cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })]
 
     });
@@ -260,7 +259,7 @@ public get ShowAlert(): boolean{
       this.cotacaoService.enviar(this.cotacaoid, enviaOf).subscribe(
         (result: any) => {
           this.toastr.success('Enviado com sucesso', 'Sucesso!');
-
+          this.router.navigate([`/areaFornecedor/listaCotacao`]);
         },
         () => {},
         () => {}  );

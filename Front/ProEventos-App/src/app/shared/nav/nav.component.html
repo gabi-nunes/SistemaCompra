@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm" *ngIf="showMenu()">
   <div class="container">
-    <a class="navbar-brand mr-0 " routerLink="dashboard">
+    <a class="navbar-brand mr-0 " (click)="showHome()">
         <img class="pr-2 pb-2" src="../../../assets/logo_editado_cortado1.png" alt="Responsive image">
     </a>
     <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed">
