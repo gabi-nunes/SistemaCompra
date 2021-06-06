@@ -1113,38 +1113,55 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gabie\\.nuget\\packages\\": {},
+<<<<<<< HEAD
+    "C:\\Users\\cliente\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+=======
+    "C:\\Users\\Rafael\\.nuget\\packages\\": {}
+>>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
+<<<<<<< HEAD
+      "projectUniqueName": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
       "projectName": "SistemaCompra.Persistence",
-      "projectPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
-      "packagesPath": "C:\\Users\\gabie\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\obj\\",
+      "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
+      "packagesPath": "C:\\Users\\cliente\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\obj\\",
+=======
+      "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
+      "projectName": "SistemaCompra.Persistence",
+      "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
+      "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
+      "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\obj\\",
+>>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\gabie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+<<<<<<< HEAD
+        "C:\\Users\\cliente\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
+        "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
-              "projectPath": "c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
+<<<<<<< HEAD
+            "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
+              "projectPath": "C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
+=======
+            "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
+              "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
+>>>>>>> bd3957738db6df7d9fe247447567ce71ef030d9d
             }
           }
         }
@@ -1206,7 +1223,7 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Problema ao ler o arquivo de cache c:\\Users\\gabie\\OneDrive - Fatec Centro Paula Souza\\Desktop\\TCC\\SistemaCompra-PG\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "Problema ao ler o arquivo de cache C:\\Users\\cliente\\Desktop\\Joabe\\ADS\\TCC\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }
