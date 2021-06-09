@@ -116,7 +116,7 @@ namespace SistemaCompra.Application
                 _mailMessage.CC.Add(email);
                 _mailMessage.Subject = "Sistema Compra :)";
                 _mailMessage.IsBodyHtml = true;
-                _mailMessage.Body = "<b>Olá Tudo bem?</b><p>Informamos que você foi cadastrado no sistema! Sua senha é for@123.Parabens!!</p>";
+                _mailMessage.Body = "<b>Olá Tudo bem?</b><p>Informamos que você foi cadastrado no sistema! Sua senha é for@123.Parabens!! entre no http://localhost:4200/user/login para acessar sua conta</p>";
 
                 //CONFIGURAÇÃO COM PORTA
                 SmtpClient _smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32("587"));
