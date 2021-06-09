@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
       this.userService.getIsUserByEmail(this.email).subscribe(
         (result: any) => {
           this.isUser= result;
-
           debugger;
           if(this.isUser === true){
             debugger;
@@ -99,7 +98,7 @@ export class LoginComponent implements OnInit {
               () => this.spinner.hide()
             );
           }
-    },
+        },
         (error: any) => {
           console.error(error);
           this.toastr.error('Erro ao tentar entrar, verifique seu email e sua senha!', 'Erro');

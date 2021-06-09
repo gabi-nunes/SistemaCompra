@@ -47,6 +47,8 @@ export class DashboardComponent implements OnInit {
     user:user;
 
     public ngOnInit(): void {
+      const userJson = localStorage.getItem('currentUser') || '{}';
+      this.user = JSON.parse(userJson);
       this.reload();
       this.GetSolicitacoesRatereabilidade();
       this.CarregarPedidos();
@@ -54,8 +56,6 @@ export class DashboardComponent implements OnInit {
       this.GetCotacoes();
       this.GetSolicitacoesAprovadas();
       this.opcao =0;
-      const userJson = localStorage.getItem('currentUser') || '{}';
-      this.user = JSON.parse(userJson);
     }
 
     reload() {
