@@ -9,7 +9,7 @@ namespace SistemaCompra.Application.Contratos
         Task<user> AddUser(UserDto model);
        Task<user> UpdateUser(int userId, user model);
         Task<bool> DeleteUser(int userId);
-
+         bool EnviarEmailCadastro(string email);
         Task<user[]> GetAllUserAsync();
 
         Task<bool> GetIsUserAsync(string email);
