@@ -31,7 +31,7 @@ namespace SistemaCompra.Application
                 usuario.Cargo = model.Cargo;
                 usuario.email = model.email;
                 usuario.Senha = "Senha@123";
-
+                EnviarEmailCadastro(usuario.email);
 
 
             FGeralPersist.Add<user>(usuario);
@@ -235,7 +235,45 @@ namespace SistemaCompra.Application
                 throw new Exception(ex.Message);
             }
         }
+            public bool EnviarEmailCadastro(string email)
+        {
+            try
+            {
+               // Estancia da Classe de Mensagem
+                MailMessage _mailMessage = new MailMessage();
+                // Remetente
+                _mailMessage.From = new MailAddress("goodplacecompras@gmail.com");
 
+                // Destinatario seta no metodo abaixo
+
+                //Contrói o MailMessage
+                _mailMessage.CC.Add(email);
+                _mailMessage.Subject = "Sistema Compra :)";
+                _mailMessage.IsBodyHtml = true;
+                _mailMessage.Body = "<b>Olá Tudo bem?</b><p>Informamos que você foi cadastrado no sistema! Sua senha é Senha@123.Parabens!!</p>";
+
+                //CONFIGURAÇÃO COM PORTA
+                SmtpClient _smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32("587"));
+
+                //CONFIGURAÇÃO SEM PORTA
+                // SmtpClient _smtpClient = new SmtpClient(UtilRsource.ConfigSmtp);
+
+                // Credencial para envio por SMTP Seguro (Quando o servidor exige autenticação)
+                _smtpClient.UseDefaultCredentials = false;
+                _smtpClient.Credentials = new NetworkCredential("goodplacecompras@gmail.com", "Tcc123456");
+
+                _smtpClient.EnableSsl = true;
+
+                _smtpClient.Send(_mailMessage);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public async Task<user> AlterarSenha(int id, string senha)
         {
             try

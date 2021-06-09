@@ -61,7 +61,7 @@ namespace SistemaCompra.Application
                 fornecedor.Senha = "for@123";
 
                 FGeralPersist.Add<Fornecedor>(fornecedor);
-                EnviarEmail(fornecedor.Email);
+                EnviarEmailCadastro(fornecedor.Email);
 
                 if (await FGeralPersist.SaveChangesAsync())
                 {
@@ -93,6 +93,46 @@ namespace SistemaCompra.Application
                 }
                 return null;
 
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+         public bool EnviarEmailCadastro(string email)
+        {
+            try
+            {
+               // Estancia da Classe de Mensagem
+                MailMessage _mailMessage = new MailMessage();
+                // Remetente
+                _mailMessage.From = new MailAddress("goodplacecompras@gmail.com");
+
+                // Destinatario seta no metodo abaixo
+
+                //Contrói o MailMessage
+                _mailMessage.CC.Add(email);
+                _mailMessage.Subject = "Sistema Compra :)";
+                _mailMessage.IsBodyHtml = true;
+                _mailMessage.Body = "<b>Olá Tudo bem?</b><p>Informamos que você foi cadastrado no sistema! Sua senha é for@123.Parabens!! entre no http://localhost:4200/user/login para acessar sua conta</p>";
+
+                //CONFIGURAÇÃO COM PORTA
+                SmtpClient _smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32("587"));
+
+                //CONFIGURAÇÃO SEM PORTA
+                // SmtpClient _smtpClient = new SmtpClient(UtilRsource.ConfigSmtp);
+
+                // Credencial para envio por SMTP Seguro (Quando o servidor exige autenticação)
+                _smtpClient.UseDefaultCredentials = false;
+                _smtpClient.Credentials = new NetworkCredential("goodplacecompras@gmail.com", "Tcc123456");
+
+                _smtpClient.EnableSsl = true;
+
+                _smtpClient.Send(_mailMessage);
+
+                return true;
 
             }
             catch (Exception ex)
