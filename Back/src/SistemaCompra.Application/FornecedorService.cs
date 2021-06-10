@@ -35,12 +35,27 @@ namespace SistemaCompra.Application
             }
         }
 
+        public async Task<int> TheLastPosition(int idFamilia)
+        {
+            try
+            {
+                int idLast;
+                var user = await _FornecedorPresist.GetIdLast(idFamilia);
+                if (user == null) return 0;
+
+                idLast = user.Posicao;
+                return idLast;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public async Task<Fornecedor> AddFornecedor(FornecedorDto model)
         {
             try
-            {
-
+            { 
                 Fornecedor fornecedor = new Fornecedor();
                 fornecedor.CNPJ = model.CNPJ;
                 fornecedor.Nome = model.Nome;
@@ -59,6 +74,10 @@ namespace SistemaCompra.Application
                 fornecedor.PontuacaoRanking = model.PontuacaoRanking;
                 fornecedor.FamiliaProdutoId = model.FamiliaProdutoId;
                 fornecedor.Senha = "for@123";
+
+                int lastPosiciao = await TheLastPosition(fornecedor.FamiliaProdutoId);
+
+                fornecedor.Posicao = lastPosiciao + 1;
 
                 FGeralPersist.Add<Fornecedor>(fornecedor);
                 EnviarEmailCadastro(fornecedor.Email);
