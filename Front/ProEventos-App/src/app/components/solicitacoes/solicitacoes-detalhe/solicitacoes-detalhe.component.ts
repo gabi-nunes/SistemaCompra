@@ -111,7 +111,6 @@ export class SolicitacoesDetalheComponent implements OnInit {
 
   ngOnInit(): void{
     this.CarregarSolicitacao();
-    this.isAprovador();
     this.CarregarFamiliaProdutos();
     this.validation();
   }
@@ -250,6 +249,7 @@ public CarregarUser(userId: number = 0): void{
   if (isRegistro) {
     const userJson = localStorage.getItem('currentUser') || '{}';
     this.user = JSON.parse(userJson);
+    this.isAprovador();
     return;
   }
 
@@ -427,7 +427,8 @@ public CarregarAprovador(userId: number): void{
   }
 
   isAprovador(){
-    this.podeAprovar = this.user?.cargo !== '0';
+    this.podeAprovar = this.user?.cargo !== 'Solicitante';
+    console.log(this.podeAprovar);
   }
 
   decline(): void {this.modalRef.hide(); }

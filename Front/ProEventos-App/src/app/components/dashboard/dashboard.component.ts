@@ -304,7 +304,7 @@ export class DashboardComponent implements OnInit {
       this.router.navigate([`solicitações/detalhe/${id}`]);
     }
     DetalharPedido(id: number): void{
-      if(this.user.cargo!="0"){
+      if(this.user.cargo!="Solicitante"){
       this.router.navigate([`pedidos/detalhe/${id}`]);
       }
       else{
@@ -312,7 +312,7 @@ export class DashboardComponent implements OnInit {
       }
     }
     DetalharCotacao(id: number): void{
-      if(this.user.cargo!=="0"){
+      if(this.user.cargo!=="Solicitante"){
           this.router.navigate([`cotacoes/detalhe/${id}`]);
       }
       else{}
@@ -322,10 +322,10 @@ export class DashboardComponent implements OnInit {
         if(statusSoli <= 2){
           this.router.navigate([`solicitações/detalhe/${id}`]);
         }
-        if(statusSoli == 3){
+        if(statusSoli == 3 && this.user.cargo!="Solicitante"){
           this.router.navigate([`cotacoes/detalhe/${id}`]);
         }
-        if(statusSoli == 4){
+        if(statusSoli == 4 && this.user.cargo!="Solicitante"){
           const cotacoesSol = this.cotacoes.filter(c => c.solicitacaoId == id);
           const cotacaoId = cotacoesSol.find(c => c.fornecedorGanhadorId > 0)?.id;
           const pedidoId = this.pedidos.find(p => p.cotacaoId == cotacaoId)?.id;

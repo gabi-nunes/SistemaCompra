@@ -28,8 +28,7 @@ import { preco } from 'src/app/models/preco';
 @Component({
   selector: 'app-detalhe-cotacao',
   templateUrl: './detalhe-cotacao.component.html',
-  styleUrls: ['./detalhe-cotacao.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./detalhe-cotacao.component.scss']
 })
 export class DetalheCotacaoComponent implements OnInit {
 
