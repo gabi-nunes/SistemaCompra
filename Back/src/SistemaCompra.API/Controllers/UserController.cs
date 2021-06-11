@@ -227,7 +227,7 @@ namespace SistemaCompra.API.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar recuperar a última Solicitação . Erro: {ex.Message}");
+                    $"Erro ao tentar recuperar a última usuario . Erro: {ex.Message}");
             }
         }
 
