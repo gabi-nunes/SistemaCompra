@@ -20,8 +20,7 @@ export class TituloComponent implements OnInit {
 
   public get mostraBtnListar(): boolean{
 
-
-    return !this.router.url.includes('lista') && !this.router.url.includes('dashboard') && !this.router.url.includes('user') && !this.router.url.includes('produtos') && !this.router.url.includes('alterarSenha');
+    return !this.router.url.includes('lista') && !this.router.url.includes('dashboard') && !this.router.url.includes('user') && !this.router.url.includes('produtos') && !this.router.url.includes('alterarSenha') ;
   }
 
   ngOnInit(): void {
@@ -35,11 +34,6 @@ export class TituloComponent implements OnInit {
       return;
     }
     this.router.navigate([`/${this.titulo.toLocaleLowerCase().replace('cotações', 'cotacoes')}/lista`]);
-
-    if(!this.isUser){
-     return !this.router.url.includes('pedidos');
-    }
-    return ;
   }
 
   isUserByEmail(){
