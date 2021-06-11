@@ -65,6 +65,15 @@ namespace SistemaCompra.Persistence
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
 
+        public async Task<Fornecedor> GetIdLast(int Familiaid)
+        {
+            IQueryable<Fornecedor> query = Context.Fornecedores;
+
+            query = query.Where(e => e.FamiliaProdutoId == Familiaid);
+            return await query.OrderByDescending(e => e.Posicao).FirstOrDefaultAsync();
+        }
+
+
         public async Task<Fornecedor> recuperarSenha(string email)
         {
             IQueryable<Fornecedor> query = Context.Fornecedores;
