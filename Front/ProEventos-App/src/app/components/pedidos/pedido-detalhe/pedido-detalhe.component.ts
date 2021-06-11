@@ -68,13 +68,13 @@ this.Carregarprodutos();
 public validation(): void{
 this.form = new FormGroup({
 id: new FormControl(this.pedido?.id),
-id2: new FormControl(this.pedido?.id),
+id2: new FormControl(this.cotacao?.id),
 cotacaoId: new FormControl(this.pedido?.cotacaoId),
 dataEmissao: new FormControl(this.pedido?.dataEmissao),
 observacao: new FormControl(this.pedido?.cotacao?.solicitacao?.observacao),
 observacaoRejeicao: new FormControl(this.pedido?.observacaoRejeicao),
 nome: new FormControl(this.fornecedor?.nome),
-frete: new FormControl(this.pedido?.cotacao?.frete),
+frete: new FormControl(this.pedido?.cotacao?.frete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })),
 formaPagamento: new FormControl(this.pedido?.cotacao?.frmPagamento),
 total: new FormControl(this.pedido?.cotacao?.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })),
 cnpj: new FormControl(this.fornecedor?.cnpj),
