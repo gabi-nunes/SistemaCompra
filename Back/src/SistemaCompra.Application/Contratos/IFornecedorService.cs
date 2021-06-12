@@ -14,6 +14,8 @@ namespace SistemaCompra.Application.Contratos
         Task<Fornecedor> UpdateFornecedor(int FornecedorId, Fornecedor model);
         Task<bool> DeleteFornecedor(int FornecedorId);
         Task<Fornecedor> GetbyemailAsync(string email);
+
+        Task<int> TheLastPosition(int idFamilia);
         Task<Fornecedor[]> GetAllFornecedorAsync();
 
         Task<Fornecedor> GetAllFornecedorbyemailAsync(string email);

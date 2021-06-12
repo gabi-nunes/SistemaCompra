@@ -51,9 +51,9 @@ export class NavComponent implements OnInit {
   }
 
   Validar(){
-    this.isUsuario = this.usuario.cargo === '0';
-    this.isComprador = this.usuario.cargo === '1';
-    this.isGerente = this.usuario.cargo === '2';
+    this.isUsuario = this.usuario.cargo === 'Solicitante';
+    this.isComprador = this.usuario.cargo === 'Comprador';
+    this.isGerente = this.usuario.cargo === 'Gerente';
   }
 
   showMenu(): boolean{

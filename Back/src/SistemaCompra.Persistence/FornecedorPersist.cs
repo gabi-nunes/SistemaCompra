@@ -21,7 +21,7 @@ namespace SistemaCompra.Persistence
         {
             IQueryable<Fornecedor> query = Context.Fornecedores;
 
-            return await query.OrderBy(e => e.PontuacaoRanking).ToArrayAsync();
+            return await query.OrderByDescending(e => e.PontuacaoRanking).ToArrayAsync();
         }
 
         public async Task<Fornecedor> GetAllFornecedorByIdAsync(int id)
@@ -64,6 +64,15 @@ namespace SistemaCompra.Persistence
             query = query.Where(e => e.Email.ToLower() == email.ToLower() && e.Senha == senha);
             return await query.OrderBy(e => e.Id).FirstOrDefaultAsync();
         }
+
+        public async Task<Fornecedor> GetIdLast(int Familiaid)
+        {
+            IQueryable<Fornecedor> query = Context.Fornecedores;
+
+            query = query.Where(e => e.FamiliaProdutoId == Familiaid);
+            return await query.OrderByDescending(e => e.Posicao).FirstOrDefaultAsync();
+        }
+
 
         public async Task<Fornecedor> recuperarSenha(string email)
         {

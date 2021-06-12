@@ -38,6 +38,7 @@ export class PedidoListaComponent implements OnInit {
   podeAprovarComprador: boolean = false;
   podeAprovar : boolean = false;
 
+
   public get GridFilter(): string{
     return this.gridFilter;
   }
@@ -83,6 +84,7 @@ export class PedidoListaComponent implements OnInit {
     this.pedidoService.getPedidos().subscribe(
       (pedidosResponse: Pedido[]) => {
         this.pedidos = pedidosResponse;
+        debugger;
       },
         // this.pedidosFiltrados = pedidosResponse;
       () => {
@@ -97,7 +99,7 @@ export class PedidoListaComponent implements OnInit {
     let valorReal;
     this.valor.replace(",",".");
     valorReal= parseFloat(this.valor);
-    debugger
+    this.modalRef.hide();
     this.pedidoService.passarValorMaximo(valorReal).subscribe(
       (result: any) => {
           console.log(result);

@@ -49,7 +49,8 @@ export class FornecedorListaComponent implements OnInit {
   }
   public set GridFilter(value: string){
     this.gridFilter = value;
-    this.fornecedoresFiltrados = this.gridFilter ? this.Filtrar(this.gridFilter) : this.fornecedores;
+    this.fornecedoresFiltrados = this.gridFilter ? this.Filtrar(this.gridFilter): this.fornecedores;
+  console.log(this.fornecedoresFiltrados);
   }
 
   public get FamiliaIdFiltro(): number{
@@ -122,6 +123,8 @@ export class FornecedorListaComponent implements OnInit {
       () => this.spinner.hide()
     );
   }
+
+
 
   public setFamiliaProduto(): void{
     this.fornecedores.forEach(forn => {

@@ -1,3 +1,4 @@
+
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { user } from 'src/app/models/user';
@@ -19,7 +20,8 @@ export class TituloComponent implements OnInit {
   usuario: user;
 
   public get mostraBtnListar(): boolean{
-    return !this.router.url.includes('lista') && !this.router.url.includes('dashboard') && !this.router.url.includes('user') && !this.router.url.includes('produtos') && !this.router.url.includes('alterarSenha');
+
+    return !this.router.url.includes('lista') && !this.router.url.includes('dashboard') && !this.router.url.includes('user') && !this.router.url.includes('produtos') && !this.router.url.includes('alterarSenha') ;
   }
 
   ngOnInit(): void {
@@ -28,7 +30,7 @@ export class TituloComponent implements OnInit {
     this.isUserByEmail();
   }
 
-  Listar(): void{
+  Listar(){
     if(this.router.url.includes('areaFornecedor')){
       this.router.navigate([`/areaFornecedor/listaCotacao`]);
       return;
