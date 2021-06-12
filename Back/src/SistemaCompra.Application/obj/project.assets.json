@@ -1043,11 +1043,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
+      "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
       "projectName": "SistemaCompra.Application",
-      "projectPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
+      "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\SistemaCompra.Application.csproj",
       "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
-      "outputPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\obj\\",
+      "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1062,11 +1062,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
-              "projectPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
+            "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
+              "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
             },
-            "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
-              "projectPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj"
+            "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
+              "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj"
             }
           }
         }
@@ -1104,13 +1104,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file d:\\SistemaCompra\\Back\\src\\SistemaCompra.Application\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

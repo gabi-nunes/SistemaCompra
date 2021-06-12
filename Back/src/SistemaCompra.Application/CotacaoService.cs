@@ -501,7 +501,7 @@ namespace SistemaCompra.Application
                 _mailMessage.CC.Add(fornecedor.Email);
                 _mailMessage.Subject = "Good Place ";
                 _mailMessage.IsBodyHtml = true;
-                _mailMessage.Body = "<p>Bem vindo ao Good Place!</p><p>Parabens Forncedor!</p>Informamos que voce foi selecionado participar de uma cotação, entre no sistema Good Place e visualize a cotação enviada para você</p> <p>Esperamos que a nossa parceria seja duradoura e que nosso trabalho sempre corresponda com as expectativas! </p>";
+                _mailMessage.Body = "<p>Bem vindo ao Good Place!</p><p>Parabens Fornecedor!</p>Informamos que voce foi selecionado participar de uma cotação, entre no sistema Good Place e visualize a cotação enviada para você</p> <p>Esperamos que a nossa parceria seja duradoura e que nosso trabalho sempre corresponda com as expectativas! </p>";
 
 
 

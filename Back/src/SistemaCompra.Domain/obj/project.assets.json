@@ -296,11 +296,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+      "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
       "projectName": "SistemaCompra.Domain",
-      "projectPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+      "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
       "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
-      "outputPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\obj\\",
+      "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -350,13 +350,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

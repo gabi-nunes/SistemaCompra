@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UUVn0rDh2GyD25UqiUzsUAD6DYcTfUytT6py9ZDrDqVclp/WAmtaa+TwyfvuZ9VY8HJBagfzy743qnxyV/Y0TQ==",
+  "dgSpecHash": "JB/1jLin+Osg7ipzVEl4L4QiGmdWPEOt80nODKm9QBH8Weset3tlmQ1Dl6NSHbWRrQaZEd2UpPSPu/4M71wsXw==",
   "success": true,
-  "projectFilePath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.API\\SistemaCompra.API.csproj",
+  "projectFilePath": "D:\\SistemaCompra\\back\\src\\sistemacompra.api\\SistemaCompra.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rafael\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Rafael\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
@@ -73,12 +73,5 @@
     "C:\\Users\\Rafael\\.nuget\\packages\\system.security.principal.windows\\4.5.0\\system.security.principal.windows.4.5.0.nupkg.sha512",
     "C:\\Users\\Rafael\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file d:\\SistemaCompra\\Back\\src\\SistemaCompra.API\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

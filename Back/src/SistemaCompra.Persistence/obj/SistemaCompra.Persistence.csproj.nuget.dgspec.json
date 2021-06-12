@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {}
+    "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {}
   },
   "projects": {
-    "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
+    "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+        "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
         "projectName": "SistemaCompra.Domain",
-        "projectPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+        "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
         "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
-        "outputPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\obj\\",
+        "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -62,14 +62,14 @@
         }
       }
     },
-    "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
+    "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
+        "projectUniqueName": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
         "projectName": "SistemaCompra.Persistence",
-        "projectPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
+        "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\SistemaCompra.Persistence.csproj",
         "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
-        "outputPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Persistence\\obj\\",
+        "outputPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -84,8 +84,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
-                "projectPath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
+              "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj": {
+                "projectPath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj"
               }
             }
           }
