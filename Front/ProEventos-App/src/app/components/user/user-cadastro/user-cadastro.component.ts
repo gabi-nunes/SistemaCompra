@@ -50,6 +50,10 @@ export class UserCadastroComponent implements OnInit {
     this.form.reset();
   }
 
+  get f(): any{
+    return this.form.controls;
+  }
+
   public cssValidator(campoForm: FormControl): any {
     return {'is-invalid': campoForm.errors && campoForm.touched};
   }
@@ -72,6 +76,7 @@ export class UserCadastroComponent implements OnInit {
   }
 
   public salvarUser(): void {
+    this.spinner.show();
     debugger
     if(this.form.valid){
 
@@ -79,13 +84,13 @@ export class UserCadastroComponent implements OnInit {
         this.usuario = {... this.form.value};
 
         this.service.RegisterUser(this.usuario).subscribe(
-          () => this.toastr.success('Usuário salvo com sucesso!', 'Sucesso'),
+          () => {this.toastr.success('Usuário salvo com sucesso!', 'Sucesso'),
+                this.router.navigate(['/user/lista']),
+                this.spinner.hide()
+              },
           () => this.spinner.hide(),
-          () => {}
+          () => {this.spinner.hide()}
         );
-        this.spinner.hide()
-        //colocar um treco de carregar
-        this.router.navigate(['/user/lista']);
       }
     }else{
       this.toastr.error('Preencha todos os Campos', 'ERRO');

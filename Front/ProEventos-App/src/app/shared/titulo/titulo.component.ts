@@ -1,7 +1,8 @@
-import { UserService } from './../../services/user.service';
-import { user } from './../../models/user';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { user } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-titulo',
@@ -9,14 +10,14 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./titulo.component.scss']
 })
 export class TituloComponent implements OnInit {
-  constructor(private router: Router, private actRouter: ActivatedRoute,private userService: UserService) { }
+  constructor(private router: Router, private actRouter: ActivatedRoute, private userService: UserService) { }
   @Input() titulo = 'Dashboard';
   @Input() subtitulo = '';
   @Input() icone = '';
 
-  isUser: Boolean = false;
-  isFornecedor : Boolean= false;
-  usuario : any;
+  isUser = false;
+  isFornecedor = false;
+  usuario: user;
 
   public get mostraBtnListar(): boolean{
 
@@ -26,6 +27,7 @@ export class TituloComponent implements OnInit {
   ngOnInit(): void {
     const userJson = localStorage.getItem('currentUser') || '{}';
     this.usuario = JSON.parse(userJson);
+    this.isUserByEmail();
   }
 
   Listar(){
@@ -33,19 +35,23 @@ export class TituloComponent implements OnInit {
       this.router.navigate([`/areaFornecedor/listaCotacao`]);
       return;
     }
+    if(this.router.url.includes('pedidos/detalhe') && this.isFornecedor){
+      this.router.navigate([`/areaFornecedor/listaPedido`]);
+      return;
+    }
     this.router.navigate([`/${this.titulo.toLocaleLowerCase().replace('cotações', 'cotacoes')}/lista`]);
+  }
+
+  ShowMenu(): boolean{
+    return this.router.url !== '/user/login' && this.router.url !== '/user/recuperar';
   }
 
   isUserByEmail(){
     this.userService.getIsUserByEmail(this.usuario.email).subscribe(
       (result: any) => {
-        this.isUser= result;
-        this.isFornecedor= !result;
+        this.isUser = result;
+        this.isFornecedor = !result;
       }
     );
-  }
-
-  ShowMenu(): boolean{
-    return this.router.url !== '/user/login' && this.router.url !== '/user/recuperar';
   }
 }

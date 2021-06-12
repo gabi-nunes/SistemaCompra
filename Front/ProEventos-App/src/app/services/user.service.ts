@@ -1,11 +1,10 @@
 
 import { user } from './../models/user';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient} from '@angular/common/http';
+import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Login } from './../models/login';
-
 
 
 @Injectable(
@@ -13,6 +12,8 @@ import { Login } from './../models/login';
   )
 
 export class UserService {
+  loginMudou = new EventEmitter<user>();
+
   private currentUserSubject: BehaviorSubject<user>;
   public currentUser: Observable<user>;
   constructor(private http: HttpClient) {
@@ -39,7 +40,8 @@ export class UserService {
 
   public login(login: Login): Observable<user>{
     return this.http.post<user>(`${this.baseURL}/Login/`, login)
-      .pipe(map(user => {
+    .pipe(map((user: user) => {
+          this.loginMudou.emit(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
           return user;

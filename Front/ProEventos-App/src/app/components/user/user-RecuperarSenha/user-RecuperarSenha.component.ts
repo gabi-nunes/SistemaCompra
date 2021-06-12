@@ -24,9 +24,14 @@ export class UserRecuperarSenhaComponent implements OnInit {
   user={} as user;
   fornecedor={} as Fornecedor;
   usuario: any;
-  constructor(private userService: UserService, private fb: FormBuilder,private router: Router,  private toastr: ToastrService,private spinner: NgxSpinnerService, private fornecedorService: FornecedorService) { }
+  constructor(private userService: UserService,
+              private fb: FormBuilder,
+              private router: Router,
+              private toastr: ToastrService,
+              private spinner: NgxSpinnerService,
+              private fornecedorService: FornecedorService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.validation();
   }
 
@@ -36,67 +41,60 @@ export class UserRecuperarSenhaComponent implements OnInit {
     });
   }
 
-  RecuperarSenha(){
-debugger
-if (this.email  !== null) {
-  // this.spinner.show();
-  this.userService.getIsUserByEmail(this.email).subscribe(
-    (result: any) => {
-      this.isUser= result;
+RecuperarSenha(){
+  this.spinner.show();
+  if (this.email  !== null) {
+    this.userService.getIsUserByEmail(this.email).subscribe(
+      (result: any) => {
+        this.isUser= result;
 
-  if(this.isUser==true){
-   this.userService.getUserByEmail(this.email ).subscribe(
-     (usuario: user) => {
-       this.user= {...usuario}
-       this.recuperarFrom.patchValue(this.user);
-       this.log= {id: this.user.id,email: this.user.email,senha: this.user.senha}
-       debugger
-         this.userService.RecuperarSenha(this.log).subscribe(
-
-           () => this.toastr.success('Email enviado com sucesso!', 'sucesso'),
-
-           () => this.spinner.hide()
-         );
-         this.router.navigate(['/user/login']);
-     },
-
-     (error: any) => {
-       this.spinner.hide();
-       this.toastr.error('Erro ao tentar carregar Usuario.', 'Erro!');
-       console.error(error);
-     },
-     () => this.spinner.hide(),
-   );
- }else{
-  this.fornecedorService.getByEmail(this.email ).subscribe(
-    (fornecedor: Fornecedor) => {
-      this.fornecedor= {...fornecedor}
-      this.recuperarFrom.patchValue(this.fornecedor);
-      this.log= {id: this.fornecedor.id,email: this.fornecedor.email,senha: this.fornecedor.senha}
-      debugger
-        this.fornecedorService.RecuperarSenha(this.log).subscribe(
-
-          () => this.toastr.success('Email enviado com sucesso!', 'sucesso'),
-
-          () => this.spinner.hide()
+        if(this.isUser){
+        this.userService.getUserByEmail(this.email ).subscribe(
+          (usuario: user) => {
+            this.user= {...usuario}
+            this.recuperarFrom.patchValue(this.user);
+            this.log= {id: this.user.id,email: this.user.email,senha: this.user.senha}
+            this.userService.RecuperarSenha(this.log).subscribe(
+              () => {this.toastr.success('Email enviado com sucesso!', 'sucesso'),
+                    this.spinner.hide(),
+                    this.router.navigate(['/user/login']);
+                    },
+              () => this.spinner.hide(),
+              () => this.spinner.hide()
+            );
+          },
+          (error: any) => {
+            this.spinner.hide();
+            this.toastr.error('Erro ao tentar carregar Usuario.', 'Erro!');
+            console.error(error);
+          },
+          () => this.spinner.hide(),
         );
-        this.router.navigate(['/user/login']);
-    },
-
-    (error: any) => {
-      this.spinner.hide();
-      this.toastr.error('Erro ao tentar carregar Fornecedor.', 'Erro!');
-      console.error(error);
-    },
-    () => this.spinner.hide(),
-  );
-
- }
+        }else{
+          this.fornecedorService.getByEmail(this.email ).subscribe(
+            (fornecedor: Fornecedor) => {
+              this.fornecedor= {...fornecedor}
+              this.recuperarFrom.patchValue(this.fornecedor);
+              this.log= {id: this.fornecedor.id,email: this.fornecedor.email,senha: this.fornecedor.senha}
+              this.fornecedorService.RecuperarSenha(this.log).subscribe(
+                () => {this.toastr.success('Email enviado com sucesso!', 'sucesso'),
+                      this.spinner.hide(),
+                      this.router.navigate(['/user/login']);
+                      },
+                () => this.spinner.hide(),
+                () => this.spinner.hide()
+              );
+            },
+            (error: any) => {
+              this.spinner.hide();
+              this.toastr.error('Usuário não Encontrado!', 'Erro!');
+              console.error(error);
+            },
+            () => this.spinner.hide(),
+          );
+      }
 }
   );
-
-
-
   }
   }
 }

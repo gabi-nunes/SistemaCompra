@@ -23,7 +23,6 @@ import { CotacaoDTO } from 'src/app/models/CotacaoDTO';
 import { Cotacao } from 'src/app/models/Cotacao';
 import { ItemCotacao } from 'src/app/models/ItemCotacao';
 import { PedidoService } from 'src/app/services/pedido.service';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-cotacoes-detalhe',
@@ -161,6 +160,7 @@ export class CotacoesDetalheComponent implements OnInit {
 
   criarCotacao(cotacao: Cotacao): FormGroup{
     let fornName = this.fornecedoresEscolhidos?.find(f => f.id === cotacao?.fornecedorId)?.nome;
+    debugger;
     return this.fb.group({
       fornecedor: [fornName ?? cotacao?.fornecedorId],
       total: [cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })],
@@ -290,7 +290,10 @@ public CarregarCotacoesBySolicitacao(): void{
       this.form.patchValue({prazoCotacao: cotacoes[0]?.prazoOfertas,
                             frmPagamento: cotacoes[0]?.frmPagamento});
 
-      if (this.CantChange) { this.form.get('frmPagamento')?.disable(); }
+      if (this.CantChange) {
+        this.form.get('frmPagamento')?.disable();
+        this.form.get('prazoCotacao')?.disable();
+       }
       cotacoes.forEach(c => {
         this.cotacoesFormArray.push(this.criarCotacao(c));
       });
@@ -376,7 +379,6 @@ public CarregarFornecedoresRanking(): void{
         this.fornecedoresRanking.push(f);
         if (count < 3){
           this.fornecedoresEscolhidos.push(f);
-          this
           count++;
         }
       });
@@ -393,6 +395,20 @@ public CarregarFornecedoresRanking(): void{
   );
 }
 
+public FormatDate(data: Date): string{
+  const dia  = data.getDate().toString();
+  const diaF = (dia.length == 1) ? '0' + dia : dia;
+  const mes  = (data.getMonth() + 1).toString();
+  const mesF = (mes.length == 1) ? '0' + mes : mes;
+  const anoF = data.getFullYear();
+  return diaF + '/' + mesF + '/' + anoF;
+}
+
+public get dataSolicitacao(): string{
+  const data = this.solicitacao?.dataSolicitacao ?? this.dataHoje;
+  if(typeof data === 'string'){return data; }
+  return this.FormatDate(data);
+}
 //#endregion
 //#region "Salvar"
   public EnviarCotacoes(): void{
@@ -406,6 +422,7 @@ public CarregarFornecedoresRanking(): void{
           cotacaoDto.fornecedorId = f.id;
           cotacaoDto.status = 1;
           cotacaoDto.prazoOfertas = this.form.value.prazoCotacao;
+          console.log(cotacaoDto.prazoOfertas)
           cotacaoDto.FrmPagamento = this.form.value.frmPagamento;
           cotacaoDto.Parcelas = 0;
           this.cotacaoService.postRegistrarCotacao(this.solicitacaoId, cotacaoDto).subscribe(

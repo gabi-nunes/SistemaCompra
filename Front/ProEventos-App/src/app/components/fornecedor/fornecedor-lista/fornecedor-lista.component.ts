@@ -29,6 +29,7 @@ export class FornecedorListaComponent implements OnInit {
   public fornecedores: Fornecedor[] = [];
   public fornecedorId = 0;
   public fornecedoresFiltrados: Fornecedor[] = [];
+  public fornecedoresFiltradosFam: Fornecedor[] = [];
   public imgWidth = 150;
   public imgMargin = 2;
   public imgIsVisible = false;
@@ -57,7 +58,18 @@ export class FornecedorListaComponent implements OnInit {
   }
   public set FamiliaIdFiltro(value: number){
     this.familiaIdFiltro = value;
-    this.fornecedoresFiltrados = this.familiaIdFiltro ? this.FiltrarByFamilia(this.familiaIdFiltro) : this.fornecedores;
+    this.fornecedoresFiltradosFam = this.familiaIdFiltro ? this.FiltrarByFamilia(this.familiaIdFiltro) : this.fornecedores;
+  }
+
+  public get FornFiltradosGeral(): Fornecedor[]{
+    let forns: Fornecedor[] = [];
+    if (this.fornecedoresFiltrados.length > 0){
+      forns = this.fornecedores.filter(f => this.fornecedoresFiltrados.includes(f));
+    }
+    if (this.fornecedoresFiltradosFam.length > 0){
+      forns = (forns.length > 0 ? forns : this.fornecedores).filter(f => this.fornecedoresFiltradosFam.includes(f));
+    }
+    return forns;
   }
 
   public Filtrar(filter: string): Fornecedor[]{

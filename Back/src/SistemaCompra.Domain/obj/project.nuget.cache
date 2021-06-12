@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oa8rGLZ1jzELDhGZn9lyI74EsON+gR8T1fSumLop5OWoxUr3gASv4um7UUhOjnR6wZgZ5/4oKxuycb6HDNxmpQ==",
+  "dgSpecHash": "XyiHyx3vT7beowkOaKEqaw99YklGYprjFdFWcXlYBOgTxp3XovUN/5+h1zngxO1ODjMX4+2486YixThQ4oOigg==",
   "success": true,
-  "projectFilePath": "D:\\SistemaCompra\\back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
+  "projectFilePath": "d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\SistemaCompra.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rafael\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Rafael\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.10.0\\microsoft.identitymodel.jsonwebtokens.6.10.0.nupkg.sha512",
@@ -11,5 +11,12 @@
     "C:\\Users\\Rafael\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.10.0\\system.identitymodel.tokens.jwt.6.10.0.nupkg.sha512",
     "C:\\Users\\Rafael\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file d:\\SistemaCompra\\Back\\src\\SistemaCompra.Domain\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
