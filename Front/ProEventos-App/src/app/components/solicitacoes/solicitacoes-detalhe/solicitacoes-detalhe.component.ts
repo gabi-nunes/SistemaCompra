@@ -83,13 +83,13 @@ export class SolicitacoesDetalheComponent implements OnInit {
   }
 
   public FormatDate(data: Date): string{
-        var dia  = data.getDate().toString();
-        var diaF = (dia.length == 1) ? '0'+dia : dia;
-        var mes  = (data.getMonth()+1).toString(); //+1 pois no getMonth Janeiro começa com zero.
-        var mesF = (mes.length == 1) ? '0'+mes : mes;
-        var anoF = data.getFullYear();
-    return diaF+"/"+mesF+"/"+anoF;
-}
+    const dia  = data.getDate().toString();
+    const diaF = (dia.length == 1) ? '0' + dia : dia;
+    const mes  = (data.getMonth()+1).toString(); //+1 pois no getMonth Janeiro começa com zero.
+    const mesF = (mes.length == 1) ? '0' + mes : mes;
+    const anoF = data.getFullYear();
+    return diaF + '/' + mesF + '/' + anoF;
+  }
 
   get f(): any{
     return this.form.controls;
@@ -288,9 +288,6 @@ public CarregarAprovador(userId: number): void{
   public SalvarSolicitacao(): void{
     this.spinner.show();
     const solicitacaoDto = {} as SolicitacaoDTO;
-    if (this.solProdIdExluidos.length > 0){
-      this.DeletarItens();
-    }
 
     if (this.form.valid){
       if (this.isCadastro){
@@ -308,7 +305,6 @@ public CarregarAprovador(userId: number): void{
         solicitacaoDto.dataSolicitacao = dataSolic;
         solicitacaoDto.observacao = this.solicitacao.observacao;
         solicitacaoDto.statusAprovacao = 2;
-        solicitacaoDto.observacao = '';
         this.solicitacaoService.postSolicitacao(this.user.id, solicitacaoDto).subscribe(
           () => {
             debugger
@@ -326,8 +322,10 @@ public CarregarAprovador(userId: number): void{
           }
         );
       }else{
-
         debugger;
+        if (this.solProdIdExluidos.length > 0){
+          this.DeletarItens();
+        }
         this.solicitacao = {id: this.solicitacao.id, ...this.form.value};
         solicitacaoDto.id = this.solicitacao.id;
         solicitacaoDto.dataNecessidade = this.form.value.dataNecessidade;
@@ -399,9 +397,11 @@ public CarregarAprovador(userId: number): void{
     this.solProdIdExluidos.forEach(itemExcluido => {
       this.solicitacaoService.deleteSolicitacaoProduto(itemExcluido).subscribe(
         () => {
+          debugger;
           this.spinner.hide();
         },
         (error: any) => {
+          debugger;
           console.error(error);
           this.toastr.error('Falha ao tentar excluir o Item', 'Erro');
           this.spinner.hide();
@@ -412,10 +412,10 @@ public CarregarAprovador(userId: number): void{
   }
 //#endregion
 //#region "Modal"
-  public OpenModal(template: TemplateRef<any>, solProdId: number=0): void{
+  public OpenModal(template: TemplateRef<any>, ProdId: number = 0, solProdId: number=0): void{
     console.log(solProdId)
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
-    this.solProdIdExluidos.push(solProdId);
+    this.solProdIdExluidos.push(this.isCadastro ? ProdId : solProdId);
   }
 
   OpenModalAprovacao(template: TemplateRef<any>): void{
@@ -435,7 +435,7 @@ public CarregarAprovador(userId: number): void{
 
   confirm(): void {
     debugger;
-    this.solicitacaoProdutos = this.solicitacaoProdutos.filter(s => !this.solProdIdExluidos.includes(s.produto?.id));
+    this.solicitacaoProdutos = this.solicitacaoProdutos.filter(s => this.isCadastro ? !this.solProdIdExluidos.includes(s.produto?.id) : !this.solProdIdExluidos.includes(s.id));
     this.modalRef.hide();
   }
 

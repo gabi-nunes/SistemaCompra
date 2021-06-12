@@ -6,7 +6,7 @@
           Solicitação n°{{f.id.value | number:'3.0'}}
         </h2>
         <h4 class="roboto text-muted mb-0 pb-0 mt-2">
-          Data: {{dataHoje | DateTimeFormatter}}
+          Data: {{dataSolicitacao}}
         </h4>
       </div>
       <hr class="mt-1">
@@ -46,10 +46,9 @@
         <div class="form-group col-md-2">
           <label>Prazo da Cotação</label>
           <input class="form-control" bsDatepicker
-          [ngClass]="cssValidation(f.prazoCotacao)"
-          formControlName="prazoCotacao"
-          [minDate]="dataHoje" [isDisabled]="CantChange"
-          [bsConfig]="bsConfig" [readonly]="CantChange">
+            [ngClass]="cssValidation(f.prazoCotacao)"
+            formControlName="prazoCotacao"
+            [minDate]="dataHoje" [bsConfig]="bsConfig" [readonly]="CantChange">
           <div *ngIf="f.prazoCotacao.errors?.required" class="invalid-feedback">
             O campo Prazo de Cotação é obrigatório
           </div>

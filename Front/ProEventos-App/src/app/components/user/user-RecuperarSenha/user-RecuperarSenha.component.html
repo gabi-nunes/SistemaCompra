@@ -8,10 +8,10 @@
             <form [formGroup]="recuperarFrom">
               <i class="fa fa-users mb-2"></i>
               <h1 class="h3 mb-3 font-weight-normal">Recuperar Senha</h1>
-              <label for="username" class="sr-only">Usuário</label>
+              <label >Digite um e-mail cadastrado para o envio da nova senha</label>
               <input type="email" formControlName="email" id="username" class="form-control" placeholder="Usuário" name="username"  [(ngModel)]="email" required>
               <br>
-              <button class="btn btn-lg bg-logo btn-block" type="submit" (click)="RecuperarSenha()" >Enviar</button>
+              <button class="btn btn-lg bg-logo btn-block" type="submit" (click)="RecuperarSenha()" [disabled]="!recuperarFrom.valid">Enviar</button>
               <a class="btn btn-lg btn-link text-logo btn-block" routerLink="/user/login">Voltar ao Login</a>
             </form>
           </form>

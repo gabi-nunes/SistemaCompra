@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   perfil: any = 0;
 
   userperfil = new EventEmitter<user>();
-  userFornecedor = new EventEmitter<Fornecedor>()
+  userFornecedor = new EventEmitter<Fornecedor>();
 
   constructor(private userService: UserService,
               private fb: FormBuilder,
@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
   }
 
   public  salvarlogin(): void {
-
     if (this.loginForm.valid){
       debugger;
       this.userService.getIsUserByEmail(this.email).subscribe(
@@ -63,12 +62,8 @@ export class LoginComponent implements OnInit {
             this.usuario = {... this.loginForm.value}
             this.userService.login(this.usuario).subscribe(
               (result: any) => {
-                this.perfil = result;
-
-                this.userperfil.emit(this.perfil);
                 this.toastr.success('Login aceito', 'OK');
                 this.router.navigate(['/dashboard']);
-
                 this.spinner.hide();
               },
               (error: any) => {
@@ -82,13 +77,9 @@ export class LoginComponent implements OnInit {
             debugger;
             this.Fornecedor = {... this.loginForm.value}
             this.forncedorService.login(this.Fornecedor).subscribe(
-              (result: any) => {
-                this.perfil = result;
-
-                this.userperfil.emit(this.perfil);
+              () => {
                 this.toastr.success('Login aceito', 'OK');
                 this.router.navigate(['/areaFornecedor']);
-
                 this.spinner.hide();
               },
               (error: any) => {

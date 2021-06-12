@@ -43,7 +43,7 @@
       </tr>
     </thead>
     <tbody *ngIf="fornecedores && fornecedores.length">
-      <tr *ngFor="let fornecedor of fornecedoresFiltrados" (dblclick)="DetalharFornecedor(fornecedor.id)">
+      <tr *ngFor="let fornecedor of FornFiltradosGeral" (dblclick)="DetalharFornecedor(fornecedor.id)">
         <td *ngIf="FamiliaIdFiltro != null" class="d-none d-md-table-cell text-center">{{fornecedor.posicao}}°</td>
         <td class="text-center">{{fornecedor.nome}}</td>
         <td class="text-center">{{getFamiliaDesc(fornecedor.familiaProdutoId)}}</td>

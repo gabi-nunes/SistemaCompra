@@ -1,6 +1,6 @@
 import { Fornecedor } from 'src/app/models/Fornecedor';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Login } from '../models/login';
 import { map, take } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { map, take } from 'rxjs/operators';
 })
 export class FornecedorService {
 
-
+    loginMudou = new EventEmitter<Fornecedor>();
     private currentUserSubject: BehaviorSubject<Fornecedor>;
     public currentUser: Observable<Fornecedor>;
     constructor(private http: HttpClient) {
@@ -42,6 +42,7 @@ export class FornecedorService {
   public login(login: Login): Observable<Fornecedor>{
     return this.http.post<Fornecedor>(`${this.baseURL}/Login/`, login)
       .pipe(map(fornecedor => {
+          this.loginMudou.emit(fornecedor);
           localStorage.setItem('currentUser', JSON.stringify(fornecedor));
           this.currentUserSubject.next(fornecedor);
           return fornecedor;

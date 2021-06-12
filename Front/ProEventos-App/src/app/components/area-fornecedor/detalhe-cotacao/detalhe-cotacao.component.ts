@@ -28,8 +28,7 @@ import { preco } from 'src/app/models/preco';
 @Component({
   selector: 'app-detalhe-cotacao',
   templateUrl: './detalhe-cotacao.component.html',
-  styleUrls: ['./detalhe-cotacao.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./detalhe-cotacao.component.scss']
 })
 export class DetalheCotacaoComponent implements OnInit {
 
@@ -124,7 +123,6 @@ export class DetalheCotacaoComponent implements OnInit {
 
   ngOnInit(): void{
     this.isDetalhe = false;
-    this.validation();
     this.actRouter.params.subscribe(params => this.cotacaoid = params['id']);
     this.CarregarCotacao();
     this.validation();
@@ -169,10 +167,15 @@ public CarregarCotacao(): void{
     (CotacaoResponse: Cotacao) => {
       this.cotacao = CotacaoResponse;
       this.form.patchValue({total: this.cotacao?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
+      this.form.patchValue({frete: this.cotacao?.frete <= 0 ? null : this.cotacao?.frete?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })});
+      debugger;
+      if(this.IsCotacaoEncerrada || this.IsOfertaEnviada){this.cotacao.total = 0}
       this.cotacao.itensCotacao.forEach(itemcotacao => {
         this.Carregarprodutos();
         this.itensCotacoes.push(itemcotacao);
-      });
+        this.cotacao.total += itemcotacao.precoUnit * itemcotacao.qtdeProduto;
+      })
+      this.cotacao.total += this.cotacao?.frete;
       this.CarregarSolicitacao(this.cotacao.solicitacaoId);
     },
     () => {

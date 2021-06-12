@@ -110,13 +110,12 @@ export class AlterarSenhaComponent implements OnInit {
     debugger;
 
   this.fornecedorService.AlterarSenha(this.login).subscribe(
-
-    () => this.toastr.success('Senha alterada com sucesso!', 'sucesso'),
-
-    () => this.spinner.hide()
+    () => {this.toastr.success('Senha alterada com sucesso!', 'sucesso'),
+          this.router.navigate(['/areaFornecedor/listaCotacao'])},
+    () => this.spinner.hide(),
+    () => this.spinner.hide(),
   );
   debugger
-  this.router.navigate(['/areaFornecedor/ListaCotacao']);
 }
 
 alterarsenha(){
