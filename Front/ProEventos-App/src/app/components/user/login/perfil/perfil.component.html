@@ -34,13 +34,8 @@
 
             <div class="form-group col-sm-6">
               <label for="">Cargo:</label>
-              <select [ngClass]="{'is-invalid': f.cargo?.errors && f.cargo?.touched}" class="form-control"
-              formControlName="cargo">
-                <option value=""></option>
-                <option value="Solicitante">Solicitante</option>
-                <option value="Comprador">Comprador</option>
-                <option value="Gerente">Gerente</option>
-              </select>
+              <input [ngClass]="{'is-invalid': f.cargo?.errors && f.cargo?.touched}" class="form-control"
+              formControlName="cargo" readonly>
             </div>
 
           </div>
@@ -69,8 +64,8 @@
             <div class="form-row">
               <div class="form-group col-sm">
                 <label>Senha</label>
-                <input [ngClass]="{'is-invalid': f.senhaPas?.errors && f.senhaPas?.touched}" formControlName="senhaPas" type="password" class="form-control" />
-                  <div class="invalid-feedback" *ngIf="f.senhaPas.errors?.required">
+                <input [ngClass]="{'is-invalid': f.senha?.errors && f.senha?.touched}" formControlName="senha" type="password" class="form-control" />
+                  <div class="invalid-feedback" *ngIf="f.senha.errors?.required">
                     O Campo senha é obrigatório
                   </div>
               </div>

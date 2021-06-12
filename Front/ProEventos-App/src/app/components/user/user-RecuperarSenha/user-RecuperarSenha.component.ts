@@ -56,8 +56,8 @@ RecuperarSenha(){
             this.log= {id: this.user.id,email: this.user.email,senha: this.user.senha}
             this.userService.RecuperarSenha(this.log).subscribe(
               () => {this.toastr.success('Email enviado com sucesso!', 'sucesso'),
-                    this.spinner.hide(),
-                    this.router.navigate(['/user/login']);
+                this.router.navigate(['/user/login']),
+                this.spinner.hide();
                     },
               () => this.spinner.hide(),
               () => this.spinner.hide()
@@ -73,9 +73,9 @@ RecuperarSenha(){
         }else{
           this.fornecedorService.getByEmail(this.email ).subscribe(
             (fornecedor: Fornecedor) => {
-              this.fornecedor= {...fornecedor}
+              this.fornecedor = {...fornecedor}
               this.recuperarFrom.patchValue(this.fornecedor);
-              this.log= {id: this.fornecedor.id,email: this.fornecedor.email,senha: this.fornecedor.senha}
+              this.log= {id: this.fornecedor.id,email: this.fornecedor.email, senha: this.fornecedor.senha }
               this.fornecedorService.RecuperarSenha(this.log).subscribe(
                 () => {this.toastr.success('Email enviado com sucesso!', 'sucesso'),
                       this.spinner.hide(),

@@ -44,14 +44,14 @@ export class PerfilComponent implements OnInit {
 
   public validation(): void {
     const formOptions: AbstractControlOptions = {
-      validators: Validator.MustMatch('senhaPas', 'confirmarSenha')
+      validators: Validator.MustMatch('senha', 'confirmarSenha')
     };
     this.form = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       email: ['', Validators.required],
       setor: ['', Validators.required],
-      cargo: ['', Validators.required],
-      senhaPas: [this.alterarS ? this.user?.senha : '', Validators.required],
+      cargo: [''],
+      senha: [this.alterarS ? this.user?.senha : '', Validators.required],
       confirmarSenha: [this.alterarS ? this.user?.senha : '', Validators.required],
     }, formOptions);
   }
@@ -70,7 +70,6 @@ export class PerfilComponent implements OnInit {
           this.user= {...usuario};
           debugger
           this.form.patchValue(this.user);
-          this.form.get('cargo')?.disable();
         },
 
         (error: any) => {
@@ -86,13 +85,14 @@ export class PerfilComponent implements OnInit {
   public AtualizaUser(){
 
       this.user = {id: this.user.id , ...this.form.value}
-      debugger
+      this.user.cargo = this.form.value.cargo;
       this.userService.AtualizaUser(this.user.id,this.user).subscribe(
         () => {
+          debugger;
           this.toastr.success('Usuário salvo com sucesso!', 'Sucesso');
           if (!this.alterarS){
             this.Salvarsenha();
-          }else{  this.router.navigate(['/user/lista']);}
+          }else{  this.router.navigate(['/dashboard']);}
         },
         () => {
           this.toastr.error('Erro ao salvar Usuário!', 'Erro'),
@@ -105,11 +105,12 @@ export class PerfilComponent implements OnInit {
 }
   Salvarsenha(): void{
     this.alterarS = false;
-    this.login = {id: this.user.id,email: this.user.email, senha: this.form.value.senhaPas};
+    debugger;
+    this.login = {id: this.user.id,email: this.user.email, senha: this.form.value.senha};
     this.userService.AlterarSenha(this.login).subscribe(
       () => {
         this.toastr.success('Senha alterada com sucesso!', 'Sucesso');
-        this.router.navigate(['/user/lista']);
+        this.router.navigate(['/dashboard']);
       },
       () => {
         this.toastr.error('Erro ao alterar a senha!', 'Erro');
@@ -120,7 +121,8 @@ export class PerfilComponent implements OnInit {
   }
 alterarsenha(){
   this.alterarS= false;
-  this.form.patchValue({senhaPas: '', confirmarSenha: ''});
+  debugger;
+  this.form.patchValue({senha: '', confirmarSenha: ''});
 }
 
 Cancelar(){

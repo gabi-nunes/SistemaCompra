@@ -77,12 +77,11 @@ export class UserCadastroComponent implements OnInit {
 
   public salvarUser(): void {
     this.spinner.show();
-    debugger
     if(this.form.valid){
 
       if(this.estadoSalvar ==='post'){
         this.usuario = {... this.form.value};
-
+        debugger;
         this.service.RegisterUser(this.usuario).subscribe(
           () => {this.toastr.success('Usuário salvo com sucesso!', 'Sucesso'),
                 this.router.navigate(['/user/lista']),
