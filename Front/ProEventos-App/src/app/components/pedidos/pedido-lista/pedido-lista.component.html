@@ -2,10 +2,10 @@
 
 <div *ngIf="podeAprovar">
   <div class="d-flex flex-row justify-content-end mb-2">
-    <h5 *ngIf="pedidos && pedidos[0].valorMaximo > 0" class="mt-1 text-dark" tooltip="Valor máximo que o comprador pode aprovar um pedido">Valor Máximo Atual: {{pedidos[0]?.valorMaximo | formatCurrency}}</h5>
+    <h5 *ngIf="pedidos[0] && pedidos[0].valorMaximo > 0" class="mt-1 text-dark" tooltip="Valor máximo que o comprador pode aprovar um pedido">Valor Máximo Atual: {{pedidos[0]?.valorMaximo | formatCurrency}}</h5>
       <Button class="d-flex ml-3 btn btn-outline-info" (click)="openModalValor(ValorMaximo)" tooltip="Insira qual é o valor máximo para que um comprador possa avaliar o pedido">
         <i class="fas fa-cog  p-0 my-1 fa-lg"></i>
-        <b *ngIf="pedidos && pedidos[0].valorMaximo <= 0" class="ml-1 d-none d-md-block">Valor Máx Avaliação</b>
+        <b *ngIf="!pedidos[0] || pedidos[0].valorMaximo <= 0" class="ml-1 d-none d-md-block">Valor Máx Avaliação</b>
       </Button>
   </div>
 </div>

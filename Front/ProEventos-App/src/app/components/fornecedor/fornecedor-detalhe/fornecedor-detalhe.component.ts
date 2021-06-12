@@ -158,7 +158,7 @@ constructor(private spinner: NgxSpinnerService,
     decline(): void {this.modalRef.hide(); }
 
     confirm(): void {
-      this.router.navigate([`/fornecedor/lista`]);
+      this.router.navigate([`/fornecedores/lista`]);
       this.modalRef.hide();
     }
 

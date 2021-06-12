@@ -211,7 +211,7 @@ namespace SistemaCompra.Application
                 _mailMessage.CC.Add(email);
                 _mailMessage.Subject = "Sistema Compra :)";
                 _mailMessage.IsBodyHtml = true;
-                _mailMessage.Body = "<b>Olá Tudo bem?</b><p>Informamos que sua nova senha de acesso será Senha123@, após a primeira entrada no sistema sua senha deverá ser alterada!.</p>";
+                _mailMessage.Body = "<b>Olá Tudo bem?</b><p>Informamos que sua nova senha de acesso será Senha@123, após a primeira entrada no sistema sua senha deverá ser alterada!</p>";
 
                 //CONFIGURAÇÃO COM PORTA
                 SmtpClient _smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32("587"));

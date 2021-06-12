@@ -246,16 +246,18 @@ public CarregarProdutos(): void{
 
 public CarregarUser(userId: number = 0): void{
   const isRegistro = this.actRouter.snapshot.paramMap.get('id') === null;
+  this.isAprovador();
   if (isRegistro) {
     const userJson = localStorage.getItem('currentUser') || '{}';
     this.user = JSON.parse(userJson);
-    this.isAprovador();
     return;
   }
 
   this.userService.getUserById(userId).subscribe({
     next: (userResponse: user) => {
       this.user = userResponse;
+      debugger;
+      this.isAprovador();
       this.form.value.user = this.user.nome;
       this.validation();
     },
@@ -426,8 +428,10 @@ public CarregarAprovador(userId: number): void{
     this.modalRefAprovacao.hide();
   }
 
-  isAprovador(){
-    this.podeAprovar = this.user?.cargo !== 'Solicitante';
+  isAprovador(): void{
+    const userJson = localStorage.getItem('currentUser') || '{}';
+    const localStorageUser = JSON.parse(userJson);
+    this.podeAprovar = localStorageUser?.cargo !== 'Solicitante';
     console.log(this.podeAprovar);
   }
 
